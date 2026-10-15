@@ -26,6 +26,9 @@ conda activate racfg
 export TORCHDYNAMO_DISABLE=1 TORCHINDUCTOR_DISABLE=1 PYTORCH_DISABLE_CUDA_COMPILE=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TOKENIZERS_PARALLELISM=false
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+# V100 32GB (vs H200 141GB): TaylorSeer's per-layer derivative cache OOMs with the text encoder
+# resident, so model CPU offload is ON for every method (same setting for all rows -> fair).
+OFFLOAD=(); [ "${CPU_OFFLOAD:-1}" = "1" ] && OFFLOAD=(--cpu_offload)
 
 case $MODEL in
   cogvideox)
@@ -56,12 +59,12 @@ run_one() {   # name mode steps thresh
   local n_need=$((END-START))
   local n_have=$(ls "$od/videos" 2>/dev/null | grep -c '\.mp4$')
   if [ "$n_have" -ge "$n_need" ]; then echo "[skip] $name $CHUNK ($n_have videos)"; return 0; fi
-  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE $(date +%F_%T)"
+  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE offload=${#OFFLOAD[@]} $(date +%F_%T)"
   ( cd "$RACFG" && python -m models.$MODEL.sample "${COMMON[@]}" \
       --taylor_method "$mode" --num_steps "$steps" --rel_l1_thresh "$thr" \
       --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 \
       --batch_size 1 --num_videos_per_prompt 1 --seed 0 --negative_prompt animation \
-      --prompt_file "$PF" --start_index "$START" --output_dir "$od" --no_save_eval_frames ) > "$log" 2>&1
+      --prompt_file "$PF" --start_index "$START" --output_dir "$od" --no_save_eval_frames "${OFFLOAD[@]}" ) > "$log" 2>&1
   local rc=$?
   echo "[done] $name $CHUNK rc=$rc $(grep -E 'Avg sec / video sampling|Avg sampling sec/video' "$log" | tail -1)"
   return $rc
