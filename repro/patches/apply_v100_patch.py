@@ -39,6 +39,34 @@ def patch(path: Path) -> str:
     return f"patched {n}"
 
 
+VAE_MARK = "# [viewdit-v100-patch] vae tiling+slicing"
+VAE_ANCHOR = '        print(f"[load] pipe.to({device}) done")\n\n    return pipe'
+VAE_SNIPPET = '''        print(f"[load] pipe.to({device}) done")
+
+    # [viewdit-v100-patch] vae tiling+slicing
+    # V100 (31.7GiB, shared with other jobs): the fp32 Wan VAE OOMs decoding 81 frames.
+    # Tiling + slicing make decode peak memory ~constant (negligible quality change).
+    if hasattr(pipe, "vae") and getattr(pipe, "vae", None) is not None:
+        try:
+            pipe.vae.enable_tiling()
+            pipe.vae.enable_slicing()
+            print("[load] vae tiling+slicing enabled", flush=True)
+        except Exception as _e:
+            print(f"[warn] vae tiling failed: {_e}", flush=True)
+
+    return pipe'''
+
+
+def patch_wan_vae(path: Path) -> str:
+    src = path.read_text(encoding="utf-8")
+    if VAE_MARK in src:
+        return "already"
+    if VAE_ANCHOR not in src:
+        return "no-anchor"
+    path.write_text(src.replace(VAE_ANCHOR, VAE_SNIPPET, 1), encoding="utf-8")
+    return "patched"
+
+
 def main():
     root = Path(sys.argv[1])
     for rel in FILES:
@@ -47,6 +75,9 @@ def main():
             print(f"[v100-patch] {rel}: {patch(p)}")
         else:
             print(f"[v100-patch] {rel}: missing")
+    wan = root / "models/wan/sample.py"
+    if wan.exists():
+        print(f"[v100-patch] wan/sample.py vae: {patch_wan_vae(wan)}")
 
 
 if __name__ == "__main__":
