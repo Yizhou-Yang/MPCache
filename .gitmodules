@@ -1,0 +1,9 @@
+[submodule "repro/upstream/RA-CFGCache"]
+	path = repro/upstream/RA-CFGCache
+	url = https://github.com/yiming-l21/RA-CFGCache.git
+[submodule "repro/upstream/TeaCache"]
+	path = repro/upstream/TeaCache
+	url = https://github.com/ali-vilab/TeaCache.git
+[submodule "repro/upstream/TaylorSeer"]
+	path = repro/upstream/TaylorSeer
+	url = https://github.com/Shenyi-Z/TaylorSeer.git
