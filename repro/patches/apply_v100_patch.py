@@ -5,7 +5,10 @@ tensor cores, so we make the compute dtype configurable through RACFG_DTYPE.
 Default stays "bfloat16", i.e. without the env var the code behaves exactly like upstream.
 CogVideoX-2B is officially an fp16 checkpoint, so RACFG_DTYPE=float16 is the native setting.
 
-Nothing else (schedules, thresholds, proxies, calibration tables) is modified.
+Additional adapters: GPU Wan VAE tiled decoding (document as a quality deviation),
+and an explicit CLI-to-runtime CFGCache threshold binding. Upstream sample.py passes
+rel_l1_thresh, whereas cache_init reads cfgcache_thresh; without this fix Slow/Fast
+both silently use the default tau=0.4. No propagation schedule or calibration is changed.
 
 usage: python apply_v100_patch.py /path/to/RA-CFGCache
 """
@@ -45,7 +48,7 @@ VAE_SNIPPET = '''        print(f"[load] pipe.to({device}) done")
 
     # [viewdit-v100-patch] vae tiling+slicing
     # V100 (31.7GiB, shared with other jobs): the fp32 Wan VAE OOMs decoding 81 frames.
-    # Tiling + slicing make decode peak memory ~constant (negligible quality change).
+    # Tiling reduces decode peak memory; equivalence to untiled decode is not assumed.
     if hasattr(pipe, "vae") and getattr(pipe, "vae", None) is not None:
         try:
             pipe.vae.enable_tiling()
@@ -67,6 +70,38 @@ def patch_wan_vae(path: Path) -> str:
     return "patched"
 
 
+THRESH_MARK = '# [repro-fix] bind effective CFGCache threshold'
+
+
+def patch_cfgcache_threshold(path: Path) -> str:
+    src = path.read_text(encoding="utf-8")
+    if THRESH_MARK in src:
+        return "already"
+    call = '            cache_dic, current = cache_init('
+    call_pos = src.index(call)
+    matches = list(re.finditer(r'^( +)"true_cfg_scale": opts\.guidance_scale,[ \t]*$', src[:call_pos], flags=re.M))
+    if not matches:
+        raise RuntimeError(f"CFGCache threshold binding anchor not found before cache_init in {path}")
+    # Wan also records CFG in runtime helpers; use the last binding before cache_init.
+    match = matches[-1]
+    indent = match.group(1)
+    replacement = (match.group(0).rstrip() + '\n' + indent + THRESH_MARK + '\n'
+                   + indent + '"cfgcache_thresh": float(opts.rel_l1_thresh),')
+    src = src[:match.start()] + replacement + src[match.end():]
+    call = '            cache_dic, current = cache_init('
+    pos = src.index(call)
+    end = src.index('\n            )', pos) + len('\n            )')
+    validation = '''
+            if opts.taylor_method == "CFGCache":
+                effective_tau = float(cache_dic["cfgcache"]["cfgcache_thresh"])
+                assert effective_tau == float(opts.rel_l1_thresh), (effective_tau, opts.rel_l1_thresh)
+                print(f"[CFGCache] effective_tau={effective_tau} requested_tau={opts.rel_l1_thresh}", flush=True)
+'''
+    src = src[:end] + validation + src[end:]
+    path.write_text(src, encoding="utf-8")
+    return "patched"
+
+
 def main():
     root = Path(sys.argv[1])
     for rel in FILES:
@@ -75,6 +110,10 @@ def main():
             print(f"[v100-patch] {rel}: {patch(p)}")
         else:
             print(f"[v100-patch] {rel}: missing")
+    for model in ("cogvideox", "wan"):
+        p = root / "models" / model / "sample.py"
+        if p.exists():
+            print(f"[repro-fix] {model}/sample.py threshold: {patch_cfgcache_threshold(p)}")
     wan = root / "models/wan/sample.py"
     if wan.exists():
         print(f"[v100-patch] wan/sample.py vae: {patch_wan_vae(wan)}")

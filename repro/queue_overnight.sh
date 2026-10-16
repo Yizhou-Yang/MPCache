@@ -1,48 +1,46 @@
 #!/usr/bin/env bash
-# Overnight supervisor (2026-10-15): wait for G0a, then run the reproduction in an order
-# that yields *complete* small-N benchmark tables first, then continues to the full paper
-# protocol. Every chunk is resumable (run_repro.sh skips completed method/chunk pairs), and
-# after each chunk we refresh repro/STATUS.md so the morning push is just read + push.
-#
-# Order: G0a (already running) -> Wan smoke -> Cog[0,8) -> Wan[0,8) -> Cog[8,16) -> Wan[8,16)
-#        -> Cog[16,32) -> Wan[16,32) -> Cog[32,100) -> Wan[32,100)
-set -u
+# GPU-only resumable reproduction supervisor. Existing videos are never deleted.
+# WAIT_PID lets a running sampling process finish before this supervisor takes over.
+set -uo pipefail
 cd /root/viewdit
-export PATH=/root/miniconda3/bin:$PATH
-
-log() { echo "[overnight $(date +%F_%T)] $*"; }
-
-# 1) wait for G0a (its own process writes experiments/video/g0a_costmodel.log and exits)
-log "waiting for G0a to finish..."
-while ! grep -q '^\[done\]' experiments/video/g0a_costmodel.log 2>/dev/null; do sleep 120; done
-log "G0a done"
-
-# 2) Wan smoke (de-risks the Wan pipeline before the overnight marathon)
-if [ ! -f logs/REPRO_SMOKE_WAN_DONE ]; then
-  log "wan smoke"
-  bash repro/run_repro.sh wan 0 1 vanilla50 teacache >> logs/repro_smoke_wan.log 2>&1
-  echo "wan smoke rc=$? $(date +%F_%T)" >> logs/repro_smoke_wan.log
-  touch logs/REPRO_SMOKE_WAN_DONE
+export PATH=/root/miniconda3/envs/racfg/bin:/root/miniconda3/bin:$PATH
+export CPU_OFFLOAD=0 PYTHONUNBUFFERED=1
+log() { echo "[repro $(date +%F_%T)] $*"; }
+exec 9>logs/repro_supervisor.lock
+flock -n 9 || { log "another supervisor owns the lock"; exit 1; }
+if [ -n "${WAIT_PID:-}" ]; then
+  log "waiting for existing GPU process $WAIT_PID; preserving its output"
+  while kill -0 "$WAIT_PID" 2>/dev/null; do sleep 30 9>&-; done
 fi
-
-# 3) benchmark chunks, small first
-CHUNKS=${CHUNKS:-"cogvideox:0:16 wan:0:16 cogvideox:16:32 wan:16:32 cogvideox:32:100 wan:32:100"}
+# G0a failure is a research result, not a reason to stop competitor reproduction.
+PROMPTS=repro/upstream/RA-CFGCache/resources/prompts/prompt_video.txt
+N_PROMPTS=$(python -c 'from pathlib import Path; import sys; print(sum(bool(x.strip()) for x in Path(sys.argv[1]).read_text().splitlines()))' "$PROMPTS")
+log "available prompt IDs [0,$N_PROMPTS); verified nonempty count, no invented prompts"
+CHUNKS=${CHUNKS:-"cogvideox:0:16 wan:0:16 cogvideox:16:32 wan:16:32 cogvideox:32:$N_PROMPTS wan:32:$N_PROMPTS"}
+failed=0
 for c in $CHUNKS; do
   IFS=: read -r model s e <<< "$c"
-  log "chunk start $model [$s,$e)"
+  if [ "$s" -ge "$e" ]; then continue; fi
+  log "chunk start $model [$s,$e), GPU-only"
   bash repro/run_repro.sh "$model" "$s" "$e" >> "logs/repro_full_${model}.log" 2>&1
   rc=$?
-  touch "logs/REPRO_DONE_${model}_${s}_${e}"
-  log "chunk done $model [$s,$e) rc=$rc"
-  # refresh the status table after every completed chunk
-  for m in cogvideox wan; do
-    n=$(ls results/repro/$m/vanilla50/*/videos/*.mp4 2>/dev/null | wc -l)
-    if [ "$n" -ge 1 ]; then
-      log "aggregate $m (n=$n)"
-      ( cd repro && python aggregate.py --model "$m" --n "$n" --skip_eval >> /root/viewdit/logs/repro_aggregate.log 2>&1 ) || log "aggregate $m failed"
-    fi
-  done
-  bash repro/push_overnight.sh >> logs/repro_push.log 2>&1 || log "push failed"
+  if [ "$rc" = "0" ]; then
+    touch "logs/REPRO_DONE_${model}_${s}_${e}"
+    log "chunk complete $model [$s,$e)"
+  else
+    failed=1
+    log "chunk incomplete $model [$s,$e) rc=$rc; no success marker, no CPU fallback"
+  fi
+  log "evaluate $model [0,$e) with exact common IDs and source fingerprints"
+  python repro/aggregate.py --model "$model" --n "$e" --skip_eval >> logs/repro_aggregate.log 2>&1 || {
+    failed=1; log "evaluation incomplete; see per-method errors, continuing remaining GPU jobs"
+  }
+  bash repro/push_overnight.sh >> logs/repro_push.log 2>&1 || log "GitHub sync failed; retry next checkpoint"
 done
-log "ALL CHUNKS DONE"
-bash repro/push_overnight.sh >> logs/repro_push.log 2>&1
+if [ "$failed" = "0" ]; then
+  log "all scheduled chunks completed; prompt-list discrepancy remains documented"
+else
+  log "queue exhausted with failures; not claiming full reproduction completion"
+fi
+bash repro/push_overnight.sh >> logs/repro_push.log 2>&1 || failed=1
+exit "$failed"

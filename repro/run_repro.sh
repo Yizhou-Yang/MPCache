@@ -26,10 +26,13 @@ conda activate racfg
 export TORCHDYNAMO_DISABLE=1 TORCHINDUCTOR_DISABLE=1 PYTORCH_DISABLE_CUDA_COMPILE=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TOKENIZERS_PARALLELISM=false
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
-# V100 32GB (vs H200 141GB): only TaylorSeer's per-layer derivative cache OOMs with the text
-# encoder resident, so IT alone uses model CPU offload. Every other method runs fully on GPU
-# (offload on Wan sends the transformer to the CPU -> ~50x slower, unusable). This per-method
-# split is documented as a V100 hardware deviation. CPU_OFFLOAD env can force offload for all.
+# User requirement: inference is GPU-only for every method. No CPU offload fallback.
+# If a method OOMs, preserve the failed log and report failure without changing the protocol.
+if [ "${CPU_OFFLOAD:-0}" != "0" ]; then
+  echo "[error] CPU_OFFLOAD is prohibited for this GPU-only reproduction" >&2
+  exit 2
+fi
+export PYTHONUNBUFFERED=1
 
 case $MODEL in
   cogvideox)
@@ -51,45 +54,69 @@ esac
 CHUNK=$(printf "p%03d-%03d" "$START" "$END")
 mkdir -p "$OUT_ROOT/$MODEL/_prompts" "$OUT_ROOT/$MODEL/_logs"
 PF=$OUT_ROOT/$MODEL/_prompts/$CHUNK.txt
-awk 'NF' "$PROMPTS" | sed -n "$((START+1)),$((END))p" > "$PF"
+python - "$PROMPTS" "$PF" "$START" "$END" <<'PY'
+from pathlib import Path
+import sys, torch
+source, output, start, end = sys.argv[1:]
+start, end = int(start), int(end)
+prompts = [line for line in Path(source).read_text().splitlines() if line.strip()]
+if not (0 <= start < end <= len(prompts)):
+    raise SystemExit(f"Invalid prompt range [{start},{end}); source has {len(prompts)} nonempty prompts")
+if not torch.cuda.is_available():
+    raise SystemExit("GPU-only reproduction requires CUDA; refusing CPU execution")
+Path(output).write_text("\n".join(prompts[start:end]) + "\n")
+PY
+[ "$?" = "0" ] || exit 2
 
 run_one() {   # name mode steps thresh
   local name=$1 mode=$2 steps=$3 thr=$4
   local od=$OUT_ROOT/$MODEL/$name/$CHUNK
   local log=$OUT_ROOT/$MODEL/_logs/${name}_$CHUNK.log
+  # Legacy RA rows silently used upstream default tau=0.4. Keep them untouched but never reuse.
+  if [[ "$name" = racfg_* ]]; then
+    od=$OUT_ROOT/$MODEL/$name/cfg_tau_v2/$CHUNK
+    log=$OUT_ROOT/$MODEL/_logs/${name}_cfg_tau_v2_$CHUNK.log
+  fi
   local n_need=$((END-START))
-  local n_have=$(ls "$od/videos" 2>/dev/null | grep -c '\.mp4$')
-  if [ "$n_have" -ge "$n_need" ]; then echo "[skip] $name $CHUNK ($n_have videos)"; return 0; fi
-  # All-GPU by default; on a real CUDA OOM, retry once with CPU offload as a fallback.
-  local try OFF rc
-  for try in gpu oom; do
-    OFF=(); [ "$try" = "oom" ] && OFF=(--cpu_offload)
-    echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE try=$try $(date +%F_%T)"
-    ( cd "$RACFG" && python -m models.$MODEL.sample "${COMMON[@]}" \
-        --taylor_method "$mode" --num_steps "$steps" --rel_l1_thresh "$thr" \
-        --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 \
-        --batch_size 1 --num_videos_per_prompt 1 --seed 0 --negative_prompt animation \
-        --prompt_file "$PF" --start_index "$START" --output_dir "$od" --no_save_eval_frames "${OFF[@]}" ) > "$log" 2>&1
-    rc=$?
-    if [ "$rc" = "0" ]; then break; fi
-    if [ "$try" = "gpu" ] && grep -qiE "out of memory|CUDA out of memory" "$log"; then
-      echo "[oom] $name $CHUNK -> retry with CPU offload"
-      continue
-    fi
-    break
+  # Check exact global video IDs, not raw counts (overlapping smoke chunks are not new prompts).
+  local i expected complete=1
+  for ((i=START; i<END; i++)); do
+    printf -v expected '%s/videos/video_%06d.mp4' "$od" "$i"
+    [ -s "$expected" ] || complete=0
   done
-  echo "[done] $name $CHUNK rc=$rc $(grep -E 'Avg sec / video sampling|Avg sampling sec/video' "$log" | tail -1)"
-  return $rc
+  if [ "$complete" = "1" ]; then
+    echo "[skip] $name $CHUNK ($n_need expected videos)"
+    return 0
+  fi
+  if [ -f "$log" ]; then cp "$log" "$log.before_$(date +%Y%m%d_%H%M%S)"; fi
+  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE gpu_only=1 $(date +%F_%T)"
+  ( cd "$RACFG" && python -m models.$MODEL.sample "${COMMON[@]}" \
+      --taylor_method "$mode" --num_steps "$steps" --rel_l1_thresh "$thr" \
+      --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 \
+      --batch_size 1 --num_videos_per_prompt 1 --seed 0 --negative_prompt animation \
+      --prompt_file "$PF" --start_index "$START" --output_dir "$od" --no_save_eval_frames ) > "$log" 2>&1
+  local rc=$?
+  for ((i=START; i<END; i++)); do
+    printf -v expected '%s/videos/video_%06d.mp4' "$od" "$i"
+    if [ ! -s "$expected" ]; then rc=1; fi
+  done
+  if [ "$rc" != "0" ]; then
+    echo "[failed] $name $CHUNK rc=$rc log=$log; no CPU fallback"
+  fi
+  echo "[done] $name $CHUNK rc=$rc"
+  return "$rc"
 }
 
+failed=0
 for m in "${METHODS[@]}"; do
   case $m in
-    vanilla50)  run_one vanilla50  original 50 0 ;;
-    vanilla25)  run_one vanilla25  original 25 0 ;;
-    teacache)   run_one teacache   TeaCache 50 "$TEA" ;;
-    taylorseer) run_one taylorseer Taylor   50 0 ;;      # N=3, O=1 (App. B.1)
-    racfg_slow) run_one racfg_slow CFGCache 50 "$SLOW" ;;
-    racfg_fast) run_one racfg_fast CFGCache 50 "$FAST" ;;
-    *) echo "unknown method $m" ;;
+    vanilla50)  run_one vanilla50  original 50 0 || failed=1 ;;
+    vanilla25)  run_one vanilla25  original 25 0 || failed=1 ;;
+    teacache)   run_one teacache   TeaCache 50 "$TEA" || failed=1 ;;
+    taylorseer) run_one taylorseer Taylor   50 0 || failed=1 ;;  # N=3, O=1 (App. B.1)
+    racfg_slow) run_one racfg_slow CFGCache 50 "$SLOW" || failed=1 ;;
+    racfg_fast) run_one racfg_fast CFGCache 50 "$FAST" || failed=1 ;;
+    *) echo "unknown method $m"; failed=1 ;;
   esac
 done
+exit "$failed"

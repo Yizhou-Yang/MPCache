@@ -1,0 +1,29 @@
+rows=192  runs=16  prompts=8
+[direction] median cos(pred,true): solver-only=+0.204  online-J=+0.046  | median rel-err(online-J)=1.026
+
+[pooled Spearman vs true]
+  local  +0.893
+  c0     +0.402
+  prior  +0.954
+  c      +0.328
+  cs     +0.287
+
+[within-run Spearman across i]  (which step to skip)
+  local  +0.850
+  c0     +0.198
+  prior  +0.971
+  c      +0.299
+  cs     +0.260
+
+[within-step Spearman across prompts/seeds]  (per-prompt adaptivity; prior == local here)
+  local  +0.591
+  c0     +0.570
+  prior  +0.519
+  c      +0.538
+  cs     +0.265
+
+[log-gain variance] total=0.5309  within-step(per-prompt)=0.1434  share=27.02%
+[gain-resid Spearman] online J vs per-prompt gain deviation: +0.290
+
+[gate]  G0a-1 pooled(c)>=0.7: False | G0a-2 c beats prior by 0.05: False | G0a-3 gain-resid>=0.4: False
+VERDICT: FAIL -> online pricing does not beat RA-CFGCache-style timestep prior
