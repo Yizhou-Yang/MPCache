@@ -20,12 +20,15 @@ for model in ('cogvideox', 'wan'):
         root = r/'results/repro'/model/method
         if method.startswith('racfg_'):
             root = root/'cfg_tau_v2'
+        if method == 'taylorseer':
+            root = root/'gpu_only_v2'
         ids = {p.stem for p in root.glob('*/videos/video_*.mp4') if p.stat().st_size > 0}
         lines.append(f'- {method}: {len(ids)} valid unique videos')
     tables = sorted((r/'results/repro'/model/'_merged').glob('table_n*.json'),
                     key=lambda p: int(p.stem.split('n')[-1]))
     # Publish only corrected audit-aware tables, never legacy mixed-chunk tables.
-    tables = [p for p in tables if 'cfg_tau_v2' in ' '.join(json.loads(p.read_text()).get('notes', []))]
+    tables = [p for p in tables if all(tag in ' '.join(json.loads(p.read_text()).get('notes', []))
+                                      for tag in ('cfg_tau_v2', 'gpu_only_v2'))]
     if tables:
         source = tables[-1]
         for ext in ('.json', '.md'):

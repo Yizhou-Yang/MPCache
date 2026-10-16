@@ -2,8 +2,9 @@
 
 ## Verified progress
 
-- CogVideoX-2B: Vanilla50, Vanilla25, TeaCache and TaylorSeer each have 16 unique generated prompt IDs. Quality evaluation has run; audited aggregation is being regenerated.
-- Wan2.1-1.3B: Vanilla50/Vanilla25 each have 16 unique generated prompt IDs; TeaCache is generating [0,16). Remaining competitor rows are queued.
+- As of 14:15: CogVideoX-2B Vanilla50/Vanilla25/TeaCache and corrected RA-Slow/RA-Fast each have 16 unique prompt IDs and evaluated quality results. Corrected RA-Slow LPIPS/SSIM/PSNR = 0.081907/0.882860/26.5716; RA-Fast = 0.188414/0.750668/20.8581.
+- Cog TaylorSeer legacy n=16 used CPU offload, confirmed by the supervisor log. These results are NOT compliant with the user's all-GPU requirement and are now excluded; gpu_only_v2 reruns are required.
+- Wan2.1-1.3B Vanilla50/Vanilla25/TeaCache each have 16 unique prompt IDs. Corrected RA-Slow has 12/16 at 14:15, running with effective tau=0.4. RA-Fast is queued. Wan TaylorSeer's GPU-only attempt failed at the first step with CUDA OOM (560 MiB allocation, ~541.5 MiB free; own process ~31.2 GiB), not a network failure.
 - All future generation is GPU-only. CPU offload fallback is prohibited, including on OOM.
 - G0a has completed 192 perturbation observations over 16 runs. Its existing online-J pricing probe failed the stated gates; this does not stop competitor reproduction and is not a software exception.
 
@@ -20,7 +21,10 @@ The pinned upstream sample.py forwarded `rel_l1_thresh`, while `cache_init.py` r
 - Isolate merged datasets by n; evaluate only matched reference/method IDs.
 - Cache metrics only when source/pair/evaluator fingerprints match; publish missing/failed rows as pending, not zero.
 - Completion markers require successful generation of all expected IDs; failed jobs remain failures.
-- A single supervisor lock prevents duplicate queued launches. A currently running Wan TeaCache process is allowed to finish, then the fixed queue takes over.
+- A single supervisor lock prevents duplicate queued launches. The fixed queue took over after Wan TeaCache completed and is running corrected Wan RA-Slow.
+- TaylorSeer generation and aggregation now use gpu_only_v2 only; legacy CPU-offload artifacts remain on disk for audit but are inadmissible.
+- Deploy shell updates atomically via a new file and rename. Never overwrite an active Bash script inode: the earlier in-place update caused a trailing syntax error in an old wrapper.
+- The unresolved Taylor GPU memory issue prevents claiming full six-row completion, even when other methods finish.
 
 ## Protocol limitations
 

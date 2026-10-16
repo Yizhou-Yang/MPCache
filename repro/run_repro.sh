@@ -77,6 +77,11 @@ run_one() {   # name mode steps thresh
     od=$OUT_ROOT/$MODEL/$name/cfg_tau_v2/$CHUNK
     log=$OUT_ROOT/$MODEL/_logs/${name}_cfg_tau_v2_$CHUNK.log
   fi
+  # Prior Taylor runs used CPU offload. Never reuse them in the all-GPU protocol.
+  if [ "$name" = "taylorseer" ]; then
+    od=$OUT_ROOT/$MODEL/$name/gpu_only_v2/$CHUNK
+    log=$OUT_ROOT/$MODEL/_logs/${name}_gpu_only_v2_$CHUNK.log
+  fi
   local n_need=$((END-START))
   # Check exact global video IDs, not raw counts (overlapping smoke chunks are not new prompts).
   local i expected complete=1

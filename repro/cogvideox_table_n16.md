@@ -1,13 +1,15 @@
-## cogvideox: V100 fp16 vs RA-CFGCache Table 1 (H200 bf16), requested n=16
+# CogVideoX n=16：协议审计后的当前结果
 
-| Method | videos | 质量 pair n | timing pairs | 状态 | LPIPS↓ ours / paper | SSIM↑ ours / paper | PSNR↑ ours / paper | Speedup ours / paper | Latency(s) ours / paper |
-|---|---|---|---|---|---|---|---|---|---|
-| Vanilla (T=50) | 16 | 16 | 16 | reference-self | 0.0000 / 0.0000 | 1.0000 / 1.0000 | ∞ / ∞ | 1.00× / 1.00× | 443.2 / 40.48 |
-| Vanilla (T=25) | 16 | 16 | 16 | evaluated | 0.4585 / 0.4751 | 0.5437 / 0.5445 | 12.97 / 13.61 | 2.70× / 1.86× | 164.2 / 21.79 |
-| TeaCache | 16 | 16 | 16 | evaluated | 0.1962 / 0.2040 | 0.7414 / 0.7538 | 20.08 / 21.48 | 3.83× / 2.42× | 115.8 / 16.72 |
-| TaylorSeer (N=3,O=1) | 16 | 16 | 16 | evaluated | 0.4420 / – | 0.5358 / – | 13.66 / – | 3.00× / –× | 147.7 / – |
-| RA-CFGCache-Slow | 16 | 16 | 16 | evaluated | 0.0819 / 0.0968 | 0.8829 / 0.8746 | 26.57 / 26.93 | 4.03× / 2.39× | 110.0 / 16.96 |
-| RA-CFGCache-Fast | 16 | 16 | 16 | evaluated | 0.1884 / 0.2052 | 0.7507 / 0.7614 | 20.86 / 21.89 | 5.58× / 3.13× | 79.5 / 12.91 |
+旧 TaylorSeer offload 行已排除；其他指标沿用 13:01 完成的配对评测，未声称重新评测。
+
+| Method | GPU-valid n | LPIPS | SSIM | PSNR | provisional speedup | status |
+|---|---|---|---|---|---|---|
+| vanilla50 | 16 | 0.0 | 1.0 | Infinity | 1.0 | reference-self |
+| vanilla25 | 16 | 0.4584805123622016 | 0.5437056039035233 | 12.97303591953715 | 2.699005535628376 | evaluated |
+| teacache | 16 | 0.19620437793224593 | 0.7413866911851392 | 20.082814917936215 | 3.8278590121174974 | evaluated |
+| taylorseer | 0 | – | – | – | – | excluded-offload |
+| racfg_slow | 16 | 0.08190712441538214 | 0.8828604822441619 | 26.5715724205408 | 4.027635405307162 | evaluated |
+| racfg_fast | 16 | 0.18841392894712639 | 0.7506675884417184 | 20.858118053494888 | 5.5761880197783125 | evaluated |
 
 - V100 fp16 vs H200 bf16：仅作论文对照，不是原数复现。
 - RA 两行仅纳入 cfg_tau_v2 输出：旧 CLI 阈值未绑定运行时、实际均为 tau=0.4，旧结果无效。
@@ -16,3 +18,4 @@
 - 未执行统计门检验，不能宣称统计门通过；reference-self 为恒等参照，未调用质量评估器。
 - 质量 pair n 为实际评估数（reference-self 为恒等配对数）；pending/not-evaluated 的指标缺失，不填 0。
 - source 审计及配对指纹：n16/<method>/merge_manifest.json、pair_manifest.json。
+- TaylorSeer 仅纳入 gpu_only_v2 输出；旧 Cog n=16 使用 CPU offload，排除正式全 GPU 对标。
