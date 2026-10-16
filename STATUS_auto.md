@@ -1,6 +1,6 @@
 # MPCache reproduction checkpoint
 
-Generated: 2026-10-16T11:21:26.927752
+Generated: 2026-10-16T13:01:45.751974
 
 GPU-only generation; V100 fp16 differs from paper H200 bf16.
 Legacy RA Slow/Fast outputs used tau=0.4 and are excluded; cfg_tau_v2 reruns required.
@@ -13,8 +13,8 @@ Timing uses chunk averages on a shared GPU and remains provisional.
 - vanilla25: 16 valid unique videos
 - teacache: 16 valid unique videos
 - taylorseer: 16 valid unique videos
-- racfg_slow: 0 valid unique videos
-- racfg_fast: 0 valid unique videos
+- racfg_slow: 16 valid unique videos
+- racfg_fast: 16 valid unique videos
 
 ## cogvideox: V100 fp16 vs RA-CFGCache Table 1 (H200 bf16), requested n=16
 
@@ -24,8 +24,8 @@ Timing uses chunk averages on a shared GPU and remains provisional.
 | Vanilla (T=25) | 16 | 16 | 16 | evaluated | 0.4585 / 0.4751 | 0.5437 / 0.5445 | 12.97 / 13.61 | 2.70× / 1.86× | 164.2 / 21.79 |
 | TeaCache | 16 | 16 | 16 | evaluated | 0.1962 / 0.2040 | 0.7414 / 0.7538 | 20.08 / 21.48 | 3.83× / 2.42× | 115.8 / 16.72 |
 | TaylorSeer (N=3,O=1) | 16 | 16 | 16 | evaluated | 0.4420 / – | 0.5358 / – | 13.66 / – | 3.00× / –× | 147.7 / – |
-| RA-CFGCache-Slow | 0 | 0 | 0 | pending | – / 0.0968 | – / 0.8746 | – / 26.93 | –× / 2.39× | – / 16.96 |
-| RA-CFGCache-Fast | 0 | 0 | 0 | pending | – / 0.2052 | – / 0.7614 | – / 21.89 | –× / 3.13× | – / 12.91 |
+| RA-CFGCache-Slow | 16 | 16 | 16 | evaluated | 0.0819 / 0.0968 | 0.8829 / 0.8746 | 26.57 / 26.93 | 4.03× / 2.39× | 110.0 / 16.96 |
+| RA-CFGCache-Fast | 16 | 16 | 16 | evaluated | 0.1884 / 0.2052 | 0.7507 / 0.7614 | 20.86 / 21.89 | 5.58× / 3.13× | 79.5 / 12.91 |
 
 - V100 fp16 vs H200 bf16：仅作论文对照，不是原数复现。
 - RA 两行仅纳入 cfg_tau_v2 输出：旧 CLI 阈值未绑定运行时、实际均为 tau=0.4，旧结果无效。
@@ -34,15 +34,13 @@ Timing uses chunk averages on a shared GPU and remains provisional.
 - 未执行统计门检验，不能宣称统计门通过；reference-self 为恒等参照，未调用质量评估器。
 - 质量 pair n 为实际评估数（reference-self 为恒等配对数）；pending/not-evaluated 的指标缺失，不填 0。
 - source 审计及配对指纹：n16/<method>/merge_manifest.json、pair_manifest.json。
-- RA-CFGCache-Slow：没有共同视频 ID
-- RA-CFGCache-Fast：没有共同视频 ID
 
 
 ## wan
 
 - vanilla50: 16 valid unique videos
 - vanilla25: 16 valid unique videos
-- teacache: 8 valid unique videos
+- teacache: 16 valid unique videos
 - taylorseer: 0 valid unique videos
 - racfg_slow: 0 valid unique videos
 - racfg_fast: 0 valid unique videos
