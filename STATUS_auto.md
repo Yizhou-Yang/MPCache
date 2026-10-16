@@ -1,6 +1,6 @@
 # MPCache reproduction checkpoint
 
-Generated: 2026-10-16T14:19:55.639964
+Generated: 2026-10-16T15:49:41.340782
 
 GPU-only generation; V100 fp16 differs from paper H200 bf16.
 Legacy RA Slow/Fast outputs used tau=0.4 and are excluded; cfg_tau_v2 reruns required.
@@ -45,5 +45,5 @@ Timing uses chunk averages on a shared GPU and remains provisional.
 - vanilla25: 16 valid unique videos
 - teacache: 16 valid unique videos
 - taylorseer: 0 valid unique videos
-- racfg_slow: 13 valid unique videos
-- racfg_fast: 0 valid unique videos
+- racfg_slow: 16 valid unique videos
+- racfg_fast: 14 valid unique videos

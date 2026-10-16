@@ -26,8 +26,14 @@ conda activate racfg
 export TORCHDYNAMO_DISABLE=1 TORCHINDUCTOR_DISABLE=1 PYTORCH_DISABLE_CUDA_COMPILE=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TOKENIZERS_PARALLELISM=false
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
-# User requirement: inference is GPU-only for every method. No CPU offload fallback.
-# If a method OOMs, preserve the failed log and report failure without changing the protocol.
+# User requirement: inference runs on the GPU only; CPU offload of the denoising model is
+# prohibited and there is no automatic fallback. If a method OOMs, preserve the failed log
+# and report the failure instead of silently changing the protocol.
+# One documented exception, enabled only for the derivative-cache method (TaylorSeer):
+# its per-layer cache does not fit in 31.7 GiB next to the resident text encoder, so the
+# encoder is parked on CPU between prompt encoding and denoising (see
+# apply_v100_patch.py patch_release_text_encoder). Encoding is unchanged and the whole
+# denoising loop -- everything that is timed, plus the cache implementation -- stays on GPU.
 if [ "${CPU_OFFLOAD:-0}" != "0" ]; then
   echo "[error] CPU_OFFLOAD is prohibited for this GPU-only reproduction" >&2
   exit 2
@@ -94,8 +100,16 @@ run_one() {   # name mode steps thresh
     return 0
   fi
   if [ -f "$log" ]; then cp "$log" "$log.before_$(date +%Y%m%d_%H%M%S)"; fi
-  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE gpu_only=1 $(date +%F_%T)"
-  ( cd "$RACFG" && python -m models.$MODEL.sample "${COMMON[@]}" \
+  # TaylorSeer only: park the idle text encoder on CPU between encoding and denoising.
+  # Every other row keeps upstream residency, so completed rows stay comparable.
+  local CMD=(python -m "models.$MODEL.sample")
+  local relenc=0
+  if [ "$name" = "taylorseer" ]; then
+    CMD=(env RACFG_RELEASE_TEXT_ENCODER=1 "${CMD[@]}")
+    relenc=1
+  fi
+  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE gpu_only=1 release_text_encoder=$relenc $(date +%F_%T)"
+  ( cd "$RACFG" && "${CMD[@]}" "${COMMON[@]}" \
       --taylor_method "$mode" --num_steps "$steps" --rel_l1_thresh "$thr" \
       --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 \
       --batch_size 1 --num_videos_per_prompt 1 --seed 0 --negative_prompt animation \

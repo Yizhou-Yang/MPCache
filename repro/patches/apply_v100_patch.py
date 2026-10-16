@@ -10,6 +10,11 @@ and an explicit CLI-to-runtime CFGCache threshold binding. Upstream sample.py pa
 rel_l1_thresh, whereas cache_init reads cfgcache_thresh; without this fix Slow/Fast
 both silently use the default tau=0.4. No propagation schedule or calibration is changed.
 
+Third adapter: an opt-in text-encoder release for the derivative-cache method
+(TaylorSeer) on a 31.7 GiB card. Activated only when RACFG_RELEASE_TEXT_ENCODER=1,
+so every other row keeps upstream residency. Prompt encoding itself is untouched and
+the whole denoising loop still runs on the GPU.
+
 usage: python apply_v100_patch.py /path/to/RA-CFGCache
 """
 import re
@@ -102,6 +107,79 @@ def patch_cfgcache_threshold(path: Path) -> str:
     return "patched"
 
 
+RELEASE_MARK = "# [repro-fix] release the text encoder while denoising (V100 memory adaptation)"
+
+# Inserted relative to these unique anchors; both sample.py files have `device` in scope there.
+RELEASE_ANCHORS = {
+    "wan": (
+        "        except Exception as _e:\n"
+        '            print(f"[warn] vae tiling failed: {_e}", flush=True)',
+        "after",
+    ),
+    "cogvideox": (
+        '    print(f"Loaded CogVideoX pipeline from {model_path} on {device}")',
+        "before",
+    ),
+}
+
+RELEASE_SNIPPET = '''    # [repro-fix] release the text encoder while denoising (V100 memory adaptation)
+    # The text encoder (umt5-xxl / T5-xxl, 8.9-10.6 GiB in fp16) stays resident and is
+    # completely idle during denoising. TaylorSeer additionally keeps a per-layer
+    # derivative cache, which does not fit next to it in 31.7 GiB. With
+    # RACFG_RELEASE_TEXT_ENCODER=1 the encoder is parked on CPU right after each prompt is
+    # encoded and restored just before the next prompt is encoded. Prompt encoding and the
+    # whole denoising loop (everything that is timed, plus the cache implementation) are
+    # unchanged and stay on the GPU. Off by default: all other rows keep upstream residency.
+    if os.environ.get("RACFG_RELEASE_TEXT_ENCODER") == "1" and getattr(pipe, "text_encoder", None) is not None:
+        _vdt_cls = type(pipe)
+        if not getattr(_vdt_cls, "_viewdit_release_enc", False):
+            _vdt_orig_encode_prompt = _vdt_cls.encode_prompt
+            _vdt_seen = {"n": 0}
+
+            def _viewdit_encode_prompt(_self, *a, **kw):
+                _te = getattr(_self, "text_encoder", None)
+                if _te is not None:
+                    try:
+                        _te.to(device)
+                    except Exception as _e:
+                        print(f"[warn] text encoder restore failed: {_e}", flush=True)
+                _out = _vdt_orig_encode_prompt(_self, *a, **kw)
+                if _te is not None:
+                    try:
+                        _te.to("cpu")
+                        torch.cuda.empty_cache()
+                        _vdt_seen["n"] = _vdt_seen["n"] + 1
+                        _n = _vdt_seen["n"]
+                        _free, _tot = torch.cuda.mem_get_info()
+                        print(
+                            f"[mem] prompt {_n} encoded; text encoder parked on CPU "
+                            f"(free {_free / 2 ** 30:.2f} GiB / {_tot / 2 ** 30:.2f} GiB)",
+                            flush=True,
+                        )
+                    except Exception as _e:
+                        print(f"[warn] text encoder release failed: {_e}", flush=True)
+                return _out
+
+            _vdt_cls.encode_prompt = _viewdit_encode_prompt
+            _vdt_cls._viewdit_release_enc = True
+            print("[load] RACFG_RELEASE_TEXT_ENCODER=1: encoder parked on CPU during denoising", flush=True)
+'''
+
+
+def patch_release_text_encoder(path: Path) -> str:
+    model = path.parent.name
+    anchor, position = RELEASE_ANCHORS[model]
+    src = path.read_text(encoding="utf-8")
+    if RELEASE_MARK in src:
+        return "already"
+    if src.count(anchor) != 1:
+        return f"no-unique-anchor({src.count(anchor)})"
+    block = RELEASE_SNIPPET if position == "after" else RELEASE_SNIPPET + "\n\n" + anchor
+    src = src.replace(anchor, (anchor + "\n\n" + block) if position == "after" else block, 1)
+    path.write_text(src, encoding="utf-8")
+    return "patched"
+
+
 def main():
     root = Path(sys.argv[1])
     for rel in FILES:
@@ -117,6 +195,10 @@ def main():
     wan = root / "models/wan/sample.py"
     if wan.exists():
         print(f"[v100-patch] wan/sample.py vae: {patch_wan_vae(wan)}")
+    for model in ("wan", "cogvideox"):
+        p = root / "models" / model / "sample.py"
+        if p.exists():
+            print(f"[repro-fix] {model}/sample.py release-encoder: {patch_release_text_encoder(p)}")
 
 
 if __name__ == "__main__":
