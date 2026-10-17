@@ -749,3 +749,2150 @@ Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt
 
  10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
 CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  10%|█         | 5/50 [03:09<28:15, 37.69s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  12%|█▏        | 6/50 [03:47<27:35, 37.62s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  14%|█▍        | 7/50 [04:24<26:55, 37.56s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  16%|█▌        | 8/50 [05:02<26:17, 37.56s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  18%|█▊        | 9/50 [05:39<25:38, 37.53s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  20%|██        | 10/50 [06:17<25:00, 37.52s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  22%|██▏       | 11/50 [06:54<24:22, 37.50s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  24%|██▍       | 12/50 [07:32<23:44, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  26%|██▌       | 13/50 [08:09<23:06, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  28%|██▊       | 14/50 [08:47<22:29, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  30%|███       | 15/50 [09:24<21:51, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  32%|███▏      | 16/50 [10:02<21:14, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  34%|███▍      | 17/50 [10:39<20:37, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  36%|███▌      | 18/50 [11:17<19:59, 37.50s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  38%|███▊      | 19/50 [11:54<19:22, 37.50s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  40%|████      | 20/50 [12:32<18:44, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  42%|████▏     | 21/50 [13:09<18:07, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  44%|████▍     | 22/50 [13:46<17:29, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  46%|████▌     | 23/50 [14:24<16:52, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  48%|████▊     | 24/50 [15:01<16:14, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  50%|█████     | 25/50 [15:39<15:36, 37.47s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  52%|█████▏    | 26/50 [16:16<14:59, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  54%|█████▍    | 27/50 [16:54<14:21, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  56%|█████▌    | 28/50 [17:31<13:44, 37.48s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  58%|█████▊    | 29/50 [18:09<13:07, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  60%|██████    | 30/50 [18:46<12:30, 37.50s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  62%|██████▏   | 31/50 [19:24<11:52, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  64%|██████▍   | 32/50 [20:01<11:15, 37.50s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  66%|██████▌   | 33/50 [20:39<10:37, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  68%|██████▊   | 34/50 [21:16<09:59, 37.49s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.48it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  70%|███████   | 35/50 [21:54<09:22, 37.52s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:18<01:09,  1.69s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 11 [uncond]: action=full_both, can_skip_local=True
+
+ 24%|██▍       | 12/50 [00:21<00:49,  1.31s/it][ACFGCache step 12 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=full_both, can_skip_local=True
+
+ 34%|███▍      | 17/50 [00:23<00:29,  1.11it/s][ACFGCache step 17 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=full_both, can_skip_local=True
+
+ 50%|█████     | 25/50 [00:26<00:14,  1.69it/s][ACFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+
+ 66%|██████▌   | 33/50 [00:26<00:05,  2.95it/s][ACFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 40 [uncond]: action=full_both, can_skip_local=True
+
+ 82%|████████▏ | 41/50 [00:29<00:03,  2.95it/s][ACFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+
+ 98%|█████████▊| 49/50 [00:29<00:00,  4.47it/s][ACFGCache step 49 [uncond]: action=reuse_both, can_skip_local=True
+100%|██████████| 50/50 [00:29<00:00,  1.70it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  72%|███████▏  | 36/50 [22:31<08:45, 37.53s/it][CFGCache] effective_tau=1.4 requested_tau=1.4
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:15<01:24,  1.96s/it][ACFGCache step 7 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 8 [uncond]: action=full_both, can_skip_local=True
