@@ -33,8 +33,9 @@ done
 echo "[setup] upstream commits:"
 for d in RA-CFGCache TeaCache TaylorSeer; do echo "  $d $(git -C $d rev-parse HEAD 2>/dev/null || echo MISSING)"; done
 
-# V100 has no native bf16 -> make the upstream dtype configurable (default unchanged = bf16)
-/root/miniconda3/bin/python "$VIEWDIT/repro/patches/apply_v100_patch.py" "$UP/RA-CFGCache"
+# V100 has no native bf16 -> make the upstream dtype configurable (default unchanged = bf16).
+# Profile "v100" additionally enables the 31.7 GiB memory adapters and the threshold fix.
+/root/miniconda3/bin/python "$VIEWDIT/repro/patches/apply_repro_patch.py" "$UP/RA-CFGCache" v100
 
 source /root/miniconda3/etc/profile.d/conda.sh
 if ! conda env list | awk '{print $1}' | grep -qx "$ENV_NAME"; then

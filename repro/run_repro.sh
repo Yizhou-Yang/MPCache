@@ -12,34 +12,65 @@
 # prefix/suffix of the paper's 100-prompt run (same prompt -> same seed -> same initial noise).
 set -uo pipefail
 
+if [ "$#" -lt 3 ]; then
+  echo "[error] usage: run_repro.sh <cogvideox|wan> <start> <end> [method ...]" >&2
+  exit 2
+fi
 MODEL=$1; START=$2; END=$3; shift 3
+if [[ ! "$START" =~ ^(0|[1-9][0-9]*)$ || ! "$END" =~ ^(0|[1-9][0-9]*)$ ]] || [ "$START" -ge "$END" ]; then
+  echo "[error] invalid prompt range [$START,$END); use nonnegative decimal IDs" >&2
+  exit 2
+fi
 METHODS=("$@")
 [ ${#METHODS[@]} -eq 0 ] && METHODS=(vanilla50 vanilla25 teacache taylorseer racfg_slow racfg_fast)
 
 VIEWDIT=${VIEWDIT:-/root/viewdit}
 RACFG=$VIEWDIT/repro/upstream/RA-CFGCache
-OUT_ROOT=${OUT_ROOT:-$VIEWDIT/results/repro}
+# Profile = hardware adaptation only, never protocol. It selects dtype, the memory adapters and
+# the output root, so results from different cards can never be merged by accident.
+#   v100 : 31.7 GiB sm_70, fp16, tile Wan's VAE decode, park TaylorSeer's text encoder
+#   h20  : 96 GiB sm_90, upstream bf16 (same precision as the paper), no adapters at all
+PROFILE=${RACFG_PROFILE:-v100}
+case $PROFILE in
+  v100) OUT_ROOT=${OUT_ROOT:-$VIEWDIT/results/repro};      DEF_DTYPE=float16 ;;
+  h20)  OUT_ROOT=${OUT_ROOT:-$VIEWDIT/results/repro_h20};  DEF_DTYPE=bfloat16 ;;
+  *) echo "[error] unknown RACFG_PROFILE=$PROFILE (expected v100 or h20)" >&2; exit 2 ;;
+esac
 PROMPTS=$RACFG/resources/prompts/prompt_video.txt
 
-source /root/miniconda3/etc/profile.d/conda.sh
-conda activate racfg
+source "${CONDA_SH:-/root/miniconda3/etc/profile.d/conda.sh}" || exit 2
+conda activate "${ENV_NAME:-racfg}" || exit 2
 export TORCHDYNAMO_DISABLE=1 TORCHINDUCTOR_DISABLE=1 PYTORCH_DISABLE_CUDA_COMPILE=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TOKENIZERS_PARALLELISM=false
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
-# V100 32GB (vs H200 141GB): TaylorSeer's per-layer derivative cache OOMs with the text encoder
-# resident, so model CPU offload is ON for every method (same setting for all rows -> fair).
-OFFLOAD=(); [ "${CPU_OFFLOAD:-1}" = "1" ] && OFFLOAD=(--cpu_offload)
+# User requirement: inference runs on the GPU only; CPU offload of the denoising model is
+# prohibited and there is no automatic fallback. If a method OOMs, preserve the failed log
+# and report the failure instead of silently changing the protocol.
+# Whole job is GPU-only: CPU offload of the denoising model is prohibited and never happens
+# automatically. If a method OOMs, the failed log is preserved and the failure is reported
+# instead of silently changing the protocol.
+# V100 profile only, one documented exception for the derivative-cache method (TaylorSeer):
+# its per-layer cache does not fit in 31.7 GiB next to the resident text encoder, so the
+# encoder is parked on CPU between prompt encoding and denoising (see
+# patches/apply_repro_patch.py patch_release_text_encoder). Encoding is unchanged and the whole
+# denoising loop -- everything that is timed, plus the cache implementation -- stays on GPU.
+# The h20 profile uses none of this: upstream residency, upstream default dtype.
+if [ "${CPU_OFFLOAD:-0}" != "0" ]; then
+  echo "[error] CPU_OFFLOAD is prohibited for this GPU-only reproduction" >&2
+  exit 2
+fi
+export PYTHONUNBUFFERED=1
 
 case $MODEL in
   cogvideox)
     MP=$VIEWDIT/weights/CogVideoX-2b
-    export RACFG_DTYPE=${RACFG_DTYPE:-float16}      # CogVideoX-2B is an fp16 checkpoint
+    export RACFG_DTYPE=${RACFG_DTYPE:-$DEF_DTYPE}   # checkpoint is fp16; H20 uses bf16 anyway
     COMMON=(--model_name cogvideox --model_path "$MP" --width 720 --height 480 --num_frames 49 --fps 8
             --guidance_scale 6.0 --proxy_tables_path "$RACFG/calibration/cogvideox_rho_cfg6.npz")
     TEA=0.2; SLOW=0.6; FAST=1.4 ;;
   wan)
     MP=$VIEWDIT/weights/Wan2.1-T2V-1.3B-Diffusers
-    export RACFG_DTYPE=${RACFG_DTYPE:-float16}      # V100: no bf16; verified in smoke test
+    export RACFG_DTYPE=${RACFG_DTYPE:-$DEF_DTYPE}   # h20: bf16 == upstream default, i.e. the paper's precision
     COMMON=(--model_name wan --model_path "$MP" --width 832 --height 480 --num_frames 81 --fps 16
             --guidance_scale 5.0 --scheduler unipc --flow_shift 3.0
             --proxy_tables_path "$RACFG/calibration/wan_rho_cfg5.npz")
@@ -50,34 +81,82 @@ esac
 CHUNK=$(printf "p%03d-%03d" "$START" "$END")
 mkdir -p "$OUT_ROOT/$MODEL/_prompts" "$OUT_ROOT/$MODEL/_logs"
 PF=$OUT_ROOT/$MODEL/_prompts/$CHUNK.txt
-awk 'NF' "$PROMPTS" | sed -n "$((START+1)),$((END))p" > "$PF"
+python - "$PROMPTS" "$PF" "$START" "$END" <<'PY'
+from pathlib import Path
+import sys, torch
+source, output, start, end = sys.argv[1:]
+start, end = int(start), int(end)
+prompts = [line for line in Path(source).read_text().splitlines() if line.strip()]
+if not (0 <= start < end <= len(prompts)):
+    raise SystemExit(f"Invalid prompt range [{start},{end}); source has {len(prompts)} nonempty prompts")
+if not torch.cuda.is_available():
+    raise SystemExit("GPU-only reproduction requires CUDA; refusing CPU execution")
+Path(output).write_text("\n".join(prompts[start:end]) + "\n")
+PY
+[ "$?" = "0" ] || exit 2
 
 run_one() {   # name mode steps thresh
   local name=$1 mode=$2 steps=$3 thr=$4
   local od=$OUT_ROOT/$MODEL/$name/$CHUNK
   local log=$OUT_ROOT/$MODEL/_logs/${name}_$CHUNK.log
+  # Legacy RA rows silently used upstream default tau=0.4. Keep them untouched but never reuse.
+  if [[ "$name" = racfg_* ]]; then
+    od=$OUT_ROOT/$MODEL/$name/cfg_tau_v2/$CHUNK
+    log=$OUT_ROOT/$MODEL/_logs/${name}_cfg_tau_v2_$CHUNK.log
+  fi
+  # Prior Taylor runs used CPU offload. Never reuse them in the all-GPU protocol.
+  if [ "$name" = "taylorseer" ]; then
+    od=$OUT_ROOT/$MODEL/$name/gpu_only_v2/$CHUNK
+    log=$OUT_ROOT/$MODEL/_logs/${name}_gpu_only_v2_$CHUNK.log
+  fi
   local n_need=$((END-START))
-  local n_have=$(ls "$od/videos" 2>/dev/null | grep -c '\.mp4$')
-  if [ "$n_have" -ge "$n_need" ]; then echo "[skip] $name $CHUNK ($n_have videos)"; return 0; fi
-  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE offload=${#OFFLOAD[@]} $(date +%F_%T)"
-  ( cd "$RACFG" && python -m models.$MODEL.sample "${COMMON[@]}" \
+  # Check exact global video IDs, not raw counts (overlapping smoke chunks are not new prompts).
+  local i expected complete=1
+  for ((i=START; i<END; i++)); do
+    printf -v expected '%s/videos/video_%06d.mp4' "$od" "$i"
+    [ -s "$expected" ] || complete=0
+  done
+  if [ "$complete" = "1" ]; then
+    echo "[skip] $name $CHUNK ($n_need expected videos)"
+    return 0
+  fi
+  if [ -f "$log" ]; then cp "$log" "$log.before_$(date +%Y%m%d_%H%M%S)"; fi
+  # TaylorSeer only, v100 profile only: park the idle text encoder on CPU between encoding and
+  # denoising. On h20 (96 GiB) the adapters are off, so every row there is upstream-resident.
+  local relenc=0
+  if [ "$name" = "taylorseer" ] && [ "$PROFILE" = "v100" ]; then
+    relenc=1
+  fi
+  # 显式覆盖继承的开关，避免 Taylor 外挂泄漏到其他方法或 H20。
+  local CMD=(env RACFG_RELEASE_TEXT_ENCODER="$relenc" python -m "models.$MODEL.sample")
+  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr profile=$PROFILE dtype=$RACFG_DTYPE gpu_only=1 release_text_encoder=$relenc $(date +%F_%T)"
+  ( cd "$RACFG" && "${CMD[@]}" "${COMMON[@]}" \
       --taylor_method "$mode" --num_steps "$steps" --rel_l1_thresh "$thr" \
       --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 \
       --batch_size 1 --num_videos_per_prompt 1 --seed 0 --negative_prompt animation \
-      --prompt_file "$PF" --start_index "$START" --output_dir "$od" --no_save_eval_frames "${OFFLOAD[@]}" ) > "$log" 2>&1
+      --prompt_file "$PF" --start_index "$START" --output_dir "$od" --no_save_eval_frames ) > "$log" 2>&1
   local rc=$?
-  echo "[done] $name $CHUNK rc=$rc $(grep -E 'Avg sec / video sampling|Avg sampling sec/video' "$log" | tail -1)"
-  return $rc
+  for ((i=START; i<END; i++)); do
+    printf -v expected '%s/videos/video_%06d.mp4' "$od" "$i"
+    if [ ! -s "$expected" ]; then rc=1; fi
+  done
+  if [ "$rc" != "0" ]; then
+    echo "[failed] $name $CHUNK rc=$rc log=$log; no CPU fallback"
+  fi
+  echo "[done] $name $CHUNK rc=$rc"
+  return "$rc"
 }
 
+failed=0
 for m in "${METHODS[@]}"; do
   case $m in
-    vanilla50)  run_one vanilla50  original 50 0 ;;
-    vanilla25)  run_one vanilla25  original 25 0 ;;
-    teacache)   run_one teacache   TeaCache 50 "$TEA" ;;
-    taylorseer) run_one taylorseer Taylor   50 0 ;;      # N=3, O=1 (App. B.1)
-    racfg_slow) run_one racfg_slow CFGCache 50 "$SLOW" ;;
-    racfg_fast) run_one racfg_fast CFGCache 50 "$FAST" ;;
-    *) echo "unknown method $m" ;;
+    vanilla50)  run_one vanilla50  original 50 0 || failed=1 ;;
+    vanilla25)  run_one vanilla25  original 25 0 || failed=1 ;;
+    teacache)   run_one teacache   TeaCache 50 "$TEA" || failed=1 ;;
+    taylorseer) run_one taylorseer Taylor   50 0 || failed=1 ;;  # N=3, O=1 (App. B.1)
+    racfg_slow) run_one racfg_slow CFGCache 50 "$SLOW" || failed=1 ;;
+    racfg_fast) run_one racfg_fast CFGCache 50 "$FAST" || failed=1 ;;
+    *) echo "unknown method $m"; failed=1 ;;
   esac
 done
+exit "$failed"
