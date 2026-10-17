@@ -5783,3 +5783,871 @@ Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt
 Generating videos:  86%|████████▌ | 43/50 [1:31:45<14:56, 128.07s/it]
   0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
 TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.29s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:01,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.56s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  88%|████████▊ | 44/50 [1:33:53<12:48, 128.06s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
+TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.29s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:01,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.56s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  90%|█████████ | 45/50 [1:36:01<10:40, 128.06s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
+TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.30s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:02,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.56s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  92%|█████████▏| 46/50 [1:38:09<08:32, 128.08s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
+TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.29s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:01,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.56s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  94%|█████████▍| 47/50 [1:40:18<06:24, 128.09s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
+TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.29s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:01,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.56s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  96%|█████████▌| 48/50 [1:42:26<04:16, 128.11s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
+TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.29s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:01,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.56s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  98%|█████████▊| 49/50 [1:44:34<02:08, 128.07s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][ATeaCache step 0: warmup/last step full (cnt=0, T=50)
+TeaCache step 0: warmup/last step full (cnt=0, T=50)
+
+  2%|▏         | 1/50 [00:06<05:08,  6.29s/it][ATeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+TeaCache step 1: full (cnt=1, T=50, rel=0.1135, rel_scaled=0.2703, accumulated_rel_l1_distance=0.2703)
+
+  4%|▍         | 2/50 [00:12<05:01,  6.29s/it][ATeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+TeaCache step 2: full (cnt=2, T=50, rel=0.1342, rel_scaled=0.2588, accumulated_rel_l1_distance=0.2588)
+
+  6%|▌         | 3/50 [00:18<04:55,  6.29s/it][ATeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+TeaCache step 3: full (cnt=3, T=50, rel=0.0883, rel_scaled=0.2180, accumulated_rel_l1_distance=0.2180)
+
+  8%|▊         | 4/50 [00:25<04:49,  6.29s/it][ATeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+TeaCache step 4: full (cnt=4, T=50, rel=0.0708, rel_scaled=0.1545, accumulated_rel_l1_distance=0.1545)
+
+ 10%|█         | 5/50 [00:31<04:43,  6.29s/it][ATeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 5: skipping (cnt=5, T=50, rel=0.0488, rel_scaled=0.0737, accumulated_rel_l1_distance=0.0737)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 6: skipping (cnt=6, T=50, rel=0.0488, rel_scaled=0.0735, accumulated_rel_l1_distance=0.1472)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+TeaCache step 7: full (cnt=7, T=50, rel=0.0444, rel_scaled=0.0609, accumulated_rel_l1_distance=0.2081)
+
+ 16%|█▌        | 8/50 [00:37<02:37,  3.75s/it][ATeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 8: skipping (cnt=8, T=50, rel=0.0391, rel_scaled=0.0484, accumulated_rel_l1_distance=0.0484)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 9: skipping (cnt=9, T=50, rel=0.0388, rel_scaled=0.0479, accumulated_rel_l1_distance=0.0964)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 10: skipping (cnt=10, T=50, rel=0.0323, rel_scaled=0.0383, accumulated_rel_l1_distance=0.1346)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+TeaCache step 11: full (cnt=11, T=50, rel=0.0311, rel_scaled=0.0373, accumulated_rel_l1_distance=0.1719)
+
+ 24%|██▍       | 12/50 [00:44<01:38,  2.59s/it][ATeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 12: skipping (cnt=12, T=50, rel=0.0317, rel_scaled=0.0378, accumulated_rel_l1_distance=0.0378)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 13: skipping (cnt=13, T=50, rel=0.0275, rel_scaled=0.0360, accumulated_rel_l1_distance=0.0738)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 14: skipping (cnt=14, T=50, rel=0.0282, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1099)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 15: skipping (cnt=15, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1464)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+TeaCache step 16: full (cnt=16, T=50, rel=0.0269, rel_scaled=0.0361, accumulated_rel_l1_distance=0.1825)
+
+ 34%|███▍      | 17/50 [00:50<01:04,  1.94s/it][ATeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 17: skipping (cnt=17, T=50, rel=0.0245, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 18: skipping (cnt=18, T=50, rel=0.0222, rel_scaled=0.0391, accumulated_rel_l1_distance=0.0761)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 19: skipping (cnt=19, T=50, rel=0.0232, rel_scaled=0.0381, accumulated_rel_l1_distance=0.1142)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+TeaCache step 20: full (cnt=20, T=50, rel=0.0226, rel_scaled=0.0386, accumulated_rel_l1_distance=0.1528)
+
+ 42%|████▏     | 21/50 [00:56<00:52,  1.81s/it][ATeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 21: skipping (cnt=21, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0386)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 22: skipping (cnt=22, T=50, rel=0.0227, rel_scaled=0.0386, accumulated_rel_l1_distance=0.0772)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 23: skipping (cnt=23, T=50, rel=0.0213, rel_scaled=0.0403, accumulated_rel_l1_distance=0.1175)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+TeaCache step 24: full (cnt=24, T=50, rel=0.0218, rel_scaled=0.0396, accumulated_rel_l1_distance=0.1571)
+
+ 50%|█████     | 25/50 [01:03<00:43,  1.73s/it][ATeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 25: skipping (cnt=25, T=50, rel=0.0228, rel_scaled=0.0384, accumulated_rel_l1_distance=0.0384)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 26: skipping (cnt=26, T=50, rel=0.0233, rel_scaled=0.0379, accumulated_rel_l1_distance=0.0763)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 27: skipping (cnt=27, T=50, rel=0.0225, rel_scaled=0.0388, accumulated_rel_l1_distance=0.1151)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+TeaCache step 28: full (cnt=28, T=50, rel=0.0234, rel_scaled=0.0379, accumulated_rel_l1_distance=0.1529)
+
+ 58%|█████▊    | 29/50 [01:09<00:35,  1.68s/it][ATeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 29: skipping (cnt=29, T=50, rel=0.0246, rel_scaled=0.0370, accumulated_rel_l1_distance=0.0370)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 30: skipping (cnt=30, T=50, rel=0.0242, rel_scaled=0.0372, accumulated_rel_l1_distance=0.0742)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 31: skipping (cnt=31, T=50, rel=0.0251, rel_scaled=0.0366, accumulated_rel_l1_distance=0.1108)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 32: skipping (cnt=32, T=50, rel=0.0253, rel_scaled=0.0365, accumulated_rel_l1_distance=0.1474)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+TeaCache step 33: full (cnt=33, T=50, rel=0.0261, rel_scaled=0.0363, accumulated_rel_l1_distance=0.1836)
+
+ 68%|██████▊   | 34/50 [01:15<00:24,  1.53s/it][ATeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 34: skipping (cnt=34, T=50, rel=0.0288, rel_scaled=0.0362, accumulated_rel_l1_distance=0.0362)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 35: skipping (cnt=35, T=50, rel=0.0300, rel_scaled=0.0367, accumulated_rel_l1_distance=0.0729)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 36: skipping (cnt=36, T=50, rel=0.0324, rel_scaled=0.0384, accumulated_rel_l1_distance=0.1113)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+TeaCache step 37: full (cnt=37, T=50, rel=0.0327, rel_scaled=0.0387, accumulated_rel_l1_distance=0.1501)
+
+ 76%|███████▌  | 38/50 [01:22<00:18,  1.54s/it][ATeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 38: skipping (cnt=38, T=50, rel=0.0365, rel_scaled=0.0438, accumulated_rel_l1_distance=0.0438)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 39: skipping (cnt=39, T=50, rel=0.0358, rel_scaled=0.0426, accumulated_rel_l1_distance=0.0863)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 40: skipping (cnt=40, T=50, rel=0.0396, rel_scaled=0.0494, accumulated_rel_l1_distance=0.1357)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+TeaCache step 41: full (cnt=41, T=50, rel=0.0420, rel_scaled=0.0549, accumulated_rel_l1_distance=0.1906)
+
+ 84%|████████▍ | 42/50 [01:28<00:12,  1.55s/it][ATeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 42: skipping (cnt=42, T=50, rel=0.0470, rel_scaled=0.0683, accumulated_rel_l1_distance=0.0683)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+TeaCache step 43: full (cnt=43, T=50, rel=0.0532, rel_scaled=0.0881, accumulated_rel_l1_distance=0.1564)
+
+ 88%|████████▊ | 44/50 [01:34<00:11,  1.83s/it][ATeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 44: skipping (cnt=44, T=50, rel=0.0595, rel_scaled=0.1108, accumulated_rel_l1_distance=0.1108)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+TeaCache step 45: full (cnt=45, T=50, rel=0.0736, rel_scaled=0.1655, accumulated_rel_l1_distance=0.2762)
+
+ 92%|█████████▏| 46/50 [01:40<00:08,  2.10s/it][ATeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+TeaCache step 46: full (cnt=46, T=50, rel=0.0916, rel_scaled=0.2281, accumulated_rel_l1_distance=0.2281)
+
+ 94%|█████████▍| 47/50 [01:47<00:07,  2.62s/it][ATeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+TeaCache step 47: full (cnt=47, T=50, rel=0.1229, rel_scaled=0.2719, accumulated_rel_l1_distance=0.2719)
+
+ 96%|█████████▌| 48/50 [01:53<00:06,  3.18s/it][ATeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 48: skipping (cnt=48, T=50, rel=0.1784, rel_scaled=0.0487, accumulated_rel_l1_distance=0.0487)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+TeaCache step 49: warmup/last step full (cnt=49, T=50)
+
+100%|██████████| 50/50 [01:59<00:00,  3.17s/it][A100%|██████████| 50/50 [01:59<00:00,  2.40s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos: 100%|██████████| 50/50 [1:46:42<00:00, 128.07s/it]
+================ Timing Summary ================
+Total elapsed:        6402.309 s
+Sampling time:        6381.648 s
+Saving time:          18.411 s
+Total videos:         50
+Total prompts:        50
+Avg sec / video:      128.046 s
+Avg sec / prompt:     128.046 s  (includes 1 video/prompt)
+Avg sampling sec/video: 127.633 s
+Avg sampling sec/prompt: 127.633 s  (includes 1 video/prompt)
+================================================
+
+Generating videos: 100%|██████████| 50/50 [1:46:42<00:00, 128.05s/it]
+Generated 50 videos in /root/viewdit/results/repro_h20/wan/teacache/p000-050/videos
+Metadata saved in /root/viewdit/results/repro_h20/wan/teacache/p000-050/metadata
+Manifest saved at /root/viewdit/results/repro_h20/wan/teacache/p000-050/manifest.jsonl

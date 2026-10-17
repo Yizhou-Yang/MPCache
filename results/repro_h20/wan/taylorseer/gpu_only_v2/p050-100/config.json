@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-10-18T06:21:53.596698",
+  "command_line": "/root/viewdit/repro/upstream/RA-CFGCache/models/wan/sample.py --model_name wan --model_path /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers --width 832 --height 480 --num_frames 81 --fps 16 --guidance_scale 5.0 --scheduler unipc --flow_shift 3.0 --proxy_tables_path /root/viewdit/repro/upstream/RA-CFGCache/calibration/wan_rho_cfg5.npz --taylor_method Taylor --num_steps 50 --rel_l1_thresh 0 --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 --batch_size 1 --num_videos_per_prompt 1 --seed 0 --negative_prompt animation --prompt_file /root/viewdit/results/repro_h20/wan/_prompts/p050-100.txt --start_index 50 --output_dir /root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100 --no_save_eval_frames",
+  "working_directory": "/root/viewdit/repro/upstream/RA-CFGCache",
+  "model": {
+    "name": "wan",
+    "path": "/root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers"
+  },
+  "sampler": {
+    "width": 832,
+    "height": 480,
+    "num_frames": 81,
+    "fps": 16,
+    "num_steps": 50,
+    "guidance_scale": 5.0,
+    "guidance_scale_2": null,
+    "seed": 0,
+    "num_videos_per_prompt": 1,
+    "batch_size": 1,
+    "start_index": 50,
+    "max_sequence_length": 512,
+    "output_type": "pil",
+    "scheduler": "unipc",
+    "flow_shift": 3.0,
+    "load_vae_fp32": true
+  },
+  "cache": {
+    "taylor_method": "Taylor",
+    "interval": 3,
+    "max_order": 1,
+    "first_enhance": 3,
+    "hicache_scale": 0.5,
+    "rel_l1_thresh": 0.0,
+    "proxy_tables_path": "/root/viewdit/repro/upstream/RA-CFGCache/calibration/wan_rho_cfg5.npz"
+  },
+  "prompts": {
+    "count": 50,
+    "negative_prompt": "animation",
+    "has_negative_prompt_file": false
+  },
+  "output": {
+    "output_dir": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+    "save_eval_frames": false,
+    "write_manifest": true
+  }
+}
