@@ -1,0 +1,1045 @@
+[CFGCache] Preloaded rho table: runtime_cfg_scale=6.0000, matched_cfg_scale=6.0000, cfg_idx=0, rho_table_shape=(50, 50)
+[CFGCache] preload done in 0.001s
+Loading CogVideoX pipeline from /root/viewdit/weights/CogVideoX-2b on cuda...
+[load] start from_pretrained: /root/viewdit/weights/CogVideoX-2b
+Loading pipeline components...:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading weights:   0%|          | 0/219 [00:00<?, ?it/s][A
+Loading weights:   0%|          | 1/219 [00:00<00:00, 17050.02it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.k.weight][A
+Loading weights:   0%|          | 1/219 [00:00<00:00, 4832.15it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.k.weight] [A
+Loading weights:   1%|          | 2/219 [00:00<00:00, 4132.32it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.o.weight][A
+Loading weights:   1%|          | 2/219 [00:00<00:00, 3449.26it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.o.weight][A
+Loading weights:   1%|▏         | 3/219 [00:00<00:00, 4379.71it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.q.weight][A
+Loading weights:   1%|▏         | 3/219 [00:00<00:00, 3997.11it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.q.weight][A
+Loading weights:   2%|▏         | 4/219 [00:00<00:00, 1001.57it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.relative_attention_bias.weight][A
+Loading weights:   2%|▏         | 4/219 [00:00<00:00, 969.89it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.relative_attention_bias.weight] [A
+Loading weights:   2%|▏         | 5/219 [00:00<00:00, 1175.14it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.v.weight]                     [A
+Loading weights:   2%|▏         | 5/219 [00:00<00:00, 1161.09it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.v.weight][A
+Loading weights:   3%|▎         | 6/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.v.weight]  [A
+Loading weights:   3%|▎         | 6/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.0.layer_norm.weight]     [A
+Loading weights:   3%|▎         | 6/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.0.layer_norm.weight][A
+Loading weights:   3%|▎         | 7/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:   3%|▎         | 7/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:   4%|▎         | 8/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:   4%|▎         | 8/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:   4%|▍         | 9/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:   4%|▍         | 9/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wo.weight][A
+Loading weights:   5%|▍         | 10/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.layer_norm.weight]      [A
+Loading weights:   5%|▍         | 10/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.0.layer.1.layer_norm.weight][A
+Loading weights:   5%|▌         | 11/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.k.weight][A
+Loading weights:   5%|▌         | 11/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.k.weight][A
+Loading weights:   5%|▌         | 12/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.o.weight][A
+Loading weights:   5%|▌         | 12/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.o.weight][A
+Loading weights:   6%|▌         | 13/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.q.weight][A
+Loading weights:   6%|▌         | 13/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.q.weight][A
+Loading weights:   6%|▋         | 14/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.v.weight][A
+Loading weights:   6%|▋         | 14/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.SelfAttention.v.weight][A
+Loading weights:   7%|▋         | 15/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.layer_norm.weight]     [A
+Loading weights:   7%|▋         | 15/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.0.layer_norm.weight][A
+Loading weights:   7%|▋         | 16/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:   7%|▋         | 16/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:   8%|▊         | 17/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:   8%|▊         | 17/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:   8%|▊         | 18/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:   8%|▊         | 18/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.DenseReluDense.wo.weight][A
+Loading weights:   9%|▊         | 19/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.layer_norm.weight]       [A
+Loading weights:   9%|▊         | 19/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.1.layer.1.layer_norm.weight][A
+Loading weights:   9%|▉         | 20/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.k.weight][A
+Loading weights:   9%|▉         | 20/219 [00:00<00:12, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.k.weight][A
+Loading weights:  10%|▉         | 21/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.o.weight][A
+Loading weights:  10%|▉         | 21/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.o.weight][A
+Loading weights:  10%|█         | 22/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.q.weight][A
+Loading weights:  10%|█         | 22/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.q.weight][A
+Loading weights:  11%|█         | 23/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.v.weight][A
+Loading weights:  11%|█         | 23/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.SelfAttention.v.weight][A
+Loading weights:  11%|█         | 24/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.layer_norm.weight]     [A
+Loading weights:  11%|█         | 24/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.0.layer_norm.weight][A
+Loading weights:  11%|█▏        | 25/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  11%|█▏        | 25/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  12%|█▏        | 26/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  12%|█▏        | 26/219 [00:00<00:11, 16.56it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  12%|█▏        | 27/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  12%|█▏        | 27/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  12%|█▏        | 27/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.2.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  13%|█▎        | 28/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.2.layer.1.layer_norm.weight]       [A
+Loading weights:  13%|█▎        | 28/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.2.layer.1.layer_norm.weight][A
+Loading weights:  13%|█▎        | 29/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.k.weight][A
+Loading weights:  13%|█▎        | 29/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.k.weight][A
+Loading weights:  14%|█▎        | 30/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.o.weight][A
+Loading weights:  14%|█▎        | 30/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.o.weight][A
+Loading weights:  14%|█▍        | 31/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.q.weight][A
+Loading weights:  14%|█▍        | 31/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.q.weight][A
+Loading weights:  15%|█▍        | 32/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.v.weight][A
+Loading weights:  15%|█▍        | 32/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.SelfAttention.v.weight][A
+Loading weights:  15%|█▌        | 33/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.layer_norm.weight]     [A
+Loading weights:  15%|█▌        | 33/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.0.layer_norm.weight][A
+Loading weights:  16%|█▌        | 34/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  16%|█▌        | 34/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  16%|█▌        | 35/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  16%|█▌        | 35/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  16%|█▋        | 36/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  16%|█▋        | 36/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  17%|█▋        | 37/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.layer_norm.weight]       [A
+Loading weights:  17%|█▋        | 37/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.3.layer.1.layer_norm.weight][A
+Loading weights:  17%|█▋        | 38/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.k.weight][A
+Loading weights:  17%|█▋        | 38/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.k.weight][A
+Loading weights:  18%|█▊        | 39/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.o.weight][A
+Loading weights:  18%|█▊        | 39/219 [00:00<00:02, 70.51it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.o.weight][A
+Loading weights:  18%|█▊        | 40/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.o.weight][A
+Loading weights:  18%|█▊        | 40/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.q.weight][A
+Loading weights:  18%|█▊        | 40/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.q.weight][A
+Loading weights:  19%|█▊        | 41/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.v.weight][A
+Loading weights:  19%|█▊        | 41/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.SelfAttention.v.weight][A
+Loading weights:  19%|█▉        | 42/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.layer_norm.weight]     [A
+Loading weights:  19%|█▉        | 42/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.0.layer_norm.weight][A
+Loading weights:  20%|█▉        | 43/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  20%|█▉        | 43/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  20%|██        | 44/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  20%|██        | 44/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  21%|██        | 45/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  21%|██        | 45/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  21%|██        | 46/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.layer_norm.weight]       [A
+Loading weights:  21%|██        | 46/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.4.layer.1.layer_norm.weight][A
+Loading weights:  21%|██▏       | 47/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.k.weight][A
+Loading weights:  21%|██▏       | 47/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.k.weight][A
+Loading weights:  22%|██▏       | 48/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.o.weight][A
+Loading weights:  22%|██▏       | 48/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.o.weight][A
+Loading weights:  22%|██▏       | 49/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.q.weight][A
+Loading weights:  22%|██▏       | 49/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.q.weight][A
+Loading weights:  23%|██▎       | 50/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.v.weight][A
+Loading weights:  23%|██▎       | 50/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.SelfAttention.v.weight][A
+Loading weights:  23%|██▎       | 51/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.layer_norm.weight]     [A
+Loading weights:  23%|██▎       | 51/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.0.layer_norm.weight][A
+Loading weights:  24%|██▎       | 52/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  24%|██▎       | 52/219 [00:00<00:02, 77.87it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  24%|██▍       | 53/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  24%|██▍       | 53/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  24%|██▍       | 53/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  25%|██▍       | 54/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  25%|██▍       | 54/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  25%|██▌       | 55/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.layer_norm.weight]       [A
+Loading weights:  25%|██▌       | 55/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.5.layer.1.layer_norm.weight][A
+Loading weights:  26%|██▌       | 56/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.k.weight][A
+Loading weights:  26%|██▌       | 56/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.k.weight][A
+Loading weights:  26%|██▌       | 57/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.o.weight][A
+Loading weights:  26%|██▌       | 57/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.o.weight][A
+Loading weights:  26%|██▋       | 58/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.q.weight][A
+Loading weights:  26%|██▋       | 58/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.q.weight][A
+Loading weights:  27%|██▋       | 59/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.v.weight][A
+Loading weights:  27%|██▋       | 59/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.SelfAttention.v.weight][A
+Loading weights:  27%|██▋       | 60/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.layer_norm.weight]     [A
+Loading weights:  27%|██▋       | 60/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.0.layer_norm.weight][A
+Loading weights:  28%|██▊       | 61/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  28%|██▊       | 61/219 [00:00<00:02, 78.75it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  28%|██▊       | 62/219 [00:00<00:01, 78.75it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  28%|██▊       | 62/219 [00:00<00:01, 78.75it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  29%|██▉       | 63/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  29%|██▉       | 63/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  29%|██▉       | 63/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.6.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  29%|██▉       | 64/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.6.layer.1.layer_norm.weight]       [A
+Loading weights:  29%|██▉       | 64/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.6.layer.1.layer_norm.weight][A
+Loading weights:  30%|██▉       | 65/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.k.weight][A
+Loading weights:  30%|██▉       | 65/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.k.weight][A
+Loading weights:  30%|███       | 66/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.o.weight][A
+Loading weights:  30%|███       | 66/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.o.weight][A
+Loading weights:  31%|███       | 67/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.q.weight][A
+Loading weights:  31%|███       | 67/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.q.weight][A
+Loading weights:  31%|███       | 68/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.v.weight][A
+Loading weights:  31%|███       | 68/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.SelfAttention.v.weight][A
+Loading weights:  32%|███▏      | 69/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.layer_norm.weight]     [A
+Loading weights:  32%|███▏      | 69/219 [00:00<00:02, 74.86it/s, Materializing param=encoder.block.7.layer.0.layer_norm.weight][A
+Loading weights:  32%|███▏      | 70/219 [00:00<00:01, 74.86it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  32%|███▏      | 70/219 [00:00<00:01, 74.86it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  32%|███▏      | 71/219 [00:01<00:01, 74.86it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  32%|███▏      | 71/219 [00:01<00:01, 74.86it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  33%|███▎      | 72/219 [00:01<00:02, 72.51it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  33%|███▎      | 72/219 [00:01<00:02, 72.51it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  33%|███▎      | 72/219 [00:01<00:02, 72.51it/s, Materializing param=encoder.block.7.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  33%|███▎      | 73/219 [00:01<00:02, 72.51it/s, Materializing param=encoder.block.7.layer.1.layer_norm.weight]       [A
+Loading weights:  33%|███▎      | 73/219 [00:01<00:02, 72.51it/s, Materializing param=encoder.block.7.layer.1.layer_norm.weight][A
+Loading weights:  34%|███▍      | 74/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.k.weight][A
+Loading weights:  34%|███▍      | 74/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.k.weight][A
+Loading weights:  34%|███▍      | 75/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.o.weight][A
+Loading weights:  34%|███▍      | 75/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.o.weight][A
+Loading weights:  35%|███▍      | 76/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.q.weight][A
+Loading weights:  35%|███▍      | 76/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.q.weight][A
+Loading weights:  35%|███▌      | 77/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.v.weight][A
+Loading weights:  35%|███▌      | 77/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.SelfAttention.v.weight][A
+Loading weights:  36%|███▌      | 78/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.layer_norm.weight]     [A
+Loading weights:  36%|███▌      | 78/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.0.layer_norm.weight][A
+Loading weights:  36%|███▌      | 79/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  36%|███▌      | 79/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  37%|███▋      | 80/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  37%|███▋      | 80/219 [00:01<00:01, 72.51it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  37%|███▋      | 81/219 [00:01<00:02, 68.54it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  37%|███▋      | 81/219 [00:01<00:02, 68.54it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  37%|███▋      | 81/219 [00:01<00:02, 68.54it/s, Materializing param=encoder.block.8.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  37%|███▋      | 82/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.8.layer.1.layer_norm.weight]       [A
+Loading weights:  37%|███▋      | 82/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.8.layer.1.layer_norm.weight][A
+Loading weights:  38%|███▊      | 83/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.k.weight][A
+Loading weights:  38%|███▊      | 83/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.k.weight][A
+Loading weights:  38%|███▊      | 84/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.o.weight][A
+Loading weights:  38%|███▊      | 84/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.o.weight][A
+Loading weights:  39%|███▉      | 85/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.q.weight][A
+Loading weights:  39%|███▉      | 85/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.q.weight][A
+Loading weights:  39%|███▉      | 86/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.v.weight][A
+Loading weights:  39%|███▉      | 86/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.SelfAttention.v.weight][A
+Loading weights:  40%|███▉      | 87/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.layer_norm.weight]     [A
+Loading weights:  40%|███▉      | 87/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.0.layer_norm.weight][A
+Loading weights:  40%|████      | 88/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  40%|████      | 88/219 [00:01<00:01, 68.54it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  41%|████      | 89/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  41%|████      | 89/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  41%|████      | 89/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  41%|████      | 90/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  41%|████      | 90/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  42%|████▏     | 91/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.layer_norm.weight]       [A
+Loading weights:  42%|████▏     | 91/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.9.layer.1.layer_norm.weight][A
+Loading weights:  42%|████▏     | 92/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.k.weight][A
+Loading weights:  42%|████▏     | 92/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.k.weight][A
+Loading weights:  42%|████▏     | 93/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.o.weight][A
+Loading weights:  42%|████▏     | 93/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.o.weight][A
+Loading weights:  43%|████▎     | 94/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.q.weight][A
+Loading weights:  43%|████▎     | 94/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.q.weight][A
+Loading weights:  43%|████▎     | 95/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.v.weight][A
+Loading weights:  43%|████▎     | 95/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.SelfAttention.v.weight][A
+Loading weights:  44%|████▍     | 96/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.layer_norm.weight]     [A
+Loading weights:  44%|████▍     | 96/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.0.layer_norm.weight][A
+Loading weights:  44%|████▍     | 97/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  44%|████▍     | 97/219 [00:01<00:01, 67.50it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  45%|████▍     | 98/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  45%|████▍     | 98/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  45%|████▍     | 98/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  45%|████▌     | 99/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  45%|████▌     | 99/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  46%|████▌     | 100/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.layer_norm.weight]      [A
+Loading weights:  46%|████▌     | 100/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.10.layer.1.layer_norm.weight][A
+Loading weights:  46%|████▌     | 101/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.k.weight][A
+Loading weights:  46%|████▌     | 101/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.k.weight][A
+Loading weights:  47%|████▋     | 102/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.o.weight][A
+Loading weights:  47%|████▋     | 102/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.o.weight][A
+Loading weights:  47%|████▋     | 103/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.q.weight][A
+Loading weights:  47%|████▋     | 103/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.q.weight][A
+Loading weights:  47%|████▋     | 104/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.v.weight][A
+Loading weights:  47%|████▋     | 104/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.SelfAttention.v.weight][A
+Loading weights:  48%|████▊     | 105/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.layer_norm.weight]     [A
+Loading weights:  48%|████▊     | 105/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.0.layer_norm.weight][A
+Loading weights:  48%|████▊     | 106/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  48%|████▊     | 106/219 [00:01<00:01, 63.34it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  49%|████▉     | 107/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  49%|████▉     | 107/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  49%|████▉     | 107/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  49%|████▉     | 108/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  49%|████▉     | 108/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  50%|████▉     | 109/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.layer_norm.weight]       [A
+Loading weights:  50%|████▉     | 109/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.11.layer.1.layer_norm.weight][A
+Loading weights:  50%|█████     | 110/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.k.weight][A
+Loading weights:  50%|█████     | 110/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.k.weight][A
+Loading weights:  51%|█████     | 111/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.o.weight][A
+Loading weights:  51%|█████     | 111/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.o.weight][A
+Loading weights:  51%|█████     | 112/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.q.weight][A
+Loading weights:  51%|█████     | 112/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.q.weight][A
+Loading weights:  52%|█████▏    | 113/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.v.weight][A
+Loading weights:  52%|█████▏    | 113/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.SelfAttention.v.weight][A
+Loading weights:  52%|█████▏    | 114/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.layer_norm.weight]     [A
+Loading weights:  52%|█████▏    | 114/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.0.layer_norm.weight][A
+Loading weights:  53%|█████▎    | 115/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  53%|█████▎    | 115/219 [00:01<00:01, 64.53it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  53%|█████▎    | 116/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  53%|█████▎    | 116/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  53%|█████▎    | 116/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  53%|█████▎    | 117/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  53%|█████▎    | 117/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  54%|█████▍    | 118/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.layer_norm.weight]       [A
+Loading weights:  54%|█████▍    | 118/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.12.layer.1.layer_norm.weight][A
+Loading weights:  54%|█████▍    | 119/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.k.weight][A
+Loading weights:  54%|█████▍    | 119/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.k.weight][A
+Loading weights:  55%|█████▍    | 120/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.o.weight][A
+Loading weights:  55%|█████▍    | 120/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.o.weight][A
+Loading weights:  55%|█████▌    | 121/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.q.weight][A
+Loading weights:  55%|█████▌    | 121/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.q.weight][A
+Loading weights:  56%|█████▌    | 122/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.v.weight][A
+Loading weights:  56%|█████▌    | 122/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.SelfAttention.v.weight][A
+Loading weights:  56%|█████▌    | 123/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.layer_norm.weight]     [A
+Loading weights:  56%|█████▌    | 123/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.0.layer_norm.weight][A
+Loading weights:  57%|█████▋    | 124/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  57%|█████▋    | 124/219 [00:01<00:01, 63.22it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  57%|█████▋    | 125/219 [00:01<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  57%|█████▋    | 125/219 [00:01<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  57%|█████▋    | 125/219 [00:01<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  58%|█████▊    | 126/219 [00:01<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  58%|█████▊    | 126/219 [00:01<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  58%|█████▊    | 127/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.layer_norm.weight]       [A
+Loading weights:  58%|█████▊    | 127/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.13.layer.1.layer_norm.weight][A
+Loading weights:  58%|█████▊    | 128/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.k.weight][A
+Loading weights:  58%|█████▊    | 128/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.k.weight][A
+Loading weights:  59%|█████▉    | 129/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.o.weight][A
+Loading weights:  59%|█████▉    | 129/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.o.weight][A
+Loading weights:  59%|█████▉    | 130/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.q.weight][A
+Loading weights:  59%|█████▉    | 130/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.q.weight][A
+Loading weights:  60%|█████▉    | 131/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.v.weight][A
+Loading weights:  60%|█████▉    | 131/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.SelfAttention.v.weight][A
+Loading weights:  60%|██████    | 132/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.layer_norm.weight]     [A
+Loading weights:  60%|██████    | 132/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.0.layer_norm.weight][A
+Loading weights:  61%|██████    | 133/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  61%|██████    | 133/219 [00:02<00:01, 57.04it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  61%|██████    | 134/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  61%|██████    | 134/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  61%|██████    | 134/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  62%|██████▏   | 135/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  62%|██████▏   | 135/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  62%|██████▏   | 136/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.layer_norm.weight]       [A
+Loading weights:  62%|██████▏   | 136/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.14.layer.1.layer_norm.weight][A
+Loading weights:  63%|██████▎   | 137/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.k.weight][A
+Loading weights:  63%|██████▎   | 137/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.k.weight][A
+Loading weights:  63%|██████▎   | 138/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.o.weight][A
+Loading weights:  63%|██████▎   | 138/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.o.weight][A
+Loading weights:  63%|██████▎   | 139/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.q.weight][A
+Loading weights:  63%|██████▎   | 139/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.q.weight][A
+Loading weights:  64%|██████▍   | 140/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.v.weight][A
+Loading weights:  64%|██████▍   | 140/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.SelfAttention.v.weight][A
+Loading weights:  64%|██████▍   | 141/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.layer_norm.weight]     [A
+Loading weights:  64%|██████▍   | 141/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.0.layer_norm.weight][A
+Loading weights:  65%|██████▍   | 142/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  65%|██████▍   | 142/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  65%|██████▌   | 143/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  65%|██████▌   | 143/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  66%|██████▌   | 144/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  66%|██████▌   | 144/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  66%|██████▌   | 145/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.layer_norm.weight]       [A
+Loading weights:  66%|██████▌   | 145/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.15.layer.1.layer_norm.weight][A
+Loading weights:  67%|██████▋   | 146/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.k.weight][A
+Loading weights:  67%|██████▋   | 146/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.k.weight][A
+Loading weights:  67%|██████▋   | 147/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.o.weight][A
+Loading weights:  67%|██████▋   | 147/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.o.weight][A
+Loading weights:  68%|██████▊   | 148/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.q.weight][A
+Loading weights:  68%|██████▊   | 148/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.q.weight][A
+Loading weights:  68%|██████▊   | 149/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.v.weight][A
+Loading weights:  68%|██████▊   | 149/219 [00:02<00:01, 55.02it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.v.weight][A
+Loading weights:  68%|██████▊   | 150/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.0.SelfAttention.v.weight][A
+Loading weights:  68%|██████▊   | 150/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.0.layer_norm.weight]     [A
+Loading weights:  68%|██████▊   | 150/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.0.layer_norm.weight][A
+Loading weights:  69%|██████▉   | 151/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  69%|██████▉   | 151/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  69%|██████▉   | 152/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  69%|██████▉   | 152/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  70%|██████▉   | 153/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  70%|██████▉   | 153/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  70%|███████   | 154/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.layer_norm.weight]       [A
+Loading weights:  70%|███████   | 154/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.16.layer.1.layer_norm.weight][A
+Loading weights:  71%|███████   | 155/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.k.weight][A
+Loading weights:  71%|███████   | 155/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.k.weight][A
+Loading weights:  71%|███████   | 156/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.o.weight][A
+Loading weights:  71%|███████   | 156/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.o.weight][A
+Loading weights:  72%|███████▏  | 157/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.q.weight][A
+Loading weights:  72%|███████▏  | 157/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.q.weight][A
+Loading weights:  72%|███████▏  | 158/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.v.weight][A
+Loading weights:  72%|███████▏  | 158/219 [00:02<00:00, 75.47it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.v.weight][A
+Loading weights:  73%|███████▎  | 159/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.0.SelfAttention.v.weight][A
+Loading weights:  73%|███████▎  | 159/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.0.layer_norm.weight]     [A
+Loading weights:  73%|███████▎  | 159/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.0.layer_norm.weight][A
+Loading weights:  73%|███████▎  | 160/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  73%|███████▎  | 160/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  74%|███████▎  | 161/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  74%|███████▎  | 161/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  74%|███████▍  | 162/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  74%|███████▍  | 162/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  74%|███████▍  | 163/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.layer_norm.weight]       [A
+Loading weights:  74%|███████▍  | 163/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.17.layer.1.layer_norm.weight][A
+Loading weights:  75%|███████▍  | 164/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.k.weight][A
+Loading weights:  75%|███████▍  | 164/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.k.weight][A
+Loading weights:  75%|███████▌  | 165/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.o.weight][A
+Loading weights:  75%|███████▌  | 165/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.o.weight][A
+Loading weights:  76%|███████▌  | 166/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.q.weight][A
+Loading weights:  76%|███████▌  | 166/219 [00:02<00:00, 70.56it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.q.weight][A
+Loading weights:  76%|███████▋  | 167/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.q.weight][A
+Loading weights:  76%|███████▋  | 167/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.v.weight][A
+Loading weights:  76%|███████▋  | 167/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.0.SelfAttention.v.weight][A
+Loading weights:  77%|███████▋  | 168/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.0.layer_norm.weight]     [A
+Loading weights:  77%|███████▋  | 168/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.0.layer_norm.weight][A
+Loading weights:  77%|███████▋  | 169/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  77%|███████▋  | 169/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  78%|███████▊  | 170/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  78%|███████▊  | 170/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  78%|███████▊  | 171/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  78%|███████▊  | 171/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  79%|███████▊  | 172/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.layer_norm.weight]       [A
+Loading weights:  79%|███████▊  | 172/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.18.layer.1.layer_norm.weight][A
+Loading weights:  79%|███████▉  | 173/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.k.weight][A
+Loading weights:  79%|███████▉  | 173/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.k.weight][A
+Loading weights:  79%|███████▉  | 174/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.o.weight][A
+Loading weights:  79%|███████▉  | 174/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.o.weight][A
+Loading weights:  80%|███████▉  | 175/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.q.weight][A
+Loading weights:  80%|███████▉  | 175/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.q.weight][A
+Loading weights:  80%|████████  | 176/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.v.weight][A
+Loading weights:  80%|████████  | 176/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.SelfAttention.v.weight][A
+Loading weights:  81%|████████  | 177/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.layer_norm.weight]     [A
+Loading weights:  81%|████████  | 177/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.0.layer_norm.weight][A
+Loading weights:  81%|████████▏ | 178/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  81%|████████▏ | 178/219 [00:02<00:00, 70.61it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  82%|████████▏ | 179/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  82%|████████▏ | 179/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  82%|████████▏ | 179/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  82%|████████▏ | 180/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  82%|████████▏ | 180/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  83%|████████▎ | 181/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.layer_norm.weight]       [A
+Loading weights:  83%|████████▎ | 181/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.19.layer.1.layer_norm.weight][A
+Loading weights:  83%|████████▎ | 182/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.k.weight][A
+Loading weights:  83%|████████▎ | 182/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.k.weight][A
+Loading weights:  84%|████████▎ | 183/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.o.weight][A
+Loading weights:  84%|████████▎ | 183/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.o.weight][A
+Loading weights:  84%|████████▍ | 184/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.q.weight][A
+Loading weights:  84%|████████▍ | 184/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.q.weight][A
+Loading weights:  84%|████████▍ | 185/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.v.weight][A
+Loading weights:  84%|████████▍ | 185/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.SelfAttention.v.weight][A
+Loading weights:  85%|████████▍ | 186/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.layer_norm.weight]     [A
+Loading weights:  85%|████████▍ | 186/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.0.layer_norm.weight][A
+Loading weights:  85%|████████▌ | 187/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  85%|████████▌ | 187/219 [00:02<00:00, 69.06it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  86%|████████▌ | 188/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  86%|████████▌ | 188/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  86%|████████▌ | 188/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  86%|████████▋ | 189/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  86%|████████▋ | 189/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  87%|████████▋ | 190/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.layer_norm.weight]       [A
+Loading weights:  87%|████████▋ | 190/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.20.layer.1.layer_norm.weight][A
+Loading weights:  87%|████████▋ | 191/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.k.weight][A
+Loading weights:  87%|████████▋ | 191/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.k.weight][A
+Loading weights:  88%|████████▊ | 192/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.o.weight][A
+Loading weights:  88%|████████▊ | 192/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.o.weight][A
+Loading weights:  88%|████████▊ | 193/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.q.weight][A
+Loading weights:  88%|████████▊ | 193/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.q.weight][A
+Loading weights:  89%|████████▊ | 194/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.v.weight][A
+Loading weights:  89%|████████▊ | 194/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.SelfAttention.v.weight][A
+Loading weights:  89%|████████▉ | 195/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.layer_norm.weight]     [A
+Loading weights:  89%|████████▉ | 195/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.0.layer_norm.weight][A
+Loading weights:  89%|████████▉ | 196/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  89%|████████▉ | 196/219 [00:02<00:00, 65.23it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  90%|████████▉ | 197/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  90%|████████▉ | 197/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  90%|████████▉ | 197/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  90%|█████████ | 198/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  90%|█████████ | 198/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  91%|█████████ | 199/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.layer_norm.weight]       [A
+Loading weights:  91%|█████████ | 199/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.21.layer.1.layer_norm.weight][A
+Loading weights:  91%|█████████▏| 200/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.k.weight][A
+Loading weights:  91%|█████████▏| 200/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.k.weight][A
+Loading weights:  92%|█████████▏| 201/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.o.weight][A
+Loading weights:  92%|█████████▏| 201/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.o.weight][A
+Loading weights:  92%|█████████▏| 202/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.q.weight][A
+Loading weights:  92%|█████████▏| 202/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.q.weight][A
+Loading weights:  93%|█████████▎| 203/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.v.weight][A
+Loading weights:  93%|█████████▎| 203/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.SelfAttention.v.weight][A
+Loading weights:  93%|█████████▎| 204/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.layer_norm.weight]     [A
+Loading weights:  93%|█████████▎| 204/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.0.layer_norm.weight][A
+Loading weights:  94%|█████████▎| 205/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  94%|█████████▎| 205/219 [00:03<00:00, 62.61it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  94%|█████████▍| 206/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  94%|█████████▍| 206/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  94%|█████████▍| 206/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  95%|█████████▍| 207/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  95%|█████████▍| 207/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  95%|█████████▍| 208/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.layer_norm.weight]       [A
+Loading weights:  95%|█████████▍| 208/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.22.layer.1.layer_norm.weight][A
+Loading weights:  95%|█████████▌| 209/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.k.weight][A
+Loading weights:  95%|█████████▌| 209/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.k.weight][A
+Loading weights:  96%|█████████▌| 210/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.o.weight][A
+Loading weights:  96%|█████████▌| 210/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.o.weight][A
+Loading weights:  96%|█████████▋| 211/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.q.weight][A
+Loading weights:  96%|█████████▋| 211/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.q.weight][A
+Loading weights:  97%|█████████▋| 212/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.v.weight][A
+Loading weights:  97%|█████████▋| 212/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.SelfAttention.v.weight][A
+Loading weights:  97%|█████████▋| 213/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.layer_norm.weight]     [A
+Loading weights:  97%|█████████▋| 213/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.0.layer_norm.weight][A
+Loading weights:  98%|█████████▊| 214/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  98%|█████████▊| 214/219 [00:03<00:00, 59.05it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  98%|█████████▊| 215/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:  98%|█████████▊| 215/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  98%|█████████▊| 215/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:  99%|█████████▊| 216/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:  99%|█████████▊| 216/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.DenseReluDense.wo.weight][A
+Loading weights:  99%|█████████▉| 217/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.layer_norm.weight]       [A
+Loading weights:  99%|█████████▉| 217/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.block.23.layer.1.layer_norm.weight][A
+Loading weights: 100%|█████████▉| 218/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.final_layer_norm.weight]           [A
+Loading weights: 100%|█████████▉| 218/219 [00:03<00:00, 54.25it/s, Materializing param=encoder.final_layer_norm.weight][A
+Loading weights: 100%|██████████| 219/219 [00:03<00:00, 54.25it/s, Materializing param=shared.weight]                  [A
+Loading weights: 100%|██████████| 219/219 [00:03<00:00, 54.25it/s, Materializing param=shared.weight][ALoading weights: 100%|██████████| 219/219 [00:03<00:00, 63.50it/s, Materializing param=shared.weight]
+Loading pipeline components...:  20%|██        | 1/5 [00:04<00:19,  4.80s/it]Loading pipeline components...:  80%|████████  | 4/5 [00:04<00:00,  1.04it/s]Loading pipeline components...: 100%|██████████| 5/5 [00:05<00:00,  1.00s/it]
+[load] from_pretrained done in 5.44s
+[load] transformer type = <class 'models.cogvideox.transformer_cogvideox.CogVideoXTransformer3DModel'>
+[load] patch done in 0.00s
+Loaded CogVideoX pipeline from /root/viewdit/weights/CogVideoX-2b on cuda
+Generating videos:   0%|          | 0/50 [00:00<?, ?it/s][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:12,  2.71s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:07,  2.65s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.64s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.63s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:58,  2.63s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.63s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.63s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:21<01:50,  2.63s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.63s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.27s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.67it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:   2%|▏         | 1/50 [00:53<43:39, 53.46s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.62s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.27s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.67it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:   4%|▍         | 2/50 [01:46<42:38, 53.30s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.62s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.28s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.66it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:   6%|▌         | 3/50 [02:39<41:42, 53.25s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.62s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.28s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.66it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:   8%|▊         | 4/50 [03:33<40:49, 53.26s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.62s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.28s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.67it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  10%|█         | 5/50 [04:26<39:55, 53.24s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.62s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.28s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.66it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  12%|█▏        | 6/50 [05:19<39:02, 53.25s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.62s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.28s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.66it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos:  14%|█▍        | 7/50 [06:12<38:07, 53.19s/it][CFGCache] effective_tau=0.6 requested_tau=0.6
+
+  0%|          | 0/50 [00:00<?, ?it/s][ACFGCache step 0 [uncond]: action=full_both, can_skip_local=False
+
+  2%|▏         | 1/50 [00:02<02:08,  2.62s/it][ACFGCache step 1 [uncond]: action=full_both, can_skip_local=True
+
+  4%|▍         | 2/50 [00:05<02:05,  2.62s/it][ACFGCache step 2 [uncond]: action=full_both, can_skip_local=True
+
+  6%|▌         | 3/50 [00:07<02:03,  2.62s/it][ACFGCache step 3 [uncond]: action=full_both, can_skip_local=True
+
+  8%|▊         | 4/50 [00:10<02:00,  2.62s/it][ACFGCache step 4 [uncond]: action=full_both, can_skip_local=True
+
+ 10%|█         | 5/50 [00:13<01:57,  2.62s/it][ACFGCache step 5 [uncond]: action=full_both, can_skip_local=True
+
+ 12%|█▏        | 6/50 [00:15<01:55,  2.62s/it][ACFGCache step 6 [uncond]: action=full_both, can_skip_local=True
+
+ 14%|█▍        | 7/50 [00:18<01:52,  2.62s/it][ACFGCache step 7 [uncond]: action=full_both, can_skip_local=True
+
+ 16%|█▌        | 8/50 [00:20<01:50,  2.62s/it][ACFGCache step 8 [uncond]: action=full_both, can_skip_local=True
+
+ 18%|█▊        | 9/50 [00:23<01:47,  2.63s/it][ACFGCache step 9 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 10 [uncond]: action=full_both, can_skip_local=True
+
+ 22%|██▏       | 11/50 [00:26<01:18,  2.01s/it][ACFGCache step 11 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 12 [uncond]: action=full_both, can_skip_local=True
+
+ 26%|██▌       | 13/50 [00:28<01:04,  1.73s/it][ACFGCache step 13 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 14 [uncond]: action=full_both, can_skip_local=True
+
+ 30%|███       | 15/50 [00:31<00:55,  1.58s/it][ACFGCache step 15 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 16 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 17 [uncond]: action=full_both, can_skip_local=True
+
+ 36%|███▌      | 18/50 [00:34<00:40,  1.28s/it][ACFGCache step 18 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 19 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 20 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 21 [uncond]: action=full_both, can_skip_local=True
+
+ 44%|████▍     | 22/50 [00:36<00:27,  1.00it/s][ACFGCache step 22 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 23 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 24 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 25 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 26 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 27 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 28 [uncond]: action=full_both, can_skip_local=True
+
+ 58%|█████▊    | 29/50 [00:39<00:14,  1.49it/s][ACFGCache step 29 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 30 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 31 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 32 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 33 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 34 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 35 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 36 [uncond]: action=reuse_both, can_skip_local=True
+
+ 74%|███████▍  | 37/50 [00:39<00:04,  2.73it/s][ACFGCache step 37 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 38 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 39 [uncond]: action=full_both, can_skip_local=True
+
+ 80%|████████  | 40/50 [00:42<00:04,  2.13it/s][ACFGCache step 40 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 41 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 42 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 43 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 44 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 45 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 46 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 47 [uncond]: action=reuse_both, can_skip_local=True
+
+ 96%|█████████▌| 48/50 [00:42<00:00,  3.66it/s][ACFGCache step 48 [uncond]: action=reuse_both, can_skip_local=True
+CFGCache step 49 [uncond]: action=full_both, can_skip_local=True
+100%|██████████| 50/50 [00:45<00:00,  1.11it/s]
