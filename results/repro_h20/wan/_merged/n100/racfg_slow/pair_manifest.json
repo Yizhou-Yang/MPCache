@@ -1428,7 +1428,7 @@
     "dtype": "eval_video.py default (no dtype CLI override)",
     "sampling_dtype": "bfloat16",
     "no_imagereward": true,
-    "environment_sha256": "ede25dce13cbc1c982ebbe23ad4f5dbd71d11e511d2f7c01513d87fe822d4953"
+    "environment_sha256": "75f880feeaaeeeee057f472047ef1f703e2d84e16e2084a3696d5c8975b950fb"
   },
   "merge_manifests": {
     "ref": {
@@ -5450,6 +5450,6 @@
       ]
     }
   },
-  "fingerprint": "ce91029d6c470d0b0183a926196b005a1ae0a4e180afa60fd323e8be9dc7917c",
+  "fingerprint": "93d1bc9b40aa8d1a21a4713ae24dec7354c1ff08a5261506aecabfb802cd5717",
   "status": "evaluated"
 }
