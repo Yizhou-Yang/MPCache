@@ -1,0 +1,12 @@
+{
+ "probe": "cogvideox + TaylorSeer (N=3,O=1,interval=3,first_enhance=3), single prompt, 720x480, 49 frames, 50 steps, bf16",
+ "peak_used_mib": 35697,
+ "peak_used_gib": 34.86,
+ "card_total_gib": 95.6,
+ "headroom_gib": 60.72,
+ "samples": 101,
+ "sample_interval_s": 2,
+ "documented_expectation_gib": "not previously measured (V100 needed encoder parking)",
+ "verdict": "fits on 96 GiB with large headroom",
+ "note": "Diagnostic probe written to /tmp; does not alter any protocol artifact."
+}
