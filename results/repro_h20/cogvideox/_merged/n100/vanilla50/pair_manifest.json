@@ -1424,11 +1424,11 @@
       "mtime_ns": 1792242804804483201
     },
     "cwd": "/root/viewdit/repro/upstream/RA-CFGCache",
-    "device": "cpu",
+    "device": "cuda:0",
     "dtype": "eval_video.py default (no dtype CLI override)",
     "sampling_dtype": "bfloat16",
     "no_imagereward": true,
-    "environment_sha256": "ba641231d6cf70ab4925ec61b4d9dd8a4e11376d4450586c8e4f73a7f341e02a"
+    "environment_sha256": "ede25dce13cbc1c982ebbe23ad4f5dbd71d11e511d2f7c01513d87fe822d4953"
   },
   "merge_manifests": {
     "ref": {
@@ -5450,6 +5450,6 @@
       ]
     }
   },
-  "fingerprint": "efcff6e74b229888cef3d546fb9a4fed9afaad8d5d7674953f58a9ef03eea398",
+  "fingerprint": "013c49086f765db1044c54a6eaaa07323b266c7cf3f049c1db80802bcbcfb4b5",
   "status": "reference-self"
 }
