@@ -1,0 +1,2009 @@
+{
+  "model": "cogvideox",
+  "method": "teacache",
+  "requested_n": 100,
+  "selection_policy": "complete_and_valid_time, descending_span, stable_paths",
+  "timing_basis": "selected source chunk mean; not exact per-prompt latency",
+  "sources": [
+    {
+      "index": 0,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000000.mp4",
+        "size": 485187,
+        "mtime_ns": 1792255390206215999
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 1,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000001.mp4",
+        "size": 928773,
+        "mtime_ns": 1792255443101869159
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 2,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000002.mp4",
+        "size": 286568,
+        "mtime_ns": 1792255495999522306
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 3,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000003.mp4",
+        "size": 1053294,
+        "mtime_ns": 1792255548923175283
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 4,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000004.mp4",
+        "size": 359751,
+        "mtime_ns": 1792255601813828476
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 5,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000005.mp4",
+        "size": 642939,
+        "mtime_ns": 1792255654714481603
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 6,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000006.mp4",
+        "size": 350667,
+        "mtime_ns": 1792255707608134777
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 7,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000007.mp4",
+        "size": 1389491,
+        "mtime_ns": 1792255760524787799
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 8,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000008.mp4",
+        "size": 508080,
+        "mtime_ns": 1792255813411441018
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 9,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000009.mp4",
+        "size": 615842,
+        "mtime_ns": 1792255866304094199
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 10,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000010.mp4",
+        "size": 241572,
+        "mtime_ns": 1792255919179747490
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 11,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000011.mp4",
+        "size": 206093,
+        "mtime_ns": 1792255972041400873
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 12,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000012.mp4",
+        "size": 310574,
+        "mtime_ns": 1792256024925054112
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 13,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000013.mp4",
+        "size": 450030,
+        "mtime_ns": 1792256077821707265
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 14,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000014.mp4",
+        "size": 564746,
+        "mtime_ns": 1792256130755360176
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 15,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000015.mp4",
+        "size": 1214744,
+        "mtime_ns": 1792256183670013211
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 16,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000016.mp4",
+        "size": 974999,
+        "mtime_ns": 1792256236602666129
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 17,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000017.mp4",
+        "size": 702605,
+        "mtime_ns": 1792256289509319217
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 18,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000018.mp4",
+        "size": 1732640,
+        "mtime_ns": 1792256342436972168
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 19,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000019.mp4",
+        "size": 242277,
+        "mtime_ns": 1792256395308625485
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 20,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000020.mp4",
+        "size": 410502,
+        "mtime_ns": 1792256448205279056
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 21,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000021.mp4",
+        "size": 411254,
+        "mtime_ns": 1792256501107933162
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 22,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000022.mp4",
+        "size": 1633709,
+        "mtime_ns": 1792256554059586948
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 23,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000023.mp4",
+        "size": 489031,
+        "mtime_ns": 1792256606962241054
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 24,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000024.mp4",
+        "size": 137010,
+        "mtime_ns": 1792256659799895585
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 25,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000025.mp4",
+        "size": 452537,
+        "mtime_ns": 1792256712729549515
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 26,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000026.mp4",
+        "size": 458639,
+        "mtime_ns": 1792256765644203542
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 27,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000027.mp4",
+        "size": 851868,
+        "mtime_ns": 1792256818578857439
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 28,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000028.mp4",
+        "size": 846535,
+        "mtime_ns": 1792256871511511349
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 29,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000029.mp4",
+        "size": 1507401,
+        "mtime_ns": 1792256924477165044
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 30,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000030.mp4",
+        "size": 370983,
+        "mtime_ns": 1792256977395819045
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 31,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000031.mp4",
+        "size": 1582446,
+        "mtime_ns": 1792257030348472825
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 32,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000032.mp4",
+        "size": 526948,
+        "mtime_ns": 1792257083279126748
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 33,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000033.mp4",
+        "size": 450629,
+        "mtime_ns": 1792257136278780220
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 34,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000034.mp4",
+        "size": 955767,
+        "mtime_ns": 1792257189395432927
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 35,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000035.mp4",
+        "size": 2593949,
+        "mtime_ns": 1792257242469085915
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 36,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000036.mp4",
+        "size": 1785348,
+        "mtime_ns": 1792257295518739060
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 37,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000037.mp4",
+        "size": 1265787,
+        "mtime_ns": 1792257348564392230
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 38,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000038.mp4",
+        "size": 795839,
+        "mtime_ns": 1792257401562045715
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 39,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000039.mp4",
+        "size": 750252,
+        "mtime_ns": 1792257454588699011
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 40,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000040.mp4",
+        "size": 862377,
+        "mtime_ns": 1792257507587351774
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 41,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000041.mp4",
+        "size": 1364704,
+        "mtime_ns": 1792257560656003776
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 42,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000042.mp4",
+        "size": 843679,
+        "mtime_ns": 1792257613665656165
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 43,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000043.mp4",
+        "size": 948674,
+        "mtime_ns": 1792257666672308574
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 44,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000044.mp4",
+        "size": 1539433,
+        "mtime_ns": 1792257719705960805
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 45,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000045.mp4",
+        "size": 1294463,
+        "mtime_ns": 1792257772730613096
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 46,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000046.mp4",
+        "size": 1522243,
+        "mtime_ns": 1792257825759265362
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 47,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000047.mp4",
+        "size": 1128912,
+        "mtime_ns": 1792257878762917790
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 48,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000048.mp4",
+        "size": 461090,
+        "mtime_ns": 1792257931760570258
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 49,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050/videos/video_000049.mp4",
+        "size": 907376,
+        "mtime_ns": 1792257984773222626
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.558,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p000-050.log",
+        "size": 663533,
+        "mtime_ns": 1792257984786222541
+      }
+    },
+    {
+      "index": 50,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000050.mp4",
+        "size": 475412,
+        "mtime_ns": 1792255398696160330
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 51,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000051.mp4",
+        "size": 1959655,
+        "mtime_ns": 1792255451665813005
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 52,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000052.mp4",
+        "size": 236908,
+        "mtime_ns": 1792255504679465391
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 53,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000053.mp4",
+        "size": 942665,
+        "mtime_ns": 1792255557618118270
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 54,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000054.mp4",
+        "size": 756625,
+        "mtime_ns": 1792255610524771358
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 55,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000055.mp4",
+        "size": 1566935,
+        "mtime_ns": 1792255663538423744
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 56,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000056.mp4",
+        "size": 18268,
+        "mtime_ns": 1792255716413077042
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 57,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000057.mp4",
+        "size": 366526,
+        "mtime_ns": 1792255769392729651
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 58,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000058.mp4",
+        "size": 733563,
+        "mtime_ns": 1792255822389382150
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 59,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000059.mp4",
+        "size": 200032,
+        "mtime_ns": 1792255875348034897
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 60,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000060.mp4",
+        "size": 608121,
+        "mtime_ns": 1792255928309687624
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 61,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000061.mp4",
+        "size": 685550,
+        "mtime_ns": 1792255981258340437
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 62,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000062.mp4",
+        "size": 1168201,
+        "mtime_ns": 1792256034263992876
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 63,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000063.mp4",
+        "size": 330117,
+        "mtime_ns": 1792256087180645898
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 64,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000064.mp4",
+        "size": 242698,
+        "mtime_ns": 1792256140106298861
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 65,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000065.mp4",
+        "size": 456600,
+        "mtime_ns": 1792256193083951484
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 66,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000066.mp4",
+        "size": 353494,
+        "mtime_ns": 1792256246050604178
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 67,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000067.mp4",
+        "size": 431812,
+        "mtime_ns": 1792256299022256840
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 68,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000068.mp4",
+        "size": 1574284,
+        "mtime_ns": 1792256351962909705
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 69,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000069.mp4",
+        "size": 1056080,
+        "mtime_ns": 1792256404972562118
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 70,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000070.mp4",
+        "size": 936588,
+        "mtime_ns": 1792256457985215112
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 71,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000071.mp4",
+        "size": 1046755,
+        "mtime_ns": 1792256511001868472
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 72,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000072.mp4",
+        "size": 861590,
+        "mtime_ns": 1792256563942522330
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 73,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000073.mp4",
+        "size": 409463,
+        "mtime_ns": 1792256616847176423
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 74,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000074.mp4",
+        "size": 152151,
+        "mtime_ns": 1792256669705830817
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 75,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000075.mp4",
+        "size": 420262,
+        "mtime_ns": 1792256722643484694
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 76,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000076.mp4",
+        "size": 394236,
+        "mtime_ns": 1792256775562138696
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 77,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000077.mp4",
+        "size": 1915500,
+        "mtime_ns": 1792256828541792298
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 78,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000078.mp4",
+        "size": 679848,
+        "mtime_ns": 1792256881444446405
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 79,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000079.mp4",
+        "size": 1198789,
+        "mtime_ns": 1792256934389100236
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 80,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000080.mp4",
+        "size": 887610,
+        "mtime_ns": 1792256987323754133
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 81,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000081.mp4",
+        "size": 1521300,
+        "mtime_ns": 1792257040281407880
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 82,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000082.mp4",
+        "size": 413390,
+        "mtime_ns": 1792257093163062124
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 83,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000083.mp4",
+        "size": 739678,
+        "mtime_ns": 1792257146106715962
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 84,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000084.mp4",
+        "size": 640950,
+        "mtime_ns": 1792257199026369957
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 85,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000085.mp4",
+        "size": 566698,
+        "mtime_ns": 1792257251960023861
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 86,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000086.mp4",
+        "size": 245528,
+        "mtime_ns": 1792257304988677143
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 87,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000087.mp4",
+        "size": 256135,
+        "mtime_ns": 1792257357810331777
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 88,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000088.mp4",
+        "size": 482279,
+        "mtime_ns": 1792257410761985563
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 89,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000089.mp4",
+        "size": 780359,
+        "mtime_ns": 1792257463710639369
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 90,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000090.mp4",
+        "size": 894288,
+        "mtime_ns": 1792257516642292396
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 91,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000091.mp4",
+        "size": 827617,
+        "mtime_ns": 1792257569597945139
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 92,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000092.mp4",
+        "size": 2034038,
+        "mtime_ns": 1792257622600597574
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 93,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000093.mp4",
+        "size": 1150604,
+        "mtime_ns": 1792257675532250475
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 94,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000094.mp4",
+        "size": 823421,
+        "mtime_ns": 1792257728469903336
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 95,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000095.mp4",
+        "size": 273952,
+        "mtime_ns": 1792257781347556590
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 96,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000096.mp4",
+        "size": 649100,
+        "mtime_ns": 1792257834219209886
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 97,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000097.mp4",
+        "size": 195861,
+        "mtime_ns": 1792257887033863554
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 98,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000098.mp4",
+        "size": 543989,
+        "mtime_ns": 1792257939914516788
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    },
+    {
+      "index": 99,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100/videos/video_000099.mp4",
+        "size": 225012,
+        "mtime_ns": 1792257992849169668
+      },
+      "chunk": "/root/viewdit/results/repro_h20/cogvideox/teacache/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 52.579,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/cogvideox/_logs/teacache_p050-100.log",
+        "size": 663665,
+        "mtime_ns": 1792257992868169544
+      }
+    }
+  ]
+}
