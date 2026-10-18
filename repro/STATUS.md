@@ -1,5 +1,23 @@
 # Reproduction status
 
+## 2026-10-18 09:50 — V100 Wan stopped; H20 becomes the table of record
+
+- **Decision:** stop the V100 `wan:32:100` chunk and its watchdog. The H20 line (bf16, four cards)
+  already has Wan TaylorSeer 100/100 and will finish the remaining CFG rows first; the V100 fp16
+  rerun would run until 10-20 and add nothing the paper needs.
+- **Stopped cleanly:** watchdog (1829255) and supervisor (1443095) got SIGTERM first, then the
+  in-flight sampler (2089680). No partial file was written — nothing in
+  `wan/vanilla50/p032-100/videos` is newer than `video_000052.mp4` (09:26) — and the GPU is back to
+  0 MiB / 0 % with no `run_repro` or `models.*.sample` process left.
+- **Frozen V100 state (audit only, never merged):** CogVideoX six rows x100 (tables pushed);
+  Wan Vanilla50 53/100 (ids 0-52), all other Wan rows 32/100.
+- **Remaining work is on H20:** at the 09:24 checkpoint `racfg_slow` was 72/100 and `racfg_fast`
+  2/100. `repro/finalize_h20_aggregate.sh` waits for every sampler, aggregates both models at
+  n=100 and pushes `results/repro_h20` plus the tables to the `h20` branch.
+- **Table of record:** H20, bf16, 4x96 GiB. Footnote that must travel with it: H20 != H200, so the
+  quality numbers are comparable (same bf16, same seed, same paired Vanilla50 reference) while the
+  latency/speedup numbers are not.
+
 ## 2026-10-18 09:45 — correction: Wan TaylorSeer IS reproducible on a 96 GiB H20
 
 - The parallel `h20` branch (4x H20 96 GiB, bf16, clean pinned upstream, **no adapters at all**)
