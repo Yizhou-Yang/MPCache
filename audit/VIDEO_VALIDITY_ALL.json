@@ -1,0 +1,381 @@
+{
+ "failed": 14,
+ "failures": [
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/racfg_fast/cfg_tau_v2/p050-100/videos/video_000056.mp4",
+   "samples": [
+    {
+     "mean": 254.99,
+     "std": 0.15
+    },
+    {
+     "mean": 255.0,
+     "std": 0.08
+    },
+    {
+     "mean": 245.34,
+     "std": 44.69
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/racfg_fast/cfg_tau_v2/p050-100/videos/video_000074.mp4",
+   "samples": [
+    {
+     "mean": 1.19,
+     "std": 3.65
+    },
+    {
+     "mean": 1.8,
+     "std": 4.89
+    },
+    {
+     "mean": 2.36,
+     "std": 6.1
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/racfg_slow/cfg_tau_v2/p050-100/videos/video_000056.mp4",
+   "samples": [
+    {
+     "mean": 255.0,
+     "std": 0.01
+    },
+    {
+     "mean": 255.0,
+     "std": 0.0
+    },
+    {
+     "mean": 245.55,
+     "std": 44.01
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/racfg_slow/cfg_tau_v2/p050-100/videos/video_000074.mp4",
+   "samples": [
+    {
+     "mean": 1.57,
+     "std": 5.15
+    },
+    {
+     "mean": 2.06,
+     "std": 5.81
+    },
+    {
+     "mean": 3.0,
+     "std": 9.28
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/taylorseer/gpu_only_v2/p050-100/videos/video_000056.mp4",
+   "samples": [
+    {
+     "mean": 254.63,
+     "std": 0.8
+    },
+    {
+     "mean": 254.6,
+     "std": 0.81
+    },
+    {
+     "mean": 247.35,
+     "std": 37.76
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/taylorseer/gpu_only_v2/p050-100/videos/video_000074.mp4",
+   "samples": [
+    {
+     "mean": 2.15,
+     "std": 5.31
+    },
+    {
+     "mean": 2.44,
+     "std": 5.46
+    },
+    {
+     "mean": 2.71,
+     "std": 6.06
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/teacache/p050-100/videos/video_000056.mp4",
+   "samples": [
+    {
+     "mean": 254.74,
+     "std": 0.67
+    },
+    {
+     "mean": 254.73,
+     "std": 0.69
+    },
+    {
+     "mean": 245.19,
+     "std": 43.56
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/teacache/p050-100/videos/video_000074.mp4",
+   "samples": [
+    {
+     "mean": 2.27,
+     "std": 4.88
+    },
+    {
+     "mean": 2.81,
+     "std": 5.6
+    },
+    {
+     "mean": 3.79,
+     "std": 8.73
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/vanilla25/p000-050/videos/video_000024.mp4",
+   "samples": [
+    {
+     "mean": 254.67,
+     "std": 0.75
+    },
+    {
+     "mean": 254.64,
+     "std": 0.77
+    },
+    {
+     "mean": 254.64,
+     "std": 0.77
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/vanilla25/p050-100/videos/video_000056.mp4",
+   "samples": [
+    {
+     "mean": 255.0,
+     "std": 0.06
+    },
+    {
+     "mean": 255.0,
+     "std": 0.07
+    },
+    {
+     "mean": 247.46,
+     "std": 39.69
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/vanilla25/p050-100/videos/video_000074.mp4",
+   "samples": [
+    {
+     "mean": 0.89,
+     "std": 0.78
+    },
+    {
+     "mean": 0.41,
+     "std": 0.58
+    },
+    {
+     "mean": 0.31,
+     "std": 0.77
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/vanilla25/p050-100/videos/video_000095.mp4",
+   "samples": [
+    {
+     "mean": 205.15,
+     "std": 6.68
+    },
+    {
+     "mean": 206.17,
+     "std": 0.44
+    },
+    {
+     "mean": 206.17,
+     "std": 0.43
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/vanilla50/p050-100/videos/video_000056.mp4",
+   "samples": [
+    {
+     "mean": 254.67,
+     "std": 0.75
+    },
+    {
+     "mean": 254.62,
+     "std": 0.79
+    },
+    {
+     "mean": 245.51,
+     "std": 43.43
+    }
+   ],
+   "width": 720
+  },
+  {
+   "frames": 49,
+   "frames_ok": true,
+   "geometry_ok": true,
+   "height": 480,
+   "ok": false,
+   "path": "cogvideox/vanilla50/p050-100/videos/video_000074.mp4",
+   "samples": [
+    {
+     "mean": 2.41,
+     "std": 4.95
+    },
+    {
+     "mean": 2.92,
+     "std": 6.48
+    },
+    {
+     "mean": 3.88,
+     "std": 9.65
+    }
+   ],
+   "width": 720
+  }
+ ],
+ "frame_count_mismatch": 0,
+ "frame_mismatch_sample": [],
+ "passed": 1187,
+ "summary": {
+  "cogvideox/racfg_fast": {
+   "checked": 100,
+   "ok": 98
+  },
+  "cogvideox/racfg_slow": {
+   "checked": 100,
+   "ok": 98
+  },
+  "cogvideox/taylorseer": {
+   "checked": 101,
+   "ok": 99
+  },
+  "cogvideox/teacache": {
+   "checked": 100,
+   "ok": 98
+  },
+  "cogvideox/vanilla25": {
+   "checked": 100,
+   "ok": 96
+  },
+  "cogvideox/vanilla50": {
+   "checked": 100,
+   "ok": 98
+  },
+  "wan/racfg_fast": {
+   "checked": 100,
+   "ok": 100
+  },
+  "wan/racfg_slow": {
+   "checked": 100,
+   "ok": 100
+  },
+  "wan/taylorseer": {
+   "checked": 100,
+   "ok": 100
+  },
+  "wan/teacache": {
+   "checked": 100,
+   "ok": 100
+  },
+  "wan/vanilla25": {
+   "checked": 100,
+   "ok": 100
+  },
+  "wan/vanilla50": {
+   "checked": 100,
+   "ok": 100
+  }
+ },
+ "total": 1201
+}

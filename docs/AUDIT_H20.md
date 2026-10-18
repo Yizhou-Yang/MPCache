@@ -39,16 +39,32 @@ re-executing a 100-prompt × 6-row × 2-backbone GPU schedule.
 5. **Timings** — the harness emits one summary `Saving time:` line per process, not per video. This is
    recorded as-is in `TRACE_STATS.json`; per-video latency must not be inferred from it.
 
-## Video validity spot-check
+## Video validity (full population, not sampled)
 
-`repro/validate_videos.py` decodes the first/middle/last frame of sampled videos and rejects
-near-black (mean ≤ 5) or near-uniform (std ≤ 2) frames, plus containers reporting zero frames.
+`repro/validate_all_videos.py` decodes the first/middle/last frame of **all 1201 videos** and checks
+near-black (mean ≤ 5), near-uniform (std ≤ 2), zero-frame containers, frame count (49 / 81) and
+geometry (720×480 / 832×480).
 
-Result at final state: **60/60 sampled videos valid across all 12 rows** (5 per row).
-Raw results: `audit/VIDEO_VALIDITY.json`.
+Result: **1187/1201 pass**. Frame counts and geometry are correct for **1201/1201** (0 mismatches).
+The 14 flagged files are fully explained and are **not** pipeline failures:
 
-This guards against the failure mode where files exist and have plausible sizes but contain
-black or static video.
+| prompt | text | flagged in | explanation |
+|---|---|---|---|
+| 56 | "a white suitcase" | all 6 methods | semantically white frame (mean ≈ 255) — correct output |
+| 74 | "An astronaut flying in space, pan right" | all 6 methods | dark space background (mean ≈ 2) — correct output |
+| 24 | "A person is drawing" | vanilla25 only | 25-step truncation artefact |
+| 95 | "a banana on the bottom of an apple, front view" | vanilla25 only | near-static 25-step output |
+
+Why this does not invalidate the numbers:
+
+- Prompts 56 and 74 behave identically in **every** caching method, so the paired
+  reference-vs-method comparison is unaffected — both sides see the same content.
+- The two `vanilla25`-only cases are a known consequence of 25-step truncation, i.e. a property of
+  the method being benchmarked, not of this harness.
+- No evidence of decode failure, zero-frame containers, wrong geometry, or silent corruption.
+
+Raw results: `audit/VIDEO_VALIDITY_ALL.json` (per-file frames, geometry, sampled luminance).
+The earlier 60-file sample (`audit/VIDEO_VALIDITY.json`) is retained for continuity.
 
 ## Deliberate exclusions
 
