@@ -1,0 +1,2009 @@
+{
+  "model": "wan",
+  "method": "taylorseer",
+  "requested_n": 100,
+  "selection_policy": "complete_and_valid_time, descending_span, stable_paths",
+  "timing_basis": "selected source chunk mean; not exact per-prompt latency",
+  "sources": [
+    {
+      "index": 0,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000000.mp4",
+        "size": 1896546,
+        "mtime_ns": 1792275665695037526
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 1,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000001.mp4",
+        "size": 1051200,
+        "mtime_ns": 1792275796797177632
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 2,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000002.mp4",
+        "size": 1176963,
+        "mtime_ns": 1792275927914317640
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 3,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000003.mp4",
+        "size": 1955693,
+        "mtime_ns": 1792276059004457824
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 4,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000004.mp4",
+        "size": 806580,
+        "mtime_ns": 1792276190092605080
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 5,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000005.mp4",
+        "size": 415384,
+        "mtime_ns": 1792276321162753296
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 6,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000006.mp4",
+        "size": 794193,
+        "mtime_ns": 1792276452247901417
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 7,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000007.mp4",
+        "size": 1671527,
+        "mtime_ns": 1792276583372049283
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 8,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000008.mp4",
+        "size": 420805,
+        "mtime_ns": 1792276714449197455
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 9,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000009.mp4",
+        "size": 534185,
+        "mtime_ns": 1792276845498345808
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 10,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000010.mp4",
+        "size": 385571,
+        "mtime_ns": 1792276976553494122
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 11,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000011.mp4",
+        "size": 553551,
+        "mtime_ns": 1792277107659642063
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 12,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000012.mp4",
+        "size": 234547,
+        "mtime_ns": 1792277238730787897
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 13,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000013.mp4",
+        "size": 409109,
+        "mtime_ns": 1792277369790933802
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 14,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000014.mp4",
+        "size": 410488,
+        "mtime_ns": 1792277500876079544
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 15,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000015.mp4",
+        "size": 831565,
+        "mtime_ns": 1792277631986225124
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 16,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000016.mp4",
+        "size": 824170,
+        "mtime_ns": 1792277763131370476
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 17,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000017.mp4",
+        "size": 1078270,
+        "mtime_ns": 1792277894239516070
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 18,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000018.mp4",
+        "size": 601732,
+        "mtime_ns": 1792278025302661956
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 19,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000019.mp4",
+        "size": 297944,
+        "mtime_ns": 1792278156334808385
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 20,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000020.mp4",
+        "size": 489929,
+        "mtime_ns": 1792278287439957943
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 21,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000021.mp4",
+        "size": 1096727,
+        "mtime_ns": 1792278418571107332
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 22,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000022.mp4",
+        "size": 390937,
+        "mtime_ns": 1792278549683256845
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 23,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000023.mp4",
+        "size": 503104,
+        "mtime_ns": 1792278680806406285
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 24,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000024.mp4",
+        "size": 789107,
+        "mtime_ns": 1792278811904555888
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 25,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000025.mp4",
+        "size": 561050,
+        "mtime_ns": 1792278943011705434
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 26,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000026.mp4",
+        "size": 582784,
+        "mtime_ns": 1792279074174854616
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 27,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000027.mp4",
+        "size": 615545,
+        "mtime_ns": 1792279205288002317
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 28,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000028.mp4",
+        "size": 980343,
+        "mtime_ns": 1792279336427144132
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 29,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000029.mp4",
+        "size": 1347477,
+        "mtime_ns": 1792279467563285965
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 30,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000030.mp4",
+        "size": 749922,
+        "mtime_ns": 1792279598709427733
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 31,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000031.mp4",
+        "size": 1268242,
+        "mtime_ns": 1792279729861569463
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 32,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000032.mp4",
+        "size": 745169,
+        "mtime_ns": 1792279860988711356
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 33,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000033.mp4",
+        "size": 932217,
+        "mtime_ns": 1792279992154852992
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 34,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000034.mp4",
+        "size": 2652154,
+        "mtime_ns": 1792280123458993727
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 35,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000035.mp4",
+        "size": 2652347,
+        "mtime_ns": 1792280254626133999
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 36,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000036.mp4",
+        "size": 1952510,
+        "mtime_ns": 1792280385838272081
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 37,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000037.mp4",
+        "size": 1422329,
+        "mtime_ns": 1792280517018410375
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 38,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000038.mp4",
+        "size": 1130126,
+        "mtime_ns": 1792280648178548799
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 39,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000039.mp4",
+        "size": 555460,
+        "mtime_ns": 1792280779279687611
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 40,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000040.mp4",
+        "size": 596197,
+        "mtime_ns": 1792280910366826515
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 41,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000041.mp4",
+        "size": 999736,
+        "mtime_ns": 1792281041491965170
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 42,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000042.mp4",
+        "size": 1864712,
+        "mtime_ns": 1792281172656103569
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 43,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000043.mp4",
+        "size": 584887,
+        "mtime_ns": 1792281303773242093
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 44,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000044.mp4",
+        "size": 798265,
+        "mtime_ns": 1792281434894380456
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 45,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000045.mp4",
+        "size": 1057036,
+        "mtime_ns": 1792281566041518647
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 46,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000046.mp4",
+        "size": 1731676,
+        "mtime_ns": 1792281697182656878
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 47,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000047.mp4",
+        "size": 2742589,
+        "mtime_ns": 1792281828428794419
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 48,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000048.mp4",
+        "size": 1372186,
+        "mtime_ns": 1792281959515933005
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 49,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050/videos/video_000049.mp4",
+        "size": 1544551,
+        "mtime_ns": 1792282090724070796
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p000-050",
+      "chunk_range": [
+        0,
+        50
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 130.701,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
+        "size": 252793,
+        "mtime_ns": 1792282090744070664
+      }
+    },
+    {
+      "index": 50,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000050.mp4",
+        "size": 757921,
+        "mtime_ns": 1792275853511805643
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 51,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000051.mp4",
+        "size": 632809,
+        "mtime_ns": 1792275985561939531
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 52,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000052.mp4",
+        "size": 963029,
+        "mtime_ns": 1792276117598076198
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 53,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000053.mp4",
+        "size": 392828,
+        "mtime_ns": 1792276248996222284
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 54,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000054.mp4",
+        "size": 505230,
+        "mtime_ns": 1792276380601367025
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 55,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000055.mp4",
+        "size": 1111384,
+        "mtime_ns": 1792276512000513104
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 56,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000056.mp4",
+        "size": 272322,
+        "mtime_ns": 1792276644007655232
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 57,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000057.mp4",
+        "size": 283935,
+        "mtime_ns": 1792276775496800726
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 58,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000058.mp4",
+        "size": 351419,
+        "mtime_ns": 1792276906790947486
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 59,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000059.mp4",
+        "size": 369849,
+        "mtime_ns": 1792277038477091700
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 60,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000060.mp4",
+        "size": 1737955,
+        "mtime_ns": 1792277170469232744
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 61,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000061.mp4",
+        "size": 1502825,
+        "mtime_ns": 1792277301919376108
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 62,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000062.mp4",
+        "size": 808726,
+        "mtime_ns": 1792277433736517081
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 63,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000063.mp4",
+        "size": 993307,
+        "mtime_ns": 1792277565393659096
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 64,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000064.mp4",
+        "size": 540612,
+        "mtime_ns": 1792277696777802890
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 65,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000065.mp4",
+        "size": 589051,
+        "mtime_ns": 1792277828360945388
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 66,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000066.mp4",
+        "size": 408682,
+        "mtime_ns": 1792277959782088941
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 67,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000067.mp4",
+        "size": 498724,
+        "mtime_ns": 1792278091099233173
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 68,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000068.mp4",
+        "size": 3228320,
+        "mtime_ns": 1792278222713377806
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 69,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000069.mp4",
+        "size": 2580413,
+        "mtime_ns": 1792278354155525178
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 70,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000070.mp4",
+        "size": 1676418,
+        "mtime_ns": 1792278485433673613
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 71,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000071.mp4",
+        "size": 1100111,
+        "mtime_ns": 1792278616822821329
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 72,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000072.mp4",
+        "size": 416192,
+        "mtime_ns": 1792278747989970484
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 73,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000073.mp4",
+        "size": 779861,
+        "mtime_ns": 1792278879932114614
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 74,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000074.mp4",
+        "size": 386521,
+        "mtime_ns": 1792279011568260727
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 75,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000075.mp4",
+        "size": 309224,
+        "mtime_ns": 1792279142965408391
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 76,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000076.mp4",
+        "size": 877322,
+        "mtime_ns": 1792279274383550150
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 77,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000077.mp4",
+        "size": 2037876,
+        "mtime_ns": 1792279405645691159
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 78,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000078.mp4",
+        "size": 902718,
+        "mtime_ns": 1792279536999831566
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 79,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000079.mp4",
+        "size": 714985,
+        "mtime_ns": 1792279668356971954
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 80,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000080.mp4",
+        "size": 1040302,
+        "mtime_ns": 1792279799506113703
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 81,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000081.mp4",
+        "size": 1526112,
+        "mtime_ns": 1792279930830254306
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 82,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000082.mp4",
+        "size": 691715,
+        "mtime_ns": 1792280062162394857
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 83,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000083.mp4",
+        "size": 1176280,
+        "mtime_ns": 1792280193631534511
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 84,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000084.mp4",
+        "size": 556518,
+        "mtime_ns": 1792280325147670751
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 85,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000085.mp4",
+        "size": 354453,
+        "mtime_ns": 1792280456421808426
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 86,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000086.mp4",
+        "size": 553324,
+        "mtime_ns": 1792280588381941596
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 87,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000087.mp4",
+        "size": 770473,
+        "mtime_ns": 1792280719721078845
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 88,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000088.mp4",
+        "size": 1330136,
+        "mtime_ns": 1792280851159215443
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 89,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000089.mp4",
+        "size": 749426,
+        "mtime_ns": 1792280982517352568
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 90,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000090.mp4",
+        "size": 378229,
+        "mtime_ns": 1792281113820490053
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 91,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000091.mp4",
+        "size": 511812,
+        "mtime_ns": 1792281245021628167
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 92,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000092.mp4",
+        "size": 1378738,
+        "mtime_ns": 1792281376259765761
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 93,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000093.mp4",
+        "size": 572956,
+        "mtime_ns": 1792281507571902869
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 94,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000094.mp4",
+        "size": 984646,
+        "mtime_ns": 1792281638849040206
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 95,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000095.mp4",
+        "size": 232254,
+        "mtime_ns": 1792281769957178654
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 96,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000096.mp4",
+        "size": 422053,
+        "mtime_ns": 1792281901596313613
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 97,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000097.mp4",
+        "size": 513025,
+        "mtime_ns": 1792282032730451890
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 98,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000098.mp4",
+        "size": 683930,
+        "mtime_ns": 1792282164199587965
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    },
+    {
+      "index": 99,
+      "source": {
+        "path": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100/videos/video_000099.mp4",
+        "size": 177512,
+        "mtime_ns": 1792282295505721952
+      },
+      "chunk": "/root/viewdit/results/repro_h20/wan/taylorseer/gpu_only_v2/p050-100",
+      "chunk_range": [
+        50,
+        100
+      ],
+      "chunk_complete": true,
+      "chunk_mean_latency_s": 131.075,
+      "log": {
+        "path": "/root/viewdit/results/repro_h20/wan/_logs/taylorseer_gpu_only_v2_p050-100.log",
+        "size": 253483,
+        "mtime_ns": 1792282295523721832
+      }
+    }
+  ]
+}
