@@ -63,7 +63,7 @@ for p in repro/run_repro.sh repro/aggregate.py repro/queue_overnight.sh repro/pu
          repro/setup_server.sh repro/setup_h20.sh repro/patches/apply_v100_patch.py \
          repro/patches/apply_repro_patch.py repro/STATUS.md repro/H20_MIGRATION.md \
          repro/ledger.py repro/plan_missing.py repro/overnight_watchdog.sh \
-         repro/H200_TAYLOR_WAN.md STATUS_auto.md \
+         repro/H200_TAYLOR_WAN.md repro/AUDIT_REPRO_2026-10-18.md STATUS_auto.md \
          experiments/video/g0a_costmodel.py experiments/video/g0a_analyze.py; do
   if [ -e "$p" ]; then git add -- "$p"; fi
 done

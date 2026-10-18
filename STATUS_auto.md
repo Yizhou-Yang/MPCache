@@ -1,6 +1,6 @@
 # MPCache reproduction checkpoint
 
-Generated: 2026-10-18T09:30:03.202922
+Generated: 2026-10-18T09:32:48.931612
 Profile: v100 (GPU-only generation; no CPU offload anywhere).
 
 V100 fp16 differs from paper H200 bf16.
