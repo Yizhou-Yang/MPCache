@@ -1,0 +1,13 @@
+{
+ "probe": "wan + TaylorSeer (N=3,O=1,interval=3,first_enhance=3), single prompt, 832x480, 81 frames, 50 steps, bf16, GPU-resident",
+ "peak_used_mib": 66695,
+ "peak_used_gib": 65.13,
+ "card_total_mib": 97871,
+ "card_total_gib": 95.6,
+ "headroom_gib": 30.45,
+ "samples": 117,
+ "sample_interval_s": 2,
+ "documented_expectation_gib": "90-135 (V100-derived estimate)",
+ "verdict": "fits on 96 GiB; peak is well below the 130 GiB go/no-go threshold",
+ "note": "Diagnostic probe written to /tmp; it does not alter any protocol artifact or official result."
+}
