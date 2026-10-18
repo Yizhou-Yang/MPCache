@@ -1,0 +1,90 @@
+Loading Wan pipeline from /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers on cuda...
+[cache] taylor_method=original, interval=3, max_order=1, first_enhance=3, hicache_scale=0.5, rel_l1_thresh=0.0, proxy_tables_path=/root/viewdit/repro/upstream/RA-CFGCache/calibration/wan_rho_cfg5.npz
+[load] start from_pretrained: /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers
+UMT5EncoderModel LOAD REPORT from: /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers/text_encoder
+Key                         | Status  |
+----------------------------+---------+-
+encoder.embed_tokens.weight | MISSING |
+Notes:
+- MISSING	:those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Expected types for transformer: (<class 'models.wan.transformer_wan.WanTransformer3DModel'>, <class 'NoneType'>), got <class 'diffusers.models.transformers.transformer_wan.WanTransformer3DModel'>.
+[load] from_pretrained done in 5.71s
+[text-encoder-check] shared/embed same_ptr=False, sample_mean_abs_diff=4.433434e+00, shared_std=6.144112e+00, embed_std=0.000000e+00, shared_abs_mean=4.433434e+00, embed_abs_mean=0.000000e+00
+[text-encoder-fix] tying text_encoder.encoder.embed_tokens to text_encoder.shared
+[text-encoder-check-after] shared/embed same_ptr=True, shared_std=6.144112e+00, embed_std=6.144112e+00, shared_abs_mean=4.433434e+00, embed_abs_mean=4.433434e+00
+[load] patch done in 0.00s
+[patch-check] pipeline class: <class 'models.wan.pipeline_wan.WanPipeline'>
+[patch-check] transformer class: <class 'diffusers.models.transformers.transformer_wan.WanTransformer3DModel'>
+[patch-check] transformer_2 class: <class 'NoneType'>
+[patch-check] transformer has cache_context: True
+[patch-check] transformer has _cfgcache_encode_inputs: False
+[patch-check] transformer has _cfgcache_prepare_probe: True
+[INFO] Using UniPC scheduler with flow_shift=3.0
+[load] pipe.to(cuda) start
+[load] pipe.to(cuda) done
+Loaded Wan pipeline from /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers on cuda
+[cache] Wan num_layers=30
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+================ Timing Summary ================
+Total elapsed:        16245.609 s
+Sampling time:        16226.205 s
+Saving time:          16.766 s
+Total videos:         50
+Total prompts:        50
+Avg sec / video:      324.912 s
+Avg sec / prompt:     324.912 s  (includes 1 video/prompt)
+Avg sampling sec/video: 324.524 s
+Avg sampling sec/prompt: 324.524 s  (includes 1 video/prompt)
+================================================
+Generated 50 videos in /root/viewdit/results/repro_h20/wan/vanilla50/p050-100/videos
+Metadata saved in /root/viewdit/results/repro_h20/wan/vanilla50/p050-100/metadata
+Manifest saved at /root/viewdit/results/repro_h20/wan/vanilla50/p050-100/manifest.jsonl

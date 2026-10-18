@@ -1,0 +1,21 @@
+Loading CogVideoX pipeline from /root/viewdit/weights/CogVideoX-2b on cuda...
+[load] start from_pretrained: /root/viewdit/weights/CogVideoX-2b
+[load] from_pretrained done in 4.61s
+[load] transformer type = <class 'models.cogvideox.transformer_cogvideox.CogVideoXTransformer3DModel'>
+[load] patch done in 0.00s
+Loaded CogVideoX pipeline from /root/viewdit/weights/CogVideoX-2b on cuda
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+================ Timing Summary ================
+Total elapsed:        59.565 s
+Sampling time:        59.267 s
+Saving time:          0.283 s
+Total videos:         1
+Total prompts:        1
+Avg sec / video:      59.565 s
+Avg sec / prompt:     59.565 s  (includes 1 video/prompt)
+Avg sec / video sampling: 59.267 s
+Avg sec / prompt sampling: 59.267 s  (includes 1 video/prompt)
+================================================
+Generated 1 videos in /root/viewdit/results/repro_h20/cogvideox/taylorseer/gpu_only_v2/p000-001/videos
+Metadata saved in /root/viewdit/results/repro_h20/cogvideox/taylorseer/gpu_only_v2/p000-001/metadata
+Manifest saved at /root/viewdit/results/repro_h20/cogvideox/taylorseer/gpu_only_v2/p000-001/manifest.jsonl

@@ -1,0 +1,276 @@
+{
+ "cogvideox/_logs/racfg_fast_cfg_tau_v2_p000-050.log": {
+  "actions": {
+   "full_both": 550,
+   "reuse_both": 1950
+  },
+  "cfgcache_steps": 0,
+  "kept_lines": 2622,
+  "prompts_timed": 1,
+  "timing_max_s": 18.939,
+  "timing_median_s": 18.939,
+  "timing_min_s": 18.939,
+  "timing_sum_s": 18.939
+ },
+ "cogvideox/_logs/racfg_fast_cfg_tau_v2_p050-100.log": {
+  "actions": {
+   "full_both": 550,
+   "reuse_both": 1950
+  },
+  "cfgcache_steps": 0,
+  "kept_lines": 2622,
+  "prompts_timed": 1,
+  "timing_max_s": 18.659,
+  "timing_median_s": 18.659,
+  "timing_min_s": 18.659,
+  "timing_sum_s": 18.659
+ },
+ "cogvideox/_logs/racfg_slow_cfg_tau_v2_p000-050.log": {
+  "actions": {
+   "full_both": 850,
+   "reuse_both": 1650
+  },
+  "cfgcache_steps": 0,
+  "kept_lines": 2622,
+  "prompts_timed": 1,
+  "timing_max_s": 18.309,
+  "timing_median_s": 18.309,
+  "timing_min_s": 18.309,
+  "timing_sum_s": 18.309
+ },
+ "cogvideox/_logs/racfg_slow_cfg_tau_v2_p050-100.log": {
+  "actions": {
+   "full_both": 850,
+   "reuse_both": 1650
+  },
+  "cfgcache_steps": 0,
+  "kept_lines": 2622,
+  "prompts_timed": 1,
+  "timing_max_s": 20.325,
+  "timing_median_s": 20.325,
+  "timing_min_s": 20.325,
+  "timing_sum_s": 20.325
+ },
+ "cogvideox/_logs/taylorseer_gpu_only_v2_p000-001.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 21,
+  "prompts_timed": 1,
+  "timing_max_s": 0.283,
+  "timing_median_s": 0.283,
+  "timing_min_s": 0.283,
+  "timing_sum_s": 0.283
+ },
+ "cogvideox/_logs/taylorseer_gpu_only_v2_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 70,
+  "prompts_timed": 1,
+  "timing_max_s": 19.13,
+  "timing_median_s": 19.13,
+  "timing_min_s": 19.13,
+  "timing_sum_s": 19.13
+ },
+ "cogvideox/_logs/taylorseer_gpu_only_v2_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 70,
+  "prompts_timed": 1,
+  "timing_max_s": 16.5,
+  "timing_median_s": 16.5,
+  "timing_min_s": 16.5,
+  "timing_sum_s": 16.5
+ },
+ "cogvideox/_logs/teacache_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 5070,
+  "prompts_timed": 1,
+  "timing_max_s": 18.766,
+  "timing_median_s": 18.766,
+  "timing_min_s": 18.766,
+  "timing_sum_s": 18.766
+ },
+ "cogvideox/_logs/teacache_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 5070,
+  "prompts_timed": 1,
+  "timing_max_s": 17.228,
+  "timing_median_s": 17.228,
+  "timing_min_s": 17.228,
+  "timing_sum_s": 17.228
+ },
+ "cogvideox/_logs/vanilla25_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 70,
+  "prompts_timed": 1,
+  "timing_max_s": 18.114,
+  "timing_median_s": 18.114,
+  "timing_min_s": 18.114,
+  "timing_sum_s": 18.114
+ },
+ "cogvideox/_logs/vanilla25_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 70,
+  "prompts_timed": 1,
+  "timing_max_s": 16.596,
+  "timing_median_s": 16.596,
+  "timing_min_s": 16.596,
+  "timing_sum_s": 16.596
+ },
+ "cogvideox/_logs/vanilla50_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 70,
+  "prompts_timed": 1,
+  "timing_max_s": 15.368,
+  "timing_median_s": 15.368,
+  "timing_min_s": 15.368,
+  "timing_sum_s": 15.368
+ },
+ "cogvideox/_logs/vanilla50_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 70,
+  "prompts_timed": 1,
+  "timing_max_s": 15.259,
+  "timing_median_s": 15.259,
+  "timing_min_s": 15.259,
+  "timing_sum_s": 15.259
+ },
+ "wan/_logs/racfg_fast_cfg_tau_v2_p000-050.log": {
+  "actions": {
+   "full_both": 15,
+   "reuse_both": 105
+  },
+  "cfgcache_steps": 155,
+  "kept_lines": 190,
+  "prompts_timed": 0,
+  "timing_max_s": null,
+  "timing_median_s": null,
+  "timing_min_s": null,
+  "timing_sum_s": null
+ },
+ "wan/_logs/racfg_fast_cfg_tau_v2_p050-100.log": {
+  "actions": {
+   "full_both": 15,
+   "reuse_both": 105
+  },
+  "cfgcache_steps": 154,
+  "kept_lines": 189,
+  "prompts_timed": 0,
+  "timing_max_s": null,
+  "timing_median_s": null,
+  "timing_min_s": null,
+  "timing_sum_s": null
+ },
+ "wan/_logs/racfg_slow_cfg_tau_v2_p000-050.log": {
+  "actions": {
+   "full_both": 312,
+   "reuse_both": 1244
+  },
+  "cfgcache_steps": 1946,
+  "kept_lines": 2051,
+  "prompts_timed": 0,
+  "timing_max_s": null,
+  "timing_median_s": null,
+  "timing_min_s": null,
+  "timing_sum_s": null
+ },
+ "wan/_logs/racfg_slow_cfg_tau_v2_p050-100.log": {
+  "actions": {
+   "full_both": 296,
+   "reuse_both": 1184
+  },
+  "cfgcache_steps": 1850,
+  "kept_lines": 1951,
+  "prompts_timed": 0,
+  "timing_max_s": null,
+  "timing_median_s": null,
+  "timing_min_s": null,
+  "timing_sum_s": null
+ },
+ "wan/_logs/taylorseer_gpu_only_v2_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 90,
+  "prompts_timed": 1,
+  "timing_max_s": 19.127,
+  "timing_median_s": 19.127,
+  "timing_min_s": 19.127,
+  "timing_sum_s": 19.127
+ },
+ "wan/_logs/taylorseer_gpu_only_v2_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 90,
+  "prompts_timed": 1,
+  "timing_max_s": 18.114,
+  "timing_median_s": 18.114,
+  "timing_min_s": 18.114,
+  "timing_sum_s": 18.114
+ },
+ "wan/_logs/teacache_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 5090,
+  "prompts_timed": 1,
+  "timing_max_s": 18.411,
+  "timing_median_s": 18.411,
+  "timing_min_s": 18.411,
+  "timing_sum_s": 18.411
+ },
+ "wan/_logs/teacache_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 5090,
+  "prompts_timed": 1,
+  "timing_max_s": 21.022,
+  "timing_median_s": 21.022,
+  "timing_min_s": 21.022,
+  "timing_sum_s": 21.022
+ },
+ "wan/_logs/vanilla25_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 90,
+  "prompts_timed": 1,
+  "timing_max_s": 17.292,
+  "timing_median_s": 17.292,
+  "timing_min_s": 17.292,
+  "timing_sum_s": 17.292
+ },
+ "wan/_logs/vanilla25_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 90,
+  "prompts_timed": 1,
+  "timing_max_s": 16.451,
+  "timing_median_s": 16.451,
+  "timing_min_s": 16.451,
+  "timing_sum_s": 16.451
+ },
+ "wan/_logs/vanilla50_p000-050.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 90,
+  "prompts_timed": 1,
+  "timing_max_s": 21.117,
+  "timing_median_s": 21.117,
+  "timing_min_s": 21.117,
+  "timing_sum_s": 21.117
+ },
+ "wan/_logs/vanilla50_p050-100.log": {
+  "actions": {},
+  "cfgcache_steps": 0,
+  "kept_lines": 90,
+  "prompts_timed": 1,
+  "timing_max_s": 16.766,
+  "timing_median_s": 16.766,
+  "timing_min_s": 16.766,
+  "timing_sum_s": 16.766
+ }
+}
