@@ -18,7 +18,11 @@ from pathlib import Path
 
 VIEWDIT = Path(os.environ.get("VIEWDIT", "/root/viewdit"))
 RACFG = VIEWDIT / "repro/upstream/RA-CFGCache"
-OUT_ROOT = Path(os.environ.get("OUT_ROOT", VIEWDIT / "results/repro"))
+PROFILE = os.environ.get("RACFG_PROFILE", "v100")
+if PROFILE not in ("v100", "h20"):
+    raise ValueError(f"unknown RACFG_PROFILE={PROFILE}; expected v100 or h20")
+DEFAULT_DTYPE = "bfloat16" if PROFILE == "h20" else "float16"
+OUT_ROOT = Path(os.environ.get("OUT_ROOT", VIEWDIT / "results" / ("repro_h20" if PROFILE == "h20" else "repro")))
 
 # RA-CFGCache Table 1 (NeurIPS'26, arXiv 2609.36433), H200 bf16, 100 VBench prompts.
 # (LPIPS, SSIM, PSNR, speedup, latency_s)
@@ -226,7 +230,7 @@ def evaluate(model, method, ref_dir, cmp_dir, n, skip_eval=False, device="cuda:0
             "prompt_sha256": hashlib.sha256(prompt_file.read_bytes()).hexdigest(),
             "python": _file_info(Path(_py())), "cwd": str(RACFG.resolve()),
             "device": device, "dtype": "eval_video.py default (no dtype CLI override)",
-            "sampling_dtype": env.get("RACFG_DTYPE", "float16"),
+            "sampling_dtype": env.get("RACFG_DTYPE", DEFAULT_DTYPE),
             "no_imagereward": True,
             # 不把可能含凭证的环境变量明文写进审计文件。
             "environment_sha256": hashlib.sha256(json.dumps(env, sort_keys=True).encode()).hexdigest(),
@@ -335,6 +339,14 @@ def main():
             except Exception as exc:
                 result.update(status="not-evaluated", error=f"{type(exc).__name__}: {exc}")
         failed |= result["status"] in ("pending", "not-evaluated")
+        if result["summary"] and result["summary"]["num_video_pairs"] < args.n:
+            # A row with fewer pairs than the table's n is a partial result and must never be
+            # read as a finished n-row (a 1-video TaylorSeer row was published once before).
+            result["status"] = "partial-n"
+            failed = True
+        elif result["summary"] and len(timing_ids) < args.n:
+            result["status"] = "partial-timing"
+            failed = True
         rows.append({"method": method, **result,
                      "video_n": len(_videos(cmp_dir, args.n)) if cmp_dir is not None else 0,
                      "quality_pair_n": result["summary"]["num_video_pairs"] if result["summary"] else 0,
@@ -343,18 +355,36 @@ def main():
                      "speedup": speedup, "latency_s": mean_lat,
                      "paper": PAPER[args.model].get(method)})
 
+    profile = PROFILE
+    dtype = os.environ.get("RACFG_DTYPE", DEFAULT_DTYPE)
+    if profile == "h20":
+        precision_note = ("H20 bf16 与论文精度一致，但硬件为 H20 而非 H200："
+                          "质量指标可与论文对照，latency/speedup 不可当作论文原数。")
+    else:
+        precision_note = f"V100 {dtype} vs H200 bf16：仅作论文对照，不是原数复现。"
     notes = [
-        "V100 fp16 vs H200 bf16：仅作论文对照，不是原数复现。",
+        precision_note,
         "RA 两行仅纳入 cfg_tau_v2 输出：旧 CLI 阈值未绑定运行时、实际均为 tau=0.4，旧结果无效。",
-        "TaylorSeer 仅纳入 gpu_only_v2 输出；旧 Cog n=16 使用 CPU offload，排除正式全 GPU 对标。", 
-        "Wan 使用 GPU VAE tiling/slicing，未证明与论文未分块解码等价。", 
+        "TaylorSeer 仅纳入 gpu_only_v2 输出；旧 Cog n=16 使用 CPU offload，排除正式全 GPU 对标。",
+    ]
+    if profile != "h20":
+        notes += [
+            "Wan 使用 GPU VAE tiling/slicing，未证明与论文未分块解码等价。",
+            "TaylorSeer 行在编码后把空闲的文本编码器停到 CPU（非 CPU offload；去噪与缓存全程在 GPU）；"
+            "h20 profile 无此外挂。",
+        ]
+    else:
+        notes.append("h20 profile 未启用任何显存外挂：VAE 未分块、文本编码器全程常驻，与 upstream 一致。")
+    notes += [
         "Latency/speedup 使用所选 source 的 chunk-average，共同 timing IDs 上加权；"
         "并非精确 per-prompt 计时，shared-GPU latency 为 provisional。",
         "未执行统计门检验，不能宣称统计门通过；reference-self 为恒等参照，未调用质量评估器。",
-        "质量 pair n 为实际评估数（reference-self 为恒等配对数）；pending/not-evaluated 的指标缺失，不填 0。",
+        "质量 pair n 为实际评估数（reference-self 为恒等配对数）；pending/not-evaluated 的指标缺失，不填 0；"
+        "partial-n 表示该行配对样本少于表内 n，不构成完整行；"
+        "partial-timing 表示质量配对完整但共同有效计时不足 n，同样返回失败。",
         f"source 审计及配对指纹：n{args.n}/<method>/merge_manifest.json、pair_manifest.json。",
     ]
-    lines = [f"## {args.model}: V100 fp16 vs RA-CFGCache Table 1 (H200 bf16), requested n={args.n}", "",
+    lines = [f"## {args.model}: {profile} {dtype} vs RA-CFGCache Table 1 (H200 bf16), requested n={args.n}", "",
              "| Method | videos | 质量 pair n | timing pairs | 状态 | LPIPS↓ ours / paper | SSIM↑ ours / paper | PSNR↑ ours / paper | Speedup ours / paper | Latency(s) ours / paper |",
              "|---|---|---|---|---|---|---|---|---|---|"]
 

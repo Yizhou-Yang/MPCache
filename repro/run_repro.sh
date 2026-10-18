@@ -12,28 +12,49 @@
 # prefix/suffix of the paper's 100-prompt run (same prompt -> same seed -> same initial noise).
 set -uo pipefail
 
+if [ "$#" -lt 3 ]; then
+  echo "[error] usage: run_repro.sh <cogvideox|wan> <start> <end> [method ...]" >&2
+  exit 2
+fi
 MODEL=$1; START=$2; END=$3; shift 3
+if [[ ! "$START" =~ ^(0|[1-9][0-9]*)$ || ! "$END" =~ ^(0|[1-9][0-9]*)$ ]] || [ "$START" -ge "$END" ]; then
+  echo "[error] invalid prompt range [$START,$END); use nonnegative decimal IDs" >&2
+  exit 2
+fi
 METHODS=("$@")
 [ ${#METHODS[@]} -eq 0 ] && METHODS=(vanilla50 vanilla25 teacache taylorseer racfg_slow racfg_fast)
 
 VIEWDIT=${VIEWDIT:-/root/viewdit}
 RACFG=$VIEWDIT/repro/upstream/RA-CFGCache
-OUT_ROOT=${OUT_ROOT:-$VIEWDIT/results/repro}
+# Profile = hardware adaptation only, never protocol. It selects dtype, the memory adapters and
+# the output root, so results from different cards can never be merged by accident.
+#   v100 : 31.7 GiB sm_70, fp16, tile Wan's VAE decode, park TaylorSeer's text encoder
+#   h20  : 96 GiB sm_90, upstream bf16 (same precision as the paper), no adapters at all
+PROFILE=${RACFG_PROFILE:-v100}
+case $PROFILE in
+  v100) OUT_ROOT=${OUT_ROOT:-$VIEWDIT/results/repro};      DEF_DTYPE=float16 ;;
+  h20)  OUT_ROOT=${OUT_ROOT:-$VIEWDIT/results/repro_h20};  DEF_DTYPE=bfloat16 ;;
+  *) echo "[error] unknown RACFG_PROFILE=$PROFILE (expected v100 or h20)" >&2; exit 2 ;;
+esac
 PROMPTS=$RACFG/resources/prompts/prompt_video.txt
 
-source /root/miniconda3/etc/profile.d/conda.sh
-conda activate racfg
+source "${CONDA_SH:-/root/miniconda3/etc/profile.d/conda.sh}" || exit 2
+conda activate "${ENV_NAME:-racfg}" || exit 2
 export TORCHDYNAMO_DISABLE=1 TORCHINDUCTOR_DISABLE=1 PYTORCH_DISABLE_CUDA_COMPILE=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TOKENIZERS_PARALLELISM=false
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 # User requirement: inference runs on the GPU only; CPU offload of the denoising model is
 # prohibited and there is no automatic fallback. If a method OOMs, preserve the failed log
 # and report the failure instead of silently changing the protocol.
-# One documented exception, enabled only for the derivative-cache method (TaylorSeer):
+# Whole job is GPU-only: CPU offload of the denoising model is prohibited and never happens
+# automatically. If a method OOMs, the failed log is preserved and the failure is reported
+# instead of silently changing the protocol.
+# V100 profile only, one documented exception for the derivative-cache method (TaylorSeer):
 # its per-layer cache does not fit in 31.7 GiB next to the resident text encoder, so the
 # encoder is parked on CPU between prompt encoding and denoising (see
-# apply_v100_patch.py patch_release_text_encoder). Encoding is unchanged and the whole
+# patches/apply_repro_patch.py patch_release_text_encoder). Encoding is unchanged and the whole
 # denoising loop -- everything that is timed, plus the cache implementation -- stays on GPU.
+# The h20 profile uses none of this: upstream residency, upstream default dtype.
 if [ "${CPU_OFFLOAD:-0}" != "0" ]; then
   echo "[error] CPU_OFFLOAD is prohibited for this GPU-only reproduction" >&2
   exit 2
@@ -43,13 +64,13 @@ export PYTHONUNBUFFERED=1
 case $MODEL in
   cogvideox)
     MP=$VIEWDIT/weights/CogVideoX-2b
-    export RACFG_DTYPE=${RACFG_DTYPE:-float16}      # CogVideoX-2B is an fp16 checkpoint
+    export RACFG_DTYPE=${RACFG_DTYPE:-$DEF_DTYPE}   # checkpoint is fp16; H20 uses bf16 anyway
     COMMON=(--model_name cogvideox --model_path "$MP" --width 720 --height 480 --num_frames 49 --fps 8
             --guidance_scale 6.0 --proxy_tables_path "$RACFG/calibration/cogvideox_rho_cfg6.npz")
     TEA=0.2; SLOW=0.6; FAST=1.4 ;;
   wan)
     MP=$VIEWDIT/weights/Wan2.1-T2V-1.3B-Diffusers
-    export RACFG_DTYPE=${RACFG_DTYPE:-float16}      # V100: no bf16; verified in smoke test
+    export RACFG_DTYPE=${RACFG_DTYPE:-$DEF_DTYPE}   # h20: bf16 == upstream default, i.e. the paper's precision
     COMMON=(--model_name wan --model_path "$MP" --width 832 --height 480 --num_frames 81 --fps 16
             --guidance_scale 5.0 --scheduler unipc --flow_shift 3.0
             --proxy_tables_path "$RACFG/calibration/wan_rho_cfg5.npz")
@@ -100,15 +121,15 @@ run_one() {   # name mode steps thresh
     return 0
   fi
   if [ -f "$log" ]; then cp "$log" "$log.before_$(date +%Y%m%d_%H%M%S)"; fi
-  # TaylorSeer only: park the idle text encoder on CPU between encoding and denoising.
-  # Every other row keeps upstream residency, so completed rows stay comparable.
-  local CMD=(python -m "models.$MODEL.sample")
+  # TaylorSeer only, v100 profile only: park the idle text encoder on CPU between encoding and
+  # denoising. On h20 (96 GiB) the adapters are off, so every row there is upstream-resident.
   local relenc=0
-  if [ "$name" = "taylorseer" ]; then
-    CMD=(env RACFG_RELEASE_TEXT_ENCODER=1 "${CMD[@]}")
+  if [ "$name" = "taylorseer" ] && [ "$PROFILE" = "v100" ]; then
     relenc=1
   fi
-  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr dtype=$RACFG_DTYPE gpu_only=1 release_text_encoder=$relenc $(date +%F_%T)"
+  # 显式覆盖继承的开关，避免 Taylor 外挂泄漏到其他方法或 H20。
+  local CMD=(env RACFG_RELEASE_TEXT_ENCODER="$relenc" python -m "models.$MODEL.sample")
+  echo "[run] $MODEL $name $CHUNK mode=$mode steps=$steps thr=$thr profile=$PROFILE dtype=$RACFG_DTYPE gpu_only=1 release_text_encoder=$relenc $(date +%F_%T)"
   ( cd "$RACFG" && "${CMD[@]}" "${COMMON[@]}" \
       --taylor_method "$mode" --num_steps "$steps" --rel_l1_thresh "$thr" \
       --interval 3 --max_order 1 --first_enhance 3 --hicache_scale 0.5 \
