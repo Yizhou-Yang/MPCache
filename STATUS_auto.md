@@ -1,6 +1,6 @@
 # MPCache reproduction checkpoint
 
-Generated: 2026-10-18T09:23:16.877225
+Generated: 2026-10-18T09:27:46.240461
 Profile: v100 (GPU-only generation; no CPU offload anywhere).
 
 V100 fp16 differs from paper H200 bf16.
@@ -42,7 +42,7 @@ Timing uses chunk averages and remains provisional until re-timed on an idle GPU
 
 ## wan
 
-- vanilla50: 52 valid unique videos
+- vanilla50: 53 valid unique videos
 - vanilla25: 32 valid unique videos
 - teacache: 32 valid unique videos
 - taylorseer: 0 valid unique videos

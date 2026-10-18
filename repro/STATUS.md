@@ -1,5 +1,22 @@
 # Reproduction status
 
+## 2026-10-18 09:45 — correction: Wan TaylorSeer IS reproducible on a 96 GiB H20
+
+- The parallel `h20` branch (4x H20 96 GiB, bf16, clean pinned upstream, **no adapters at all**)
+  reports CogVideoX 600/600 and, critically, **`wan/taylorseer` 100/100 with no OOM** — two 50-video
+  chunks at ~131 s/video. Confirmed from the pushed metadata (100 `video_*.json`) and both chunk
+  logs, which end at 100% without a traceback.
+- **The "defer to H200" decision above is withdrawn.** The 90-135 GiB arithmetic was a worst-case
+  bound (cond+uncond x three cached blocks x two Taylor orders); the real run fits inside 96 GiB.
+  Keep that arithmetic only as the explanation for why 31.7 GiB cannot do it, never as a claim
+  about 96 GiB.
+- H20 state at its 09:24 checkpoint: Cog six rows x100; Wan vanilla50 / vanilla25 / teacache /
+  taylorseer each 100, `racfg_slow` 72, `racfg_fast` 2 (both still running across the four cards).
+  Aggregation is deferred to `repro/finalize_h20_aggregate.sh`, which waits for every sampler and
+  then aggregates both models at n=100.
+- V100 state at 09:40: Cog six rows x100 (unchanged); Wan Vanilla50 [32,100) at 21/68. That chunk
+  is now **redundant** for the paper table: the H20 run is the bf16 one and will finish first.
+
 ## 2026-10-18 09:30 — CogVideoX complete, first checkpoint pushed
 
 - **CogVideoX: 6/6 rows at n=100, 100 quality pairs each.** The `cogvideox:0:32:taylorseer` probe
