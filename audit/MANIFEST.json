@@ -1,5 +1,5 @@
 {
- "file_count": 2237,
+ "file_count": 2269,
  "files": [
   {
    "path": "cogvideox/_logs/racfg_fast_cfg_tau_v2_p000-050.log",
@@ -6158,23 +6158,23 @@
   },
   {
    "path": "wan/_logs/racfg_fast_cfg_tau_v2_p000-050.log",
-   "sha256": "862e6c9b111d52195ce7bc5069aa270de80706f1eda7a682e4faa6ea38eebc0e",
-   "size": 102703
+   "sha256": "9fb862a5250c9ea77aeaeeaa2780f63713f045c6bf8c1fd64700a9e74966a32a",
+   "size": 130301
   },
   {
    "path": "wan/_logs/racfg_fast_cfg_tau_v2_p050-100.log",
-   "sha256": "c2ee3bbbe88f75623a601be8da83187e10aecf9f7c0203f2af24c85a2dca5fff",
-   "size": 102708
+   "sha256": "00df4da27f600466aa4611b2ff144f58ed037d96cddd79f5669c91c03f470279",
+   "size": 130304
   },
   {
    "path": "wan/_logs/racfg_slow_cfg_tau_v2_p000-050.log",
-   "sha256": "c13ca0536765b58d5347e9a660b7c3d8cff91cfa00cfddab427343acbaf47e1a",
-   "size": 357618
+   "sha256": "47ac133cfe16808706396f1b24b2daa0a33005ec743cd0d7dd3ecae09e5f34ae",
+   "size": 380474
   },
   {
    "path": "wan/_logs/racfg_slow_cfg_tau_v2_p050-100.log",
-   "sha256": "2a6bacfb324ea3e05fe97e4070e43064f2abeb77061362ce425c64752f4814b5",
-   "size": 344908
+   "sha256": "bf603bc6e98f57c406fd364dad0323227273912e85707ec5906471d33f1477b7",
+   "size": 367474
   },
   {
    "path": "wan/_logs/taylorseer_gpu_only_v2_p000-050.log",
@@ -6233,8 +6233,8 @@
   },
   {
    "path": "wan/racfg_fast/cfg_tau_v2/p000-050/manifest.jsonl",
-   "sha256": "53c07927231e99de58f7ba69388f280e769f086cdea8f9a225b3a8ff0aeca1d1",
-   "size": 710
+   "sha256": "e2caf8f585f0092e4f88bb60531d976c86972771174c11653d769f755aa31afc",
+   "size": 1765
   },
   {
    "path": "wan/racfg_fast/cfg_tau_v2/p000-050/metadata/video_000000.json",
@@ -6252,6 +6252,26 @@
    "size": 797
   },
   {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/metadata/video_000003.json",
+   "sha256": "6cf78b0b8e8619edecc5896706f1a33445316ba11ed01180f14d7c832e2956fa",
+   "size": 795
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/metadata/video_000004.json",
+   "sha256": "691d4e287d2de430c23867544fb572e0ee829745d3ec4befbc31dfaa146e1600",
+   "size": 800
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/metadata/video_000005.json",
+   "sha256": "64185ba46904548c4d05f419140da5e103908f6031a43090bc01b33b7a2c1469",
+   "size": 915
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/metadata/video_000006.json",
+   "sha256": "8321192375c1781369c2c53ec078cfef0aef0cf2181204768a85ed443dc268f0",
+   "size": 921
+  },
+  {
    "path": "wan/racfg_fast/cfg_tau_v2/p000-050/videos/video_000000.mp4",
    "sha256": "8faedecf4b865d2d06b7100300c4cbb524473014f8447312b8fc232daba0f420",
    "size": 2527607
@@ -6267,14 +6287,34 @@
    "size": 1474655
   },
   {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/videos/video_000003.mp4",
+   "sha256": "ba00823e3404b1c832d757fdddddb4a77b9ac987b519ec57ea825547b114df78",
+   "size": 3134343
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/videos/video_000004.mp4",
+   "sha256": "2630e4b023e632c1b631e25506e6aa354e4acb890f78f7e9972feaacc56041f2",
+   "size": 1367115
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/videos/video_000005.mp4",
+   "sha256": "291edef211c4d0fa42a9bbdcb35eea54cd0306fa341b7bf78ab3f65e2516938f",
+   "size": 731890
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p000-050/videos/video_000006.mp4",
+   "sha256": "404ed7e1aab2870c097fdbcfae5f446de882793badd793c72f0d26068ac89f7d",
+   "size": 1370321
+  },
+  {
    "path": "wan/racfg_fast/cfg_tau_v2/p050-100/config.json",
    "sha256": "ca29d7ceb3e32cc82882abf69f8fb475d3c453694ee7cc90902bb563d453a21a",
    "size": 1899
   },
   {
    "path": "wan/racfg_fast/cfg_tau_v2/p050-100/manifest.jsonl",
-   "sha256": "0869c370f9b1e29236f1b1d88baac00674de71a08f95b0416e4f74476510ee83",
-   "size": 558
+   "sha256": "d1e83a84b95a574f9f85885555033255c4e2f6372a9435ed84d10bd799d174f0",
+   "size": 1313
   },
   {
    "path": "wan/racfg_fast/cfg_tau_v2/p050-100/metadata/video_000050.json",
@@ -6292,6 +6332,26 @@
    "size": 783
   },
   {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/metadata/video_000053.json",
+   "sha256": "915e3a9a89f8fc518c9e0264373e600d688b38c78f1a9a0b20102b38d10b9661",
+   "size": 782
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/metadata/video_000054.json",
+   "sha256": "4d869de9636f608410a7998e18f66101804b5365dded0d302c75c0c79ab39170",
+   "size": 784
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/metadata/video_000055.json",
+   "sha256": "fa41c283c451961828ad152755b3f4b2c0d59850aef3c131269c97ff294fbca3",
+   "size": 783
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/metadata/video_000056.json",
+   "sha256": "395fc14034cd026f3fcf7e4acb16d5f1f4735fbdc47c7752aa1bd9ccef16b33d",
+   "size": 786
+  },
+  {
    "path": "wan/racfg_fast/cfg_tau_v2/p050-100/videos/video_000050.mp4",
    "sha256": "e6e9c770eeea226369c2707f00570bd5981dd00402353a198340251d2ee76eb8",
    "size": 1009383
@@ -6307,14 +6367,34 @@
    "size": 1042049
   },
   {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/videos/video_000053.mp4",
+   "sha256": "6b6fa1fc0656807c74d1a890a05cf9be8033b4b85833198a622288491cf21f97",
+   "size": 541514
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/videos/video_000054.mp4",
+   "sha256": "23d3ec3186fda6a962c678e8d31905ff0bcd35e8eb9669c9e83cad33e5800a9e",
+   "size": 791782
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/videos/video_000055.mp4",
+   "sha256": "7633cd596e08286269a6624cc0a06e7c438419e834306f325761e6bf088701de",
+   "size": 1346982
+  },
+  {
+   "path": "wan/racfg_fast/cfg_tau_v2/p050-100/videos/video_000056.mp4",
+   "sha256": "6a0e5dd176ca0f5d9360bc239a975badf518d7170c09de87f486da3442e8d654",
+   "size": 258965
+  },
+  {
    "path": "wan/racfg_slow/cfg_tau_v2/p000-050/config.json",
    "sha256": "119ac2bfd036b8d2bb52ed14a83abccd106f658ef81f05a170a24077f1f7c806",
    "size": 1897
   },
   {
    "path": "wan/racfg_slow/cfg_tau_v2/p000-050/manifest.jsonl",
-   "sha256": "5ce23c77e60820b9ac34606cb1828e6129a7f27e095e77f97562e76eddd2391b",
-   "size": 8325
+   "sha256": "b206b354cb99ff058f8a412c3d11265ae8eabd80ae926a5a9da7856f4e220c54",
+   "size": 9143
   },
   {
    "path": "wan/racfg_slow/cfg_tau_v2/p000-050/metadata/video_000000.json",
@@ -6507,6 +6587,26 @@
    "size": 806
   },
   {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/metadata/video_000038.json",
+   "sha256": "a2d9f73ad84f91177377376d8266f63cc94b6a88c1a877cc0c8ff28d16fec2df",
+   "size": 808
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/metadata/video_000039.json",
+   "sha256": "592bc79ae45136625eab14fcc7ac946bdd04de33c41a087b441e504b043b5ec3",
+   "size": 797
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/metadata/video_000040.json",
+   "sha256": "b3ac33ff9b55ec30f1f8a0961f1c57a0da0368244b03a3c45da496bc5c98c5cd",
+   "size": 802
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/metadata/video_000041.json",
+   "sha256": "07cbfe21cf34277c698e5a2c40f5a14603693f50fd374a49a1c157881a0d31bb",
+   "size": 791
+  },
+  {
    "path": "wan/racfg_slow/cfg_tau_v2/p000-050/videos/video_000000.mp4",
    "sha256": "534b15c02e0db07ec047bc5b5f742ec9fe19caad521ca33ff7af81b81d7b20b5",
    "size": 2321532
@@ -6697,14 +6797,34 @@
    "size": 1553753
   },
   {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/videos/video_000038.mp4",
+   "sha256": "c046389427e5f06b7c595ba1c51cf90ad985bfa656215f60116ce3fecf2340e4",
+   "size": 1347116
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/videos/video_000039.mp4",
+   "sha256": "176bc624477ed41e7460ee2af711e2e94bb3c76179eeccbba76a3868d2365e7a",
+   "size": 764808
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/videos/video_000040.mp4",
+   "sha256": "4a60b6122cd7eeced4c957385e4266bab5b94f6ae342bd479e6867a6145396b8",
+   "size": 568654
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p000-050/videos/video_000041.mp4",
+   "sha256": "4ba63df8ca5384d2e06443d78757eb43e73d1722fdf4fbdd8d069688805f2692",
+   "size": 940494
+  },
+  {
    "path": "wan/racfg_slow/cfg_tau_v2/p050-100/config.json",
    "sha256": "845211bb0127343b2e05b2ad15274aa9d34d33159c3f3b698d5b662921d2ad09",
    "size": 1899
   },
   {
    "path": "wan/racfg_slow/cfg_tau_v2/p050-100/manifest.jsonl",
-   "sha256": "74c36e4d3354b9435f2d200d24519b9780f581663e853d2f6a13b88b7f97e525",
-   "size": 8145
+   "sha256": "a063031f998c3c4d1496e8201dba3b7becb9229c1efbe8de5c33c6af2e903fdb",
+   "size": 9028
   },
   {
    "path": "wan/racfg_slow/cfg_tau_v2/p050-100/metadata/video_000050.json",
@@ -6887,6 +7007,26 @@
    "size": 797
   },
   {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/metadata/video_000086.json",
+   "sha256": "74f2f4a569c187aff6a50c7b429f7a7909f3df4714ce502e18771eece90a7531",
+   "size": 799
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/metadata/video_000087.json",
+   "sha256": "7c05a3143eba8d2c286ebdbb9148a2cb31a264ee7ef8da581099b1d862bd6290",
+   "size": 845
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/metadata/video_000088.json",
+   "sha256": "8b594cbcf9d38cdba0cded6a527b4f99fa07dafa7f46b42a63f9b4276d1fa679",
+   "size": 809
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/metadata/video_000089.json",
+   "sha256": "290094fe3bbfda698ae969ec4270d285556feec6dd2e28690732cc98072bae58",
+   "size": 810
+  },
+  {
    "path": "wan/racfg_slow/cfg_tau_v2/p050-100/videos/video_000050.mp4",
    "sha256": "9743948d77f7a59bdaa83dea54fd04c95279f759a9ff941e06b91056ba71be49",
    "size": 863354
@@ -7065,6 +7205,26 @@
    "path": "wan/racfg_slow/cfg_tau_v2/p050-100/videos/video_000085.mp4",
    "sha256": "94fb1530fcf97967f421ff24fce19d91f69ac82703818d2bb6ccdc1f5a950eba",
    "size": 406170
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/videos/video_000086.mp4",
+   "sha256": "5709d14c49bfca7179387b58a8fa482c574fb772498516c2d6f3590f73408af2",
+   "size": 552211
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/videos/video_000087.mp4",
+   "sha256": "05d6541970dcd8fe050c2650eebcd9fe3a34fb51bb3145dc4710c62e3fa349af",
+   "size": 760160
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/videos/video_000088.mp4",
+   "sha256": "cf4e11648d3e84fe817766094201ae40636e661262c9e3813abcf338f948cac6",
+   "size": 1396953
+  },
+  {
+   "path": "wan/racfg_slow/cfg_tau_v2/p050-100/videos/video_000089.mp4",
+   "sha256": "ca450c7d6fda120de230777e466e6e1d0e1144d10ef402092318a517367db7c5",
+   "size": 901232
   },
   {
    "path": "wan/taylorseer/gpu_only_v2/p000-050/config.json",
@@ -11188,5 +11348,5 @@
   }
  ],
  "results_root": "/root/viewdit/results/repro_h20",
- "total_bytes": 980011298
+ "total_bytes": 996902992
 }

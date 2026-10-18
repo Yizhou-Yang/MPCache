@@ -143,11 +143,11 @@
  },
  "wan/_logs/racfg_fast_cfg_tau_v2_p000-050.log": {
   "actions": {
-   "full_both": 15,
-   "reuse_both": 105
+   "full_both": 35,
+   "reuse_both": 245
   },
-  "cfgcache_steps": 155,
-  "kept_lines": 190,
+  "cfgcache_steps": 353,
+  "kept_lines": 396,
   "prompts_timed": 0,
   "timing_max_s": null,
   "timing_median_s": null,
@@ -156,11 +156,11 @@
  },
  "wan/_logs/racfg_fast_cfg_tau_v2_p050-100.log": {
   "actions": {
-   "full_both": 15,
-   "reuse_both": 105
+   "full_both": 35,
+   "reuse_both": 245
   },
-  "cfgcache_steps": 154,
-  "kept_lines": 189,
+  "cfgcache_steps": 352,
+  "kept_lines": 395,
   "prompts_timed": 0,
   "timing_max_s": null,
   "timing_median_s": null,
@@ -169,11 +169,11 @@
  },
  "wan/_logs/racfg_slow_cfg_tau_v2_p000-050.log": {
   "actions": {
-   "full_both": 312,
-   "reuse_both": 1244
+   "full_both": 336,
+   "reuse_both": 1344
   },
-  "cfgcache_steps": 1946,
-  "kept_lines": 2051,
+  "cfgcache_steps": 2104,
+  "kept_lines": 2217,
   "prompts_timed": 0,
   "timing_max_s": null,
   "timing_median_s": null,
@@ -182,11 +182,11 @@
  },
  "wan/_logs/racfg_slow_cfg_tau_v2_p050-100.log": {
   "actions": {
-   "full_both": 296,
-   "reuse_both": 1184
+   "full_both": 320,
+   "reuse_both": 1280
   },
-  "cfgcache_steps": 1850,
-  "kept_lines": 1951,
+  "cfgcache_steps": 2005,
+  "kept_lines": 2114,
   "prompts_timed": 0,
   "timing_max_s": null,
   "timing_median_s": null,

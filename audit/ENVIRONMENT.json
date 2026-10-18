@@ -2,7 +2,7 @@
  "bf16_supported": "True",
  "cuda_version": "CUDA Version: 12.2",
  "disk": "overlay          12T  3.1T  8.6T  27% /",
- "generated_at": "2026-10-18T09:27:34+08:00",
+ "generated_at": "2026-10-18T09:34:15+08:00",
  "gpus": "0, NVIDIA H20, 97871 MiB, 535.247.01, 9.0\n1, NVIDIA H20, 97871 MiB, 535.247.01, 9.0\n2, NVIDIA H20, 97871 MiB, 535.247.01, 9.0\n3, NVIDIA H20, 97871 MiB, 535.247.01, 9.0",
  "hostname": "ts-8b1d89f5a13f013001a14985d3eb16d7-launcher",
  "mem_total_gb": "2265",

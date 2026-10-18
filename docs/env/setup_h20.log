@@ -1,0 +1,648 @@
+================ preflight ================
+NVIDIA H20, 535.247.01, 97871 MiB, 9.0
+NVIDIA H20, 535.247.01, 97871 MiB, 9.0
+NVIDIA H20, 535.247.01, 97871 MiB, 9.0
+NVIDIA H20, 535.247.01, 97871 MiB, 9.0
+[preflight] conda: Python 3.14.7
+[preflight] disk free: overlay          12T  3.1T  8.7T  26% /
+[preflight] free RAM:  2196 GiB available
+================ upstream (pinned) ================
+  RA-CFGCache e17d6a74ac2f7ca68d9ee9b8af8bfd9bc3886d8a
+  TeaCache 7c10efc4702c6b619f47805f7abe4a7a08085aa0
+  TaylorSeer 704ee98c74f7f04da443daa3c0aa2cc7803d86e3
+================ patch (profile h20) ================
+[profile] h20
+[dtype-patch] models/cogvideox/util.py: already
+[dtype-patch] models/cogvideox/sample.py: already
+[dtype-patch] models/cogvideox/taylor_utils/grouped_taylor.py: already
+[dtype-patch] models/wan/util.py: already
+[dtype-patch] models/wan/sample.py: no-bf16
+[dtype-patch] models/wan/taylor_utils/grouped_taylor.py: already
+[repro-fix] cogvideox/sample.py threshold: already
+[repro-fix] wan/sample.py threshold: already
+[profile] h20: VAE tiling and text-encoder release are intentionally NOT applied
+[patch] all anchors and syntax validated; applied successfully
+[verify] cogvideox/sample.py: parses, threshold bound, no adapter
+[verify] wan/sample.py: parses, threshold bound, no adapter
+[verify] h20 tree differs from upstream only by the dtype indirection + threshold fix
+================ conda env ================
+2 channel Terms of Service accepted
+Retrieving notices: ...working... done
+Channels:
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+    current version: 26.7.1
+    latest version: 26.9.3
+
+Please update conda by running
+
+    $ conda self update
+
+
+
+## Package Plan ##
+
+  environment location: /root/miniconda3/envs/racfg
+
+  added / updated specs:
+    - python=3.10
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    ca-certificates-2026.9.25  |       h06a4308_0         107 KB
+    libexpat-2.9.0             |       h7354ed3_0         131 KB
+    libnsl-2.0.0               |       h5eee18b_0          31 KB
+    openssl-3.5.9              |       h1b28b03_0         5.7 MB
+    packaging-26.3             |  py310h06a4308_0         329 KB
+    pip-26.2.1                 |     pyhc872135_0         1.1 MB
+    python-3.10.22             |       hd9cb797_0        24.4 MB
+    setuptools-84.0.0          |  py310h06a4308_0         968 KB
+    sqlite-3.53.4              |       h795bf6d_0         1.2 MB
+    tk-8.6.15                  |       h54e0aa7_0         3.4 MB
+    wheel-0.48.0               |  py310h06a4308_0          59 KB
+    xz-5.8.4                   |       h140a991_0         652 KB
+    ------------------------------------------------------------
+                                           Total:        38.1 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main 
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-52_gnu 
+  bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6 
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2026.9.25-h06a4308_0 
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.44-h9e0c5a2_3 
+  libexpat           pkgs/main/linux-64::libexpat-2.9.0-h7354ed3_0 
+  libffi             pkgs/main/linux-64::libffi-3.4.8-h06d3fd0_3 
+  libgcc             pkgs/main/linux-64::libgcc-15.2.0-h69a1729_8 
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_8 
+  libnsl             pkgs/main/linux-64::libnsl-2.0.0-h5eee18b_0 
+  libstdcxx          pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_8 
+  libuuid            pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0 
+  libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0 
+  libzlib            pkgs/main/linux-64::libzlib-1.3.2-h47b2149_0 
+  ncurses            pkgs/main/linux-64::ncurses-6.6-hfaaeb4e_0 
+  openssl            pkgs/main/linux-64::openssl-3.5.9-h1b28b03_0 
+  packaging          pkgs/main/linux-64::packaging-26.3-py310h06a4308_0 
+  pip                pkgs/main/noarch::pip-26.2.1-pyhc872135_0 
+  pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h47b2149_2 
+  python             pkgs/main/linux-64::python-3.10.22-hd9cb797_0 
+  readline           pkgs/main/linux-64::readline-8.3-hc2a1206_0 
+  setuptools         pkgs/main/linux-64::setuptools-84.0.0-py310h06a4308_0 
+  sqlite             pkgs/main/linux-64::sqlite-3.53.4-h795bf6d_0 
+  tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0 
+  tzdata             pkgs/main/noarch::tzdata-2026c-he532380_0 
+  wheel              pkgs/main/linux-64::wheel-0.48.0-py310h06a4308_0 
+  xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.13-h65de747_0 
+  xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0 
+  xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0 
+  xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2025.1-h47b2149_0 
+  xz                 pkgs/main/linux-64::xz-5.8.4-h140a991_0 
+  zlib               pkgs/main/linux-64::zlib-1.3.2-h47b2149_0 
+
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+#
+# To activate this environment, use
+#
+#     $ conda activate racfg
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+
+Channel "defaults" has the following notices:
+  [warning] -- Wed Sep 30 00:00:00 2026
+  Anaconda will stop building new Python 3.10 packages on the main channel after October 31, 2026. Existing Python 3.10 packages will stay available but will no longer get new builds or security fixes. We recommend upgrading to Python 3.11 or later. Details: https://www.anaconda.com/docs/reference/policies-practices/python-version-support?utm_source=channel_notices
+
+  [info] -- Thu Aug  6 00:00:00 2026
+  main-x (Anaconda's new authenticated channel) is now generally available, with thousands of additional packages from our secure supply chain. Get started at: https://anaconda.com/docs/getting-started/main-x?utm_source=channel_notices
+
+WARNING conda.conda_pypi.main:notify_externally_managed_future(156): 
+  Did you know? You can install many PyPI packages with conda
+  using the conda-pypi beta. Get started:
+    https://docs.conda.io/projects/conda/en/stable/new-features.html
+
+Looking in indexes: https://mirrors.tencent.com/pypi/simple
+Requirement already satisfied: pip in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (26.2.1)
+Requirement already satisfied: setuptools in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (84.0.0)
+Requirement already satisfied: wheel in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (0.48.0)
+Requirement already satisfied: packaging>=24.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from wheel) (26.3)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Looking in indexes: https://mirrors.tencent.com/pypi/simple
+Collecting accelerate==1.12.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 1))
+  Downloading accelerate-1.12.0-py3-none-any.whl (380 kB)
+Collecting aiofiles==24.1.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 2))
+  Downloading aiofiles-24.1.0-py3-none-any.whl (15 kB)
+Collecting altair==6.0.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 3))
+  Downloading altair-6.0.0-py3-none-any.whl (795 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 795.4/795.4 kB 24.0 MB/s  0:00:00
+Collecting annotated-doc==0.0.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 4))
+  Downloading annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Collecting annotated-types==0.7.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 5))
+  Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Collecting anyio==4.12.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 6))
+  Downloading anyio-4.12.1-py3-none-any.whl (113 kB)
+Collecting attrs==25.4.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 7))
+  Downloading attrs-25.4.0-py3-none-any.whl (67 kB)
+Collecting blinker==1.9.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 8))
+  Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Collecting brotli==1.2.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 9))
+  Downloading brotli-1.2.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 111.7 MB/s  0:00:00
+Collecting cachetools==6.2.6 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 10))
+  Downloading cachetools-6.2.6-py3-none-any.whl (11 kB)
+Collecting calflops==0.3.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 11))
+  Downloading calflops-0.3.2-py3-none-any.whl (29 kB)
+Collecting certifi==2026.1.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 12))
+  Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+Collecting charset-normalizer==3.4.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 13))
+  Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (153 kB)
+Collecting click==8.3.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 14))
+  Downloading click-8.3.1-py3-none-any.whl (108 kB)
+Collecting contourpy==1.3.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 15))
+  Downloading contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
+Collecting cuda-bindings==12.9.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 16))
+  Downloading cuda_bindings-12.9.4-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.1/12.1 MB 108.1 MB/s  0:00:00
+Collecting cuda-pathfinder==1.3.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 17))
+  Downloading cuda_pathfinder-1.3.4-py3-none-any.whl (30 kB)
+Collecting cycler==0.12.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 18))
+  Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting diffusers==0.37.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 19))
+  Downloading diffusers-0.37.0-py3-none-any.whl (5.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.0/5.0 MB 107.2 MB/s  0:00:00
+Collecting einops==0.8.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 20))
+  Downloading einops-0.8.2-py3-none-any.whl (65 kB)
+Collecting exceptiongroup==1.3.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 21))
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Collecting fastapi==0.129.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 22))
+  Downloading fastapi-0.129.0-py3-none-any.whl (102 kB)
+Collecting ffmpy==1.0.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 23))
+  Downloading ffmpy-1.0.0-py3-none-any.whl (5.6 kB)
+Collecting filelock==3.24.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 24))
+  Downloading filelock-3.24.2-py3-none-any.whl (24 kB)
+Collecting fire==0.7.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 25))
+  Downloading fire-0.7.1-py3-none-any.whl (115 kB)
+Collecting fonttools==4.61.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 26))
+  Downloading fonttools-4.61.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 77.1 MB/s  0:00:00
+Collecting fsspec==2026.2.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 27))
+  Downloading fsspec-2026.2.0-py3-none-any.whl (202 kB)
+Collecting fvcore==0.1.5.post20221221 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 28))
+  Downloading fvcore-0.1.5.post20221221.tar.gz (50 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting gitdb==4.0.12 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 29))
+  Downloading gitdb-4.0.12-py3-none-any.whl (62 kB)
+Collecting GitPython==3.1.46 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 30))
+  Downloading gitpython-3.1.46-py3-none-any.whl (208 kB)
+Collecting gradio==6.5.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 31))
+  Downloading gradio-6.5.1-py3-none-any.whl (24.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.2/24.2 MB 118.0 MB/s  0:00:00
+Collecting gradio_client==2.0.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 32))
+  Downloading gradio_client-2.0.3-py3-none-any.whl (55 kB)
+Collecting groovy==0.1.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 33))
+  Downloading groovy-0.1.2-py3-none-any.whl (14 kB)
+Collecting h11==0.16.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 34))
+  Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Collecting hf-xet==1.4.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 35))
+  Downloading hf_xet-1.4.2-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 63.2 MB/s  0:00:00
+Collecting httpcore==1.0.9 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 36))
+  Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+Collecting httpx==0.28.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 37))
+  Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+Collecting huggingface_hub==1.7.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 38))
+  Downloading huggingface_hub-1.7.1-py3-none-any.whl (616 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 616.3/616.3 kB 12.0 MB/s  0:00:00
+Collecting idna==3.11 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 39))
+  Downloading idna-3.11-py3-none-any.whl (71 kB)
+Collecting ImageIO==2.37.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 40))
+  Downloading imageio-2.37.3-py3-none-any.whl (317 kB)
+Collecting imageio-ffmpeg==0.6.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 41))
+  Downloading imageio_ffmpeg-0.6.0-py3-none-manylinux2014_x86_64.whl (29.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 29.5/29.5 MB 316.1 MB/s  0:00:00
+Collecting importlib_metadata==8.7.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 42))
+  Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+Collecting invisible-watermark==0.2.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 43))
+  Downloading invisible_watermark-0.2.0-py3-none-any.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 48.1 MB/s  0:00:00
+Collecting iopath==0.1.10 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 44))
+  Downloading iopath-0.1.10.tar.gz (42 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting Jinja2==3.1.6 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 45))
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting jsonschema==4.26.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 46))
+  Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Collecting jsonschema-specifications==2025.9.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 47))
+  Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Collecting kiwisolver==1.4.9 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 48))
+  Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 78.6 MB/s  0:00:00
+Collecting markdown-it-py==4.0.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 49))
+  Downloading markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+Collecting MarkupSafe==3.0.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 50))
+  Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Collecting matplotlib==3.10.8 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 51))
+  Downloading matplotlib-3.10.8-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 72.6 MB/s  0:00:00
+Collecting mdurl==0.1.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 52))
+  Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Collecting mpmath==1.3.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 53))
+  Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 206.1 MB/s  0:00:00
+Collecting narwhals==2.16.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 54))
+  Downloading narwhals-2.16.0-py3-none-any.whl (443 kB)
+Collecting networkx==3.4.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 55))
+  Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 508.9 MB/s  0:00:00
+Collecting numpy==2.2.6 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 56))
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 274.8 MB/s  0:00:00
+Collecting nvidia-cublas-cu12==12.8.4.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 57))
+  Downloading nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl (594.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 594.3/594.3 MB 31.1 MB/s  0:00:18
+Collecting nvidia-cuda-cupti-cu12==12.8.90 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 58))
+  Downloading nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (10.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 274.6 MB/s  0:00:00
+Collecting nvidia-cuda-nvrtc-cu12==12.8.93 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 59))
+  Downloading nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (88.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 88.0/88.0 MB 47.9 MB/s  0:00:01
+Collecting nvidia-cuda-runtime-cu12==12.8.90 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 60))
+  Downloading nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (954 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 954.8/954.8 kB 82.0 MB/s  0:00:00
+Collecting nvidia-cudnn-cu12==9.10.2.21 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 61))
+  Downloading nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl (706.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 706.8/706.8 MB 31.1 MB/s  0:00:21
+Collecting nvidia-cufft-cu12==11.3.3.83 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 62))
+  Downloading nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (193.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 193.1/193.1 MB 32.1 MB/s  0:00:06
+Collecting nvidia-cufile-cu12==1.13.1.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 63))
+  Downloading nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 66.9 MB/s  0:00:00
+Collecting nvidia-curand-cu12==10.3.9.90 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 64))
+  Downloading nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl (63.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.6/63.6 MB 42.2 MB/s  0:00:01
+Collecting nvidia-cusolver-cu12==11.7.3.90 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 65))
+  Downloading nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl (267.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 267.5/267.5 MB 32.9 MB/s  0:00:08
+Collecting nvidia-cusparse-cu12==12.5.8.93 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 66))
+  Downloading nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (288.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 288.2/288.2 MB 31.3 MB/s  0:00:08
+Collecting nvidia-cusparselt-cu12==0.7.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 67))
+  Downloading nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl (287.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 287.2/287.2 MB 30.7 MB/s  0:00:08
+Collecting nvidia-nccl-cu12==2.27.5 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 68))
+  Downloading nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (322.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 322.3/322.3 MB 28.9 MB/s  0:00:09
+Collecting nvidia-nvjitlink-cu12==12.8.93 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 69))
+  Downloading nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (39.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 39.3/39.3 MB 80.4 MB/s  0:00:00
+Collecting nvidia-nvshmem-cu12==3.4.5 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 70))
+  Downloading nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (139.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.1/139.1 MB 35.6 MB/s  0:00:03
+Collecting nvidia-nvtx-cu12==12.8.90 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 71))
+  Downloading nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (89 kB)
+Collecting opencv-python-headless==4.13.0.92 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 72))
+  Downloading opencv_python_headless-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl (60.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 89.8 MB/s  0:00:00
+Collecting orjson==3.11.7 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 73))
+  Downloading orjson-3.11.7-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (133 kB)
+Collecting packaging==25.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 74))
+  Downloading packaging-25.0-py3-none-any.whl (66 kB)
+Collecting pandas==2.3.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 75))
+  Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 328.2 MB/s  0:00:00
+Collecting pillow==12.1.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 76))
+  Downloading pillow-12.1.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.0/7.0 MB 96.2 MB/s  0:00:00
+Collecting pip==23.0.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 77))
+  Downloading pip-23.0.1-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 549.1 MB/s  0:00:00
+Collecting portalocker==3.2.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 78))
+  Downloading portalocker-3.2.0-py3-none-any.whl (22 kB)
+Collecting protobuf==6.33.5 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 79))
+  Downloading protobuf-6.33.5-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+Collecting psutil==7.2.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 80))
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Collecting pyarrow==23.0.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 81))
+  Downloading pyarrow-23.0.1-cp310-cp310-manylinux_2_28_x86_64.whl (47.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.6/47.6 MB 88.4 MB/s  0:00:00
+Collecting pydantic==2.12.5 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 82))
+  Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
+Collecting pydantic_core==2.41.5 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 83))
+  Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 21.4 MB/s  0:00:00
+Collecting pydeck==0.9.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 84))
+  Downloading pydeck-0.9.1-py2.py3-none-any.whl (6.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 47.1 MB/s  0:00:00
+Collecting pydub==0.25.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 85))
+  Downloading pydub-0.25.1-py2.py3-none-any.whl (32 kB)
+Collecting Pygments==2.19.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 86))
+  Downloading pygments-2.19.2-py3-none-any.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 325.9 MB/s  0:00:00
+Collecting pyparsing==3.3.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 87))
+  Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+Collecting python-dateutil==2.9.0.post0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 88))
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting python-multipart==0.0.22 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 89))
+  Downloading python_multipart-0.0.22-py3-none-any.whl (24 kB)
+Collecting pytz==2025.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 90))
+  Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Collecting PyWavelets==1.8.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 91))
+  Downloading pywavelets-1.8.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 323.2 MB/s  0:00:00
+Collecting PyYAML==6.0.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 92))
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 297.3 MB/s  0:00:00
+Collecting referencing==0.37.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 93))
+  Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Collecting regex==2026.1.15 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 94))
+  Downloading regex-2026.1.15-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (791 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 791.8/791.8 kB 60.8 MB/s  0:00:00
+Collecting requests==2.32.5 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 95))
+  Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+Collecting rich==14.3.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 96))
+  Downloading rich-14.3.2-py3-none-any.whl (309 kB)
+Collecting rpds-py==0.30.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 97))
+  Downloading rpds_py-0.30.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (390 kB)
+Collecting ruff==0.6.8 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 98))
+  Downloading ruff-0.6.8-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.9/10.9 MB 96.3 MB/s  0:00:00
+Collecting safehttpx==0.1.7 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 99))
+  Downloading safehttpx-0.1.7-py3-none-any.whl (9.0 kB)
+Collecting safetensors==0.7.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 100))
+  Downloading safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (507 kB)
+Collecting scipy==1.15.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 101))
+  Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 72.2 MB/s  0:00:00
+Collecting semantic-version==2.10.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 102))
+  Downloading semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
+Collecting sentencepiece==0.2.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 103))
+  Downloading sentencepiece-0.2.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 19.1 MB/s  0:00:00
+Collecting setuptools==79.0.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 104))
+  Downloading setuptools-79.0.1-py3-none-any.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 383.2 MB/s  0:00:00
+Collecting shellingham==1.5.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 105))
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Collecting six==1.17.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 106))
+  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting smmap==5.0.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 107))
+  Downloading smmap-5.0.2-py3-none-any.whl (24 kB)
+Collecting starlette==0.52.1 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 108))
+  Downloading starlette-0.52.1-py3-none-any.whl (74 kB)
+Collecting streamlit==1.54.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 109))
+  Downloading streamlit-1.54.0-py3-none-any.whl (9.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.1/9.1 MB 75.9 MB/s  0:00:00
+Collecting streamlit-drawable-canvas==0.9.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 110))
+  Downloading streamlit_drawable_canvas-0.9.3-py3-none-any.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 15.1 MB/s  0:00:00
+Collecting streamlit-keyup==0.3.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 111))
+  Downloading streamlit_keyup-0.3.0-py3-none-any.whl (7.5 kB)
+Collecting sympy==1.14.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 112))
+  Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 321.3 MB/s  0:00:00
+Collecting tabulate==0.10.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 113))
+  Downloading tabulate-0.10.0-py3-none-any.whl (39 kB)
+Collecting tenacity==9.1.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 114))
+  Downloading tenacity-9.1.4-py3-none-any.whl (28 kB)
+Collecting termcolor==3.3.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 115))
+  Downloading termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+Collecting tokenizers==0.22.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 116))
+  Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 426.0 MB/s  0:00:00
+Collecting toml==0.10.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 117))
+  Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Collecting tomlkit==0.13.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 118))
+  Downloading tomlkit-0.13.3-py3-none-any.whl (38 kB)
+Collecting torch==2.10.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 119))
+  Downloading torch-2.10.0-3-cp310-cp310-manylinux_2_28_x86_64.whl (915.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 915.5/915.5 MB 28.8 MB/s  0:00:28
+Collecting torchprofile==0.1.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 120))
+  Downloading torchprofile-0.1.0-py3-none-any.whl (9.3 kB)
+Collecting torchvision==0.25.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 121))
+  Downloading torchvision-0.25.0-cp310-cp310-manylinux_2_28_x86_64.whl (8.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.1/8.1 MB 87.8 MB/s  0:00:00
+Collecting tornado==6.5.4 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 122))
+  Downloading tornado-6.5.4-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (445 kB)
+Collecting tqdm==4.67.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 123))
+  Downloading tqdm-4.67.3-py3-none-any.whl (78 kB)
+Collecting transformers==5.2.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 124))
+  Downloading transformers-5.2.0-py3-none-any.whl (10.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.4/10.4 MB 277.3 MB/s  0:00:00
+Collecting triton==3.6.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 125))
+  Downloading triton-3.6.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (188.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.1/188.1 MB 44.5 MB/s  0:00:04
+Collecting typer==0.24.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 126))
+  Downloading typer-0.24.0-py3-none-any.whl (56 kB)
+Collecting typer-slim==0.24.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 127))
+  Downloading typer_slim-0.24.0-py3-none-any.whl (3.4 kB)
+Collecting typing_extensions==4.15.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 128))
+  Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Collecting typing-inspection==0.4.2 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 129))
+  Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Collecting tzdata==2025.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 130))
+  Downloading tzdata-2025.3-py2.py3-none-any.whl (348 kB)
+Collecting urllib3==2.6.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 131))
+  Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+Collecting uvicorn==0.41.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 132))
+  Downloading uvicorn-0.41.0-py3-none-any.whl (68 kB)
+Collecting watchdog==6.0.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 133))
+  Downloading watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl (79 kB)
+Collecting wheel==0.46.3 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 134))
+  Downloading wheel-0.46.3-py3-none-any.whl (30 kB)
+Collecting yacs==0.1.8 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 135))
+  Downloading yacs-0.1.8-py3-none-any.whl (14 kB)
+Collecting zipp==3.23.0 (from -r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 136))
+  Downloading zipp-3.23.0-py3-none-any.whl (10 kB)
+Collecting opencv-python>=4.1.0.25 (from invisible-watermark==0.2.0->-r /root/viewdit/repro/upstream/RA-CFGCache/requirements.txt (line 43))
+  Downloading opencv_python-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl (73.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.8/73.8 MB 50.1 MB/s  0:00:01
+Building wheels for collected packages: fvcore, iopath
+  Building wheel for fvcore (pyproject.toml): started
+  Building wheel for fvcore (pyproject.toml): finished with status 'done'
+  Created wheel for fvcore: filename=fvcore-0.1.5.post20221221-py3-none-any.whl size=61443 sha256=fab2d5584757e4c02632650538179cee1efedb8f55d9fd5ded73ec13311f4de2
+  Stored in directory: /root/.cache/pip/wheels/55/1f/17/6769a6399fe7fb0b44a9236837f77fdfd9a4eade0eb0bbdec3
+  Building wheel for iopath (pyproject.toml): started
+  Building wheel for iopath (pyproject.toml): finished with status 'done'
+  Created wheel for iopath: filename=iopath-0.1.10-py3-none-any.whl size=31598 sha256=94719c031a9299cb8db1d60982e8a28ce6fd2b9d6ebe0a87e8dafd04486e5cea
+  Stored in directory: /root/.cache/pip/wheels/c4/4a/a8/d355f3d0deaefed81884a98f63652dab133c95d4e1c7762090
+Successfully built fvcore iopath
+Installing collected packages: pytz, pydub, nvidia-cusparselt-cu12, mpmath, brotli, zipp, watchdog, urllib3, tzdata, typing_extensions, triton, tqdm, tornado, tomlkit, toml, termcolor, tenacity, tabulate, sympy, smmap, six, shellingham, setuptools, sentencepiece, semantic-version, safetensors, ruff, rpds-py, regex, PyYAML, python-multipart, pyparsing, Pygments, pyarrow, psutil, protobuf, portalocker, pip, pillow, packaging, orjson, nvidia-nvtx-cu12, nvidia-nvshmem-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufile-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, networkx, narwhals, mdurl, MarkupSafe, kiwisolver, imageio-ffmpeg, idna, hf-xet, h11, groovy, fsspec, fonttools, filelock, ffmpy, einops, cycler, cuda-pathfinder, click, charset-normalizer, certifi, cachetools, blinker, attrs, annotated-types, annotated-doc, aiofiles, yacs, wheel, uvicorn, typing-inspection, scipy, requests, referencing, PyWavelets, python-dateutil, pydantic_core, opencv-python-headless, opencv-python, nvidia-cusparse-cu12, nvidia-cufft-cu12, nvidia-cudnn-cu12, markdown-it-py, Jinja2, iopath, importlib_metadata, ImageIO, httpcore, gitdb, fire, exceptiongroup, cuda-bindings, contourpy, rich, pydeck, pydantic, pandas, nvidia-cusolver-cu12, matplotlib, jsonschema-specifications, GitPython, fvcore, anyio, typer, torch, starlette, jsonschema, httpx, typer-slim, torchvision, torchprofile, safehttpx, invisible-watermark, huggingface_hub, fastapi, altair, tokenizers, streamlit, gradio_client, diffusers, accelerate, transformers, streamlit-keyup, streamlit-drawable-canvas, gradio, calflops
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 84.0.0
+    Uninstalling setuptools-84.0.0:
+      Successfully uninstalled setuptools-84.0.0
+  Attempting uninstall: pip
+    Found existing installation: pip 26.2.1
+    Uninstalling pip-26.2.1:
+      Successfully uninstalled pip-26.2.1
+  Attempting uninstall: packaging
+    Found existing installation: packaging 26.3
+    Uninstalling packaging-26.3:
+      Successfully uninstalled packaging-26.3
+  Attempting uninstall: wheel
+    Found existing installation: wheel 0.48.0
+    Uninstalling wheel-0.48.0:
+      Successfully uninstalled wheel-0.48.0
+
+Successfully installed GitPython-3.1.46 ImageIO-2.37.3 Jinja2-3.1.6 MarkupSafe-3.0.3 PyWavelets-1.8.0 PyYAML-6.0.3 Pygments-2.19.2 accelerate-1.12.0 aiofiles-24.1.0 altair-6.0.0 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.12.1 attrs-25.4.0 blinker-1.9.0 brotli-1.2.0 cachetools-6.2.6 calflops-0.3.2 certifi-2026.1.4 charset-normalizer-3.4.4 click-8.3.1 contourpy-1.3.2 cuda-bindings-12.9.4 cuda-pathfinder-1.3.4 cycler-0.12.1 diffusers-0.37.0 einops-0.8.2 exceptiongroup-1.3.1 fastapi-0.129.0 ffmpy-1.0.0 filelock-3.24.2 fire-0.7.1 fonttools-4.61.1 fsspec-2026.2.0 fvcore-0.1.5.post20221221 gitdb-4.0.12 gradio-6.5.1 gradio_client-2.0.3 groovy-0.1.2 h11-0.16.0 hf-xet-1.4.2 httpcore-1.0.9 httpx-0.28.1 huggingface_hub-1.7.1 idna-3.11 imageio-ffmpeg-0.6.0 importlib_metadata-8.7.1 invisible-watermark-0.2.0 iopath-0.1.10 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kiwisolver-1.4.9 markdown-it-py-4.0.0 matplotlib-3.10.8 mdurl-0.1.2 mpmath-1.3.0 narwhals-2.16.0 networkx-3.4.2 numpy-2.2.6 nvidia-cublas-cu12-12.8.4.1 nvidia-cuda-cupti-cu12-12.8.90 nvidia-cuda-nvrtc-cu12-12.8.93 nvidia-cuda-runtime-cu12-12.8.90 nvidia-cudnn-cu12-9.10.2.21 nvidia-cufft-cu12-11.3.3.83 nvidia-cufile-cu12-1.13.1.3 nvidia-curand-cu12-10.3.9.90 nvidia-cusolver-cu12-11.7.3.90 nvidia-cusparse-cu12-12.5.8.93 nvidia-cusparselt-cu12-0.7.1 nvidia-nccl-cu12-2.27.5 nvidia-nvjitlink-cu12-12.8.93 nvidia-nvshmem-cu12-3.4.5 nvidia-nvtx-cu12-12.8.90 opencv-python-5.0.0.93 opencv-python-headless-4.13.0.92 orjson-3.11.7 packaging-25.0 pandas-2.3.3 pillow-12.1.1 pip-23.0.1 portalocker-3.2.0 protobuf-6.33.5 psutil-7.2.2 pyarrow-23.0.1 pydantic-2.12.5 pydantic_core-2.41.5 pydeck-0.9.1 pydub-0.25.1 pyparsing-3.3.2 python-dateutil-2.9.0.post0 python-multipart-0.0.22 pytz-2025.2 referencing-0.37.0 regex-2026.1.15 requests-2.32.5 rich-14.3.2 rpds-py-0.30.0 ruff-0.6.8 safehttpx-0.1.7 safetensors-0.7.0 scipy-1.15.3 semantic-version-2.10.0 sentencepiece-0.2.1 setuptools-79.0.1 shellingham-1.5.4 six-1.17.0 smmap-5.0.2 starlette-0.52.1 streamlit-1.54.0 streamlit-drawable-canvas-0.9.3 streamlit-keyup-0.3.0 sympy-1.14.0 tabulate-0.10.0 tenacity-9.1.4 termcolor-3.3.0 tokenizers-0.22.2 toml-0.10.2 tomlkit-0.13.3 torch-2.10.0 torchprofile-0.1.0 torchvision-0.25.0 tornado-6.5.4 tqdm-4.67.3 transformers-5.2.0 triton-3.6.0 typer-0.24.0 typer-slim-0.24.0 typing-inspection-0.4.2 typing_extensions-4.15.0 tzdata-2025.3 urllib3-2.6.3 uvicorn-0.41.0 watchdog-6.0.0 wheel-0.46.3 yacs-0.1.8 zipp-3.23.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Looking in indexes: https://mirrors.tencent.com/pypi/simple
+Collecting scikit-image
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/96/08/916e7d9ee4721031b2f625db54b11d8379bd51707afaa3e5a29aecf10bc4/scikit_image-0.25.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (14.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.8/14.8 MB 65.9 MB/s eta 0:00:00
+Collecting clean-fid
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/70/56/0dfc83e0fe455cfe6272b23a65039b4101c63a4e7446801e26178b675fbf/clean_fid-0.1.35-py3-none-any.whl (26 kB)
+Collecting lpips
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/9b/13/1df50c7925d9d2746702719f40e864f51ed66f307b20ad32392f1ad2bb87/lpips-0.1.4-py3-none-any.whl (53 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.8/53.8 kB 2.4 MB/s eta 0:00:00
+Collecting open-clip-torch
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/37/b5/41c315ccd94ca332ead3e832e83eee343ab245005c3e43d9d3e75eae34eb/open_clip_torch-3.3.0-py3-none-any.whl (1.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 17.3 MB/s eta 0:00:00
+Requirement already satisfied: opencv-python-headless in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from -r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 5)) (4.13.0.92)
+Requirement already satisfied: packaging>=21 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from scikit-image->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 1)) (25.0)
+Collecting lazy-loader>=0.4
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/23/93/4e45e37f26c820216704b36b8e67cc55c490a7abd287a78a26a2c0e21386/lazy_loader-0.6-py3-none-any.whl (8.8 kB)
+Collecting tifffile>=2022.8.12
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/5d/06/bd0a6097da704a7a7c34a94cfd771c3ea3c2f405dd214e790d22c93f6be1/tifffile-2025.5.10-py3-none-any.whl (226 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.5/226.5 kB 133.9 MB/s eta 0:00:00
+Requirement already satisfied: scipy>=1.11.4 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from scikit-image->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 1)) (1.15.3)
+Requirement already satisfied: pillow>=10.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from scikit-image->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 1)) (12.1.1)
+Requirement already satisfied: networkx>=3.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from scikit-image->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 1)) (3.4.2)
+Requirement already satisfied: numpy>=1.24 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from scikit-image->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 1)) (2.2.6)
+Requirement already satisfied: imageio!=2.35.0,>=2.33 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from scikit-image->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 1)) (2.37.3)
+Requirement already satisfied: torchvision in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (0.25.0)
+Requirement already satisfied: tqdm>=4.28.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (4.67.3)
+Requirement already satisfied: torch in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (2.10.0)
+Requirement already satisfied: requests in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (2.32.5)
+Requirement already satisfied: regex in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (2026.1.15)
+Collecting timm>=1.0.17
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/f5/85/b897716d0fa016af23b11e6526f5ef76d2013e8bc36b9c7ce15d9200e456/timm-1.0.30-py3-none-any.whl (2.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.7/2.7 MB 288.2 MB/s eta 0:00:00
+Requirement already satisfied: safetensors in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (0.7.0)
+Requirement already satisfied: huggingface-hub in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (1.7.1)
+Collecting ftfy
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/ab/6e/81d47999aebc1b155f81eca4477a616a70f238a2549848c38983f3c22a82/ftfy-6.3.1-py3-none-any.whl (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.8/44.8 kB 31.1 MB/s eta 0:00:00
+Requirement already satisfied: pyyaml in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from timm>=1.0.17->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (6.0.3)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (11.7.3.90)
+Requirement already satisfied: fsspec>=0.8.5 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (2026.2.0)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (11.3.3.83)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (0.7.1)
+Requirement already satisfied: sympy>=1.13.3 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (1.14.0)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.8.90)
+Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (2.27.5)
+Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.4.5)
+Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (1.13.1.3)
+Requirement already satisfied: typing-extensions>=4.10.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (4.15.0)
+Requirement already satisfied: filelock in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.24.2)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.8.90)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.5.8.93)
+Requirement already satisfied: cuda-bindings==12.9.4 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.9.4)
+Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (10.3.9.90)
+Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (9.10.2.21)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.8.93)
+Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.8.4.1)
+Requirement already satisfied: jinja2 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.1.6)
+Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.8.90)
+Requirement already satisfied: triton==3.6.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.6.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (12.8.93)
+Requirement already satisfied: cuda-pathfinder~=1.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from cuda-bindings==12.9.4->torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (1.3.4)
+Collecting wcwidth
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/db/6c/f940133c71427c208575910e981942bd78c98b1f7cd0d1425ca4b7457c04/wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (769 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 769.8/769.8 kB 205.5 MB/s eta 0:00:00
+Requirement already satisfied: typer in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (0.24.0)
+Requirement already satisfied: hf-xet<2.0.0,>=1.4.2 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (1.4.2)
+Requirement already satisfied: httpx<1,>=0.23.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (0.28.1)
+Requirement already satisfied: certifi>=2017.4.17 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from requests->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (2026.1.4)
+Requirement already satisfied: charset_normalizer<4,>=2 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from requests->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from requests->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (2.6.3)
+Requirement already satisfied: idna<4,>=2.5 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from requests->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.11)
+Requirement already satisfied: httpcore==1.* in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from httpx<1,>=0.23.0->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (1.0.9)
+Requirement already satisfied: anyio in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from httpx<1,>=0.23.0->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (4.12.1)
+Requirement already satisfied: h11>=0.16 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (0.16.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from sympy>=1.13.3->torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from jinja2->torch->clean-fid->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 2)) (3.0.3)
+Requirement already satisfied: click>=8.2.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (8.3.1)
+Requirement already satisfied: annotated-doc>=0.0.2 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (0.0.4)
+Requirement already satisfied: rich>=12.3.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (14.3.2)
+Requirement already satisfied: shellingham>=1.3.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (1.5.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from rich>=12.3.0->typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from rich>=12.3.0->typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (2.19.2)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from anyio->httpx<1,>=0.23.0->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (1.3.1)
+Requirement already satisfied: mdurl~=0.1 in /root/miniconda3/envs/racfg/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub->open-clip-torch->-r /root/viewdit/repro/upstream/RA-CFGCache/evaluation/requirements.txt (line 4)) (0.1.2)
+Installing collected packages: wcwidth, tifffile, lazy-loader, scikit-image, ftfy, timm, lpips, clean-fid, open-clip-torch
+Successfully installed clean-fid-0.1.35 ftfy-6.3.1 lazy-loader-0.6 lpips-0.1.4 open-clip-torch-3.3.0 scikit-image-0.25.2 tifffile-2025.5.10 timm-1.0.30 wcwidth-0.9.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+WARNING: There was an error checking the latest version of pip.
+Looking in indexes: https://mirrors.tencent.com/pypi/simple
+Collecting opencv-python-headless==4.13.0.92
+  Downloading https://mirrors.tencent.com/yun/pypi/packages/4b/33/b5db29a6c00eb8f50708110d8d453747ca125c8b805bc437b289dbdcc057/opencv_python_headless-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl (60.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 100.5 MB/s eta 0:00:00
+Installing collected packages: opencv-python-headless
+  Attempting uninstall: opencv-python-headless
+    Found existing installation: opencv-python-headless 4.13.0.92
+    Uninstalling opencv-python-headless-4.13.0.92:
+      Successfully uninstalled opencv-python-headless-4.13.0.92
+Successfully installed opencv-python-headless-4.13.0.92
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+WARNING: There was an error checking the latest version of pip.
+Obtaining file:///root/viewdit/repro/upstream/RA-CFGCache
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: ra-cfgcache
+  Building editable for ra-cfgcache (pyproject.toml): started
+  Building editable for ra-cfgcache (pyproject.toml): finished with status 'done'
+  Created wheel for ra-cfgcache: filename=ra_cfgcache-0.0.0.post5+ge17d6a74a.d20261017-0.editable-py3-none-any.whl size=31599 sha256=304a683586eea2115a2d6edafb589fd4b9a646cee29cf83d3a5014278de66739
+  Stored in directory: /tmp/pip-ephem-wheel-cache-vko90rxy/wheels/a5/18/64/1614ff288ae78a4215e5b06c538f0c771eb4cb859ee312e80f
+Successfully built ra-cfgcache
+Installing collected packages: ra-cfgcache
+Successfully installed ra-cfgcache-0.0.0.post5+ge17d6a74a.d20261017
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+WARNING: There was an error checking the latest version of pip.
+================ torch / bf16 check (sm_90) ================
+[setup] torch 2.10.0+cu128 cuda 12.8 ['sm_70', 'sm_75', 'sm_80', 'sm_86', 'sm_90', 'sm_100', 'sm_120']
+[setup] diffusers 0.37.0 transformers 5.2.0
+[setup] device NVIDIA H20 cap (9, 0)
+[setup] bf16 matmul ok on sm_90
+[setup] lpips ok
+================ weights ================
+Fetching 19 files:   0%|          | 0/19 [00:00<?, ?it/s]Fetching 19 files:   5%|▌         | 1/19 [00:02<00:36,  2.00s/it]Fetching 19 files:  21%|██        | 4/19 [00:02<00:06,  2.17it/s]Fetching 19 files:  26%|██▋       | 5/19 [00:03<00:07,  1.83it/s]Fetching 19 files:  32%|███▏      | 6/19 [00:03<00:06,  2.00it/s]Fetching 19 files:  37%|███▋      | 7/19 [00:03<00:04,  2.42it/s]Fetching 19 files:  42%|████▏     | 8/19 [00:03<00:04,  2.74it/s]Fetching 19 files:  47%|████▋     | 9/19 [08:26<24:43, 148.32s/it]Fetching 19 files: 100%|██████████| 19/19 [08:26<00:00, 26.66s/it]
+[setup] THUDM/CogVideoX-2b done
+Fetching 31 files:   0%|          | 0/31 [00:00<?, ?it/s]Fetching 31 files:   3%|▎         | 1/31 [00:01<00:48,  1.60s/it]Fetching 31 files:  10%|▉         | 3/31 [00:03<00:26,  1.05it/s]Fetching 31 files:  23%|██▎       | 7/31 [00:03<00:09,  2.59it/s]Fetching 31 files:  32%|███▏      | 10/31 [00:03<00:05,  3.99it/s]Fetching 31 files:  35%|███▌      | 11/31 [00:03<00:04,  4.32it/s]Fetching 31 files:  39%|███▊      | 12/31 [00:04<00:04,  3.90it/s]Fetching 31 files:  42%|████▏     | 13/31 [00:04<00:04,  3.96it/s]Fetching 31 files:  45%|████▌     | 14/31 [00:04<00:04,  4.18it/s]Fetching 31 files:  48%|████▊     | 15/31 [00:04<00:03,  4.20it/s]Fetching 31 files:  52%|█████▏    | 16/31 [08:22<32:58, 131.91s/it]Fetching 31 files:  58%|█████▊    | 18/31 [08:23<16:19, 75.34s/it] Fetching 31 files:  61%|██████▏   | 19/31 [08:27<11:42, 58.58s/it]Fetching 31 files:  65%|██████▍   | 20/31 [13:06<20:52, 113.84s/it]Fetching 31 files:  87%|████████▋ | 27/31 [16:48<03:40, 55.07s/it] Fetching 31 files: 100%|██████████| 31/31 [16:48<00:00, 32.52s/it]
+[setup] Wan-AI/Wan2.1-T2V-1.3B-Diffusers done
+================ protocol inputs ================
+[setup] prompt_video.txt nonempty prompts: 100
+[setup] CogVideoX-2b: 13G OK
+[setup] Wan2.1-T2V-1.3B-Diffusers: 27G OK
+[setup] DONE
