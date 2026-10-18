@@ -143,55 +143,55 @@
  },
  "wan/_logs/racfg_fast_cfg_tau_v2_p000-050.log": {
   "actions": {
-   "full_both": 35,
-   "reuse_both": 245
+   "full_both": 250,
+   "reuse_both": 1750
   },
-  "cfgcache_steps": 353,
-  "kept_lines": 396,
-  "prompts_timed": 0,
-  "timing_max_s": null,
-  "timing_median_s": null,
-  "timing_min_s": null,
-  "timing_sum_s": null
+  "cfgcache_steps": 2500,
+  "kept_lines": 2646,
+  "prompts_timed": 1,
+  "timing_max_s": 22.458,
+  "timing_median_s": 22.458,
+  "timing_min_s": 22.458,
+  "timing_sum_s": 22.458
  },
  "wan/_logs/racfg_fast_cfg_tau_v2_p050-100.log": {
   "actions": {
-   "full_both": 35,
-   "reuse_both": 245
+   "full_both": 250,
+   "reuse_both": 1750
   },
-  "cfgcache_steps": 352,
-  "kept_lines": 395,
-  "prompts_timed": 0,
-  "timing_max_s": null,
-  "timing_median_s": null,
-  "timing_min_s": null,
-  "timing_sum_s": null
+  "cfgcache_steps": 2500,
+  "kept_lines": 2657,
+  "prompts_timed": 2,
+  "timing_max_s": 20.564,
+  "timing_median_s": 20.564,
+  "timing_min_s": 20.097,
+  "timing_sum_s": 40.661
  },
  "wan/_logs/racfg_slow_cfg_tau_v2_p000-050.log": {
   "actions": {
-   "full_both": 336,
-   "reuse_both": 1344
+   "full_both": 400,
+   "reuse_both": 1600
   },
-  "cfgcache_steps": 2104,
-  "kept_lines": 2217,
-  "prompts_timed": 0,
-  "timing_max_s": null,
-  "timing_median_s": null,
-  "timing_min_s": null,
-  "timing_sum_s": null
+  "cfgcache_steps": 2500,
+  "kept_lines": 2642,
+  "prompts_timed": 1,
+  "timing_max_s": 19.763,
+  "timing_median_s": 19.763,
+  "timing_min_s": 19.763,
+  "timing_sum_s": 19.763
  },
  "wan/_logs/racfg_slow_cfg_tau_v2_p050-100.log": {
   "actions": {
-   "full_both": 320,
-   "reuse_both": 1280
+   "full_both": 400,
+   "reuse_both": 1600
   },
-  "cfgcache_steps": 2005,
-  "kept_lines": 2114,
-  "prompts_timed": 0,
-  "timing_max_s": null,
-  "timing_median_s": null,
-  "timing_min_s": null,
-  "timing_sum_s": null
+  "cfgcache_steps": 2500,
+  "kept_lines": 2642,
+  "prompts_timed": 1,
+  "timing_max_s": 17.778,
+  "timing_median_s": 17.778,
+  "timing_min_s": 17.778,
+  "timing_sum_s": 17.778
  },
  "wan/_logs/taylorseer_gpu_only_v2_p000-050.log": {
   "actions": {},
