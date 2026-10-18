@@ -39,6 +39,17 @@ re-executing a 100-prompt × 6-row × 2-backbone GPU schedule.
 5. **Timings** — the harness emits one summary `Saving time:` line per process, not per video. This is
    recorded as-is in `TRACE_STATS.json`; per-video latency must not be inferred from it.
 
+## Video validity spot-check
+
+`repro/validate_videos.py` decodes the first/middle/last frame of sampled videos and rejects
+near-black (mean ≤ 5) or near-uniform (std ≤ 2) frames, plus containers reporting zero frames.
+
+Result at final state: **60/60 sampled videos valid across all 12 rows** (5 per row).
+Raw results: `audit/VIDEO_VALIDITY.json`.
+
+This guards against the failure mode where files exist and have plausible sizes but contain
+black or static video.
+
 ## Deliberate exclusions
 
 - **Videos are not committed.** `*.mp4` is ignored by the repo (size). `MANIFEST.json` is the
