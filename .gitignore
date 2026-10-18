@@ -1,0 +1,15 @@
+weights/
+results/
+logs/
+*.mp4
+*.pt
+*.safetensors
+repro/upstream/
+__pycache__/
+
+# secrets and local scratch (never commit)
+.hf_token
+_stage/
+data/
+WAIT_UNTIL
+.venv_ok
