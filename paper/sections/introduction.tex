@@ -1,0 +1,37 @@
+\section{Introduction}
+Diffusion transformers have become important backbones for image and video generation \citep{peebles2023dit,yang2025cogvideox,wan2025wan}. Their inference cost is dominated by repeated denoiser evaluations over a sampling trajectory, with long video token sequences making each evaluation expensive. Training-free caching offers an attractive alternative to retraining: retain the pretrained network and sampling schedule, but replace some expensive computations with previously cached quantities or inexpensive predictions. Two decisions govern the resulting quality--efficiency trade-off: \emph{what should a skipped computation return, and when is that approximation worth its downstream cost?}
+
+Existing methods address complementary parts of this problem. TeaCache uses changes in timestep-modulated inputs as inexpensive proxies for output variation and controls reuse with a rescaled, accumulated signal \citep{liu2025teacache}. TaylorSeer forecasts intermediate features from finite-difference estimates of temporal derivatives \citep{liu2025taylorseer}. RA-CFGCache aligns cache decisions with classifier-free guidance (CFG) and rescales local guided-risk estimates using an offline-calibrated, timestep-dependent propagation prior \citep{liu2026racfgcache}. These approaches are not simply equivalent to treating the denoiser as a time series: TeaCache already observes input-dependent signals, and RA-CFGCache explicitly accounts for downstream propagation. The remaining question is whether a \emph{causal, per-trajectory dynamics model} can improve both the approximation itself and the choice of where to spend exact computation.
+
+The distinction matters because forecasting and scheduling interact through the latent state. Write a guided denoiser as $v_i=f(x_i,\tau_i)$, where $x_i$ is the current latent and $\tau_i$ the scheduler's noise coordinate. A temporal forecaster estimates changes along the trajectory represented by its cached observations. Once a prediction is used, however, the sampler evolves to a different latent; the next prediction is queried on this altered trajectory. Similarly, two forecast errors of equal magnitude can have different downstream effects because the solver and denoising field transform their directions differently. A scheduling rule cannot generally evaluate one forecast independently of the states and cache anchors induced by earlier choices. This motivates joint selection, not a claim that local proxies are always inferior.
+
+\method\ addresses this coupling by caching a local model rather than only an output. At exact evaluation points, it records latent--output pairs and fits a channel-diagonal plus low-rank affine approximation to the guided field. At skipped steps, the current latent is already available from the sampler and can be used directly in that approximation. The fitted operator also defines a local tangent model of the sampling update, yielding a surrogate for the propagation of forecast error. The controller uses that surrogate to compare compute, reuse, temporal extrapolation, and state-conditioned prediction under a remaining evaluation budget. When a new exact evaluation arrives, its pre-update prediction residual tests the model, tightens or relaxes the trust region, and triggers replanning. Thus forecasting, pricing, and feedback refer to the same identified object rather than three independently calibrated components.
+
+This is a discrete-action instance of model predictive control: identify a model from available observations, predict the consequences of candidate actions, execute one action, and repeat \citep{rawlings2017mpc}. The analogy is operational, not a transfer of classical MPC stability guarantees. A denoising trajectory provides limited excitation; its time drift and state response can be confounded. A model that predicts outputs along that trajectory may still misrepresent the off-trajectory directions needed for error propagation. Our initial channelwise finite-difference diagnostic did not establish useful propagation pricing. We therefore treat propagation fidelity as an empirical gate, not as an already demonstrated consequence of caching a local model. The proposed structured, causal estimator and the full controller remain to be validated.
+
+The intended methodological contributions are:
+\begin{itemize}
+\item \textbf{One model for two coupled decisions.} A regularized local guided-field model is shared by state-conditioned forecasting and solver-aware cost estimation, with explicit limits on what trajectory observations can identify.
+\item \textbf{Budgeted receding-horizon cache control.} A controller jointly selects refresh times and prediction operators while retaining scheduler and cache-history state; approximate search is distinguished from exact dynamic programming.
+\item \textbf{Residual-based model checking.} Exact evaluations provide causal, pre-update diagnostics that govern trust and replanning without additional probe evaluations.
+\end{itemize}
+These are design contributions in the present draft, not claims of verified performance. The evaluation target is a common protocol on CogVideoX-2B and Wan2.1-T2V-1.3B against TeaCache, TaylorSeer, and RA-CFGCache, with matched budgets, paired fidelity measurements, and separately measured runtime overhead. A successful result must demonstrate that the shared model improves the joint decision, not merely that any one of its components is useful.
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[node distance=7mm and 7mm, >=Stealth,
+ box/.style={draw=black!45, rounded corners=2pt, fill=black!3, align=center, font=\small, minimum height=13mm, text width=34mm},
+ every path/.style={line width=0.55pt}]
+\node[box] (observe) {Exact observation\\$(x_s,\tau_s,v_s)$};
+\node[box,right=of observe] (identify) {Shared local model\\$\widehat J_s,\widehat g_s$};
+\node[box,right=of identify] (plan) {Forecast + price\\budgeted search};
+\node[box,right=of plan] (execute) {Execute one action\\advance sampler};
+\draw[->] (observe)--(identify);
+\draw[->] (identify)--(plan);
+\draw[->] (plan)--(execute);
+\draw[->] (execute.south)--++(0,-8mm)-| (observe.south);
+\node[below=11mm of identify.south,xshift=20mm,text width=125mm,font=\small,align=center] {At the next exact evaluation: check the old model, update trust, and re-identify};
+\end{tikzpicture}
+\caption{\method\ design. A causal local model is shared by forecasting and propagation-aware planning; the feedback observation is an ordinary budgeted evaluation, not an additional probe.}
+\label{fig:loop}
+\end{figure*}

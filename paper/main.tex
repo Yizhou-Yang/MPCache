@@ -1,0 +1,42 @@
+\documentclass{article}
+% T1 selects the template's Type-1 Times fonts under both pdfLaTeX and Tectonic.
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+% User-supplied ICML 2026 template. This is a working draft, not a 2026 submission.
+\usepackage{icml2026}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\newcommand{\method}{MPCache}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\eps}{\varepsilon}
+\icmltitlerunning{MPCache: Model-Predictive Caching}
+\begin{document}
+\twocolumn[
+\icmltitle{MPCache: Model-Predictive Caching for\\ Training-Free Video Diffusion Acceleration}
+\begin{icmlauthorlist}
+\icmlauthor{Anonymous Authors}{anon}
+\end{icmlauthorlist}
+\icmlaffiliation{anon}{Anonymous Institution}
+% These are anonymous placeholders; the blind template replaces them with its own text.
+\icmlcorrespondingauthor{Anonymous Author}{anonymous@example.invalid}
+\icmlkeywords{Diffusion Transformers, Training-Free Acceleration, Feature Caching, Model Predictive Control}
+\vskip 0.3in
+]
+\printAffiliationsAndNotice{}
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/method}
+\input{sections/experiments}
+\bibliography{references}
+\bibliographystyle{icml2026}
+\end{document}

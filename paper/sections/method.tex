@@ -1,0 +1,196 @@
+\section{Method: Model-Predictive Caching}
+\label{sec:method}
+\subsection{Problem Setup and Causal Information}
+Fix the text conditioning and guidance scale for a sample. Let $i=0,\ldots,T-1$ index the original denoising grid in execution order, with latent $x_i\in\R^d$ and normalized noise coordinate $\tau_i$. The coordinate is the scheduler's noise level, not necessarily the integer step index. We model the solver-facing guided output
+\begin{equation}
+ v_i=f(x_i,\tau_i)
+     =u_i+\omega(c_i-u_i),
+ \label{eq:cfg}
+\end{equation}
+where $u_i$ and $c_i$ are unconditional and conditional predictions in the same parameterization. Prediction-type conversions are part of the scheduler adapter. An exact action evaluates both branches; our first design does not select branch-wise refreshes. One exact guided evaluation costs one budget unit, with its two branch evaluations or batched equivalent reported separately.
+
+Write the scheduler as
+\begin{equation}
+ z_{i+1}=S_i(z_i,\widetilde v_i),\qquad x_i=Pz_i,
+ \label{eq:sampler}
+\end{equation}
+where $z_i$ includes the latent and any solver history. For a deterministic affine one-step sampler, this reduces to $x_{i+1}=a_i x_i+b_i\widetilde v_i$. Multistep and predictor--corrector sampling require the augmented form, not that simplification. Caching changes $\widetilde v_i$, not the grid or solver.
+
+At step $i$, only previous exact evaluations and the current sampler state are available. The anchor buffer is
+$\mathcal B_i=\{(x_s,\tau_s,v_s):s<i\text{ was exact}\}$.
+The current exact output, future reference latents, and suffix reruns are unavailable to the controller. A total budget $B$ includes warmup and all forced refreshes. Full-trajectory terminal fidelity is an evaluation target; the controller optimizes an estimated surrogate, since the all-exact terminal output is not known online.
+
+\subsection{A Structured Local Guided-Field Model}
+Let $s$ be the most recent exact anchor. Our local affine model is
+\begin{equation}
+ m_s(x,\tau)=v_s+\widehat J_s(x-x_s)
+                  +\widehat g_s(\tau-\tau_s).
+ \label{eq:model}
+\end{equation}
+With $C$ latent channels, let $D(\theta)$ multiply each channel by its scalar $\theta_c$. Let $Q_s\in\R^{d\times r}$ have orthonormal columns spanning up to $r$ recent latent differences. We restrict
+\begin{equation}
+ \widehat J_s=D(\theta_s)+R_s Q_s^\top,
+ \qquad R_s\in\R^{d\times r}.
+ \label{eq:structured}
+\end{equation}
+This gives a channel-diagonal response outside the observed subspace and a low-rank correction inside it; no dense $d\times d$ matrix is formed.
+
+For consecutive exact anchors in a buffer of at most $m+1$ observations, construct columns
+$\Delta x_j=x_{s_j}-x_{s_{j-1}}$,
+$\Delta v_j=v_{s_j}-v_{s_{j-1}}$, and
+$\Delta\tau_j=\tau_{s_j}-\tau_{s_{j-1}}$.
+Collect them in $X,Y$, and row vector $\delta$. Fit
+\begin{align}
+ \min_{\theta,R,g}\;&
+ \norm{(Y-D(\theta)X-RQ_s^\top X-g\delta)W^{1/2}}_F^2
+ \nonumber\\
+ &+\lambda_D\norm{\theta}_2^2
+  +\lambda_R\norm{R}_F^2
+  +\lambda_g\norm{g-g_0}_2^2,
+ \label{eq:fit}
+\end{align}
+where $W$ is a positive diagonal recency weighting and all ridge coefficients are positive. The temporal prior $g_0$ is the slope between the two most recent exact outputs divided by their noise-coordinate separation; without two distinct anchors, $g_0=0$ and skipped actions are disabled. The model shrinks toward temporal extrapolation, rather than interpreting every output difference as a state derivative. Gram matrices and the small coupled solves use FP32; field storage can use the inference dtype. The rank, buffer size, and ridge settings must be fixed on development prompts before evaluation.
+
+\paragraph{Innovation form.}
+The temporal coefficient can be removed exactly rather than regularized. Require the model to interpolate the two most recent exact anchors $s'<s$. With $r_i=(\tau_i-\tau_s)/(\tau_s-\tau_{s'})$, Equation~\eqref{eq:model} then becomes
+\begin{equation}
+ \begin{aligned}
+ m_s(x_i,\tau_i)&=\underbrace{v_s+r_i(v_s-v_{s'})}_{\text{temporal extrapolation}}+\widehat J_s d_i,\\
+ d_i&=(x_i-x_s)-r_i(x_s-x_{s'}).
+ \end{aligned}
+ \label{eq:innovation}
+\end{equation}
+We call $d_i$ the \emph{state innovation}.
+The first term is the first-order temporal forecast. The second corrects it only by the part of the current latent that the same straight-line extrapolation in $\tau$ fails to predict. Every earlier exact anchor $k$ with two predecessors $k''<k'<k$ supplies one training pair without an extra evaluation: the innovation $d_k=(x_k-x_{k'})-r_k(x_{k'}-x_{k''})$ and the temporal-forecast residual $e_k=v_k-[v_{k'}+r_k(v_{k'}-v_{k''})]$. To first order, $e_k\approx J d_k$. The ridge problem of Equation~\eqref{eq:fit} is solved on these pairs. Shrinking $\widehat J_s$ toward zero therefore recovers temporal extrapolation, the regularization target stated above. With the channel-diagonal part only, the fit has a closed form: per channel, divide the recency-weighted sum of $d_k e_k$ by $(1+\lambda_D)$ times the weighted sum of $d_k^2$.
+
+\paragraph{Identification limit.}
+Raw anchor differences satisfy $\Delta v\approx J\Delta x+g\Delta\tau$, not the fixed-time secant equation $\Delta v\approx J\Delta x$, and time and latent motion are strongly correlated along one trajectory. The innovation form removes the component of state motion that is linear in $\tau$. The fitted operator is thus driven by deviations from straight-line motion, which are much less collinear with time; curvature of the temporal drift remains confounded with $J d$. Regularization still chooses a model rather than making the physical Jacobian identifiable. In particular, $\widehat J_s$ is a fitted response operator on innovation directions, and its behavior outside them is uncertain. A successful output forecast is not evidence that this operator correctly propagates arbitrary perturbations. This distinction is central to the validation gate.
+
+\subsection{State-Conditioned Forecasting}
+We allow four actions: exact computation $\mathsf C$, reuse $\mathsf R$, temporal extrapolation $\mathsf T$, and model prediction $\mathsf M$. For the three skipped actions,
+\begin{align}
+ \widetilde v_i^{\mathsf R}&=v_s,\nonumber\\
+ \widetilde v_i^{\mathsf T}&=v_s+g_0(\tau_i-\tau_s),\nonumber\\
+ \widetilde v_i^{\mathsf M}&=\widetilde v_i^{\mathsf T}
+           +\gamma_i\big[m_s(x_i,\tau_i)
+                          -\widetilde v_i^{\mathsf T}\big].
+ \label{eq:actions}
+\end{align}
+Here $\mathsf T$ is an output-level fallback, not TaylorSeer's feature-cache implementation; with $g_0$ from the two latest anchors it coincides with the first term of Equation~\eqref{eq:innovation}. By Equation~\eqref{eq:innovation}, $m_s-\widetilde v^{\mathsf T}_i=\widehat J_s d_i$. The coefficient $\gamma_i=\beta_s\min\{1,\kappa\norm{\widetilde v^{\mathsf T}_i-v_s}/\norm{\widehat J_s d_i}\}$ has two parts. The trust factor caps the correction at $\kappa$ times the temporal increment. The self-check gate $\beta_s\in(0,1]$ is updated at every exact evaluation by comparing the forecast the old model would have made there with temporal extrapolation: $\beta_s$ increases additively when the model wins and is halved when it loses.
+
+Define normalized latent displacement $d_x=\norm{x_i-x_s}/(\norm{x_s}+\eps)$, time displacement $d_\tau=|\tau_i-\tau_s|$, and unseen displacement
+$d_\perp=\norm{(I-Q_sQ_s^\top)(x_i-x_s)}/(\norm{x_s}+\eps)$.
+A trust gate accepts model prediction only when these are below current radii and the anchor age is below a maximum gap. The clipping rule and gates are applied to actual forecasts, not only to planning costs. Reuse and temporal actions also have age and residual gates; they are not automatically safe fallbacks.
+
+Let $q_s$ be a robust scale of recent \emph{pre-update} absolute model residuals, with an explicit positive floor during warmup. A concrete residual envelope is
+\begin{equation}
+ q_i=q_s(1+\kappa_x d_x+\kappa_\tau d_\tau
+             +\kappa_\perp d_\perp+\kappa_a(i-s)),
+ \label{eq:envelope}
+\end{equation}
+with nonnegative coefficients fixed on development prompts. We price a skipped action by
+\begin{equation}
+ \widehat\ell_i^a=\norm{\widetilde v_i^a-m_s(x_i,\tau_i)}+q_i,
+ \qquad \widehat\ell_i^{\mathsf C}=0.
+ \label{eq:localcost}
+\end{equation}
+The envelope is a heuristic uncertainty model, not a calibrated coverage guarantee. Including $q_i$ is essential: without it, the shared model could incorrectly assign zero error to its own prediction.
+
+\subsection{Solver-Aware Pricing}
+For one isolated output error $e_i=\widetilde v_i-f(x_i,\tau_i)$ followed by exact evaluations, first-order perturbations of an affine one-step solver obey
+\begin{equation}
+ \delta x_{i+1}=b_i e_i,\qquad
+ \delta x_{j+1}=(a_j I+b_jJ_j)\delta x_j.
+ \label{eq:tangent}
+\end{equation}
+Consequently, the estimated terminal impulse is
+\begin{equation}
+ \widehat{\delta x}_T=
+ \left[\prod_{j=T-1}^{i+1}(a_jI+b_j\widehat J_j)\right]b_i e_i,
+ \label{eq:impulse}
+\end{equation}
+where the product is ordered in execution order from right to left. This illustrates why a local norm alone can miss downstream amplification. At decision time, all future $\widehat J_j$ must be generated from the current fitted model and its trust envelope; they are not estimated using future exact outputs. The initial implementation holds $\widehat J_s$ fixed within a planning rollout and shortens the horizon when this assumption leaves the trust region.
+
+For the actual scheduler, use its augmented transition. Let
+$A_j=\partial_z S_j$ and $B_j=\partial_v S_j$ in solver-facing coordinates. The all-exact local tangent is
+$A_j+B_j\widehat J_jP$.
+For a candidate policy, the state must additionally include cache anchors and forecast history; differentiation uses the executed forecast rule, including clipping, and cache updates. Reuse and temporal forecasts have zero current-latent derivative only when their anchors are held fixed. Refreshing a cache removes a new local approximation error but \emph{does not reset accumulated latent error}. A scheduler adapter that omits these histories cannot support a claim of closed-loop propagation fidelity.
+
+In reduced planning coordinates, propagate an uncertainty radius $r_j$ through the policy tangent:
+\begin{equation}
+ r_{j+1}=\widehat\alpha_j^a r_j
+                 +\widehat\beta_j^a\widehat\ell_j^a,
+ \label{eq:risk}
+\end{equation}
+where $\widehat\alpha_j^a$ and $\widehat\beta_j^a$ are amplification estimates from the shared operator, solver coefficients, and cache-history transition. They can be obtained by a fixed number of matrix-free norm iterations, with an explicit off-subspace margin. The latent dimension and the small history are scaled consistently in this norm. The radius is initialized to zero at warmup, carried across subsequent replans, and never reset merely because the next action is exact. Neither approximate norm estimation nor a fitted operator makes $r_j$ a certified bound. A short-horizon rollout uses $r_{i+H}$ plus a solver-only tail multiplier as its terminal risk surrogate; a full remaining-horizon rollout requires no tail approximation. Latent risk is also not equated with perceptual video quality.
+
+\subsection{Budgeted Receding-Horizon Planning}
+Let $y_i$ contain the sampler state, anchor buffer, fitted model, trust variables, and propagated risk estimate. For remaining budget $b_i$, plan
+\begin{equation}
+ \begin{aligned}
+ &\min_{\pi=(a_i,\ldots,a_{i+H-1})}\widehat{\mathcal R}(\pi;y_i)\\
+ &\text{s.t.}\quad\sum_{j=i}^{i+H-1}\mathbf 1[a_j=\mathsf C]
+       \le b_i-b_{\rm tail}.
+ \end{aligned}
+ \label{eq:plan}
+\end{equation}
+subject to trust and maximum-gap constraints. Here $b_{\rm tail}$ reserves mandatory refreshes outside the horizon. The risk $\widehat{\mathcal R}$ is the terminal radius surrogate from Equation~\eqref{eq:risk}, including the tail multiplier when required. Runtime and model-fitting overhead are measured separately; this first controller targets exact-evaluation count, not guaranteed wall-clock optimality.
+
+A prospective exact action uses $m_s$ as its nominal mean output, costs one budget unit, and updates the \emph{simulated} anchor history. It introduces zero new caching error but does not provide an observed residual. Planning never calls the expensive network and never treats a simulated anchor as real identification data. The fitted operator and observed uncertainty scale stay frozen during the rollout; trust distances are measured against the last \emph{real} identification anchor even after simulated refreshes. Only execution yields a new observation and permits refitting.
+
+For these frozen surrogate dynamics, an exact Bellman recursion would have state $(i,b,y)$:
+\begin{equation}
+ \begin{aligned}
+ V_i(b,y)&=\min_{a\in\mathcal A(y)}V_{i+1}(b',y'),\\
+ b'&=b-\mathbf 1[a=\mathsf C],\quad y'=F_i^a(y).
+ \end{aligned}
+ \label{eq:bellman}
+\end{equation}
+with terminal value $V_{i+H}=\widehat{\mathcal R}$ and infeasible states assigned $+\infty$. The continuous sampler and cache history make this large; a table indexed only by step and budget is not exact dynamic programming. Our proposed practical approximation is beam search retaining at most $K$ distinct states per depth and budget, ranked by current risk plus a common tail heuristic. It preserves candidate-dependent nominal states and anchor choices rather than merging them by budget alone. Only the first action of the best feasible sequence is executed. Search is repeated from the actual sampler state at the next step, and the model is re-identified only after exact evaluation.
+
+Warmup uses at least two exact anchors and is charged to $B$. Reserve refreshes according to the maximum-gap constraint, including a final exact step when configured. If no action remains feasible within budget, report budget--trust infeasibility rather than silently exceeding $B$ or claiming a safe prediction. A separately labeled quality-priority mode may spend extra evaluations, but those evaluations must be counted and are excluded from hard matched-budget claims.
+
+\subsection{Residual Checks and Replanning}
+Before an exact evaluation at $s'$ is incorporated, compute the old model's residual
+\begin{equation}
+ \epsilon_{s'}=
+ \frac{\norm{f(x_{s'},\tau_{s'})-m_s(x_{s'},\tau_{s'})}}
+      {\norm{f(x_{s'},\tau_{s'})}+\eps}.
+ \label{eq:check}
+\end{equation}
+Store the corresponding absolute residual for $q_s$. If the residual exceeds its predicted envelope, shrink the trust radii, reduce the maximum permitted gap, and increase uncertainty. After a fixed number of consecutive in-envelope observations, relax these variables conservatively within preset limits. Then append the new exact pair, refit Equation~\eqref{eq:fit}, invalidate the previous plan, and replan using the remaining budget. The residual is evaluated before refitting, so it cannot be made artificially small by fitting the observation being checked. It measures the model on the realized cached trajectory, not the unknown deviation from an all-exact reference.
+
+\begin{algorithm}[t]
+\caption{\method\ (proposed causal controller)}
+\label{alg:mpcache}
+\begin{algorithmic}[1]
+\REQUIRE Pretrained guided field $f$, scheduler $S$, budget $B$
+\STATE Initialize real anchor buffer, risk, trust, and budget
+\FOR{$i=0$ to $T-1$}
+\IF{warmup or mandatory refresh}
+\STATE Choose $a_i=\mathsf C$ if budget-feasible
+\ELSE
+\STATE Build candidate forecasts from real observations
+\STATE Search feasible model rollouts; take first action
+\ENDIF
+\IF{no feasible action}
+\STATE Report budget--trust infeasibility; stop
+\ENDIF
+\IF{$a_i=\mathsf C$}
+\STATE Evaluate both branches; form $v_i$ by Eq.~\eqref{eq:cfg}
+\STATE Check old model before updating; adjust trust
+\STATE Append exact anchor, refit model, decrement budget
+\STATE Set $\widetilde v_i=v_i$; discard old plan
+\ELSE
+\STATE Set $\widetilde v_i$ to the chosen gated forecast
+\ENDIF
+\STATE Propagate risk without resetting prior latent error
+\STATE Advance actual scheduler state $z_{i+1}=S_i(z_i,\widetilde v_i)$
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Cost, Scope, and Validation Requirements}
+Applying Equation~\eqref{eq:structured} costs $O(dr)$ operations and $O(dr)$ model storage; the real anchor buffer costs $O(dm)$. Constructing a rank-$r$ basis from $m$ differences and fitting the small coupled system also incurs reduction and factorization overhead. A beam with $K$ states per budget, horizon $H$, and four actions scales at least as $O(HKb_i|\mathcal A|)$ surrogate transitions; each transition has its own low-rank and scheduler cost. Full-dimensional beam states can be memory intensive, so practical compression requires a further fidelity check. Zero additional \emph{network evaluations for fitting} does not mean zero latency or memory overhead. No backbone training or custom CUDA kernel is required by this design.
+
+The current method is a specification, not a completed end-to-end implementation. A previous diagnostic using fixed-time, channelwise finite differences required extra network calls and used future trajectory information when estimating suffix propagation. It therefore does not validate this causal, zero-probe controller, and its failed pricing gate cannot be repaired by baseline engineering fixes. Required next tests are: (i) causal propagation estimates versus a leave-one-prompt-out timestep prior, including within-timestep gain variation; (ii) state forecasts versus reuse and temporal extrapolation under closed-loop sampling; and (iii) the full controller versus the same forecasts with fixed or prior-based schedules at matched exact-evaluation budgets. The propagation component must improve on the prior before the shared-model hypothesis is claimed as supported. Paired LPIPS, SSIM, and PSNR, separately scoped VBench evaluation, runtime, peak memory, and failure rates are all needed for the eventual empirical claim.
