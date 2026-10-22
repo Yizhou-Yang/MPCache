@@ -38,6 +38,33 @@ version-agnostic. Weights: `zai-org/CogVideoX-2b` (was `THUDM/CogVideoX-2b`), pl
 `rel` is the relative L2 of the terminal latent against the all-exact run of the same
 (prompt, seed). `nfe` equals `N` by construction, so all comparisons are at matched NFE.
 
+
+### 1.1 Seed convention (重要，不要改成全局固定 seed)
+
+RA-CFGCache 的 `--seed 0` 是 **base seed**，不是固定 seed：
+
+```python
+# models/wan/sample.py
+torch.Generator(device=device).manual_seed(
+    opts.seed + opts.start_index + batch_start + i)
+"seed": opts.seed + global_video_idx,
+```
+
+所以 `--seed 0` 下的**有效 seed 等于 prompt 索引**，与 `experiments.tex` 的
+"pairing prompt $k$ with random seed $k$" 一致。实测 metadata：
+
+```json
+gpu0/video_000000.json -> {"prompt": "a dilapidated phone booth ...", "seed": 0}
+gpu1/video_000025.json -> {"prompt": "A person is getting a haircut",   "seed": 25}
+```
+
+我们的控制器用 `--seed-from-prompt` 复刻这一语义（`manual_seed(pi)`）。
+**不要**改成全局 `--seed 0`：除 p0 外每个 prompt 的初始噪声都会变，
+ours 与 baseline 不再配对，复现行也会偏离 RA 的发表值。
+
+固定 seed 的写法只保留给离线 ablation，并且必须同时改 baseline 的采样代码、重跑 Full，
+不可与主表混用。
+
 ## 2. Regenerating each artifact
 
 All commands run from `repro/`.
