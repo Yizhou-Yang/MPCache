@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Incremental snapshot push. Copy to /root/viewdit/repro/push_results.sh and set
+# GH_TOKEN in the environment. NEVER commit a token.
+set -uo pipefail
+REPO=/root/MPCache
+VIEW=/root/viewdit
+: "${GH_TOKEN:?set GH_TOKEN first}"
+URL="https://x-access-token:${GH_TOKEN}@github.com/Yizhou-Yang/MPCache.git"
+PY=/root/miniconda3/envs/racfg/bin/python
+cd "$REPO" || exit 1
+$PY "$VIEW/repro/merge_runs.py" || echo "merge failed"
+git add -A repro/results h20
+git -c user.name="mpcache@h20" -c user.email="mpcache@h20.local" \
+    commit -q -m "h20: results snapshot $(date -u +%Y%m%d-%H%M)" 2>/dev/null || true
+git push "$URL" h20-run 2>&1 | tail -2
