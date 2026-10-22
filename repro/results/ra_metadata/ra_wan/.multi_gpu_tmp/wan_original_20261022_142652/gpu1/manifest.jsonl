@@ -16,3 +16,5 @@
 {"video_id": "video_000040", "prompt_index": 40, "prompt": "a bus accelerating to gain speed", "video_path": "videos/video_000040.mp4", "metadata_path": "metadata/video_000040.json", "eval_frame_dir": "eval_frames/video_000040"}
 {"video_id": "video_000041", "prompt_index": 41, "prompt": "a dog running happily", "video_path": "videos/video_000041.mp4", "metadata_path": "metadata/video_000041.json", "eval_frame_dir": "eval_frames/video_000041"}
 {"video_id": "video_000042", "prompt_index": 42, "prompt": "a giraffe running to join a herd of its kind", "video_path": "videos/video_000042.mp4", "metadata_path": "metadata/video_000042.json", "eval_frame_dir": "eval_frames/video_000042"}
+{"video_id": "video_000043", "prompt_index": 43, "prompt": "A Mars rover moving on Mars", "video_path": "videos/video_000043.mp4", "metadata_path": "metadata/video_000043.json", "eval_frame_dir": "eval_frames/video_000043"}
+{"video_id": "video_000044", "prompt_index": 44, "prompt": "a motorcycle turning a corner", "video_path": "videos/video_000044.mp4", "metadata_path": "metadata/video_000044.json", "eval_frame_dir": "eval_frames/video_000044"}

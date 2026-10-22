@@ -16,3 +16,5 @@
 {"video_id": "video_000015", "prompt_index": 15, "prompt": "a motorcycle and a bus", "video_path": "videos/video_000015.mp4", "metadata_path": "metadata/video_000015.json", "eval_frame_dir": "eval_frames/video_000015"}
 {"video_id": "video_000016", "prompt_index": 16, "prompt": "a parking meter and a truck", "video_path": "videos/video_000016.mp4", "metadata_path": "metadata/video_000016.json", "eval_frame_dir": "eval_frames/video_000016"}
 {"video_id": "video_000017", "prompt_index": 17, "prompt": "a traffic light and a fire hydrant", "video_path": "videos/video_000017.mp4", "metadata_path": "metadata/video_000017.json", "eval_frame_dir": "eval_frames/video_000017"}
+{"video_id": "video_000018", "prompt_index": 18, "prompt": "an elephant and a bear", "video_path": "videos/video_000018.mp4", "metadata_path": "metadata/video_000018.json", "eval_frame_dir": "eval_frames/video_000018"}
+{"video_id": "video_000019", "prompt_index": 19, "prompt": "an orange and a clock", "video_path": "videos/video_000019.mp4", "metadata_path": "metadata/video_000019.json", "eval_frame_dir": "eval_frames/video_000019"}

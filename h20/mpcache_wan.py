@@ -69,6 +69,7 @@ FRAMES = {33: dict(lt=9, ph=60, pw=104, steps=50), 81: dict(lt=21, ph=60, pw=104
 MAX_GAP = 4
 GAMMA_PACE = 1.0
 RESERVE = 1
+TOK_Q = -1.0
 MODEL_KIND = 'diag'
 GATE_AGE = 2
 TRUST = -1.0
@@ -178,9 +179,12 @@ def main():
     ap.add_argument('--no-full', action='store_true',
                     help='skip the all-exact reference (use RA Full videos as the baseline)')
     ap.add_argument('--save-video', action='store_true')
-    ap.add_argument('--save-op', default='tea_gap')
+    ap.add_argument('--save-op', default='tea_gap', help='comma separated ops to render')
     ap.add_argument('--save-n', type=int, default=13)
     ap.add_argument('--video-dir', default='')
+    ap.add_argument('--token-gate', type=float, default=-1.0,
+                    help='per-token curvature gate: apply the correction only to tokens with '
+                         'kappa=||a||/||v||^2 above this quantile (0..1); <0 disables')
     ap.add_argument('--sanity', action='store_true')
     a = ap.parse_args()
 
@@ -189,7 +193,7 @@ def main():
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
-    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, PGATE
+    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, PGATE, TOK_Q
     MODEL_KIND = a.model_kind
     GATE_AGE = a.gate_age
     TRUST = a.trust
@@ -198,6 +202,7 @@ def main():
     GAMMA = a.rls_gamma
     BIAS = bool(a.bias)
     PGATE = a.pgate
+    TOK_Q = a.token_gate
     RESERVE = a.reserve_last
 
     seeds = [int(s) for s in a.seeds.split(',')]
@@ -248,13 +253,15 @@ def main():
         VDIR = Path(a.video_dir) if a.video_dir else (OUT / 'videos')
         VDIR.mkdir(parents=True, exist_ok=True)
 
-        def save_video(z, idx):
+        def save_video(z, idx, op):
+            sub = VDIR / op
+            sub.mkdir(parents=True, exist_ok=True)
             with torch.no_grad():
                 v = vae.decode(z.to(torch.float16)).sample
             v = ((v.clamp(-1, 1) + 1) / 2 * 255).byte().cpu().permute(0, 2, 3, 4, 1)[0].numpy()
-            imageio.mimsave(VDIR / f'video_{idx:06d}.mp4', v, fps=16, codec='libx264',
+            imageio.mimsave(sub / f'video_{idx:06d}.mp4', v, fps=16, codec='libx264',
                             macro_block_size=8)
-            print(f'[video] {idx:06d} -> {VDIR}', flush=True)
+            print(f'[video] {op} {idx:06d} -> {sub}', flush=True)
 
     if a.solver == 'unipc':
         sch = UniPCMultistepScheduler.from_pretrained(MODEL / 'scheduler')
@@ -597,6 +604,25 @@ def main():
                                 v = v_ex1 + TRUST * (f_ - v_ex1) if TRUST >= 0 else f_
                             else:
                                 v = s['v']
+                        elif op == 'tea_tok':
+                            age_ = i - s['i']
+                            if age_ >= GATE_AGE and sm.n >= 2:
+                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                if len(H) >= 3 and TOK_Q >= 0:
+                                    h1, h2, h3 = H[-1], H[-2], H[-3]
+                                    dt1 = max(h1['i'] - h2['i'], 1)
+                                    dt2 = max(h2['i'] - h3['i'], 1)
+                                    v1 = (h1['x'] - h2['x']) / dt1
+                                    v2 = (h2['x'] - h3['x']) / dt2
+                                    acc = (v1 - v2) / max(dt1, 1)
+                                    kap = acc.norm(dim=1) / (v1.norm(dim=1) ** 2 + 1e-6)
+                                    thr = torch.quantile(kap, TOK_Q)
+                                    m_ = (kap > thr).unsqueeze(1)
+                                    v = torch.where(m_, f_, s['v'])
+                                else:
+                                    v = f_
+                            else:
+                                v = s['v']
                         elif op == 'tea_pgate':
                             s_, sp_ = H[-1], H[-2]
                             pr_ = pred_gain(i, x, s_, sp_) / (float(s_['v'].norm()) + 1e-12)
@@ -669,8 +695,8 @@ def main():
                     lat, nfe, chosen = run_closed(pe, seed, N, op)
                     ok = bool(torch.isfinite(lat).all())
                     rr = rel(lat.float(), z_full) if (ok and z_full is not None) else float('nan')
-                    if a.save_video and op == a.save_op and N == a.save_n and ok:
-                        save_video(lat, pi)
+                    if a.save_video and op in a.save_op.split(',') and N == a.save_n and ok:
+                        save_video(lat, pi, op)
                     row = dict(prompt=pi, seed=seed, N=N, op=op, rel=rr, nfe=nfe, steps=chosen)
                     with open(LC, 'a') as f:
                         f.write(json.dumps(row) + '\n')
