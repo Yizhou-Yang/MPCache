@@ -27,22 +27,24 @@ Wan 的论文口径（LPIPS/SSIM/PSNR）正在跑，ours 与 Hunyuan 排队。
 | 自动推送 | `repro/push_results.sh` 每 10 min 合并分片 + commit + push |
 | 无人值守编排 | `after_ra_full.sh`（RA Full 结束→ours），`after_wan.sh`（Wan→Hunyuan） |
 
-## 2.1 方法定义（2026-10-22 起，默认组件）
+## 2.1 方法边界（2026-10-22 决定：不引入 token 级分类）
 
 ```
-ours = tea_tok --token-gate 0.5
+ours = tea_gap            # 步级预算规划 + age 门控 + 信赖域 cap
 ```
 
-- 用最近 3 个精确锚点估逐 token 速度/加速度：`v1=(x1-x2)/dt1`、`v2=(x2-x3)/dt2`、
-  `a=(v1-v2)/dt1`，曲率 `κ = ‖a‖ / ‖v1‖²`（per token，64 维通道空间）；
-- `κ` 高于分位数 τ（默认 0.5）的 token 用 state-model forecast，其余直接复用 `s['v']`；
-- `tea_gap`（对所有 token 统一修正）降级为**消融臂**，用于证明 per-token 分类的必要性。
+曾实现 `tea_tok`（逐 token 曲率二值门控）与 `tea_tokc`（曲率定 cap），冒烟可跑，
+但**不采用、不进主表**：
 
-依据：V100 `vbA`（VBench 100 prompts）上 `tea_gap` 增益 +7.0 / +3.0 / +3.8（N=10/13/17，
-胜率 1.00，全部 >2SEM）；去掉 gate 后 **−4.7 / −3.8 / −8.4**（胜率 0.25–0.31）。
-门控是必要组件，而"逐 token 分类"是它最自然的下一步。
+- WorldCache 系工作做的是 **token 级特征复用 + 近似**（warp / blending / per-token 分类），
+  我们做的是 **步级"何时评估"的预算规划**，两条轴正交。混进来会让贡献点变模糊，
+  审稿人也会问"这到底是缓存策略还是 token 选择"；
+- `tea_tok` 未在 100 prompt 上验证优于 `tea_gap`，直接升级为默认不严谨；
+- 代码保留（`--planners tea_tok,tea_tokc --token-gate τ`），作为 future work 或附录探索，
+  **不写入 `tab_main`**。
 
-待办：τ 的敏感性（0.3/0.5/0.7），当前 0.5 是按 WorldCache 异质分类的中位数直觉取的，未扫。
+与 WorldCache 的关系只在 Related Work 里说清：他们解决"何处"，把"何时"留给阈值；
+我们补"何时"，并给出可检验的机制（gap 探针、门控消融），而不是又一个阈值。
 
 ## 3. 已有数据（rel 口径，只能作消融）
 
@@ -83,12 +85,18 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 
 | # | 项 | 为什么 | 成本 |
 |---|---|---|---|
-| 7 | **chaotic-only β**：`observe()` 只在高 κ token 上算误差比 | 全局均值被稳定 token 稀释，可能解释 N=12 胜率 0.75 | 改签名 + 0.6 h 验证 |
-| 8 | **τ 敏感性** 0.3 / 0.5 / 0.7 | 当前 0.5 是直觉值，未扫 | 3 × 0.6 h |
-| 9 | **κ 的 ε 归一化** | `‖a‖/‖v‖²` 在静止 token 上爆炸，易误判 chaotic | 与 8 合并做 |
 | 10 | **OSI 向量投影**替换 `ex1` | 线性外推在轨迹弯曲时沿旧方向外推；最小二乘投影更稳 | 0.5 h 实现 + 0.6 h 跑 |
 | 11 | **SWD 通道方差加权** | 显著性高的位置漂移应占更大权重 | 0.5 h 实现 |
 | 12 | **mpc `--gamma 1.5`** | 现有 γ=0.6 预算前置，与 flow matching 尾段敏感相反；ATS 式后置放宽应能救回 | 0.6 h |
+
+### P1-b 已否决（备查，不做）
+
+| 项 | 否决理由 |
+|---|---|
+| chaotic-only β（只在高 κ token 上算误差比） | 属于 token 级改造，与方法边界冲突；若将来做 token 级工作再启用 |
+| τ 敏感性 0.3/0.5/0.7 | 只在采用 `tea_tok` 时才需要，现不采用 |
+| κ 的 ε 归一化 | 同上 |
+| `tea_tok` / `tea_tokc` 进主表 | 代码保留，仅作 future work |
 
 ### P2 矩阵补全
 

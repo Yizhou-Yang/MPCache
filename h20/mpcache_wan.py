@@ -166,7 +166,7 @@ def main():
     ap.add_argument('--nprompt', type=int, default=8)
     ap.add_argument('--prompt-offset', type=int, default=0)
     ap.add_argument('--Ns', default='10,13,17')
-    ap.add_argument('--planners', default='reuse,ex1,tea_tok')
+    ap.add_argument('--planners', default='reuse,ex1,tea_gap')
     ap.add_argument('--out', default=str(ROOT / 'results/video/mpc_20261020'))
     ap.add_argument('--max-gap', type=int, default=4, help='hard cap on consecutive skipped steps (mpc)')
     ap.add_argument('--reserve-last', type=int, default=1, help='evaluations reserved for the final steps')
@@ -191,7 +191,7 @@ def main():
     ap.add_argument('--save-op', default='tea_gap', help='comma separated ops to render')
     ap.add_argument('--save-n', type=int, default=13)
     ap.add_argument('--video-dir', default='')
-    ap.add_argument('--token-gate', type=float, default=0.5,
+    ap.add_argument('--token-gate', type=float, default=-1.0,
                     help='per-token curvature gate: apply the correction only to tokens with '
                          'kappa=||a||/||v||^2 above this quantile (0..1); <0 disables')
     ap.add_argument('--sanity', action='store_true')
