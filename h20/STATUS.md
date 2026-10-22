@@ -29,11 +29,14 @@ Wan 的论文口径（LPIPS/SSIM/PSNR）正在跑，ours 与 Hunyuan 排队。
 
 ## 3. 已有数据（rel 口径，只能作消融）
 
+> `rel` 是终点 latent 相对 L2，**不是**主表的 LPIPS/SSIM/PSNR；prompt 也不是 VBench 集。
+> 禁止把这些数值填进 `tab_main` / `tab_baselines`，只能在附录作为 planner 消融引用，
+> 表注写明「100 self-authored prompts, seed 3000」。废弃的 `wan81_n13_20261022a` 已删除。
+
 | run | 内容 | 行数 | 口径 |
 |---|---|---|---|
-| `wan33_20261022a` | Wan 33f，60 prompt × Ns 10/13/17 × {reuse,ex1,tea_gap,mpc} | 699 | latent rel L2，seed 3000，非 VBench |
-| `hy49_pilot_20261022a` | Hunyuan 49f，4 prompt × 2 Ns × 3 臂 | 18 | 同上 |
-| `wan81_n13_20261022a` | Wan 81f N=13，4 臂 | 4 | 已放弃（口径不符，停在第一个 prompt） |
+| `wan33_20261022a` | Wan 33f，60 prompt × Ns 10/13/17 × {reuse,ex1,tea_gap,mpc} | 699 | latent rel L2，seed 3000，**非 VBench，仅 ablation** |
+| `hy49_pilot_20261022a` | Hunyuan 49f，4 prompt × 2 Ns × 3 臂 | 18 | latent rel L2，**仅 ablation** |
 
 结论（仅作方向参考）：Wan 上 `tea_gap` 稳定优于 `reuse`（N=17 −15%），
 `mpc` 在 N=10/13 显著劣于 reuse（+110%/+133%），N=17 才转正（−30%）。
@@ -153,4 +156,4 @@ bash h20/RUNBOOK.md 第 9 节的循环
 /root/MPCache/repro/results/video/<run>/{closed.jsonl,manifest.json}   # 回传
 ```
 
-命名：`<model><frames>_<config>_<date>a`，如 `wan81_n13_20261022a`、`hy49_20261022a`。
+命名：`<model><frames>_<config>_<date>a`，如 `wan81_n13_20261022a`（已删）、`hy49_20261022a`。
