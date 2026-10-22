@@ -6,6 +6,37 @@ Every run we produced, including the negative ones. Reduction is the median of
 `candidate / reuse` subtracted from one; win is the share of samples where the
 candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 
+## `abl_full`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2788 | -0.218 | 0.38 |  |
+
+## `abl_g1`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2945 | -0.241 | 0.38 |  |
+
+## `abl_g3`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.3132 | -0.185 | 0.38 |  |
+
+## `abl_g3b`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 13 | tea_gap | 8 | 0.2204 | 0.2340 | -0.180 | 0.38 |  |
+| 17 | tea_gap | 8 | 0.1272 | 0.1387 | -0.223 | 0.38 |  |
+
+## `abl_t05`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2992 | -0.237 | 0.38 |  |
+
 ## `bias1`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -13,6 +44,14 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 10 | tea_gap | 16 | 0.2827 | 0.2596 | +0.102 | 0.88 | yes |
 | 13 | tea_gap | 16 | 0.2136 | 0.2089 | +0.033 | 1.00 | yes |
 | 17 | tea_gap | 16 | 0.1181 | 0.1118 | +0.053 | 1.00 | yes |
+
+## `full16`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 4 | 0.2886 | 0.2803 | +0.027 | 0.50 |  |
+| 13 | tea_gap | 4 | 0.2493 | 0.2460 | +0.019 | 1.00 |  |
+| 17 | tea_gap | 3 | 0.1173 | 0.1127 | +0.039 | 1.00 | yes |
 
 ## `g0b_20261017`
 
@@ -207,6 +246,20 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 17 | tea_gap | 16 | 0.1181 | 0.1124 | +0.048 | 1.00 | yes |
 | 17 | tea_mp | 16 | 0.1181 | 0.1218 | -0.037 | 0.31 |  |
 
+## `n8`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 8 | reuse | 16 |  | 0.3330 |  |  |  |
+| 8 | tea_gap | 16 | 0.3330 | 0.3212 | +0.079 | 0.88 | yes |
+
+## `n8v`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 8 | reuse | 16 |  | 0.3754 |  |  |  |
+| 8 | tea_gap | 16 | 0.3754 | 0.3562 | +0.059 | 0.94 | yes |
+
 ## `pgate01`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -243,6 +296,30 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 20 | ex1 | 3 | 0.0564 | 0.0787 | -0.122 | 0.33 |  |
 | 20 | reuse | 3 |  | 0.0564 |  |  |  |
 
+## `pt16`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_pt | 8 | 0.2959 | 0.3455 | -0.321 | 0.25 |  |
+| 13 | tea_pt | 8 | 0.2204 | 0.2786 | -0.369 | 0.12 |  |
+| 17 | tea_pt | 8 | 0.1272 | 0.1617 | -0.453 | 0.38 |  |
+
+## `pt16c`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_pt | 8 | 0.2959 | 0.3080 | -0.223 | 0.38 |  |
+| 13 | tea_pt | 8 | 0.2204 | 0.2343 | -0.182 | 0.38 |  |
+| 17 | tea_pt | 8 | 0.1272 | 0.1358 | -0.189 | 0.38 |  |
+
+## `rclip2`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2974 | -0.217 | 0.38 |  |
+| 13 | tea_gap | 8 | 0.2204 | 0.2328 | -0.175 | 0.38 |  |
+| 17 | tea_gap | 8 | 0.1272 | 0.1333 | -0.163 | 0.38 |  |
+
 ## `res0`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -268,6 +345,12 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 16 | reuse | 16 |  | 0.1478 |  |  |  |
 | 16 | tea_gap | 16 | 0.1478 | 0.1415 | +0.044 | 1.00 | yes |
 
+## `smoke49v`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 13 | reuse | 1 |  | 0.1003 |  |  |  |
+
 ## `trust_g1.5`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -283,4 +366,34 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 10 | tea_gap | 5 | 0.3158 | 0.2976 | +0.042 | 0.80 | yes |
 | 13 | tea_gap | 5 | 0.2325 | 0.2249 | +0.029 | 0.80 | yes |
 | 17 | tea_gap | 5 | 0.1372 | 0.1321 | +0.043 | 1.00 | yes |
+
+## `vbA`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | reuse | 16 |  | 0.3152 |  |  |  |
+| 10 | tea_gap | 16 | 0.3152 | 0.2974 | +0.070 | 1.00 | yes |
+| 10 | tea_mp | 16 | 0.3152 | 0.3403 | -0.047 | 0.31 |  |
+| 13 | reuse | 16 |  | 0.2552 |  |  |  |
+| 13 | tea_gap | 16 | 0.2552 | 0.2471 | +0.030 | 1.00 | yes |
+| 13 | tea_mp | 16 | 0.2552 | 0.2835 | -0.038 | 0.31 |  |
+| 17 | reuse | 16 |  | 0.1364 |  |  |  |
+| 17 | tea_gap | 16 | 0.1364 | 0.1312 | +0.038 | 1.00 | yes |
+| 17 | tea_mp | 16 | 0.1364 | 0.1644 | -0.084 | 0.25 |  |
+
+## `vbB`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 12 | reuse | 16 |  | 0.2604 |  |  |  |
+| 12 | tea_gap | 16 | 0.2604 | 0.2502 | +0.045 | 1.00 | yes |
+| 16 | reuse | 16 |  | 0.1930 |  |  |  |
+| 16 | tea_gap | 16 | 0.1930 | 0.1866 | +0.027 | 1.00 | yes |
+
+## `vbench16`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | reuse | 1 |  | 0.2086 |  |  |  |
+| 13 | reuse | 1 |  | 0.1402 |  |  |  |
 
