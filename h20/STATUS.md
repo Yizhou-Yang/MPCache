@@ -58,8 +58,36 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 | 6 | Hunyuan Full + ours | 10 prompt × 2 臂 | 0.8 h | 排队 |
 | 7 | 指标 + 合并 + 推送 | `evaluation/eval.sh` | 0.7 h | 排队 |
 | 8 | Euler ablation（可选） | `--solver euler --sched uniform` | 0.6 h | 有余额才跑 |
+| 9 | **Cog 49f 100 prompt 主表** | `mpcache_controller.py --frames 49 --seed-from-prompt` | **~8 h** | 下一台机器 |
 
-放弃（9.5 h 内做不完）：RA-CFGCache-Fast、TaylorSeer、Hunyuan 的 4 个竞品行、Cog 在 H20 的重跑。
+放弃（本机 9.5 h 内做不完）：RA-CFGCache-Fast、TaylorSeer、Hunyuan 的 4 个竞品行。
+
+### 5.1 Cog 100-prompt 主表（已排进 TODO，不在本机跑）
+
+实测 49 帧 480×720 是 **29.9 s/步**（70k tokens × 30 层，GPU 无降频），所以：
+
+| 配置 | 每 prompt 步数 | 4 卡总耗时 |
+|---|---|---|
+| Full + ours 两臂 | 50 + 13 = 63 | **~8 h** |
+| 5 臂全量（reuse/ex1/tea_mp/tea_gap/mpc） | 50 + 65 = 115 | **~24 h** |
+
+本机剩余时间 < 8 h，且要留给 Wan 竞品与 Hunyuan，因此不在本机排。
+下一台 H20 的**第一个**任务就跑它，命令：
+
+```bash
+for i in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=$i setsid nohup /root/miniconda3/envs/racfg/bin/python \
+    /root/viewdit/experiments/video/mpcache_controller.py \
+    --frames 49 --nprompt 25 --prompt-offset $((i*25)) \
+    --seeds 0 --seed-from-prompt --negative "animation" \
+    --Ns 13 --planners tea_gap \
+    --out /root/viewdit/results/video/cog49_p$i > /root/viewdit/logs/cog49_p$i.log 2>&1 &
+done
+```
+
+注意 `mpcache_controller.py` 目前还没有 `--save-video`，要补 VAE 解码才能算 LPIPS/SSIM/PSNR；
+`mpcache_wan.py` 里的 `save_video()` + AutoencoderKL 用法可以直接照搬（Cog 用 `AutoencoderKLCogVideoX`，
+8×8 空间压缩、4× 时间压缩，解码 49 帧 720×480 实测约 8 s / 3 GiB）。
 
 ## 6. 关键决策记录
 
