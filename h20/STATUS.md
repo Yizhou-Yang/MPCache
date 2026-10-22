@@ -106,7 +106,7 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 
 | # | 项 | 说明 | 成本 |
 |---|---|---|---|
-| 13 | **Cog 49f × 100 prompt** | 见 5.1；先补 `--save-video` | 13 h（Full+ours） |
+| 13 | **Cog 帧数协议（二选一，见 5.1）** | V100 只能 17f；H20 49f 需 13.1 h | 决策项 |
 | 14 | **Hunyuan 竞品行** | TeaCache / TaylorSeer / RA-Slow / RA-Fast 四行，全空 | 4 × 1.5 h |
 | 15 | **Wan 的 RA-CFGCache-Fast + TaylorSeer** | 本机砍掉的两行 | 0.8 + 1.0 h |
 | 16 | **Wan Fewer25** | 本机用三臂对比换掉了 | 1.1 h |
@@ -122,7 +122,22 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 | 21 | seed 约定 | 写进协议段（见 `repro/REPRODUCE.md` 1.1） |
 | 22 | 加速倍数不横比 | WorldCache 3.65× 是 PSNR 23.5 换来的，我们口径是匹配 NFE 的保真度 |
 
-### 5.1 Cog 100-prompt 主表（不在本机跑）
+### 5.1 Cog 的帧数协议（V100 上 49f 不可行）
+
+**硬约束**：V100 只能跑 **17 帧**（49 帧在 V100 上不可行：显存/步时都不允许）。
+因此 Cog 这条 backbone 目前**没有 49 帧的 100-prompt 结果**，只有 17 帧。
+
+两条路，必须选一条并写进论文：
+
+| 路径 | 成本 | 论文表述 | 风险 |
+|---|---|---|---|
+| **A. H20 跑 49f × 100 prompt** | 13.1 h（Full+ours，4 卡） | Cog 行与其他 backbone 同协议（49 帧官方默认） | 需要一整台 H20 的半天，本机今晚不够 |
+| **B. 就用 V100 的 17f** | 0（已有） | Cog 单独一个 block，表注「17 frames, V100」 | 与 Wan 的 81 帧不同协议，不能声称"统一协议" |
+
+我的建议：**A 作为下一台机器的第一个任务**（它同时解决 `--save-video` 缺口）；
+在此之前，论文里 Cog 行只能用 B 并明确标注，不要与 Wan 并排比较加速比。
+
+#### A 的实测成本（49 帧 480×720 = 29.9 s/步）
 
 实测 49 帧 480×720 是 **29.9 s/步**（70k tokens × 30 层，GPU 无降频），按 100 prompt、4 卡：
 
