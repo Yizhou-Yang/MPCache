@@ -1,0 +1,14 @@
+\section{Experiments}
+\label{sec:experiments}
+We describe the evaluation protocol and the matrix we intend to report once the controller runs are complete.
+
+\paragraph{Experimental setup and baseline protocol.}
+We follow the evaluation protocol of RA-CFGCache \citep{liu2026racfgcache} across 100 prompts from the VBench prompt suite \citep{huang2024vbench}, pairing prompt $k$ with random seed $k$, negative prompt ``animation'', and batch size one. CogVideoX-2B \citep{yang2025cogvideox} generates 49 frames at $720\times480$ (8\,fps, 50 DDIM steps, guidance scale 6), and Wan2.1-T2V-1.3B \citep{wan2025wan} generates 81 frames at $832\times480$ (16\,fps, 50 UniPC steps \citep{zhao2023unipc}, flow shift 3, guidance scale 5). For each accelerated method, we measure LPIPS (AlexNet), SSIM, and PSNR against the 50-step full-evaluation video generated with the identical prompt and seed.
+
+We fix one protocol in advance and apply it to every arm, including our own: the 100 VBench prompts, seed equal to the prompt index, the negative prompt, batch size one, and the same model, scheduler, guidance scale, and step count for all methods. Each baseline keeps its own controller, thresholds, and defaults, taken from the implementation released with its paper or, where that release provides a reference port, from the RA-CFGCache release: TeaCache with thresholds 0.2 on CogVideoX and 0.15 on Wan, TaylorSeer with interval 3, order 1, and three warmup steps, and RA-CFGCache-Slow/Fast with thresholds 0.6/1.4 and 0.4/0.6. \method\ is our own implementation: it shares the model, scheduler, and scoring code with the baselines but none of their controllers or caching utilities, so the comparison isolates the caching policy rather than the surrounding code. We also fixed two implementation defects in the released baseline code and applied the fixes uniformly to all baseline arms: the command-line threshold key read by the RA-CFGCache controller is now bound explicitly and verified at run time, and all denoising and caching run in GPU memory in \texttt{bfloat16} without CPU offload or VAE tiling. Our runs use four NVIDIA H20-96GB GPUs rather than the H200 used in \citet{liu2026racfgcache}; fidelity metrics are therefore comparable across hardware, while wall-clock speedups reflect H20 execution and are compared only within our own runs.
+
+\paragraph{Planned end-to-end evaluation.}
+Table~\ref{tab:main} defines the matrix we intend to report once the controller runs are complete: three backbones, seven methods, and the same fidelity metrics as the baselines. Cells that have not been measured are left blank rather than filled with an estimate.
+
+\clearpage
+\input{sections/tab_main}

@@ -1,0 +1,37 @@
+\section{Introduction}
+Diffusion transformers achieve strong visual quality in video generation \citep{sohl2015deep,ho2020ddpm,dhariwal2021adm,peebles2023dit,yang2025cogvideox,wan2025wan}, where conditional sampling relies on classifier-free guidance (CFG) to combine conditional and unconditional predictions at every step \citep{ho2022cfg}. A standard 50-step video trajectory requires a hundred full-network evaluations over tens of thousands of spatiotemporal tokens, so inference latency remains the primary bottleneck at deployment: GPU-hours dominate serving cost, and a 50-step video model is too slow for interactive use.
+
+Existing accelerations fall into three groups: fewer-step numerical solvers \citep{song2021ddim,zhao2023unipc}, step distillation \citep{meng2023lcm}, and training-free feature caching \citep{liu2025teacache,liu2025taylorseer,liu2026racfgcache}. Training-free caching keeps both the pretrained weights and the solver grid intact by replacing selected network evaluations with cached or extrapolated values. Skipping half of a 50-step run halves the number of network calls, and published caches turn this into 2.4--3.1$\times$ speedups on the two backbones we use \citep{liu2025teacache,liu2026racfgcache}. The guided field changes smoothly along a trajectory, so an approximate step is acceptable whenever its induced terminal distortion remains small. Existing caches estimate that distortion before the run, from a rescaled input difference with a calibrated threshold, from finite-difference extrapolation, or from an offline propagation prior \citep{liu2025teacache,liu2025taylorseer,liu2026racfgcache}.
+
+However, a cache controller faces two coupled forward questions at every step: what value a skipped evaluation will return, and how the resulting approximation error will propagate through the remaining solver updates. Because an early error perturbs every subsequent latent state while a late error affects only the final steps, two skips with identical local error can produce very different terminal distortions. Separating the two rules hides this: a schedule that assumes a fixed forecast quality cannot identify which inexpensive-looking step carries the least reliable forecast, and the effect of that choice materializes only at the terminal step.
+
+\method\ treats caching as a control problem over a single trajectory, in the learning-based formulation of model predictive control \citep{hewing2021learning}. A local model of the guided field is fitted online from the evaluations the sampler already performs, and that one model supplies the forecast, the terminal-error price, and the check at the next exact evaluation. A planner spends the remaining evaluations against that price, and the model is refitted before the next decision. The pretrained network, the solver, and the sampling grid are untouched. The constructions we use are standard and stated as such; what is new is their cache-specific instantiation.
+
+The model is fitted from the few latent states that a single rollout visits, and these states are poorly separated. With so little variation, the response of the denoiser in directions the trajectory never takes cannot be identified, so the usefulness of the learned model has to be measured rather than assumed. We therefore test each component on its own before wiring it into the controller.
+
+
+Our contributions are as follows:
+\begin{itemize}
+\item \textbf{Gap-conditional trust.} We propose \method, a controller that fits a local linear model of the guided field online from the anchors the sampler already produces, at no extra network call. Trust is conditional on the gap: the model is used only when the anchor is old enough that temporal extrapolation fails, and the cache reuses otherwise. That condition is what makes the model safe. Applied at every skip, the same model is worse than reuse ($-24\%$ median); applied only past a two-step gap, it reduces median terminal error on all $16$ of $16$ prompts at each of three matched budgets ($10.3\%$, $3.4\%$, $4.8\%$).
+\item \textbf{One operator, two prices.} The same fitted operator also yields a terminal-error price, which the controller spends the remaining budget against. Measured on skipped windows, this price orders long gaps better than a solver-only prior ($0.27$ against $0.12$ at a gap of three) and reports about twice the prior's value, so it underestimates the true terminal error less severely at every gap, while the prior is better only at gaps of one or two steps: the two are complementary rather than competing.
+\item \textbf{Ordering and pricing are different problems.} We separate the two decisions a cache makes and show they need different evidence: the order in which steps are worth evaluating is best served by a cheap local signal, whereas the terminal cost of a skip is best estimated by the online model. This explains why propagation-priced schedulers lose to a simple threshold, and it gives a matched-budget protocol that isolates each signal.
+\end{itemize}
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[node distance=7mm and 7mm, >=Stealth,
+ box/.style={draw=black!45, rounded corners=2pt, fill=black!3, align=center, font=\small, minimum height=13mm, text width=34mm},
+ every path/.style={line width=0.55pt}]
+\node[box] (observe) {Exact observation\\$(x_s,\tau_s,v_s)$};
+\node[box,right=of observe] (identify) {Shared local model\\$A$};
+\node[box,right=of identify] (plan) {Forecast + price\\budgeted search};
+\node[box,right=of plan] (execute) {Execute one action\\advance sampler};
+\draw[->] (observe)--(identify);
+\draw[->] (identify)--(plan);
+\draw[->] (plan)--(execute);
+\draw[->] (execute.south)--++(0,-8mm)-| (observe.south);
+\node[below=11mm of identify.south,xshift=20mm,text width=125mm,font=\small,align=center] {At the next exact evaluation: check pre-update residual, adjust trust radii, and refit};
+\end{tikzpicture}
+\caption{Overview of \method. Online identification, state-conditioned forecasting, and solver-aware budget planning share one causal local model updated at budgeted exact evaluations.}
+\label{fig:loop}
+\end{figure*}

@@ -1,0 +1,61 @@
+\documentclass{article}
+% T1 selects the template's Type-1 Times fonts under both pdfLaTeX and Tectonic.
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+% User-supplied ICML 2026 template. This is a working draft, not a 2026 submission.
+\usepackage{icml2026}
+% [noticehidden] working draft: suppress the anonymous-affiliation footnote and the
+% "Preliminary work ..." notice. Restore by deleting this redefinition before submission.
+\makeatletter
+\renewcommand{\printAffiliationsAndNotice}[1]{\global\icml@noticeprintedtrue}
+\renewcommand{\@pa}[1]{}  % drop the dangling affiliation superscript in the hidden-footnote draft
+\makeatother
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\newcommand{\method}{MPCache}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\eps}{\varepsilon}
+\icmltitlerunning{MPCache: Model-Predictive Caching}
+\begin{document}
+\twocolumn[
+\icmltitle{MPCache: Model-Predictive Caching for\\ Training-Free Video Diffusion Acceleration}
+\begin{icmlauthorlist}
+\icmlauthor{Anonymous Authors}{}
+\end{icmlauthorlist}
+% Anonymous affiliation block hidden for the working draft; restore for submission:
+% \icmlaffiliation{anon}{Anonymous Institution}
+% \icmlcorrespondingauthor{Anonymous Author}{anonymous@example.invalid}
+\icmlkeywords{Diffusion Transformers, Training-Free Acceleration, Feature Caching, Model Predictive Control}
+\vskip 0.3in
+]
+\printAffiliationsAndNotice{}
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/method}
+\input{sections/experiments}
+
+% References start on a fresh page (not required by ICML, but it keeps the page budget
+% and the editing boundaries easy to read).
+\clearpage
+\bibliographystyle{icml2026}
+\begingroup
+\raggedbottom
+\bibliography{references}
+\endgroup
+
+% Appendix starts on its own page as well; uncomment when the first appendix section exists.
+% \clearpage
+% \appendix
+% \section{Appendix}
+
+\end{document}

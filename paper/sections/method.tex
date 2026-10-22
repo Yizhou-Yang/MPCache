@@ -1,0 +1,66 @@
+\section{Method: Model-Predictive Caching}
+\label{sec:method}
+Caching is a trust-region problem. A skipped evaluation is a step taken on the strength of a local model rather than on the true field, so the controller has to decide how large a step the model can be trusted with. Trust-region methods answer exactly this question: build a local model, predict what a step will do, compare the prediction with what actually happens, and expand or shrink the radius accordingly. \method\ applies that loop to caching. The model is fitted online from the exact anchors, the price predicts the terminal effect of a skip, and every exact evaluation is the ratio test that expands or shrinks how far the next skip may reach. Sections~\ref{sec:core}--\ref{sec:control} follow the loop: model, predicted effect, radius.
+
+\subsection{Preliminaries}
+\label{sec:prelim}
+Consider a fixed prompt, guidance scale $\omega$, and denoising grid $i=0,\ldots,T-1$, with latent $x_i\in\R^d$ and noise coordinate $\tau_i$. At each step the solver consumes the guided output $v_i=f(x_i,\tau_i)=u_i+\omega(c_i-u_i)$, where $u_i$ and $c_i$ are the unconditional and conditional predictions; an exact evaluation computes both branches and costs one unit of the budget $B$. With augmented state $z_i$ holding the latent and any solver history, the solver applies the transition $z_{i+1}=S_i(z_i,\widetilde v_i)$ with $x_i=Pz_i$, where $\widetilde v_i$ is the exact or approximate output; for an affine one-step solver, $x_{i+1}=a_ix_i+b_i\widetilde v_i$. Caching replaces $v_i$ by $\widetilde v_i$ and leaves $S_i$ unchanged. At step $i$ the controller sees only $z_i$ and the causal buffer $\mathcal B_i$ of past exact evaluations, and must decide whether to evaluate or to forecast. Three errors follow: the forecast may misestimate the skip, a small misestimate may grow before the terminal step, and the controller may misjudge when to refresh. Sections~\ref{sec:core}--\ref{sec:control} address them in order.
+
+\paragraph{Standard formulation.} We borrow the learning-based model predictive control formulation of \citet{hewing2021learning}, in which a model fitted from logged transitions is used inside a finite-horizon problem,
+\begin{equation}
+ \begin{aligned}
+ &\min_{\pi=(a_i,\ldots,a_{i+H-1})}\ \sum_{j=i}^{i+H-1}c_j(z_j,a_j)+c_H(z_{i+H})\\
+ &\text{s.t.}\quad z_{j+1}=\widehat f\!\left(z_j,a_j;\theta\right),\quad a_j\in\mathcal A,
+ \end{aligned}
+ \label{eq:mpc}
+\end{equation}
+with stage cost $c_j$, terminal cost $c_H$, and admissible set $\mathcal A$; the model parameters are obtained by regularized least squares on the transitions seen so far, the standard fit in learning-based control \citep{hewing2021learning},
+\begin{equation}
+ \theta\leftarrow\arg\min_{\theta}\ \sum_k w_k\norm{v_k-\widehat f(x_k,\tau_k;\theta)}^2+\lambda\norm{\theta}^2 .
+ \label{eq:fit}
+\end{equation}
+The two constructions in Equations~\eqref{eq:mpc}--\eqref{eq:fit} are stated as given; we add no analysis of our own to them.
+
+\subsection{The local model}
+\label{sec:core}
+A cache needs a model of what a skipped evaluation would have returned. The only samples available are the exact evaluations already made, so the model is identified from those anchors at no extra network call. One trajectory visits only a narrow part of the latent space, and the parameterization below is chosen so that this part is what gets identified.
+
+\paragraph{Model.} Around the most recent exact anchor $s$ the guided field is locally linear, so a small change in the latent produces a proportional change in the output. Writing the output as a function of the latent, $v(x)\approx v_s+A(x-x_s)$. The latent also drifts with the noise coordinate, so we compare against straight-line prediction and keep only the part of the change that the line does not explain,
+\begin{equation}
+ m=u+A\,e,
+ \qquad
+ e=(x-x_s)-r\,(x_s-x_{s'}),
+ \label{eq:model}
+\end{equation}
+with $u=v_s+r(v_s-v_{s'})$ and $r=(\tau-\tau_s)/(\tau_s-\tau_{s'})$. Here $e$ is the residual motion: the part of $x-x_s$ that straight-line motion does not explain. With $A=0$ the model is plain temporal extrapolation. A full matrix is too large for video latents, so $A$ is a diagonal scaling plus a rank-$r$ correction over recent latent differences, at $O(dr)$ cost. We fit $A$ on differences between anchors by weighted least squares, regularized toward zero, so the model falls back to extrapolation when the residual motion is weak.
+
+\paragraph{The step and its prediction.} A skip returns the anchor $v_s$, the extrapolation $u$, or the model prediction
+\begin{equation}
+ v=u+w\,(m-u),
+ \qquad w\in[0,1],
+ \label{eq:forecast}
+\end{equation}
+where $w$ is a confidence that rises when $m$ beats $u$ at exact checks and halves otherwise. It is the only scalar the controller tunes online: $w=1$ trusts the model, $w=0$ trusts extrapolation. A skip is admissible only while the anchor distance and the anchor age stay inside their trust radii.
+
+\paragraph{Radius.} Each skip carries the cost $c=\|v-m\|+q$, where $q$ is an uncertainty that increases with the distance and age of the anchor, so a skip that reaches further from its anchor pays more even when its nominal error is small.
+
+\subsection{Pricing: the predicted effect of a step}
+\label{sec:price}
+A local error is not a terminal error. The solver multiplies each output error by its own sensitivity and carries it forward, so the same local error can be harmless at one step and decisive at another. Rather than forming that product, we accumulate a risk $C\leftarrow\alpha C+\beta c$ along each candidate action sequence, with factors estimated from the model; an exact action adds nothing and only carries $C$ forward.
+
+\subsection{Control: trust region under a budget}
+\label{sec:control}
+With a forecast and a price, the remaining question is where to spend exact evaluations. With remaining budget $b_i$ and horizon $H$, the controller minimizes the accumulated risk subject to a budget that reserves tail refreshes,
+\begin{equation}
+ \min_{\pi}\ C(\pi)\quad\text{s.t.}\quad
+ \sum_{j=i}^{i+H-1}\mathbf 1[a_j=\mathsf C]\le b_i-b_{\rm tail},
+ \label{eq:plan}
+\end{equation}
+over trust-admissible actions. Rollouts use $m$ as the nominal transition and do not call the denoiser. A beam search keeps the top $K$ partial sequences, executes only the first action, and replans, so a misestimate changes the next decision rather than committing the controller.
+
+\paragraph{Residual check.} Every exact evaluation also tests the model. Before refitting, we compare the value the model predicted for that step, $m$, with the value actually computed, $v_s$, and record the relative error
+\begin{equation}
+ \mathrm{err}=\frac{\|v_s-m\|}{\|v_s\|}.
+ \label{eq:check}
+\end{equation}
+If $\mathrm{err}$ exceeds the current uncertainty $q$, the controller tightens the trust radii and shortens the maximum gap; after consecutive checks inside the envelope it relaxes them. The new anchor is appended, the model refitted, and planning restarts at the next step. The update costs $O(dr)$ and the search is over surrogate transitions, so no extra network call is made.

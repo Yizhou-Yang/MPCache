@@ -39,6 +39,7 @@ GAMMA, LAM_D, LAM_F, ACLIP, KAPPA, BETA0 = 0.5, 0.1, 0.1, 3.0, 1.0, 0.5
 W1 = 0.3
 PGATE = 0.02
 BIAS = False
+KAPPA_AGE = 0.0
 PROMPTS = [
     'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
     'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
@@ -113,9 +114,10 @@ class StateModel:
             out = out + (self.Se / self.Sw).float().expand_as(out)
         return out
 
-    def forecast(self, v_ex1, v_s, d, cap_base=None):
+    def forecast(self, v_ex1, v_s, d, cap_base=None, age=1):
         corr = self.correction(d)
-        cap = KAPPA * (cap_base if cap_base is not None else float((v_ex1 - v_s).norm()))
+        base = cap_base if cap_base is not None else float((v_ex1 - v_s).norm())
+        cap = KAPPA * base * (1.0 + KAPPA_AGE * max(0, age - 1))
         cn = float(corr.norm())
         if cn > cap:
             corr = corr * (cap / (cn + 1e-12))
@@ -158,6 +160,7 @@ def main():
     ap.add_argument('--w1', type=float, default=0.3)
     ap.add_argument('--rls-gamma', type=float, default=0.5)
     ap.add_argument('--bias', type=int, default=0)
+    ap.add_argument('--kappa-age', type=float, default=0.0)
     ap.add_argument('--pgate', type=float, default=0.02)
     ap.add_argument('--gamma', type=float, default=0.6, help='budget pacing exponent: quota_i = N*((i+1)/T)**gamma')
     ap.add_argument('--sanity', action='store_true')
@@ -168,7 +171,7 @@ def main():
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
-    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, PGATE
+    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, PGATE
     MODEL_KIND = a.model_kind
     GATE_AGE = a.gate_age
     TRUST = a.trust
@@ -176,6 +179,7 @@ def main():
     W1 = a.w1
     GAMMA = a.rls_gamma
     BIAS = bool(a.bias)
+    KAPPA_AGE = a.kappa_age
     PGATE = a.pgate
     RESERVE = a.reserve_last
 
@@ -544,7 +548,7 @@ def main():
                         elif op in ('tea_gap', 'tea_gap1'):
                             age_ = i - s['i']
                             if age_ >= GATE_AGE and sm.n >= 2:
-                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                f_ = sm.forecast(v_ex1, s['v'], dvec, age=age_)
                                 v = v_ex1 + TRUST * (f_ - v_ex1) if TRUST >= 0 else f_
                             else:
                                 v = s['v']
@@ -552,13 +556,13 @@ def main():
                             s_, sp_ = H[-1], H[-2]
                             pr_ = pred_gain(i, x, s_, sp_) / (float(s_['v'].norm()) + 1e-12)
                             if pr_ > PGATE and sm.n >= 2:
-                                v = sm.forecast(v_ex1, s['v'], dvec)
+                                v = sm.forecast(v_ex1, s['v'], dvec, age=age_)
                             else:
                                 v = s['v']
                         elif op == 'tea_mix':
                             age_ = i - s['i']
                             if age_ >= GATE_AGE and sm.n >= 2:
-                                v = sm.forecast(v_ex1, s['v'], dvec)
+                                v = sm.forecast(v_ex1, s['v'], dvec, age=age_)
                             elif age_ == 1 and sm.n >= 2:
                                 f_ = sm.forecast(v_ex1, s['v'], dvec)
                                 v = s['v'] + W1 * (f_ - s['v'])
@@ -568,7 +572,7 @@ def main():
                             age_ = i - s['i']
                             prev_gap_ = s['i'] - sp['i']
                             if age_ >= GATE_AGE and sm.n >= 2:
-                                v = sm.forecast(v_ex1, s['v'], dvec)
+                                v = sm.forecast(v_ex1, s['v'], dvec, age=age_)
                             elif age_ == 1 and (op == 'tea_ex' or prev_gap_ == 1):
                                 v = v_ex1
                             else:

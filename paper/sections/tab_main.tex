@@ -1,0 +1,36 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4.2pt}
+\caption{Planned evaluation matrix. Every row is measured under one protocol (100 VBench prompts, seed $=$ prompt index, fidelity against the same-seed 50-step output). Values are filled only where the measurement exists; a dash marks a cell that has not been run and is never replaced by a guess. Speedup is a chunk-averaged ratio on the reported hardware, so it is comparable within a column, not across backbones.}
+\label{tab:main}
+\begin{tabular}{llcccc}
+\toprule
+Backbone & Method & LPIPS$\downarrow$ & SSIM$\uparrow$ & PSNR$\uparrow$ & Speedup$\uparrow$ \\
+\midrule
+CogVideoX-2B & Full ($T{=}50$) & 0.0000 & 1.0000 & $\infty$ & 1.00$\times$ \\
+ & Fewer steps ($T{=}25$) & 0.4704 & 0.5350 & 14.08 & 1.89$\times$ \\
+ & TeaCache & 0.2122 & 0.7392 & 21.22 & 2.64$\times$ \\
+ & TaylorSeer ($N{=}3$, $O{=}1$) & 0.4047 & 0.5626 & 15.38 & 2.36$\times$ \\
+ & RA-CFGCache-Slow & 0.0990 & 0.8661 & 26.89 & 2.63$\times$ \\
+ & RA-CFGCache-Fast & 0.2092 & 0.7493 & 21.88 & 3.74$\times$ \\
+ & \method\ (ours) & -- & -- & -- & -- \\
+\midrule
+Wan2.1-T2V-1.3B & Full ($T{=}50$) & 0.0000 & 1.0000 & $\infty$ & 1.00$\times$ \\
+ & Fewer steps ($T{=}25$) & 0.4204 & 0.5700 & 15.85 & 1.96$\times$ \\
+ & TeaCache & 0.1681 & 0.7887 & 22.84 & 2.53$\times$ \\
+ & TaylorSeer ($N{=}3$, $O{=}1$) & 0.3496 & 0.6283 & 17.10 & 2.47$\times$ \\
+ & RA-CFGCache-Slow & 0.0941 & 0.8820 & 28.11 & 2.65$\times$ \\
+ & RA-CFGCache-Fast & 0.1352 & 0.8420 & 26.14 & 3.14$\times$ \\
+ & \method\ (ours) & -- & -- & -- & -- \\
+\midrule
+HunyuanVideo (13B) & Full ($T{=}50$) & -- & -- & -- & -- \\
+ & Fewer steps ($T{=}25$) & -- & -- & -- & -- \\
+ & TeaCache & -- & -- & -- & -- \\
+ & TaylorSeer & -- & -- & -- & -- \\
+ & RA-CFGCache-Slow & -- & -- & -- & -- \\
+ & RA-CFGCache-Fast & -- & -- & -- & -- \\
+ & \method\ (ours) & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

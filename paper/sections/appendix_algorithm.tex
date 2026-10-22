@@ -1,0 +1,27 @@
+% Algorithm block, kept out of the main text; \input this from the appendix.
+\begin{algorithm}[t]
+\caption{\method\ Receding-Horizon Cache Control}
+\label{alg:mpcache}
+\begin{algorithmic}[1]
+\REQUIRE Guided denoiser $f$, scheduler $S$, evaluation budget $B$
+\STATE Initialize anchor buffer $\mathcal B$, risk $r_0=0$, trust radii, and remaining budget $b_0=B$
+\FOR{$i=0$ to $T-1$}
+\IF{warmup step or mandatory refresh}
+\STATE Select $a_i=\mathsf C$
+\ELSE
+\STATE Evaluate candidate forecasts $\{\mathsf R,\mathsf T,\mathsf M\}$ from $\mathcal B$
+\STATE Run budgeted beam search on Eq.~\eqref{eq:bellman}; set $a_i$ to first action
+\ENDIF
+\IF{$a_i=\mathsf C$}
+\STATE Compute exact guided output $v_i$ via Eq.~\eqref{eq:cfg}
+\STATE Compute pre-update residual $\epsilon_i$ (Eq.~\eqref{eq:check}) and update trust radii
+\STATE Append $(x_i,\tau_i,v_i)$ to $\mathcal B$, refit $(\widehat J_i,\widehat g_i)$ via Eq.~\eqref{eq:fit}, decrement $b_i$
+\STATE Set $\widetilde v_i=v_i$
+\ELSE
+\STATE Set $\widetilde v_i=\widetilde v_i^{a_i}$ from Eq.~\eqref{eq:actions}
+\ENDIF
+\STATE Update risk radius $r_{i+1}$ via Eq.~\eqref{eq:risk}
+\STATE Advance solver state $z_{i+1}=S_i(z_i,\widetilde v_i)$
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
