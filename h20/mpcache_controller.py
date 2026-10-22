@@ -38,6 +38,7 @@ TEA_COEF = [-3.10658903e+01, 2.54732368e+01, -5.92380459e+00, 1.75769064e+00, -3
 GAMMA, LAM_D, LAM_F, ACLIP, KAPPA, BETA0 = 0.5, 0.1, 0.1, 3.0, 1.0, 0.5
 W1 = 0.3
 PGATE = 0.02
+BIAS = False
 PROMPTS = [
     'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
     'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
@@ -85,6 +86,8 @@ class StateModel:
         self.Sdd = torch.zeros(64, device='cuda', dtype=torch.float64)
         self.Sde = torch.zeros(64, device='cuda', dtype=torch.float64)
         self.G = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
+        self.Se = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Sw = 0.0
         self.R = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
         self.n = 0
         self.beta = BETA0
@@ -98,7 +101,10 @@ class StateModel:
             A = torch.linalg.solve(self.G + lam * torch.eye(64, device='cuda', dtype=torch.float64), self.R)
             return (d.double() @ A).float()
         a = (self.Sde / ((1 + LAM_D) * self.Sdd + 1e-12)).clamp(-ACLIP, ACLIP)
-        return d * a.float()
+        out = d * a.float()
+        if BIAS and self.Sw > 1e-9:
+            out = out + (self.Se / self.Sw).float().expand_as(out)
+        return out
 
     def forecast(self, v_ex1, v_s, d, cap_base=None):
         corr = self.correction(d)
@@ -116,6 +122,8 @@ class StateModel:
             self.log.append((err_m / (err_e + 1e-12), self.beta))
         dd, ee = d.double(), e.double()
         self.Sdd = GAMMA * self.Sdd + (dd * dd).sum(0)
+        self.Se = GAMMA * self.Se + ee.mean(0)
+        self.Sw = GAMMA * self.Sw + 1.0
         self.Sde = GAMMA * self.Sde + (dd * ee).sum(0)
         self.G = GAMMA * self.G + dd.T @ dd
         self.R = GAMMA * self.R + dd.T @ ee
@@ -130,6 +138,7 @@ def main():
     ap.add_argument('--frames', type=int, default=17, choices=[17, 49])
     ap.add_argument('--seeds', default='3000,3001')
     ap.add_argument('--nprompt', type=int, default=8)
+    ap.add_argument('--prompt-offset', type=int, default=0)
     ap.add_argument('--Ns', default='10,13,17')
     ap.add_argument('--planners', default='reuse,ex1,tea_mp,mpc,mpc_reuse')
     ap.add_argument('--out', default=str(ROOT / 'results/video/mpc_20261020'))
@@ -141,6 +150,7 @@ def main():
     ap.add_argument('--kappa', type=float, default=1.0)
     ap.add_argument('--w1', type=float, default=0.3)
     ap.add_argument('--rls-gamma', type=float, default=0.5)
+    ap.add_argument('--bias', type=int, default=0)
     ap.add_argument('--pgate', type=float, default=0.02)
     ap.add_argument('--gamma', type=float, default=0.6, help='budget pacing exponent: quota_i = N*((i+1)/T)**gamma')
     ap.add_argument('--sanity', action='store_true')
@@ -151,13 +161,14 @@ def main():
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
-    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, PGATE
+    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, PGATE
     MODEL_KIND = a.model_kind
     GATE_AGE = a.gate_age
     TRUST = a.trust
     KAPPA = a.kappa
     W1 = a.w1
     GAMMA = a.rls_gamma
+    BIAS = bool(a.bias)
     PGATE = a.pgate
     RESERVE = a.reserve_last
 
@@ -564,7 +575,8 @@ def main():
             return lat, nfe, chosen
 
     for seed in seeds:
-        for pi in range(a.nprompt):
+        for pi_ in range(a.nprompt):
+            pi = pi_ + a.prompt_offset
             if all((pi, seed, N, op) in done for N in Ns for op in planners):
                 continue
             pe = embs[pi]
