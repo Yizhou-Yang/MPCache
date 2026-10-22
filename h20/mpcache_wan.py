@@ -242,27 +242,49 @@ def main():
     missing = [p for p in need if p not in embs]
     if missing or ne is None:
         tok = AutoTokenizer.from_pretrained(MODEL / 'tokenizer')
-        enc = UMT5EncoderModel.from_pretrained(MODEL / 'text_encoder', torch_dtype=torch.float16).cuda().eval()
+        enc = UMT5EncoderModel.from_pretrained(MODEL / 'text_encoder', torch_dtype=torch.bfloat16).cuda().eval()
         with torch.no_grad():
             for pi in missing:
                 ti = tok(PROMPTS[pi], padding='max_length', max_length=512, truncation=True,
                          return_attention_mask=True, return_tensors='pt')
-                embs[pi] = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.float16)
+                embs[pi] = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.bfloat16)
             if ne is None:
                 ti = tok(a.negative, padding='max_length', max_length=512, truncation=True,
                          return_attention_mask=True, return_tensors='pt')
-                ne = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.float16)
+                ne = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.bfloat16)
         del enc; torch.cuda.empty_cache()
         torch.save({'embs': {str(k): v for k, v in embs.items()}, 'ne': ne}, emb_path)
     print(f'prompts total={len(PROMPTS)} using [{lo},{hi}) -> {hi - lo} prompts', flush=True)
 
-    d = WanTransformer3DModel.from_pretrained(MODEL / 'transformer', torch_dtype=torch.float16).cuda().eval().requires_grad_(False)
+    d = WanTransformer3DModel.from_pretrained(MODEL / 'transformer', torch_dtype=torch.bfloat16).cuda().eval().requires_grad_(False)
+
+    # cuBLAS 12.4 still SIGFPEs on the timestep branch (M=2, K=1536, N=9216) in bf16.
+    # That branch is tiny; run it in fp32 and cast back, leaving the rest bf16 so our
+    # numerics match the RA baseline (which is bf16 end to end).
+    import types
+    _ce = d.condition_embedder
+    _ce.time_embedder.float(); _ce.time_proj.float()
+
+    def _ce_fwd(self, timestep, encoder_hidden_states, encoder_hidden_states_image=None,
+                timestep_seq_len=None):
+        ts = self.timesteps_proj(timestep).float()
+        if timestep_seq_len is not None:
+            ts = ts.unflatten(0, (-1, timestep_seq_len))
+        temb = self.time_embedder(ts)
+        timestep_proj = self.time_proj(self.act_fn(temb)).type_as(encoder_hidden_states)
+        temb = temb.type_as(encoder_hidden_states)
+        encoder_hidden_states = self.text_embedder(encoder_hidden_states)
+        if encoder_hidden_states_image is not None:
+            encoder_hidden_states_image = self.image_embedder(encoder_hidden_states_image)
+        return temb, timestep_proj, encoder_hidden_states, encoder_hidden_states_image
+
+    _ce.forward = types.MethodType(_ce_fwd, _ce)
 
     vae = None
     if a.save_video:
         from diffusers import AutoencoderKLWan
         import imageio
-        vae = AutoencoderKLWan.from_pretrained(MODEL / 'vae', torch_dtype=torch.float16).cuda().eval()
+        vae = AutoencoderKLWan.from_pretrained(MODEL / 'vae', torch_dtype=torch.bfloat16).cuda().eval()
         VDIR = Path(a.video_dir) if a.video_dir else (OUT / 'videos')
         VDIR.mkdir(parents=True, exist_ok=True)
 
@@ -274,7 +296,7 @@ def main():
             sub.mkdir(parents=True, exist_ok=True)
             zz = z.float() * _std.to(z.device) + _mean.to(z.device)
             with torch.no_grad():
-                v = vae.decode(zz.to(torch.float16)).sample
+                v = vae.decode(zz.to(torch.bfloat16)).sample
             v = ((v.clamp(-1, 1) + 1) / 2 * 255).byte().cpu().permute(0, 2, 3, 4, 1)[0].numpy()
             imageio.mimsave(sub / f'video_{idx:06d}.mp4', v, fps=16, codec='libx264',
                             macro_block_size=8)
@@ -302,13 +324,13 @@ def main():
         return lat2tok(u), lat2tok(c)
 
     def step(v, t, lat):
-        return sch.step(tok2lat(v).to(torch.float16), t, lat, return_dict=False)[0]
+        return sch.step(tok2lat(v).to(torch.bfloat16), t, lat, return_dict=False)[0]
 
     def init(seed):
         sch.set_timesteps(NSTEP, device='cuda')
         g = torch.Generator(device='cuda').manual_seed(seed)
         sig0 = float(getattr(sch, 'init_noise_sigma', 1.0))
-        return torch.randn((1, C, LT, PH, PW), generator=g, device='cuda', dtype=torch.float16) * sig0
+        return torch.randn((1, C, LT, PH, PW), generator=g, device='cuda', dtype=torch.bfloat16) * sig0
 
     lat = init(0)
     print('sanity roundtrip', rel(tok2lat(lat2tok(lat)), lat.float()), flush=True)
