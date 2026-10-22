@@ -270,3 +270,86 @@ python experiments/video/mpcache_hunyuan.py --frames 49 --nprompt 4 \
    `FlowMatchEuler` + `--sched uniform` 后降到 0.30。Cog / Hunyuan 本来就是一阶，三者可比。
 3. **内置 prompt 只有 8 条**，`--nprompt 100` 会在 `embs[8]` 崩。控制器现在优先加载同目录
    `prompts_100.txt`，并按 `[offset, offset+nprompt)` 只编码本片需要的条目。
+
+---
+
+## 12. 论文评估协议（H20 侧，必读）
+
+主表 `tab_main` 的指标**不是** latent rel L2，而是对 50 步 Full 视频算的：
+
+```
+LPIPS(AlexNet) / SSIM / PSNR   +   Speedup
+```
+
+协议（与 `paper/sections/experiments.tex` 逐项对应）：
+
+| 项 | 值 |
+|---|---|
+| prompts | `resources/prompts/prompt_video.txt`（RA-CFGCache 的 100 条） |
+| seed | **= prompt index**（`--seed 0` + `start_index`） |
+| negative prompt | `"animation"` |
+| Wan | 81 帧 832×480，16 fps，50 步 **UniPC**，flow shift 3，CFG 5 |
+| Cog | 49 帧 720×480，8 fps，50 步 DDIM，CFG 6 |
+| Hunyuan | 49 帧 480×832，50 步，embedded guidance 6 |
+
+### 12.1 接入 RA-CFGCache 基线（首次）
+
+```bash
+cd /root && git clone --depth 1 https://github.com/yiming-l21/RA-CFGCache.git
+/root/miniconda3/envs/racfg/bin/pip install nvidia-cublas-cu12==12.4.5.8   # 关键，见 PITFALLS P1
+/root/miniconda3/envs/racfg/bin/pip install lpips scikit-image open-clip-torch clean-fid
+
+cd /root/RA-CFGCache
+CUDA_VISIBLE_DEVICES=0,1,2,3 bash RUN/demo_wan.sh   --mode original --limit 100 --gpus 0,1,2,3   --python /root/miniconda3/envs/racfg/bin/python   --model_path /root/viewdit/weights/Wan2.1-T2V-1.3B   --output_dir /root/viewdit/results/ra_wan   --negative_prompt "animation" --run-name full
+```
+
+`--mode` 可选：`original`（Full）、`TeaCache`（配 `--rel_l1_thresh 0.15`）、
+`CFGCache`（配 `--rel_l1_thresh 0.6/1.4` 得 Slow/Fast）。
+`--num_steps 25 --mode original` 即 Fewer steps 那一行。
+
+输出先落 `<out>/.multi_gpu_tmp/wan_<mode>_<ts>/gpu*/`，四片都结束后才 merge 到
+`<out>/wan_<mode>/`。**推送脚本要同时扫临时目录**（PITFALLS P9）。
+
+### 12.2 ours（tea_gap，N=13）
+
+```bash
+for i in 0 1 2 3; do
+CUDA_VISIBLE_DEVICES=$i setsid nohup /root/miniconda3/envs/racfg/bin/python   /root/viewdit/experiments/video/mpcache_wan.py   --frames 81 --height 480 --width 832   --nprompt 25 --prompt-offset $((i*25)) --seeds 0 --seed-from-prompt   --negative "animation" --solver unipc --sched sigma   --Ns 13 --planners tea_gap --no-full   --save-video --save-op tea_gap --save-n 13   --video-dir /root/viewdit/results/ours_wan/tea_gap_n13/videos   --out /root/viewdit/results/ours_wan/n13_p$i > /root/viewdit/logs/ours_n13_p$i.log 2>&1 &
+done
+```
+
+`--no-full` 很重要：参考视频直接用 RA 的 Full，否则每 prompt 多付 50 步。
+
+### 12.3 指标
+
+```bash
+cd /root/RA-CFGCache
+REF_DIR=/root/viewdit/results/ra_wan/wan_original CMP_DIR=/root/viewdit/results/ours_wan/tea_gap_n13 PROMPT_FILE=/root/viewdit/resources/prompts/prompt_video.txt DEVICE=cuda:0 bash evaluation/eval.sh
+```
+
+按 `video_%06d.mp4` 的文件名索引配对，所以两边命名必须一致（ours 已对齐）。
+
+### 12.4 已有参考值（论文 `tab_main`，Wan2.1-T2V-1.3B）
+
+| Method | LPIPS↓ | SSIM↑ | PSNR↑ | Speedup↑ |
+|---|---|---|---|---|
+| Full (T=50) | 0.0000 | 1.0000 | ∞ | 1.00× |
+| Fewer (T=25) | 0.4204 | 0.5700 | 15.85 | 1.96× |
+| TeaCache | 0.1681 | 0.7887 | 22.84 | 2.53× |
+| TaylorSeer (N=3,O=1) | 0.3496 | 0.6283 | 17.10 | 2.47× |
+| RA-CFGCache-Slow | 0.0941 | 0.8820 | 28.11 | 2.65× |
+| RA-CFGCache-Fast | 0.1352 | 0.8420 | 26.14 | 3.14× |
+| ours | — | — | — | — |
+
+HunyuanVideo 整行在论文里还是 `--`，H20 上要补。
+
+---
+
+## 13. 踩坑与进度
+
+- **踩坑清单（13 条，含症状/根因/修复）**：`h20/PITFALLS.md`
+- **进度快照与 TODO**：`h20/STATUS.md`
+- **自动推送**：`repro/push_results.sh`（每 10 min，合并分片 → commit → push）
+- **无人值守编排**：`repro/after_ra_full.sh`、`repro/after_wan.sh`
+
+新机器从零开始的完整顺序：第 0 → 1 → 2 → **2.5 补 cuBLAS 12.4** → 3 → 4 → 5 → 12.1 → 12.2 → 12.3。
