@@ -190,3 +190,15 @@ git push "https://x-access-token:<PAT>@github.com/Yizhou-Yang/MPCache.git" h20-r
 | torch 2.10+cu128 | ≥570 | ❌ |
 
 `CUDA driver version is insufficient` 就是这个原因，不要试图升 torch。
+
+---
+
+## P14. 两篇同名 "WorldCache"，引用前先核对
+
+| 论文 | 机制 | 关键术语 |
+|---|---|---|
+| `arXiv:2603.22286` *Content-Aware Caching for Accelerated Video World Models* | L1 两步速度 + 通道方差显著性 + ATS 阈值调度 + OSI 投影 + LK warp | motion-adaptive threshold、saliency-weighted drift、phase-aware |
+| *Accelerating World Models for Free via Heterogeneous Token Caching* | per-token 曲率分类（stable/linear/chaotic）+ 分类型预测器 | κ=‖a‖/‖v‖²、damped Hermite、heterogeneous token |
+
+2603.22286 全文**没有** entropy，也**没有** κ 或 stable/linear/chaotic 分类（逐字核对过 HTML 全文含附录）。
+把两篇的机制混着写，审稿人对照原文会直接指出来。

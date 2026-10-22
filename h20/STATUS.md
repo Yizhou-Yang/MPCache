@@ -27,6 +27,23 @@ Wan 的论文口径（LPIPS/SSIM/PSNR）正在跑，ours 与 Hunyuan 排队。
 | 自动推送 | `repro/push_results.sh` 每 10 min 合并分片 + commit + push |
 | 无人值守编排 | `after_ra_full.sh`（RA Full 结束→ours），`after_wan.sh`（Wan→Hunyuan） |
 
+## 2.1 方法定义（2026-10-22 起，默认组件）
+
+```
+ours = tea_tok --token-gate 0.5
+```
+
+- 用最近 3 个精确锚点估逐 token 速度/加速度：`v1=(x1-x2)/dt1`、`v2=(x2-x3)/dt2`、
+  `a=(v1-v2)/dt1`，曲率 `κ = ‖a‖ / ‖v1‖²`（per token，64 维通道空间）；
+- `κ` 高于分位数 τ（默认 0.5）的 token 用 state-model forecast，其余直接复用 `s['v']`；
+- `tea_gap`（对所有 token 统一修正）降级为**消融臂**，用于证明 per-token 分类的必要性。
+
+依据：V100 `vbA`（VBench 100 prompts）上 `tea_gap` 增益 +7.0 / +3.0 / +3.8（N=10/13/17，
+胜率 1.00，全部 >2SEM）；去掉 gate 后 **−4.7 / −3.8 / −8.4**（胜率 0.25–0.31）。
+门控是必要组件，而"逐 token 分类"是它最自然的下一步。
+
+待办：τ 的敏感性（0.3/0.5/0.7），当前 0.5 是按 WorldCache 异质分类的中位数直觉取的，未扫。
+
 ## 3. 已有数据（rel 口径，只能作消融）
 
 > `rel` 是终点 latent 相对 L2，**不是**主表的 LPIPS/SSIM/PSNR；prompt 也不是 VBench 集。
