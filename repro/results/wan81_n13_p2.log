@@ -1,0 +1,5 @@
+prompts total=100 using [50,75) -> 25 prompts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  3.62it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  6.45it/s]
+sanity roundtrip 0.0
+one CFG step 6.70s; peak 5.78 GiB
+tea N=13 (|S|=13): [0, 4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49]

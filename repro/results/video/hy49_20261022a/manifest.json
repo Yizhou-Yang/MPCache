@@ -1,0 +1,30 @@
+{
+  "model": "HunyuanVideo",
+  "ckpt": "hunyuanvideo-community/HunyuanVideo",
+  "frames": 49,
+  "height": 480,
+  "width": 832,
+  "steps": 50,
+  "solver": "flowmatch-euler",
+  "sched": "uniform",
+  "dtype": "fp16",
+  "rows": 18,
+  "shards": [
+    "hy49_s480"
+  ],
+  "prompts": [
+    0,
+    1,
+    2
+  ],
+  "budgets": [
+    10,
+    13
+  ],
+  "ops": [
+    "mpc",
+    "reuse",
+    "tea_gap"
+  ],
+  "note": "H20 driver 535.247.01 / CUDA 12.2 / torch 2.5.1+cu121"
+}
