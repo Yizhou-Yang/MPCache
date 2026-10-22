@@ -191,6 +191,8 @@ def main():
     ap.add_argument('--save-op', default='tea_gap', help='comma separated ops to render')
     ap.add_argument('--save-n', type=int, default=13)
     ap.add_argument('--video-dir', default='')
+    ap.add_argument('--height', type=int, default=0)
+    ap.add_argument('--width', type=int, default=0)
     ap.add_argument('--token-gate', type=float, default=-1.0,
                     help='per-token curvature gate: apply the correction only to tokens with '
                          'kappa=||a||/||v||^2 above this quantile (0..1); <0 disables')
@@ -200,6 +202,8 @@ def main():
     global LT, PH, PW, NSTEP, MAX_GAP, GAMMA_PACE, RESERVE
     cfgf = FRAMES[a.frames]
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
+    if a.height and a.width:
+        PH, PW = a.height // 8, a.width // 8
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
     global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, PGATE, TOK_Q
