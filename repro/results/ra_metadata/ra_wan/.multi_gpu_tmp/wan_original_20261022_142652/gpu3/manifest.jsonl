@@ -13,3 +13,5 @@
 {"video_id": "video_000087", "prompt_index": 87, "prompt": "Ashtray full of butts on table, smoke flowing on black background, close-up", "video_path": "videos/video_000087.mp4", "metadata_path": "metadata/video_000087.json", "eval_frame_dir": "eval_frames/video_000087"}
 {"video_id": "video_000088", "prompt_index": 88, "prompt": "Close up of grapes on a rotating table.", "video_path": "videos/video_000088.mp4", "metadata_path": "metadata/video_000088.json", "eval_frame_dir": "eval_frames/video_000088"}
 {"video_id": "video_000089", "prompt_index": 89, "prompt": "Vincent van Gogh is painting in the room", "video_path": "videos/video_000089.mp4", "metadata_path": "metadata/video_000089.json", "eval_frame_dir": "eval_frames/video_000089"}
+{"video_id": "video_000090", "prompt_index": 90, "prompt": "art gallery", "video_path": "videos/video_000090.mp4", "metadata_path": "metadata/video_000090.json", "eval_frame_dir": "eval_frames/video_000090"}
+{"video_id": "video_000091", "prompt_index": 91, "prompt": "ballroom", "video_path": "videos/video_000091.mp4", "metadata_path": "metadata/video_000091.json", "eval_frame_dir": "eval_frames/video_000091"}
