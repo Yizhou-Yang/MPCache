@@ -19,3 +19,5 @@
 {"video_id": "video_000043", "prompt_index": 43, "prompt": "A Mars rover moving on Mars", "video_path": "videos/video_000043.mp4", "metadata_path": "metadata/video_000043.json", "eval_frame_dir": "eval_frames/video_000043"}
 {"video_id": "video_000044", "prompt_index": 44, "prompt": "a motorcycle turning a corner", "video_path": "videos/video_000044.mp4", "metadata_path": "metadata/video_000044.json", "eval_frame_dir": "eval_frames/video_000044"}
 {"video_id": "video_000045", "prompt_index": 45, "prompt": "a sheep running to join a herd of its kind", "video_path": "videos/video_000045.mp4", "metadata_path": "metadata/video_000045.json", "eval_frame_dir": "eval_frames/video_000045"}
+{"video_id": "video_000046", "prompt_index": 46, "prompt": "A steam train moving on a mountainside", "video_path": "videos/video_000046.mp4", "metadata_path": "metadata/video_000046.json", "eval_frame_dir": "eval_frames/video_000046"}
+{"video_id": "video_000047", "prompt_index": 47, "prompt": "a train accelerating to gain speed", "video_path": "videos/video_000047.mp4", "metadata_path": "metadata/video_000047.json", "eval_frame_dir": "eval_frames/video_000047"}

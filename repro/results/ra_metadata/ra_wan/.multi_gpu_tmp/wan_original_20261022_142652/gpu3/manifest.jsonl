@@ -20,3 +20,5 @@
 {"video_id": "video_000094", "prompt_index": 94, "prompt": "valley", "video_path": "videos/video_000094.mp4", "metadata_path": "metadata/video_000094.json", "eval_frame_dir": "eval_frames/video_000094"}
 {"video_id": "video_000095", "prompt_index": 95, "prompt": "a banana on the bottom of an apple, front view", "video_path": "videos/video_000095.mp4", "metadata_path": "metadata/video_000095.json", "eval_frame_dir": "eval_frames/video_000095"}
 {"video_id": "video_000096", "prompt_index": 96, "prompt": "a boat on the left of an airplane, front view", "video_path": "videos/video_000096.mp4", "metadata_path": "metadata/video_000096.json", "eval_frame_dir": "eval_frames/video_000096"}
+{"video_id": "video_000097", "prompt_index": 97, "prompt": "a chair on the left of a couch, front view", "video_path": "videos/video_000097.mp4", "metadata_path": "metadata/video_000097.json", "eval_frame_dir": "eval_frames/video_000097"}
+{"video_id": "video_000098", "prompt_index": 98, "prompt": "a surfboard on the bottom of skis, front view", "video_path": "videos/video_000098.mp4", "metadata_path": "metadata/video_000098.json", "eval_frame_dir": "eval_frames/video_000098"}

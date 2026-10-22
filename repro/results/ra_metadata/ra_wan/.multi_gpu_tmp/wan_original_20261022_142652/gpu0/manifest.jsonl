@@ -20,3 +20,5 @@
 {"video_id": "video_000019", "prompt_index": 19, "prompt": "an orange and a clock", "video_path": "videos/video_000019.mp4", "metadata_path": "metadata/video_000019.json", "eval_frame_dir": "eval_frames/video_000019"}
 {"video_id": "video_000020", "prompt_index": 20, "prompt": "a person giving a presentation to a room full of colleagues", "video_path": "videos/video_000020.mp4", "metadata_path": "metadata/video_000020.json", "eval_frame_dir": "eval_frames/video_000020"}
 {"video_id": "video_000021", "prompt_index": 21, "prompt": "A person is bending metal", "video_path": "videos/video_000021.mp4", "metadata_path": "metadata/video_000021.json", "eval_frame_dir": "eval_frames/video_000021"}
+{"video_id": "video_000022", "prompt_index": 22, "prompt": "A person is bungee jumping", "video_path": "videos/video_000022.mp4", "metadata_path": "metadata/video_000022.json", "eval_frame_dir": "eval_frames/video_000022"}
+{"video_id": "video_000023", "prompt_index": 23, "prompt": "A person is clay pottery making", "video_path": "videos/video_000023.mp4", "metadata_path": "metadata/video_000023.json", "eval_frame_dir": "eval_frames/video_000023"}
