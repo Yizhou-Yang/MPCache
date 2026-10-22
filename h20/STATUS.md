@@ -66,27 +66,53 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
   → /root/viewdit/results/ra_wan/wan_original/{videos,metadata,eval_frames}
 ```
 
-## 5. TODO（按优先级，剩余 ~8.5 h）
+## 5. TODO（全部未完成项，按优先级）
 
-| # | 任务 | 命令要点 | 耗时 | 状态 |
-|---|---|---|---|---|
-| 1 | RA Full (T=50) × 100 | `demo_wan.sh --mode original` | 2.3 h | 跑中 |
-| 2 | **ours** (tea_gap N=13) × 100 | `mpcache_wan.py --no-full --save-video` | 0.6 h | 自动接续 |
-| 3 | RA CFGCache-Slow | `--mode CFGCache --rel_l1_thresh 0.6` | 0.9 h | 排队 |
-| 4 | RA TeaCache | `--mode TeaCache --rel_l1_thresh 0.15` | 0.9 h | 排队 |
-| 5 | RA Fewer (T=25) | `--num_steps 25 --mode original` | 1.1 h | 排队 |
-| 6 | Hunyuan Full + ours | 10 prompt × 2 臂 | 0.8 h | 排队 |
-| 7 | 指标 + 合并 + 推送 | `evaluation/eval.sh` | 0.7 h | 排队 |
-| 8 | Euler ablation（可选） | `--solver euler --sched uniform` | 0.6 h | 有余额才跑 |
-| 9 | **Cog 49f 100 prompt 主表** | `mpcache_controller.py --frames 49 --seed-from-prompt` | **~8 h** | 下一台机器 |
+### P0 本机今晚（16:55 起自动执行，不需人工）
 
-放弃（本机 9.5 h 内做不完）：RA-CFGCache-Fast、TaylorSeer、Hunyuan 的 4 个竞品行。
+| # | 项 | 规模 | 状态 |
+|---|---|---|---|
+| 1 | RA Full (T=50) × 100 | 100 mp4 | 跑中 87/100 |
+| 2 | ours 三臂：`tea_gap` / `tea_tok` / `tea_tokc` | 300 mp4 | 排队 |
+| 3 | RA CFGCache-Slow (`rel_l1_thresh 0.6`) | 100 mp4 | 排队 |
+| 4 | RA TeaCache (`rel_l1_thresh 0.15`) | 100 mp4 | 排队 |
+| 5 | Hunyuan Full + ours（12 prompt） | 24 行 | 排队 |
+| 6 | 指标 `eval.sh` + 合并 + 推送 | — | 收尾 |
 
-### 5.1 Cog 100-prompt 主表（已排进 TODO，不在本机跑）
+### P1 方法（下一台机器，优先级最高）
 
-实测 49 帧 480×720 是 **29.9 s/步**（70k tokens × 30 层，GPU 无降频），所以：
+| # | 项 | 为什么 | 成本 |
+|---|---|---|---|
+| 7 | **chaotic-only β**：`observe()` 只在高 κ token 上算误差比 | 全局均值被稳定 token 稀释，可能解释 N=12 胜率 0.75 | 改签名 + 0.6 h 验证 |
+| 8 | **τ 敏感性** 0.3 / 0.5 / 0.7 | 当前 0.5 是直觉值，未扫 | 3 × 0.6 h |
+| 9 | **κ 的 ε 归一化** | `‖a‖/‖v‖²` 在静止 token 上爆炸，易误判 chaotic | 与 8 合并做 |
+| 10 | **OSI 向量投影**替换 `ex1` | 线性外推在轨迹弯曲时沿旧方向外推；最小二乘投影更稳 | 0.5 h 实现 + 0.6 h 跑 |
+| 11 | **SWD 通道方差加权** | 显著性高的位置漂移应占更大权重 | 0.5 h 实现 |
+| 12 | **mpc `--gamma 1.5`** | 现有 γ=0.6 预算前置，与 flow matching 尾段敏感相反；ATS 式后置放宽应能救回 | 0.6 h |
 
-按 29.9 s/步、100 prompt、4 卡：
+### P2 矩阵补全
+
+| # | 项 | 说明 | 成本 |
+|---|---|---|---|
+| 13 | **Cog 49f × 100 prompt** | 见 5.1；先补 `--save-video` | 13 h（Full+ours） |
+| 14 | **Hunyuan 竞品行** | TeaCache / TaylorSeer / RA-Slow / RA-Fast 四行，全空 | 4 × 1.5 h |
+| 15 | **Wan 的 RA-CFGCache-Fast + TaylorSeer** | 本机砍掉的两行 | 0.8 + 1.0 h |
+| 16 | **Wan Fewer25** | 本机用三臂对比换掉了 | 1.1 h |
+| 17 | **Euler ablation** | `--solver euler --sched uniform` vs UniPC，说明 solver 阶数影响 | 0.6 h |
+
+### P3 论文写作
+
+| # | 项 | 要点 |
+|---|---|---|
+| 18 | Related Work 摆位 | token 级缓存（何处）与步级控制（何时）是正交两轴；我们补后者，且把他们的二值分类连续化为 per-token 半径 |
+| 19 | 两篇 WorldCache 区分 | 见 PITFALLS P14，引用别混 |
+| 20 | 表注 | `rel` 口径数据只能进附录，注明 "100 self-authored prompts, seed 3000" |
+| 21 | seed 约定 | 写进协议段（见 `repro/REPRODUCE.md` 1.1） |
+| 22 | 加速倍数不横比 | WorldCache 3.65× 是 PSNR 23.5 换来的，我们口径是匹配 NFE 的保真度 |
+
+### 5.1 Cog 100-prompt 主表（不在本机跑）
+
+实测 49 帧 480×720 是 **29.9 s/步**（70k tokens × 30 层，GPU 无降频），按 100 prompt、4 卡：
 
 | 配置 | GPU·h | 4 卡墙钟 |
 |---|---|---|
@@ -98,26 +124,24 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 对比 Wan 81 帧（6.4 s/步）：Full 8.9 GPU·h / 2.2 h，5 臂 18.1 GPU·h / 4.5 h。
 Cog 49 帧是 Wan 的 4.7 倍单步成本，**单 Full 就要 10.4 h**，这是它排不进本机的根本原因。
 
-注意不要用 17 帧的 0.75 s/步去估 Cog 49 帧：那会得到"25 分钟跑完"的错误结论，
+不要用 17 帧的 0.75 s/步去估 Cog 49 帧：那会得到"25 分钟跑完"的错误结论，
 两者差 40 倍（17f 5 个 latent vs 49f 13 个 latent，attention 二次增长）。
 
-本机剩余时间 < 8 h，且要留给 Wan 竞品与 Hunyuan，因此不在本机排。
-下一台 H20 的**第一个**任务就跑它，命令：
+下一台机器的**第一个**任务：
 
 ```bash
+# 先补 --save-video（照搬 mpcache_wan.py 的 save_video，VAE 换 AutoencoderKLCogVideoX）
 for i in 0 1 2 3; do
   CUDA_VISIBLE_DEVICES=$i setsid nohup /root/miniconda3/envs/racfg/bin/python \
     /root/viewdit/experiments/video/mpcache_controller.py \
     --frames 49 --nprompt 25 --prompt-offset $((i*25)) \
     --seeds 0 --seed-from-prompt --negative "animation" \
-    --Ns 13 --planners tea_gap \
+    --Ns 13 --planners tea_tok --token-gate 0.5 \
     --out /root/viewdit/results/video/cog49_p$i > /root/viewdit/logs/cog49_p$i.log 2>&1 &
 done
 ```
 
-注意 `mpcache_controller.py` 目前还没有 `--save-video`，要补 VAE 解码才能算 LPIPS/SSIM/PSNR；
-`mpcache_wan.py` 里的 `save_video()` + AutoencoderKL 用法可以直接照搬（Cog 用 `AutoencoderKLCogVideoX`，
-8×8 空间压缩、4× 时间压缩，解码 49 帧 720×480 实测约 8 s / 3 GiB）。
+Cog 的 VAE 是 8×8 空间、4× 时间压缩，解码 49 帧 720×480 实测约 8 s / 3 GiB。
 
 ## 6. 关键决策记录
 
