@@ -164,6 +164,16 @@ def main():
     ap.add_argument('--gamma', type=float, default=0.6, help='budget pacing exponent: quota_i = N*((i+1)/T)**gamma')
     ap.add_argument('--solver', default='euler', choices=['euler', 'unipc'])
     ap.add_argument('--sched', default='uniform', choices=['uniform', 'sigma'])
+    ap.add_argument('--seed-from-prompt', action='store_true',
+                    help='paper protocol: seed == prompt index')
+    ap.add_argument('--negative', default='',
+                    help='negative prompt (paper protocol: "animation")')
+    ap.add_argument('--no-full', action='store_true',
+                    help='skip the all-exact reference (use RA Full videos as the baseline)')
+    ap.add_argument('--save-video', action='store_true')
+    ap.add_argument('--save-op', default='tea_gap')
+    ap.add_argument('--save-n', type=int, default=13)
+    ap.add_argument('--video-dir', default='')
     ap.add_argument('--sanity', action='store_true')
     a = ap.parse_args()
 
@@ -214,7 +224,7 @@ def main():
                          return_attention_mask=True, return_tensors='pt')
                 embs[pi] = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.float16)
             if ne is None:
-                ti = tok('', padding='max_length', max_length=512, truncation=True,
+                ti = tok(a.negative, padding='max_length', max_length=512, truncation=True,
                          return_attention_mask=True, return_tensors='pt')
                 ne = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.float16)
         del enc; torch.cuda.empty_cache()
@@ -223,6 +233,21 @@ def main():
 
     d = WanTransformer3DModel.from_pretrained(MODEL / 'transformer', torch_dtype=torch.float16).cuda().eval().requires_grad_(False)
 
+    vae = None
+    if a.save_video:
+        from diffusers import AutoencoderKLWan
+        import imageio
+        vae = AutoencoderKLWan.from_pretrained(MODEL / 'vae', torch_dtype=torch.float16).cuda().eval()
+        VDIR = Path(a.video_dir) if a.video_dir else (OUT / 'videos')
+        VDIR.mkdir(parents=True, exist_ok=True)
+
+        def save_video(z, idx):
+            with torch.no_grad():
+                v = vae.decode(z.to(torch.float16)).sample
+            v = ((v.clamp(-1, 1) + 1) / 2 * 255).byte().cpu().permute(0, 2, 3, 4, 1)[0].numpy()
+            imageio.mimsave(VDIR / f'video_{idx:06d}.mp4', v, fps=16, codec='libx264',
+                            macro_block_size=8)
+            print(f'[video] {idx:06d} -> {VDIR}', flush=True)
 
     if a.solver == 'unipc':
         sch = UniPCMultistepScheduler.from_pretrained(MODEL / 'scheduler')
@@ -607,16 +632,19 @@ def main():
                 print(f'    [model] n={sm.n} beta={sm.beta:.3f} log_tail={[(round(a,2),round(b,2)) for a,b in sm.log[-3:]]}', flush=True)
             return lat, nfe, chosen
 
-    for seed in seeds:
+    for seed0 in seeds:
         for pi_ in range(a.nprompt):
             pi = pi_ + a.prompt_offset
+            seed = pi if a.seed_from_prompt else seed0
             if all((pi, seed, N, op) in done for N in Ns for op in planners):
                 continue
             pe = embs[pi]
             # The all-exact reference is expensive (NSTEP steps) and is reused by every
             # arm and every budget, so cache it per (prompt, seed) as fp32 on disk.
             zc = OUT / f'zfull_{pi}_{seed}.pt'
-            if zc.exists():
+            if a.no_full:
+                z_full = None
+            elif zc.exists():
                 z_full = torch.load(zc, map_location='cuda', weights_only=True).float()
             else:
                 lat = init(seed)
@@ -633,7 +661,9 @@ def main():
                         continue
                     lat, nfe, chosen = run_closed(pe, seed, N, op)
                     ok = bool(torch.isfinite(lat).all())
-                    rr = rel(lat.float(), z_full) if ok else float('nan')
+                    rr = rel(lat.float(), z_full) if (ok and z_full is not None) else float('nan')
+                    if a.save_video and op == a.save_op and N == a.save_n and ok:
+                        save_video(lat, pi)
                     row = dict(prompt=pi, seed=seed, N=N, op=op, rel=rr, nfe=nfe, steps=chosen)
                     with open(LC, 'a') as f:
                         f.write(json.dumps(row) + '\n')
