@@ -6,3 +6,4 @@
 {"video_id": "video_000055", "prompt_index": 55, "prompt": "a red bicycle", "video_path": "videos/video_000055.mp4", "metadata_path": "metadata/video_000055.json", "eval_frame_dir": "eval_frames/video_000055"}
 {"video_id": "video_000056", "prompt_index": 56, "prompt": "a white suitcase", "video_path": "videos/video_000056.mp4", "metadata_path": "metadata/video_000056.json", "eval_frame_dir": "eval_frames/video_000056"}
 {"video_id": "video_000057", "prompt_index": 57, "prompt": "a yellow umbrella", "video_path": "videos/video_000057.mp4", "metadata_path": "metadata/video_000057.json", "eval_frame_dir": "eval_frames/video_000057"}
+{"video_id": "video_000058", "prompt_index": 58, "prompt": "an orange car", "video_path": "videos/video_000058.mp4", "metadata_path": "metadata/video_000058.json", "eval_frame_dir": "eval_frames/video_000058"}

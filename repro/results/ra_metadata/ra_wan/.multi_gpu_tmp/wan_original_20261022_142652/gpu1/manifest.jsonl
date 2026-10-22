@@ -6,3 +6,4 @@
 {"video_id": "video_000030", "prompt_index": 30, "prompt": "A person is push up", "video_path": "videos/video_000030.mp4", "metadata_path": "metadata/video_000030.json", "eval_frame_dir": "eval_frames/video_000030"}
 {"video_id": "video_000031", "prompt_index": 31, "prompt": "A person is riding or walking with horse", "video_path": "videos/video_000031.mp4", "metadata_path": "metadata/video_000031.json", "eval_frame_dir": "eval_frames/video_000031"}
 {"video_id": "video_000032", "prompt_index": 32, "prompt": "A person is skateboarding", "video_path": "videos/video_000032.mp4", "metadata_path": "metadata/video_000032.json", "eval_frame_dir": "eval_frames/video_000032"}
+{"video_id": "video_000033", "prompt_index": 33, "prompt": "A person is wrestling", "video_path": "videos/video_000033.mp4", "metadata_path": "metadata/video_000033.json", "eval_frame_dir": "eval_frames/video_000033"}
