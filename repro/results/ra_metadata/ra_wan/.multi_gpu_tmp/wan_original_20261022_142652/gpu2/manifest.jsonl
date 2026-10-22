@@ -15,3 +15,4 @@
 {"video_id": "video_000064", "prompt_index": 64, "prompt": "a shark is swimming in the ocean, pixel art", "video_path": "videos/video_000064.mp4", "metadata_path": "metadata/video_000064.json", "eval_frame_dir": "eval_frames/video_000064"}
 {"video_id": "video_000065", "prompt_index": 65, "prompt": "An astronaut flying in space, watercolor painting", "video_path": "videos/video_000065.mp4", "metadata_path": "metadata/video_000065.json", "eval_frame_dir": "eval_frames/video_000065"}
 {"video_id": "video_000066", "prompt_index": 66, "prompt": "Gwen Stacy reading a book, animated style", "video_path": "videos/video_000066.mp4", "metadata_path": "metadata/video_000066.json", "eval_frame_dir": "eval_frames/video_000066"}
+{"video_id": "video_000067", "prompt_index": 67, "prompt": "Gwen Stacy reading a book, surrealism style", "video_path": "videos/video_000067.mp4", "metadata_path": "metadata/video_000067.json", "eval_frame_dir": "eval_frames/video_000067"}

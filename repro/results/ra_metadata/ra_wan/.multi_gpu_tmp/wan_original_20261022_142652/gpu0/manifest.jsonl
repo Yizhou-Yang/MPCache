@@ -15,3 +15,4 @@
 {"video_id": "video_000014", "prompt_index": 14, "prompt": "a couch and a potted plant", "video_path": "videos/video_000014.mp4", "metadata_path": "metadata/video_000014.json", "eval_frame_dir": "eval_frames/video_000014"}
 {"video_id": "video_000015", "prompt_index": 15, "prompt": "a motorcycle and a bus", "video_path": "videos/video_000015.mp4", "metadata_path": "metadata/video_000015.json", "eval_frame_dir": "eval_frames/video_000015"}
 {"video_id": "video_000016", "prompt_index": 16, "prompt": "a parking meter and a truck", "video_path": "videos/video_000016.mp4", "metadata_path": "metadata/video_000016.json", "eval_frame_dir": "eval_frames/video_000016"}
+{"video_id": "video_000017", "prompt_index": 17, "prompt": "a traffic light and a fire hydrant", "video_path": "videos/video_000017.mp4", "metadata_path": "metadata/video_000017.json", "eval_frame_dir": "eval_frames/video_000017"}

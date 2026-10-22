@@ -15,3 +15,4 @@
 {"video_id": "video_000089", "prompt_index": 89, "prompt": "Vincent van Gogh is painting in the room", "video_path": "videos/video_000089.mp4", "metadata_path": "metadata/video_000089.json", "eval_frame_dir": "eval_frames/video_000089"}
 {"video_id": "video_000090", "prompt_index": 90, "prompt": "art gallery", "video_path": "videos/video_000090.mp4", "metadata_path": "metadata/video_000090.json", "eval_frame_dir": "eval_frames/video_000090"}
 {"video_id": "video_000091", "prompt_index": 91, "prompt": "ballroom", "video_path": "videos/video_000091.mp4", "metadata_path": "metadata/video_000091.json", "eval_frame_dir": "eval_frames/video_000091"}
+{"video_id": "video_000092", "prompt_index": 92, "prompt": "junkyard", "video_path": "videos/video_000092.mp4", "metadata_path": "metadata/video_000092.json", "eval_frame_dir": "eval_frames/video_000092"}

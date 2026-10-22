@@ -14,3 +14,5 @@
 {"video_id": "video_000038", "prompt_index": 38, "prompt": "a boat sailing smoothly on a calm lake", "video_path": "videos/video_000038.mp4", "metadata_path": "metadata/video_000038.json", "eval_frame_dir": "eval_frames/video_000038"}
 {"video_id": "video_000039", "prompt_index": 39, "prompt": "a boat slowing down to stop", "video_path": "videos/video_000039.mp4", "metadata_path": "metadata/video_000039.json", "eval_frame_dir": "eval_frames/video_000039"}
 {"video_id": "video_000040", "prompt_index": 40, "prompt": "a bus accelerating to gain speed", "video_path": "videos/video_000040.mp4", "metadata_path": "metadata/video_000040.json", "eval_frame_dir": "eval_frames/video_000040"}
+{"video_id": "video_000041", "prompt_index": 41, "prompt": "a dog running happily", "video_path": "videos/video_000041.mp4", "metadata_path": "metadata/video_000041.json", "eval_frame_dir": "eval_frames/video_000041"}
+{"video_id": "video_000042", "prompt_index": 42, "prompt": "a giraffe running to join a herd of its kind", "video_path": "videos/video_000042.mp4", "metadata_path": "metadata/video_000042.json", "eval_frame_dir": "eval_frames/video_000042"}
