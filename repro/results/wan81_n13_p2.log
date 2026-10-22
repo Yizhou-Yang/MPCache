@@ -3,3 +3,5 @@ prompts total=100 using [50,75) -> 25 prompts
 sanity roundtrip 0.0
 one CFG step 6.70s; peak 5.78 GiB
 tea N=13 (|S|=13): [0, 4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49]
+[full] 315.6s / 50 steps
+p50 s3000 N=13   reuse: rel=0.1466 nfe=13 steps=[0, 4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49]

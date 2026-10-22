@@ -1,0 +1,31 @@
+{
+  "model": "Wan2.1-T2V-1.3B-Diffusers",
+  "ckpt": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+  "frames": 81,
+  "height": 480,
+  "width": 832,
+  "steps": 50,
+  "solver": "flowmatch-euler",
+  "sched": "uniform",
+  "dtype": "fp16",
+  "rows": 4,
+  "shards": [
+    "wan81_n13_p0",
+    "wan81_n13_p1",
+    "wan81_n13_p2",
+    "wan81_n13_p3"
+  ],
+  "prompts": [
+    0,
+    25,
+    50,
+    75
+  ],
+  "budgets": [
+    13
+  ],
+  "ops": [
+    "reuse"
+  ],
+  "note": "H20 driver 535.247.01 / CUDA 12.2 / torch 2.5.1+cu121"
+}

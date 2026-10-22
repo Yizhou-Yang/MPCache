@@ -638,10 +638,18 @@ def main():
             if all((pi, seed, N, op) in done for N in Ns for op in planners):
                 continue
             pe = embs[pi]
-            lat = init(seed)
-            for tt in TS:
-                lat = step(model(lat, pe, tt), tt, lat)
-            z_full = lat.float()
+            zc = OUT / f'zfull_{pi}_{seed}.pt'
+            if zc.exists():
+                z_full = torch.load(zc, map_location='cuda', weights_only=True).float()
+            else:
+                lat = init(seed)
+                _tf = time.time()
+                for tt in TS:
+                    lat = step(model(lat, pe, tt), tt, lat)
+                torch.cuda.synchronize()
+                print(f'[full] {time.time() - _tf:.1f}s / {NSTEP} steps', flush=True)
+                z_full = lat.float()
+                torch.save(z_full.cpu(), zc)
             for N in Ns:
                 for op in planners:
                     if (pi, seed, N, op) in done:
