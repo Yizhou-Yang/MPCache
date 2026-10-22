@@ -1,10 +1,10 @@
-# H20 progress 2026-10-22T11:37Z
+# H20 progress 2026-10-22T11:44Z
 # dir videos
-full50 96
+full50 100
 ra_wan 200
 ra_wan_test 1
 # running
-115832 7885s
-116159 7881s
-116871 7877s
-117583 7873s
+139717 103s
+140047 98s
+140758 93s
+141479 88s
