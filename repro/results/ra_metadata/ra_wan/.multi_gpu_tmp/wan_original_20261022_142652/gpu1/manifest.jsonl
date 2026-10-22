@@ -2,3 +2,5 @@
 {"video_id": "video_000026", "prompt_index": 26, "prompt": "A person is ironing", "video_path": "videos/video_000026.mp4", "metadata_path": "metadata/video_000026.json", "eval_frame_dir": "eval_frames/video_000026"}
 {"video_id": "video_000027", "prompt_index": 27, "prompt": "A person is making snowman", "video_path": "videos/video_000027.mp4", "metadata_path": "metadata/video_000027.json", "eval_frame_dir": "eval_frames/video_000027"}
 {"video_id": "video_000028", "prompt_index": 28, "prompt": "A person is milking cow", "video_path": "videos/video_000028.mp4", "metadata_path": "metadata/video_000028.json", "eval_frame_dir": "eval_frames/video_000028"}
+{"video_id": "video_000029", "prompt_index": 29, "prompt": "A person is planting trees", "video_path": "videos/video_000029.mp4", "metadata_path": "metadata/video_000029.json", "eval_frame_dir": "eval_frames/video_000029"}
+{"video_id": "video_000030", "prompt_index": 30, "prompt": "A person is push up", "video_path": "videos/video_000030.mp4", "metadata_path": "metadata/video_000030.json", "eval_frame_dir": "eval_frames/video_000030"}

@@ -2,3 +2,5 @@
 {"video_id": "video_000051", "prompt_index": 51, "prompt": "a frisbee", "video_path": "videos/video_000051.mp4", "metadata_path": "metadata/video_000051.json", "eval_frame_dir": "eval_frames/video_000051"}
 {"video_id": "video_000052", "prompt_index": 52, "prompt": "a green chair", "video_path": "videos/video_000052.mp4", "metadata_path": "metadata/video_000052.json", "eval_frame_dir": "eval_frames/video_000052"}
 {"video_id": "video_000053", "prompt_index": 53, "prompt": "a motorcycle", "video_path": "videos/video_000053.mp4", "metadata_path": "metadata/video_000053.json", "eval_frame_dir": "eval_frames/video_000053"}
+{"video_id": "video_000054", "prompt_index": 54, "prompt": "a potted plant", "video_path": "videos/video_000054.mp4", "metadata_path": "metadata/video_000054.json", "eval_frame_dir": "eval_frames/video_000054"}
+{"video_id": "video_000055", "prompt_index": 55, "prompt": "a red bicycle", "video_path": "videos/video_000055.mp4", "metadata_path": "metadata/video_000055.json", "eval_frame_dir": "eval_frames/video_000055"}
