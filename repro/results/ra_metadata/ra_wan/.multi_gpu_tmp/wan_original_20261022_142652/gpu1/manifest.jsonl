@@ -21,3 +21,5 @@
 {"video_id": "video_000045", "prompt_index": 45, "prompt": "a sheep running to join a herd of its kind", "video_path": "videos/video_000045.mp4", "metadata_path": "metadata/video_000045.json", "eval_frame_dir": "eval_frames/video_000045"}
 {"video_id": "video_000046", "prompt_index": 46, "prompt": "A steam train moving on a mountainside", "video_path": "videos/video_000046.mp4", "metadata_path": "metadata/video_000046.json", "eval_frame_dir": "eval_frames/video_000046"}
 {"video_id": "video_000047", "prompt_index": 47, "prompt": "a train accelerating to gain speed", "video_path": "videos/video_000047.mp4", "metadata_path": "metadata/video_000047.json", "eval_frame_dir": "eval_frames/video_000047"}
+{"video_id": "video_000048", "prompt_index": 48, "prompt": "a train crossing over a tall bridge", "video_path": "videos/video_000048.mp4", "metadata_path": "metadata/video_000048.json", "eval_frame_dir": "eval_frames/video_000048"}
+{"video_id": "video_000049", "prompt_index": 49, "prompt": "a truck slowing down to stop", "video_path": "videos/video_000049.mp4", "metadata_path": "metadata/video_000049.json", "eval_frame_dir": "eval_frames/video_000049"}

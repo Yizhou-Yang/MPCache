@@ -22,3 +22,4 @@
 {"video_id": "video_000096", "prompt_index": 96, "prompt": "a boat on the left of an airplane, front view", "video_path": "videos/video_000096.mp4", "metadata_path": "metadata/video_000096.json", "eval_frame_dir": "eval_frames/video_000096"}
 {"video_id": "video_000097", "prompt_index": 97, "prompt": "a chair on the left of a couch, front view", "video_path": "videos/video_000097.mp4", "metadata_path": "metadata/video_000097.json", "eval_frame_dir": "eval_frames/video_000097"}
 {"video_id": "video_000098", "prompt_index": 98, "prompt": "a surfboard on the bottom of skis, front view", "video_path": "videos/video_000098.mp4", "metadata_path": "metadata/video_000098.json", "eval_frame_dir": "eval_frames/video_000098"}
+{"video_id": "video_000099", "prompt_index": 99, "prompt": "an orange on the bottom of a carrot, front view", "video_path": "videos/video_000099.mp4", "metadata_path": "metadata/video_000099.json", "eval_frame_dir": "eval_frames/video_000099"}
