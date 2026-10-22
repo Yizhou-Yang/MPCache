@@ -202,3 +202,34 @@ git push "https://x-access-token:<PAT>@github.com/Yizhou-Yang/MPCache.git" h20-r
 
 2603.22286 全文**没有** entropy，也**没有** κ 或 stable/linear/chaotic 分类（逐字核对过 HTML 全文含附录）。
 把两篇的机制混着写，审稿人对照原文会直接指出来。
+
+---
+
+## P15. ours 与 RA 复现的视频不可比（未定位，已改用自洽基准）
+
+**症状**：同 prompt、同 seed（=0）、同 bf16、同为 50 步全精确，ours 的视频与 RA 的
+`wan_original_full/video_000000.mp4` 相比 **LPIPS 0.98 / SSIM 0.08 / PSNR 6.4**，
+即内容完全无关（不是色彩偏移）。
+
+**已排除**：
+
+| 假设 | 验证 |
+|---|---|
+| 初始噪声生成方式（bf16 直采 vs fp32 转 bf16） | 同 seed 下 `corr=1.0`，无差异 |
+| dtype（我们 fp16 / RA bf16） | 切到 bf16 后仍 0.98 |
+| VAE 反归一化 | 已补 `z*latents_std+latents_mean`，仍 0.98 |
+| solver / flow shift | 同为 UniPC + shift 3，timesteps 一致 |
+| prompt 列表错位 | metadata 里 prompt 文本一致，索引一致 |
+| planner 误差 | **N=50 全精确也 0.98**，与 planner 无关 |
+
+**未定位**：RA 的 `sample.py` 加载后会 patch diffusers 的 transformer
+（日志 `Expected types for transformer: models.wan.transformer_wan.WanTransformer3DModel`、
+`[patch-check] transformer has cache_context: True`）。该 patch 可能改变了数值路径
+（例如 probe 前向、attention 后端），使同权重同输入的输出与纯 diffusers 路径分叉。
+
+**后果**：H20 上不能用 RA 的视频当 fidelity 基准，否则 ours 的 LPIPS 恒为 ~1.0。
+**临时方案**：用我们自己的 50 步 Full（`--Ns 50`，等价全精确）作为基准，ours 与它比，
+口径自洽；竞品行只能引用 RA 论文发表值，不能与本机复现并表。
+
+**下一台机器要做的**：在同一进程内调用 RA 的 `models.wan.sample` 生成 ours（把 planner
+注入它的 `cache_context`），或反向把它的 patch 移植到我们的 runner，二者必须同源。
