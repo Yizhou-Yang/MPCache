@@ -26,6 +26,33 @@ On H20 (driver CUDA 12.2) the ceiling is `torch==2.5.1+cu121`; the controller is
 version-agnostic. Weights: `zai-org/CogVideoX-2b` (was `THUDM/CogVideoX-2b`), placed at
 `/root/viewdit/weights/CogVideoX-2b`.
 
+## 0b. Evaluation protocol (fixed)
+
+| item | value |
+|---|---|
+| prompts | `resources/prompts/prompt_video.txt`, 100 entries, index 0..99, the same file for every backbone |
+| seed | **seed = prompt index** (`--seed-from-prompt`), identical to RA-CFGCache's semantics |
+| negative prompt | `animation` |
+| CogVideoX-2B | 49 frames, 720x480, 50 DDIM steps, CFG 6 |
+| Wan2.1-T2V-1.3B | 81 frames, 480x832, 50 UniPC steps, flow shift 3, CFG 5 |
+| reference | the 50-step full-evaluation video of the same prompt and seed |
+| pairing | ours vs baseline at the same prompt, seed and N |
+
+**Why `--seed 0` in RA means seed = prompt index.** RA samples with
+
+```python
+torch.Generator(device).manual_seed(opts.seed + opts.start_index + batch_start + i)
+...  "seed": opts.seed + global_video_idx
+```
+
+so with `--seed 0` the k-th video is generated from seed k. The metadata confirms it: a
+shard run with `--seed 0` writes `video_000025.json` with `"seed": 25`. Any "fixed seed 0"
+arm would therefore *not* be paired with the published baselines. Our controller exposes
+the same semantics as `--seed-from-prompt`.
+
+The development runs on V100 used fixed seeds 3000/3001 over prompts 0-15 for cheap
+iteration; the production protocol above is what the main table uses.
+
 ## 1. Row format
 
 `results/video/<run>/closed.jsonl`, one JSON object per line:

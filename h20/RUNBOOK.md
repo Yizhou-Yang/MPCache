@@ -286,12 +286,12 @@ LPIPS(AlexNet) / SSIM / PSNR   +   Speedup
 | 项 | 值 |
 |---|---|
 | prompts | `resources/prompts/prompt_video.txt`（RA-CFGCache 的 100 条） |
-| seed | **固定 0**（所有 prompt 同一 seed，与 RA baseline 一致；`--seed-from-prompt` 仅作 ablation） |
+| seed | **= prompt index**（RA 的 `--seed 0` 语义就是 `0 + global_video_idx`，等价于 `--seed-from-prompt`） |
 | negative prompt | `"animation"` |
 | Wan | 81 帧 832×480，16 fps，50 步 **UniPC**，flow shift 3，CFG 5 |
 | Cog | 49 帧 720×480，8 fps，50 步 DDIM，CFG 6 |
 
-> **决策（2026-10-22）**：主表所有臂统一 **固定 seed 0**。原因：RA 的 baseline（Cog demo 与已跑的 Wan Full）都是固定 seed，若 ours 用 `seed = prompt index`，两臂的初始噪声不同、配对失效，且复现值会与 RA 发表表系统性偏移。`seed = prompt index` 只保留为稳健性 ablation（附录）。
+> **决策（2026-10-22，已修正）**：所有臂用 **seed = prompt index**。RA 的实现是 `manual_seed(opts.seed + global_video_idx)`，所以 `--seed 0` 等价于“第 k 个视频用 seed k”，与 `--seed-from-prompt` 逐位相同。证据：`video_000025.json` 里 `"seed": 25`。曾一度误改为“固定 seed 0”，会破坏与已跑 baseline 的配对，已回滚。
 | Hunyuan | 49 帧 480×832，50 步，embedded guidance 6 |
 
 ### 12.1 接入 RA-CFGCache 基线（首次）

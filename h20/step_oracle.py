@@ -37,16 +37,27 @@ NSTEP = 30
 LT = 5
 TEA_COEF = [-3.10658903e+01, 2.54732368e+01, -5.92380459e+00, 1.75769064e+00, -3.61568434e-03]
 
-PROMPTS = [
-    'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
-    'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
-    'A brown bear walks along a river bank in a dense forest, realistic wildlife documentary.',
-    'A panda eats bamboo while sitting in a lush green bamboo forest, close-up.',
-    'Fireworks explode over a city skyline at night, reflections in the river.',
-    'A cat stretches and yawns on a sunny windowsill, soft natural light.',
-    'A surfer rides a large ocean wave, spray in the air, aerial drone shot.',
-    'A horse gallops across an open meadow at golden hour, dramatic lighting.',
-]
+import os as _os
+_PROMPT_FILE = Path(_os.environ.get("MPCACHE_PROMPTS", "/root/viewdit/resources/prompts/prompt_video.txt"))
+
+def _load_prompts():
+    """Exact prompt list used by the caching baselines (RA-CFGCache / FasterCache set)."""
+    if _PROMPT_FILE.exists():
+        items = [l.strip() for l in _PROMPT_FILE.read_text().splitlines() if l.strip()]
+        if items:
+            return items
+    return [
+        'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
+        'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
+        'A brown bear walks along a river bank in a dense forest, realistic wildlife footage.',
+        'A panda eats bamboo while sitting in a lush green bamboo forest, close-up, realistic footage.',
+        'Fireworks explode over a city skyline at night, reflections in the river, wide shot.',
+        'A train crosses a tall bridge over a deep valley at sunrise, aerial view.',
+        'A cat plays with a ball of yarn on a wooden floor, warm indoor lighting.',
+        'A chef flips a pancake in a bright kitchen, slow motion.',
+    ]
+
+PROMPTS = _load_prompts()
 
 
 def rel(a, b):

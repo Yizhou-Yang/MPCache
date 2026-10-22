@@ -24,7 +24,7 @@ usage:
   python mpcache_controller.py --frames 17 --Ns 10,13,17 --nprompt 8 --seeds 3000,3001 \
       --out /root/viewdit/results/video/mpc_20261020
 """
-import argparse, json, math, os, time
+import argparse, json, math, time
 from pathlib import Path
 
 import numpy as np
@@ -40,30 +40,28 @@ W1 = 0.3
 PGATE = 0.02
 BIAS = False
 KAPPA_AGE = 0.0
-PROMPTS = [
-    'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
-    'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
-    'A brown bear walks along a river bank in a dense forest, realistic wildlife documentary.',
-    'A panda eats bamboo while sitting in a lush green bamboo forest, close-up.',
-    'Fireworks explode over a city skyline at night, reflections in the river.',
-    'A cat stretches and yawns on a sunny windowsill, soft natural light.',
-    'A surfer rides a large ocean wave, spray in the air, aerial drone shot.',
-    'A horse gallops across an open meadow at golden hour, dramatic lighting.',
-]
+TWOTAP = False
+import os as _os
+_PROMPT_FILE = Path(_os.environ.get("MPCACHE_PROMPTS", "/root/viewdit/resources/prompts/prompt_video.txt"))
 
-# Prompt list resolution: $MPCACHE_PROMPTS, then the RA-CFGCache list at
-# /root/viewdit/resources/prompts/prompt_video.txt (the paper protocol), then the
-# copy shipped next to this script, then the builtin 8 kept for old runs.
-_PROMPT_CANDS = []
-_env_p = os.environ.get('MPCACHE_PROMPTS', '')
-if _env_p:
-    _PROMPT_CANDS.append(Path(_env_p))
-_PROMPT_CANDS += [Path('/root/viewdit/resources/prompts/prompt_video.txt'),
-                  Path(__file__).resolve().parent / 'prompts_100.txt']
-_PROMPT_FILE = next((p for p in _PROMPT_CANDS if p.exists()), None)
-if _PROMPT_FILE is not None:
-    PROMPTS = [ln.strip() for ln in _PROMPT_FILE.read_text().splitlines() if ln.strip()]
-    print(f'[prompts] {len(PROMPTS)} from {_PROMPT_FILE}', flush=True)
+def _load_prompts():
+    """Exact prompt list used by the caching baselines (RA-CFGCache / FasterCache set)."""
+    if _PROMPT_FILE.exists():
+        items = [l.strip() for l in _PROMPT_FILE.read_text().splitlines() if l.strip()]
+        if items:
+            return items
+    return [
+        'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
+        'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
+        'A brown bear walks along a river bank in a dense forest, realistic wildlife footage.',
+        'A panda eats bamboo while sitting in a lush green bamboo forest, close-up, realistic footage.',
+        'Fireworks explode over a city skyline at night, reflections in the river, wide shot.',
+        'A train crosses a tall bridge over a deep valley at sunrise, aerial view.',
+        'A cat plays with a ball of yarn on a wooden floor, warm indoor lighting.',
+        'A chef flips a pancake in a bright kitchen, slow motion.',
+    ]
+
+PROMPTS = _load_prompts()
 
 FRAMES = {17: dict(lt=5, ph=30, pw=45, steps=30), 49: dict(lt=13, ph=60, pw=90, steps=50)}
 MAX_GAP = 4
@@ -102,6 +100,10 @@ class StateModel:
         self.Sde = torch.zeros(64, device='cuda', dtype=torch.float64)
         self.G = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
         self.Se = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Spp = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Spe = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Sdp = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.d_prev = None
         self.Sw = 0.0
         self.R = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
         self.n = 0
@@ -117,6 +119,10 @@ class StateModel:
             return (d.double() @ A).float()
         a = (self.Sde / ((1 + LAM_D) * self.Sdd + 1e-12)).clamp(-ACLIP, ACLIP)
         out = d * a.float()
+        if TWOTAP and self.Spp is not None and float(self.Spp.sum()) > 1e-9:
+            b = (self.Spe / ((1 + LAM_D) * self.Spp + 1e-12)).clamp(-ACLIP, ACLIP)
+            if self.d_prev is not None:
+                out = out + self.d_prev.float() * b.float()
         if BIAS and self.Sw > 1e-9:
             out = out + (self.Se / self.Sw).float().expand_as(out)
         return out
@@ -139,6 +145,12 @@ class StateModel:
         dd, ee = d.double(), e.double()
         self.Sdd = GAMMA * self.Sdd + (dd * dd).sum(0)
         self.Se = GAMMA * self.Se + ee.mean(0)
+        if self.d_prev is not None and TWOTAP:
+            dp = self.d_prev.double()
+            self.Spp = GAMMA * self.Spp + (dp * dp).sum(0)
+            self.Spe = GAMMA * self.Spe + (dp * ee).sum(0)
+            self.Sdp = GAMMA * self.Sdp + (dd * dp).sum(0)
+        self.d_prev = dd.clone()
         self.Sw = GAMMA * self.Sw + 1.0
         self.Sde = GAMMA * self.Sde + (dd * ee).sum(0)
         self.G = GAMMA * self.G + dd.T @ dd
@@ -155,6 +167,8 @@ def main():
     ap.add_argument('--seeds', default='3000,3001')
     ap.add_argument('--nprompt', type=int, default=8)
     ap.add_argument('--prompt-offset', type=int, default=0)
+    ap.add_argument('--seed-from-prompt', action='store_true',
+                    help='use seed == global prompt index (RA-CFGCache semantics of --seed 0)')
     ap.add_argument('--Ns', default='10,13,17')
     ap.add_argument('--planners', default='reuse,ex1,tea_mp,mpc,mpc_reuse')
     ap.add_argument('--out', default=str(ROOT / 'results/video/mpc_20261020'))
@@ -168,6 +182,7 @@ def main():
     ap.add_argument('--rls-gamma', type=float, default=0.5)
     ap.add_argument('--bias', type=int, default=0)
     ap.add_argument('--kappa-age', type=float, default=0.0)
+    ap.add_argument('--twotap', type=int, default=0)
     ap.add_argument('--pgate', type=float, default=0.02)
     ap.add_argument('--gamma', type=float, default=0.6, help='budget pacing exponent: quota_i = N*((i+1)/T)**gamma')
     ap.add_argument('--sanity', action='store_true')
@@ -178,7 +193,7 @@ def main():
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
-    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, PGATE
+    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, TWOTAP, PGATE
     MODEL_KIND = a.model_kind
     GATE_AGE = a.gate_age
     TRUST = a.trust
@@ -187,6 +202,7 @@ def main():
     GAMMA = a.rls_gamma
     BIAS = bool(a.bias)
     KAPPA_AGE = a.kappa_age
+    TWOTAP = bool(a.twotap)
     PGATE = a.pgate
     RESERVE = a.reserve_last
 
@@ -201,31 +217,22 @@ def main():
             r = json.loads(line); done.add((r['prompt'], r['seed'], r['N'], r['op']))
 
     emb_path = OUT / f'embeddings_fp16_eager_{a.frames}f.pt'
-    lo = max(0, a.prompt_offset)
-    hi = min(len(PROMPTS), lo + a.nprompt)
-    if hi <= lo:
-        raise SystemExit(f'empty prompt range: offset={a.prompt_offset} nprompt={a.nprompt} total={len(PROMPTS)}')
-    need = list(range(lo, hi))
     if emb_path.exists():
         cache = torch.load(emb_path, map_location='cuda', weights_only=True)
         embs, ne = {int(k): v for k, v in cache['embs'].items()}, cache['ne']
     else:
-        embs, ne = {}, None
-    missing = [p for p in need if p not in embs]
-    if missing or ne is None:
         tok = T5Tokenizer.from_pretrained(MODEL / 'tokenizer')
         enc = T5EncoderModel.from_pretrained(MODEL / 'text_encoder', torch_dtype=torch.float16,
                                              attn_implementation='eager').cuda().eval()
+        embs = {}
         with torch.no_grad():
-            for pi in missing:
+            for pi in range(len(PROMPTS)):
                 ti = tok(PROMPTS[pi], padding='max_length', max_length=226, truncation=True, return_tensors='pt')
                 embs[pi] = enc(ti.input_ids.cuda())[0].half()
-            if ne is None:
-                ne = enc(tok('', padding='max_length', max_length=226, truncation=True,
-                             return_tensors='pt').input_ids.cuda())[0].half()
+            ne = enc(tok('', padding='max_length', max_length=226, truncation=True,
+                         return_tensors='pt').input_ids.cuda())[0].half()
         del enc; torch.cuda.empty_cache()
         torch.save({'embs': {str(k): v for k, v in embs.items()}, 'ne': ne}, emb_path)
-    print(f'prompts total={len(PROMPTS)} using [{lo},{hi}) -> {hi - lo} prompts', flush=True)
 
     d = CogVideoXTransformer3DModel.from_pretrained(MODEL / 'transformer', torch_dtype=torch.float16).cuda().eval().requires_grad_(False)
     sch = CogVideoXDDIMScheduler.from_pretrained(MODEL / 'scheduler')
@@ -255,7 +262,7 @@ def main():
 
     lat = init(0)
     print('sanity roundtrip', rel(tok2lat(lat2tok(lat)), lat.float()), flush=True)
-    torch.cuda.synchronize(); t0 = time.time(); model(lat, embs[need[0]], TS[min(5, NSTEP - 1)]); torch.cuda.synchronize()
+    torch.cuda.synchronize(); t0 = time.time(); model(lat, embs[0], TS[min(5, NSTEP - 1)]); torch.cuda.synchronize()
     print(f'one CFG step {time.time() - t0:.2f}s; peak {torch.cuda.max_memory_allocated() / 2**30:.2f} GiB', flush=True)
     if a.sanity:
         return
@@ -601,9 +608,11 @@ def main():
                 print(f'    [model] n={sm.n} beta={sm.beta:.3f} log_tail={[(round(a,2),round(b,2)) for a,b in sm.log[-3:]]}', flush=True)
             return lat, nfe, chosen
 
-    for seed in seeds:
+    for seed in (seeds[:1] if a.seed_from_prompt else seeds):
         for pi_ in range(a.nprompt):
             pi = pi_ + a.prompt_offset
+            if a.seed_from_prompt:
+                seed = pi
             if all((pi, seed, N, op) in done for N in Ns for op in planners):
                 continue
             pe = embs[pi]
