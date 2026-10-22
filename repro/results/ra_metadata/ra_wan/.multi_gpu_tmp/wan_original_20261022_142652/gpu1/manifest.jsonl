@@ -18,3 +18,4 @@
 {"video_id": "video_000042", "prompt_index": 42, "prompt": "a giraffe running to join a herd of its kind", "video_path": "videos/video_000042.mp4", "metadata_path": "metadata/video_000042.json", "eval_frame_dir": "eval_frames/video_000042"}
 {"video_id": "video_000043", "prompt_index": 43, "prompt": "A Mars rover moving on Mars", "video_path": "videos/video_000043.mp4", "metadata_path": "metadata/video_000043.json", "eval_frame_dir": "eval_frames/video_000043"}
 {"video_id": "video_000044", "prompt_index": 44, "prompt": "a motorcycle turning a corner", "video_path": "videos/video_000044.mp4", "metadata_path": "metadata/video_000044.json", "eval_frame_dir": "eval_frames/video_000044"}
+{"video_id": "video_000045", "prompt_index": 45, "prompt": "a sheep running to join a herd of its kind", "video_path": "videos/video_000045.mp4", "metadata_path": "metadata/video_000045.json", "eval_frame_dir": "eval_frames/video_000045"}

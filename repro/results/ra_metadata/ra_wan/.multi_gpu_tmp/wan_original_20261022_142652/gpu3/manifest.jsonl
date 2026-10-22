@@ -18,3 +18,5 @@
 {"video_id": "video_000092", "prompt_index": 92, "prompt": "junkyard", "video_path": "videos/video_000092.mp4", "metadata_path": "metadata/video_000092.json", "eval_frame_dir": "eval_frames/video_000092"}
 {"video_id": "video_000093", "prompt_index": 93, "prompt": "train station platform", "video_path": "videos/video_000093.mp4", "metadata_path": "metadata/video_000093.json", "eval_frame_dir": "eval_frames/video_000093"}
 {"video_id": "video_000094", "prompt_index": 94, "prompt": "valley", "video_path": "videos/video_000094.mp4", "metadata_path": "metadata/video_000094.json", "eval_frame_dir": "eval_frames/video_000094"}
+{"video_id": "video_000095", "prompt_index": 95, "prompt": "a banana on the bottom of an apple, front view", "video_path": "videos/video_000095.mp4", "metadata_path": "metadata/video_000095.json", "eval_frame_dir": "eval_frames/video_000095"}
+{"video_id": "video_000096", "prompt_index": 96, "prompt": "a boat on the left of an airplane, front view", "video_path": "videos/video_000096.mp4", "metadata_path": "metadata/video_000096.json", "eval_frame_dir": "eval_frames/video_000096"}

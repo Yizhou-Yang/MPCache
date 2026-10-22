@@ -123,8 +123,17 @@ class StateModel:
             out = out + (self.Se / self.Sw).float().expand_as(out)
         return out
 
-    def forecast(self, v_ex1, v_s, d, cap_base=None):
+    def forecast(self, v_ex1, v_s, d, cap_base=None, kappa=None, ck=0.0):
         corr = self.correction(d)
+        if ck > 0 and kappa is not None:
+            # per-token trust radius: a token that is turning hard gets a tighter cap,
+            # a token moving straight (even fast) keeps a wide one.
+            r = (v_ex1 - v_s).norm(dim=1, keepdim=True)
+            rel = kappa / (kappa.mean() + 1e-9)
+            cap = KAPPA * r / (1.0 + ck * rel).clamp(min=1e-6)
+            cn = corr.norm(dim=1, keepdim=True)
+            corr = corr * torch.clamp(cap / (cn + 1e-12), max=1.0)
+            return v_ex1 + self.beta * corr
         cap = KAPPA * (cap_base if cap_base is not None else float((v_ex1 - v_s).norm()))
         cn = float(corr.norm())
         if cn > cap:
@@ -604,10 +613,10 @@ def main():
                                 v = v_ex1 + TRUST * (f_ - v_ex1) if TRUST >= 0 else f_
                             else:
                                 v = s['v']
-                        elif op == 'tea_tok':
+                        elif op in ('tea_tok', 'tea_tokc'):
                             age_ = i - s['i']
                             if age_ >= GATE_AGE and sm.n >= 2:
-                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                kap, m_ = None, None
                                 if len(H) >= 3 and TOK_Q >= 0:
                                     h1, h2, h3 = H[-1], H[-2], H[-3]
                                     dt1 = max(h1['i'] - h2['i'], 1)
@@ -618,9 +627,9 @@ def main():
                                     kap = acc.norm(dim=1) / (v1.norm(dim=1) ** 2 + 1e-6)
                                     thr = torch.quantile(kap, TOK_Q)
                                     m_ = (kap > thr).unsqueeze(1)
-                                    v = torch.where(m_, f_, s['v'])
-                                else:
-                                    v = f_
+                                f_ = sm.forecast(v_ex1, s['v'], dvec, kappa=kap,
+                                                 ck=(1.0 if op == 'tea_tokc' else 0.0))
+                                v = torch.where(m_, f_, s['v']) if m_ is not None else f_
                             else:
                                 v = s['v']
                         elif op == 'tea_pgate':
