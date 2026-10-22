@@ -9,3 +9,5 @@
 {"video_id": "video_000033", "prompt_index": 33, "prompt": "A person is wrestling", "video_path": "videos/video_000033.mp4", "metadata_path": "metadata/video_000033.json", "eval_frame_dir": "eval_frames/video_000033"}
 {"video_id": "video_000034", "prompt_index": 34, "prompt": "a person swimming in ocean", "video_path": "videos/video_000034.mp4", "metadata_path": "metadata/video_000034.json", "eval_frame_dir": "eval_frames/video_000034"}
 {"video_id": "video_000035", "prompt_index": 35, "prompt": "a bear climbing a tree", "video_path": "videos/video_000035.mp4", "metadata_path": "metadata/video_000035.json", "eval_frame_dir": "eval_frames/video_000035"}
+{"video_id": "video_000036", "prompt_index": 36, "prompt": "a bear hunting for prey", "video_path": "videos/video_000036.mp4", "metadata_path": "metadata/video_000036.json", "eval_frame_dir": "eval_frames/video_000036"}
+{"video_id": "video_000037", "prompt_index": 37, "prompt": "a bicycle accelerating to gain speed", "video_path": "videos/video_000037.mp4", "metadata_path": "metadata/video_000037.json", "eval_frame_dir": "eval_frames/video_000037"}
