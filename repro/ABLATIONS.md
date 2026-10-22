@@ -312,6 +312,14 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 13 | tea_pt | 8 | 0.2204 | 0.2343 | -0.182 | 0.38 |  |
 | 17 | tea_pt | 8 | 0.1272 | 0.1358 | -0.189 | 0.38 |  |
 
+## `rclip125`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2974 | -0.217 | 0.38 |  |
+| 13 | tea_gap | 8 | 0.2204 | 0.2328 | -0.175 | 0.38 |  |
+| 17 | tea_gap | 8 | 0.1272 | 0.1333 | -0.163 | 0.38 |  |
+
 ## `rclip2`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
