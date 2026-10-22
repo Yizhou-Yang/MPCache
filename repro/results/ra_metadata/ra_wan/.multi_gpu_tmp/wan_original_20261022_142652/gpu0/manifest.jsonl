@@ -11,3 +11,5 @@
 {"video_id": "video_000010", "prompt_index": 10, "prompt": "a book and a clock", "video_path": "videos/video_000010.mp4", "metadata_path": "metadata/video_000010.json", "eval_frame_dir": "eval_frames/video_000010"}
 {"video_id": "video_000011", "prompt_index": 11, "prompt": "a bottle and a chair", "video_path": "videos/video_000011.mp4", "metadata_path": "metadata/video_000011.json", "eval_frame_dir": "eval_frames/video_000011"}
 {"video_id": "video_000012", "prompt_index": 12, "prompt": "a cake and a vase", "video_path": "videos/video_000012.mp4", "metadata_path": "metadata/video_000012.json", "eval_frame_dir": "eval_frames/video_000012"}
+{"video_id": "video_000013", "prompt_index": 13, "prompt": "a cat and a dog", "video_path": "videos/video_000013.mp4", "metadata_path": "metadata/video_000013.json", "eval_frame_dir": "eval_frames/video_000013"}
+{"video_id": "video_000014", "prompt_index": 14, "prompt": "a couch and a potted plant", "video_path": "videos/video_000014.mp4", "metadata_path": "metadata/video_000014.json", "eval_frame_dir": "eval_frames/video_000014"}
