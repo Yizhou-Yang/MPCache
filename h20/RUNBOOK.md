@@ -286,10 +286,12 @@ LPIPS(AlexNet) / SSIM / PSNR   +   Speedup
 | 项 | 值 |
 |---|---|
 | prompts | `resources/prompts/prompt_video.txt`（RA-CFGCache 的 100 条） |
-| seed | **= prompt index**（`--seed 0` + `start_index`） |
+| seed | **固定 0**（所有 prompt 同一 seed，与 RA baseline 一致；`--seed-from-prompt` 仅作 ablation） |
 | negative prompt | `"animation"` |
 | Wan | 81 帧 832×480，16 fps，50 步 **UniPC**，flow shift 3，CFG 5 |
 | Cog | 49 帧 720×480，8 fps，50 步 DDIM，CFG 6 |
+
+> **决策（2026-10-22）**：主表所有臂统一 **固定 seed 0**。原因：RA 的 baseline（Cog demo 与已跑的 Wan Full）都是固定 seed，若 ours 用 `seed = prompt index`，两臂的初始噪声不同、配对失效，且复现值会与 RA 发表表系统性偏移。`seed = prompt index` 只保留为稳健性 ablation（附录）。
 | Hunyuan | 49 帧 480×832，50 步，embedded guidance 6 |
 
 ### 12.1 接入 RA-CFGCache 基线（首次）
