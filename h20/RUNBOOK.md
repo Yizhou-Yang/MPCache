@@ -14,7 +14,7 @@
 | 系统 python | 3.9.16，torch 2.1.2+cu121，diffusers **0.26.0** | diffusers 太老，**不能用**；必须建新环境 |
 | `/root/miniconda3` | **不存在** | 第 2 步先装 |
 | 网络 | 全通（含 HF），5.4 MB/s | 权重直接下载，无需中转 |
-| CogVideoX 仓库 | `THUDM/CogVideoX-2b` → **`zai-org/CogVideoX-2b`** | 用新名字 |
+| Wan 仓库 | `Wan-AI/Wan2.1-T2V-1.3B-Diffusers` | 本机主跑 |
 
 ---
 
@@ -55,14 +55,14 @@ $PIP install diffusers==0.37.0 transformers==4.57.1 accelerate safetensors numpy
 import torch, diffusers, transformers
 print("torch", torch.__version__, "cuda avail", torch.cuda.is_available(), "devs", torch.cuda.device_count())
 print("diffusers", diffusers.__version__, "transformers", transformers.__version__)
-from diffusers import CogVideoXTransformer3DModel, CogVideoXDDIMScheduler
-from transformers import T5Tokenizer
+from diffusers import WanPipeline, WanTransformer3DModel
+from transformers import AutoTokenizer
 print("imports ok")
 EOF
 ```
 
 必须打印 `cuda avail True`、`devs 4`、`imports ok`。
-若 `diffusers 0.37` 与 `transformers 4.57` 冲突，降级：`$PIP install diffusers==0.35.1`（对 CogVideoX 无影响）。
+若 `diffusers 0.37` 与 `transformers 4.57` 冲突，降级：`$PIP install diffusers==0.35.1`（对 Wan 无影响）。
 
 ---
 
@@ -79,70 +79,88 @@ ls /root/viewdit/experiments/video/    # 应有 mpcache_controller.py、step_ora
 
 ---
 
-## 4. 权重（CogVideoX-2B，约 13 GB / 40 分钟）
+## 4. 权重（Wan2.1-T2V-1.3B，约 27 GB / 15 分钟）
 
 ```bash
 export HF_HUB_ENABLE_HF_TRANSFER=1
-mkdir -p /root/viewdit/weights
-/root/miniconda3/envs/racfg/bin/hf download zai-org/CogVideoX-2b \
-  --local-dir /root/viewdit/weights/CogVideoX-2b
+/root/miniconda3/envs/racfg/bin/hf download Wan-AI/Wan2.1-T2V-1.3B-Diffusers \
+  --local-dir /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers
+ls /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers/model_index.json
 ```
 
-**检查点**
+> CogVideoX-2B **不需要**（Cog 全部在 V100 上跑）。
+> HunyuanVideo 在阶段 D 再下（约 60 GB）。
 
-```bash
-ls /root/viewdit/weights/CogVideoX-2b/model_index.json
-du -sh /root/viewdit/weights/CogVideoX-2b          # ≈13G
-ls /root/viewdit/weights/CogVideoX-2b | tr '\n' ' '  # transformer vae text_encoder tokenizer scheduler
-```
-
-> Wan 1.3B / HunyuanVideo 暂不下载：控制器目前只支持 CogVideoX，等 runner 写好再加。
-
----
-
-## 5. 冒烟（2 分钟，必须先过）
+## 5. Wan 冒烟（2 分钟，必须先过）
 
 ```bash
 cd /root/viewdit
-CUDA_VISIBLE_DEVICES=0 /root/miniconda3/envs/racfg/bin/python experiments/video/mpcache_controller.py \
-  --frames 17 --nprompt 1 --seeds 3000 --Ns 13 \
-  --planners reuse,tea_gap --out /root/viewdit/results/video/smoke_h20
+CUDA_VISIBLE_DEVICES=0 /root/miniconda3/envs/racfg/bin/python experiments/video/wan_smoke.py \
+  --frames 33 --height 256 --width 256 --steps 20
 ```
 
-**必须看到**：`sanity roundtrip 0.0` → `one CFG step ...` → 两行 `reuse` / `tea_gap`（数值非 NaN）。
-失败就把最后 20 行发我。
+**必须看到**：`loaded in ...s`、然后一行 JSON：`seconds / per_step / shape / finite / peak_gib`。
+`finite` 为 true、shape 5 维、peak_gib < 90 才算过。失败就把最后 20 行贴我。
 
----
+## 6. H20 的任务编排（Wan + Hunyuan，不是 Cog）
 
-## 6. 主任务：49 帧 × 100 prompt（4 卡分片，约 2 小时）
+**H20 只跑 Wan2.1-T2V-1.3B 与 HunyuanVideo；CogVideoX 全部留在 V100。**
 
-4 张卡各跑 25 个 prompt，输出目录互不干扰：
+### 6.0 阶段顺序（不要跳步）
+
+| 阶段 | 内容 | 依赖 |
+|---|---|---|
+| A | 环境 + **Wan stock 冒烟**（`wan_smoke.py`） | 无 |
+| B | Wan 缓存 runner（`wan_cache.py`，我按 A 的反馈写） | A 通过 |
+| C | Wan 全量：N=10/13/17 × 4 卡分片 | B 通过 |
+| D | HunyuanVideo 冒烟 + runner | C 稳定 |
+| E | HunyuanVideo 全量 | D 通过 |
+
+### 6.1 阶段 A：Wan 权重 + 冒烟
+
+```bash
+export HF_HUB_ENABLE_HF_TRANSFER=1
+/root/miniconda3/envs/racfg/bin/hf download Wan-AI/Wan2.1-T2V-1.3B-Diffusers \
+  --local-dir /root/viewdit/weights/Wan2.1-T2V-1.3B-Diffusers
+
+cd /root/viewdit
+CUDA_VISIBLE_DEVICES=0 /root/miniconda3/envs/racfg/bin/python experiments/video/wan_smoke.py \
+  --frames 33 --height 256 --width 256 --steps 20
+```
+
+把输出贴给我（`seconds / per_step / shape / finite / peak_gib`）。
+**通过标准**：finite=true、shape 为 5 维、peak_gib<90、无异常。
+
+### 6.2 阶段 C：Wan 全量（4 卡）
 
 ```bash
 cd /root/viewdit
 for i in 0 1 2 3; do
-  off=$((i*25))
   CUDA_VISIBLE_DEVICES=$i setsid nohup /root/miniconda3/envs/racfg/bin/python \
-    experiments/video/mpcache_controller.py \
-    --frames 49 --nprompt 25 --prompt-offset $off --seeds 3000 \
-    --Ns 10,13,17 --planners reuse,tea_gap \
-    --out /root/viewdit/results/video/cog49_p$i \
-    > logs/cog49_p$i.log 2>&1 < /dev/null &
+    experiments/video/wan_cache.py --frames 81 --height 480 --width 832 --steps 50 \
+    --nprompt 25 --prompt-offset $((i*25)) --seeds 3000 --Ns 10,13,17 \
+    --planners reuse,ex1,tea_gap \
+    --out /root/viewdit/results/video/wan_p$i > logs/wan_p$i.log 2>&1 < /dev/null &
 done
 ```
 
-**进度**（每 15 分钟）：
+每片 225 行（25 prompt × 3 预算 × 3 臂），四片合计 **900 行**。
+
+### 6.3 阶段 D：HunyuanVideo
 
 ```bash
-for i in 0 1 2 3; do echo "p$i $(wc -l < /root/viewdit/results/video/cog49_p$i/closed.jsonl 2>/dev/null)/150"; done
-nvidia-smi --query-gpu=index,utilization.gpu,memory.used --format=csv,noheader
+/root/miniconda3/envs/racfg/bin/hf download hunyuanvideo-community/HunyuanVideo \
+  --local-dir /root/viewdit/weights/HunyuanVideo
 ```
 
-每个分片 150 行（25 prompt × 3 预算 × 2 方法），**四片合计 600 行**即完成。
+冒烟脚本我会照 Wan 的模式写；正式配置 49 帧 / 480×832 / 50 步。
 
-> 单卡跑法（不推荐，6–8 小时）：`--nprompt 100 --prompt-offset 0 --out .../cog49_prod`，去掉 `CUDA_VISIBLE_DEVICES` 循环。
+### 6.4 4 卡编排原则
 
----
+1. 一个进程一张卡（`CUDA_VISIBLE_DEVICES` 显式绑定）；
+2. **按 prompt 分片**（`--prompt-offset`），不要按 seed 分片；
+3. 每片独立 out 目录；
+4. 跑前 `nvidia-smi` 确认卡是空的。
 
 ## 7. 结果回传
 
@@ -165,13 +183,13 @@ scp <H20>:/root/results_cog49.tgz ~/Desktop/
 |---|---|
 | `CUDA driver version is insufficient` | torch 装成了 cu124/cu128；重装 `torch==2.5.1 --index-url .../cu121` |
 | `ModuleNotFoundError: numpy` | 用了系统 python；一律 `/root/miniconda3/envs/racfg/bin/python` |
-| `ImportError: CogVideoXTransformer3DModel` | diffusers 太老（系统自带 0.26）；确认用的是新环境 |
+| `ImportError: WanPipeline / WanTransformer3DModel` | diffusers 太老（系统自带 0.26）；确认用的是新环境（0.37） |
 | `ImportError: T5Tokenizer` | transformers ≥5 移除了 slow tokenizer；钉 4.57.1 |
 | HF 下载卡住 | 重跑同一条 `hf download`（自动续传）；或 `export HF_ENDPOINT=https://hf-mirror.com` |
 | 任务是否活着 | `ps -eo pid,etimes,cmd \| grep cog49`（**不要用 `pgrep -f`**，会匹配 ssh 自身） |
 | 中途停 | `pkill -f "cog49_p"`；JSONL 追加写，已完成不丢 |
 | 分片重叠/漏 prompt | 检查 `--prompt-offset`：0/25/50/75，各 `--nprompt 25` |
-| 显存不足 | 49 帧 Cog-2B 峰值约 12 GB；先跑 `--nprompt 1` 冒烟 |
+| 显存不足 | Wan-1.3B 约 25 GB/卡；先跑 `wan_smoke.py --frames 33 --height 256` 冒烟 |
 
 ---
 
@@ -182,15 +200,12 @@ cd /root/viewdit
 nvidia-smi --query-gpu=index,memory.used --format=csv,noheader
 for i in 0 1 2 3; do
   CUDA_VISIBLE_DEVICES=$i setsid nohup /root/miniconda3/envs/racfg/bin/python \
-    experiments/video/mpcache_controller.py --frames 49 --nprompt 25 --prompt-offset $((i*25)) \
-    --seeds 3000 --Ns 10,13,17 --planners reuse,tea_gap \
-    --out /root/viewdit/results/video/cog49_p$i > logs/cog49_p$i.log 2>&1 < /dev/null &
+    experiments/video/wan_cache.py --frames 81 --height 480 --width 832 --steps 50 \
+    --nprompt 25 --prompt-offset $((i*25)) --seeds 3000 --Ns 10,13,17 \
+    --planners reuse,ex1,tea_gap \
+    --out /root/viewdit/results/video/wan_p$i > logs/wan_p$i.log 2>&1 < /dev/null &
 done
 ```
-
-就这三行。
-
----
 
 ## 10. 我这边（V100）同时在跑的
 
