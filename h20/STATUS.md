@@ -39,7 +39,11 @@ ours = tea_gap            # 步级预算规划 + age 门控 + 信赖域 cap
 - WorldCache 系工作做的是 **token 级特征复用 + 近似**（warp / blending / per-token 分类），
   我们做的是 **步级"何时评估"的预算规划**，两条轴正交。混进来会让贡献点变模糊，
   审稿人也会问"这到底是缓存策略还是 token 选择"；
-- `tea_tok` 未在 100 prompt 上验证优于 `tea_gap`，直接升级为默认不严谨；
+- **V100 上 `pt16` 的 8 配对实测反证了这条路**：`tea_pt vs reuse` **−21.7%**（胜率 0.12），
+  `tea_pt vs tea_gap` 中位比值 **1.293**（差 29%）。机制原因：我们的修正发生在**输出空间**（guided
+  output `v`），必须保持整场空间连贯；只修一部分 patch、其余复用会让 latent 场出现局部跳变，
+  下一步 attention 会放大它。WorldCache 能逐 token 是因为它在**特征空间**做缓存，
+  并且用光流 warp 把缓存对齐到当前位置——我们没有对齐机制，粒度不能跨层迁移；
 - 代码保留（`--planners tea_tok,tea_tokc --token-gate τ`），作为 future work 或附录探索，
   **不写入 `tab_main`**。
 
@@ -93,7 +97,7 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 
 | 项 | 否决理由 |
 |---|---|
-| chaotic-only β（只在高 κ token 上算误差比） | 属于 token 级改造，与方法边界冲突；若将来做 token 级工作再启用 |
+| chaotic-only β（只在高 κ token 上算误差比） | 属于 token 级改造；V100 `pt16` 已证明输出空间逐坐标掩码显著更差（−21.7%，胜率 0.12） |
 | τ 敏感性 0.3/0.5/0.7 | 只在采用 `tea_tok` 时才需要，现不采用 |
 | κ 的 ε 归一化 | 同上 |
 | `tea_tok` / `tea_tokc` 进主表 | 代码保留，仅作 future work |
