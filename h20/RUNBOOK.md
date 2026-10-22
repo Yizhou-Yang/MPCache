@@ -213,3 +213,44 @@ done
 - 论文：`对比/MPCache_main.pdf` 为最新快照，8 页、0 overfull。
 
 H20 有任何输出/报错，直接贴给我。
+
+---
+
+## 11. Wan2.1 / HunyuanVideo（新增 runner，2026-10-22 实测）
+
+`mpcache_wan.py`、`mpcache_hunyuan.py` 复用同一套 `StateModel` / planner，只替换模型、
+VAE 与 latent 布局；两者的 patch 都是 `16x1x2x2 = 64` 维，和 CogVideoX 的通道空间一致，
+planner 逻辑零改动。
+
+```bash
+# Wan2.1-T2V-1.3B，33 帧 480p，1.66 s/步（fp16，12.8 GiB）
+python experiments/video/mpcache_wan.py --frames 33 --nprompt 34 --prompt-offset 0 \
+  --seeds 3000 --Ns 10,13,17 --planners reuse,ex1,tea_gap,mpc \
+  --out /root/viewdit/results/video/wan33_p0
+
+# HunyuanVideo，49 帧 544x960，27 s/步（batch=2，42.5 GiB）
+python experiments/video/mpcache_hunyuan.py --frames 49 --nprompt 4 \
+  --seeds 3000 --Ns 10,13 --planners reuse,tea_gap,mpc \
+  --out /root/viewdit/results/video/hy49
+```
+
+实测（H20 单卡）：
+
+| 模型 | 配置 | 步时 | 显存 |
+|---|---|---|---|
+| CogVideoX-2b | 17 帧 480x720 | 0.75 s | 10.8 GiB |
+| CogVideoX-2b | 49 帧 480x720 | 29.9 s | 9.6 GiB |
+| Wan2.1-1.3B | 33 帧 832x480 | 1.66 s | 12.8 GiB |
+| HunyuanVideo | 49 帧 544x960 | 27.1 s | 42.5 GiB |
+| HunyuanVideo | 49 帧 832x480 | 17.3 s | 41.2 GiB |
+
+### 三个必踩的坑
+
+1. **cuBLAS 小 M GEMM 触发 SIGFPE**（driver 535 + cu121 + sm90）。报错为
+   `Fatal Python error: Floating point exception`，栈顶在 `linear.py:125`，与数值无关。
+   Wan 用 `torch_dtype=torch.float16` 即绕开（bf16 必崩）；Hunyuan fp16 仍崩在 adaLN（M=1），
+   用 batch=2 复制输入绕开、输出取 `[:1]`。
+2. **Wan 默认 UniPC 是二阶**，跳步时二阶历史被伪造，N=13/50 的 reuse 误差 0.65；换一阶
+   `FlowMatchEuler` + `--sched uniform` 后降到 0.30。Cog / Hunyuan 本来就是一阶，三者可比。
+3. **内置 prompt 只有 8 条**，`--nprompt 100` 会在 `embs[8]` 崩。控制器现在优先加载同目录
+   `prompts_100.txt`，并按 `[offset, offset+nprompt)` 只编码本片需要的条目。

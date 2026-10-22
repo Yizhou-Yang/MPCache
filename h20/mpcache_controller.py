@@ -50,6 +50,13 @@ PROMPTS = [
     'A horse gallops across an open meadow at golden hour, dramatic lighting.',
 ]
 
+# External prompt set (one per line), loaded when present next to this script.
+# Keeps the builtin 8 intact for the old V100 runs; h20/prompts_100.txt is the
+# 100-prompt production set used by the 4-way sharded runs.
+_PROMPT_FILE = Path(__file__).resolve().parent / 'prompts_100.txt'
+if _PROMPT_FILE.exists():
+    PROMPTS = [ln.strip() for ln in _PROMPT_FILE.read_text().splitlines() if ln.strip()]
+
 FRAMES = {17: dict(lt=5, ph=30, pw=45, steps=30), 49: dict(lt=13, ph=60, pw=90, steps=50)}
 MAX_GAP = 4
 GAMMA_PACE = 1.0
@@ -183,22 +190,31 @@ def main():
             r = json.loads(line); done.add((r['prompt'], r['seed'], r['N'], r['op']))
 
     emb_path = OUT / f'embeddings_fp16_eager_{a.frames}f.pt'
+    lo = max(0, a.prompt_offset)
+    hi = min(len(PROMPTS), lo + a.nprompt)
+    if hi <= lo:
+        raise SystemExit(f'empty prompt range: offset={a.prompt_offset} nprompt={a.nprompt} total={len(PROMPTS)}')
+    need = list(range(lo, hi))
     if emb_path.exists():
         cache = torch.load(emb_path, map_location='cuda', weights_only=True)
         embs, ne = {int(k): v for k, v in cache['embs'].items()}, cache['ne']
     else:
+        embs, ne = {}, None
+    missing = [p for p in need if p not in embs]
+    if missing or ne is None:
         tok = T5Tokenizer.from_pretrained(MODEL / 'tokenizer')
         enc = T5EncoderModel.from_pretrained(MODEL / 'text_encoder', torch_dtype=torch.float16,
                                              attn_implementation='eager').cuda().eval()
-        embs = {}
         with torch.no_grad():
-            for pi in range(len(PROMPTS)):
+            for pi in missing:
                 ti = tok(PROMPTS[pi], padding='max_length', max_length=226, truncation=True, return_tensors='pt')
                 embs[pi] = enc(ti.input_ids.cuda())[0].half()
-            ne = enc(tok('', padding='max_length', max_length=226, truncation=True,
-                         return_tensors='pt').input_ids.cuda())[0].half()
+            if ne is None:
+                ne = enc(tok('', padding='max_length', max_length=226, truncation=True,
+                             return_tensors='pt').input_ids.cuda())[0].half()
         del enc; torch.cuda.empty_cache()
         torch.save({'embs': {str(k): v for k, v in embs.items()}, 'ne': ne}, emb_path)
+    print(f'prompts total={len(PROMPTS)} using [{lo},{hi}) -> {hi - lo} prompts', flush=True)
 
     d = CogVideoXTransformer3DModel.from_pretrained(MODEL / 'transformer', torch_dtype=torch.float16).cuda().eval().requires_grad_(False)
     sch = CogVideoXDDIMScheduler.from_pretrained(MODEL / 'scheduler')
@@ -228,7 +244,7 @@ def main():
 
     lat = init(0)
     print('sanity roundtrip', rel(tok2lat(lat2tok(lat)), lat.float()), flush=True)
-    torch.cuda.synchronize(); t0 = time.time(); model(lat, embs[0], TS[min(5, NSTEP - 1)]); torch.cuda.synchronize()
+    torch.cuda.synchronize(); t0 = time.time(); model(lat, embs[need[0]], TS[min(5, NSTEP - 1)]); torch.cuda.synchronize()
     print(f'one CFG step {time.time() - t0:.2f}s; peak {torch.cuda.max_memory_allocated() / 2**30:.2f} GiB', flush=True)
     if a.sanity:
         return
