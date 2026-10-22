@@ -266,11 +266,15 @@ def main():
         VDIR = Path(a.video_dir) if a.video_dir else (OUT / 'videos')
         VDIR.mkdir(parents=True, exist_ok=True)
 
+        _mean = torch.tensor(vae.config.latents_mean).view(1, -1, 1, 1, 1)
+        _std = torch.tensor(vae.config.latents_std).view(1, -1, 1, 1, 1)
+
         def save_video(z, idx, op):
             sub = VDIR / op
             sub.mkdir(parents=True, exist_ok=True)
+            zz = z.float() * _std.to(z.device) + _mean.to(z.device)
             with torch.no_grad():
-                v = vae.decode(z.to(torch.float16)).sample
+                v = vae.decode(zz.to(torch.float16)).sample
             v = ((v.clamp(-1, 1) + 1) / 2 * 255).byte().cpu().permute(0, 2, 3, 4, 1)[0].numpy()
             imageio.mimsave(sub / f'video_{idx:06d}.mp4', v, fps=16, codec='libx264',
                             macro_block_size=8)
