@@ -106,7 +106,7 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 
 | # | 项 | 说明 | 成本 |
 |---|---|---|---|
-| 13 | **Cog 帧数协议（二选一，见 5.1）** | V100 只能 17f；H20 49f 需 13.1 h | 决策项 |
+| 13 | **Cog 49f × 100（已定，见 5.1）** | 步 0 补 `--save-video` → Full 10.4 h → ours 2.7 h | 13.6 h |
 | 14 | **Hunyuan 竞品行** | TeaCache / TaylorSeer / RA-Slow / RA-Fast 四行，全空 | 4 × 1.5 h |
 | 15 | **Wan 的 RA-CFGCache-Fast + TaylorSeer** | 本机砍掉的两行 | 0.8 + 1.0 h |
 | 16 | **Wan Fewer25** | 本机用三臂对比换掉了 | 1.1 h |
@@ -122,53 +122,61 @@ RA-CFGCache Wan Full (T=50, UniPC, shift 3, CFG 5, 100 VBench prompts)
 | 21 | seed 约定 | 写进协议段（见 `repro/REPRODUCE.md` 1.1） |
 | 22 | 加速倍数不横比 | WorldCache 3.65× 是 PSNR 23.5 换来的，我们口径是匹配 NFE 的保真度 |
 
-### 5.1 Cog 的帧数协议（V100 上 49f 不可行）
+### 5.1 Cog 49f（已决定：下一台 H20 补跑，V100 只用 17f）
 
-**硬约束**：V100 只能跑 **17 帧**（49 帧在 V100 上不可行：显存/步时都不允许）。
-因此 Cog 这条 backbone 目前**没有 49 帧的 100-prompt 结果**，只有 17 帧。
+**决策**：**A**。V100 只能 17 帧（49f 在 V100 上不可行），而论文正文写的是 49 帧，
+所以必须用 H20 的 49f 结果替换，不能拿 17f 冒充。
 
-两条路，必须选一条并写进论文：
+**执行顺序（单机 4 卡，13.1 h）**
 
-| 路径 | 成本 | 论文表述 | 风险 |
-|---|---|---|---|
-| **A. H20 跑 49f × 100 prompt** | 13.1 h（Full+ours，4 卡） | Cog 行与其他 backbone 同协议（49 帧官方默认） | 需要一整台 H20 的半天，本机今晚不够 |
-| **B. 就用 V100 的 17f** | 0（已有） | Cog 单独一个 block，表注「17 frames, V100」 | 与 Wan 的 81 帧不同协议，不能声称"统一协议" |
-
-我的建议：**A 作为下一台机器的第一个任务**（它同时解决 `--save-video` 缺口）；
-在此之前，论文里 Cog 行只能用 B 并明确标注，不要与 Wan 并排比较加速比。
-
-#### A 的实测成本（49 帧 480×720 = 29.9 s/步）
-
-实测 49 帧 480×720 是 **29.9 s/步**（70k tokens × 30 层，GPU 无降频），按 100 prompt、4 卡：
-
-| 配置 | GPU·h | 4 卡墙钟 |
+| 步 | 内容 | 耗时 |
 |---|---|---|
-| Full（参考，只跑一次） | 41.5 | **10.4 h** |
-| ours（13 步） | 10.8 | 2.7 h |
-| Full + ours | 52.3 | **13.1 h** |
-| 5 臂全量 | 84.7 | **21.2 h** |
+| 0 | 给 `mpcache_controller.py` 补 `--save-video`（见下） | 0.5 h |
+| 1 | Full (T=50) × 100 prompt | 10.4 h |
+| 2 | ours (tea_gap, N=13) × 100 prompt | 2.7 h |
+| 3 | 指标（`repro/metrics.py`） | 0.3 h |
 
-对比 Wan 81 帧（6.4 s/步）：Full 8.9 GPU·h / 2.2 h，5 臂 18.1 GPU·h / 4.5 h。
-Cog 49 帧是 Wan 的 4.7 倍单步成本，**单 Full 就要 10.4 h**，这是它排不进本机的根本原因。
+**步 0 的具体改法**：照搬 `mpcache_wan.py` 的 `save_video()`，只换三处：
 
-不要用 17 帧的 0.75 s/步去估 Cog 49 帧：那会得到"25 分钟跑完"的错误结论，
-两者差 40 倍（17f 5 个 latent vs 49f 13 个 latent，attention 二次增长）。
+```python
+from diffusers import AutoencoderKLCogVideoX          # 不是 AutoencoderKLWan
+vae = AutoencoderKLCogVideoX.from_pretrained(MODEL / 'vae', torch_dtype=torch.bfloat16).cuda()
+# Cog 的 VAE 没有 latents_mean/std 反归一化，直接 decode
+v = vae.decode(z.to(torch.bfloat16)).sample           # (1,3,F,H,W), F=49
+# 帧率 8 fps（Wan 是 16）
+imageio.mimsave(path, v, fps=8, codec='libx264', macro_block_size=8)
+```
 
-下一台机器的**第一个**任务：
+Cog 的 VAE 是 8×8 空间压缩、4× 时间压缩：49 帧 → 13 latent 帧，720×480 → 90×60。
+patch 2×2×2 → 每 token 64 维，与 `StateModel` 的通道空间一致，planner 不用改。
+解码实测约 8 s / 3 GiB（49f 720×480）。
+
+**命令**
 
 ```bash
-# 先补 --save-video（照搬 mpcache_wan.py 的 save_video，VAE 换 AutoencoderKLCogVideoX）
+# Full
 for i in 0 1 2 3; do
   CUDA_VISIBLE_DEVICES=$i setsid nohup /root/miniconda3/envs/racfg/bin/python \
     /root/viewdit/experiments/video/mpcache_controller.py \
     --frames 49 --nprompt 25 --prompt-offset $((i*25)) \
     --seeds 0 --seed-from-prompt --negative "animation" \
-    --Ns 13 --planners tea_tok --token-gate 0.5 \
-    --out /root/viewdit/results/video/cog49_p$i > /root/viewdit/logs/cog49_p$i.log 2>&1 &
+    --Ns 50 --planners tea_gap --no-full --save-video --save-op tea_gap --save-n 50 \
+    --video-dir /root/viewdit/results/cog49/full50 \
+    --out /root/viewdit/results/cog49/full_p$i > /root/viewdit/logs/cog49_full_p$i.log 2>&1 &
 done
+# ours：同命令，--Ns 13 --save-n 13 --video-dir .../n13
 ```
 
-Cog 的 VAE 是 8×8 空间、4× 时间压缩，解码 49 帧 720×480 实测约 8 s / 3 GiB。
+（`--no-full` / `--seed-from-prompt` / `--negative` 需要先移植到 controller，与 wan runner 保持一致。）
+
+**验收**
+
+- `find results/cog49/full50 -name 'video_*.mp4' | wc -l` = 100
+- `find results/cog49/n13 -name 'video_*.mp4' | wc -l` = 100
+- `metrics.py --ref full50 --cmp n13` 的 LPIPS 在 0.05–0.30（参考 17f 的 rel 0.11–0.16）
+- 输出 100 个索引一一对应，缺一个都会让配对报错
+
+**V100 的 17f 结果**：保留，作为附录的"帧数敏感性"，不替换主表。
 
 ## 6. 关键决策记录
 

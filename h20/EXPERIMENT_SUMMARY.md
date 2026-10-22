@@ -62,7 +62,7 @@ LPIPS/SSIM/PSNR **不能严格同列比较**。TeaCache 那一行同时充当"ha
 | 项 | 原因 |
 |---|---|
 | Hunyuan 100-prompt / 竞品行 | 17.3 s/步，100 prompt = 70 卡时；且无自洽 baseline |
-| Cog 49f 100-prompt | 29.9 s/步，Full 单项 10.4 h（4 卡）；**V100 上 49f 不可行，只能 17f** |
+| Cog 49f 100-prompt | **已定性为下一台 H20 的第一任务**（13.6 h）；V100 只能 17f，不能冒充 49f |
 | Wan Fewer25 | 1.1 h，放不进 22:50 截止 |
 | TaylorSeer | 1.0 h，同上 |
 | ours 与 RA 同 harness | 状态空间不匹配，见 P15 与 STATUS P1 |
