@@ -24,7 +24,7 @@ usage:
   python mpcache_controller.py --frames 17 --Ns 10,13,17 --nprompt 8 --seeds 3000,3001 \
       --out /root/viewdit/results/video/mpc_20261020
 """
-import argparse, json, math, time
+import argparse, json, math, os, time
 from pathlib import Path
 
 import numpy as np
@@ -51,12 +51,19 @@ PROMPTS = [
     'A horse gallops across an open meadow at golden hour, dramatic lighting.',
 ]
 
-# External prompt set (one per line), loaded when present next to this script.
-# Keeps the builtin 8 intact for the old V100 runs; h20/prompts_100.txt is the
-# 100-prompt production set used by the 4-way sharded runs.
-_PROMPT_FILE = Path(__file__).resolve().parent / 'prompts_100.txt'
-if _PROMPT_FILE.exists():
+# Prompt list resolution: $MPCACHE_PROMPTS, then the RA-CFGCache list at
+# /root/viewdit/resources/prompts/prompt_video.txt (the paper protocol), then the
+# copy shipped next to this script, then the builtin 8 kept for old runs.
+_PROMPT_CANDS = []
+_env_p = os.environ.get('MPCACHE_PROMPTS', '')
+if _env_p:
+    _PROMPT_CANDS.append(Path(_env_p))
+_PROMPT_CANDS += [Path('/root/viewdit/resources/prompts/prompt_video.txt'),
+                  Path(__file__).resolve().parent / 'prompts_100.txt']
+_PROMPT_FILE = next((p for p in _PROMPT_CANDS if p.exists()), None)
+if _PROMPT_FILE is not None:
     PROMPTS = [ln.strip() for ln in _PROMPT_FILE.read_text().splitlines() if ln.strip()]
+    print(f'[prompts] {len(PROMPTS)} from {_PROMPT_FILE}', flush=True)
 
 FRAMES = {33: dict(lt=9, ph=60, pw=104, steps=50), 81: dict(lt=21, ph=60, pw=104, steps=50)}
 MAX_GAP = 4

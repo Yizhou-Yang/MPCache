@@ -75,6 +75,22 @@ cp /root/MPCache/h20/*.py /root/viewdit/experiments/video/
 cp /root/MPCache/h20/*.sh /root/viewdit/repro/ 2>/dev/null || true
 cp /root/MPCache/h20/RUNBOOK.md /root/viewdit/
 ls /root/viewdit/experiments/video/    # 应有 mpcache_controller.py、step_oracle.py
+
+# prompt 列表（论文协议）：必须与 RA-CFGCache 的 resources/prompts/prompt_video.txt
+# 逐行一致，否则 ours 与 baseline 的视频索引对不上，LPIPS/SSIM/PSNR 不可比。
+mkdir -p /root/viewdit/resources/prompts
+cp /root/MPCache/resources/prompts/prompt_video.txt /root/viewdit/resources/prompts/
+python3 - <<'EOF'
+lines = [l.strip() for l in open('/root/viewdit/resources/prompts/prompt_video.txt') if l.strip()]
+print('prompts:', len(lines))
+print('p0:', lines[0][:60])
+print('p99:', lines[-1][:60])
+EOF
+# 期望：prompts: 100；p0 以 "a dilapidated phone booth" 开头；
+# p99 = "an orange on the bottom of a carrot, front view"。
+# 三个 runner 的查找顺序：$MPCACHE_PROMPTS -> /root/viewdit/resources/prompts/prompt_video.txt
+# -> 脚本同目录 prompts_100.txt -> 内置 8 条（仅兼容旧 run）。启动日志会打印
+# "[prompts] 100 from ..."，没有这一行说明路径没对上。
 ```
 
 ---
