@@ -1,1 +1,2 @@
 {"video_id": "video_000075", "prompt_index": 75, "prompt": "Gwen Stacy reading a book, tilt up", "video_path": "videos/video_000075.mp4", "metadata_path": "metadata/video_000075.json", "eval_frame_dir": "eval_frames/video_000075"}
+{"video_id": "video_000076", "prompt_index": 76, "prompt": "Gwen Stacy reading a book, zoom in", "video_path": "videos/video_000076.mp4", "metadata_path": "metadata/video_000076.json", "eval_frame_dir": "eval_frames/video_000076"}

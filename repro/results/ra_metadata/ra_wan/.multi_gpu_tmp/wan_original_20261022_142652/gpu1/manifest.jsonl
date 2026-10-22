@@ -1,1 +1,2 @@
 {"video_id": "video_000025", "prompt_index": 25, "prompt": "A person is getting a haircut", "video_path": "videos/video_000025.mp4", "metadata_path": "metadata/video_000025.json", "eval_frame_dir": "eval_frames/video_000025"}
+{"video_id": "video_000026", "prompt_index": 26, "prompt": "A person is ironing", "video_path": "videos/video_000026.mp4", "metadata_path": "metadata/video_000026.json", "eval_frame_dir": "eval_frames/video_000026"}

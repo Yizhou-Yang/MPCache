@@ -1,1 +1,2 @@
 {"video_id": "video_000000", "prompt_index": 0, "prompt": "a dilapidated phone booth stood as a relic of a bygone era on the sidewalk, frozen in time", "video_path": "videos/video_000000.mp4", "metadata_path": "metadata/video_000000.json", "eval_frame_dir": "eval_frames/video_000000"}
+{"video_id": "video_000001", "prompt_index": 1, "prompt": "A tranquil tableau of a vintage rocking chair was placed on the porch", "video_path": "videos/video_000001.mp4", "metadata_path": "metadata/video_000001.json", "eval_frame_dir": "eval_frames/video_000001"}
