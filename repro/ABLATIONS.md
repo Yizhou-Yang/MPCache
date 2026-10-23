@@ -37,6 +37,14 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 |---|---|---|---|---|---|---|---|
 | 10 | tea_gap | 8 | 0.2959 | 0.2992 | -0.237 | 0.38 |  |
 
+## `auto16`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_auto | 8 | 0.2959 | 0.3321 | -0.246 | 0.38 |  |
+| 13 | tea_auto | 8 | 0.2204 | 0.2377 | -0.199 | 0.38 |  |
+| 17 | tea_auto | 8 | 0.1272 | 0.1353 | -0.206 | 0.38 |  |
+
 ## `bias1`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -311,6 +319,14 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 10 | tea_pt | 8 | 0.2959 | 0.3080 | -0.223 | 0.38 |  |
 | 13 | tea_pt | 8 | 0.2204 | 0.2343 | -0.182 | 0.38 |  |
 | 17 | tea_pt | 8 | 0.1272 | 0.1358 | -0.189 | 0.38 |  |
+
+## `ratio16`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_ratio | 8 | 0.2959 | 0.3118 | -0.300 | 0.38 |  |
+| 13 | tea_ratio | 8 | 0.2204 | 0.2833 | -0.400 | 0.12 |  |
+| 17 | tea_ratio | 8 | 0.1272 | 0.1647 | -0.496 | 0.38 |  |
 
 ## `rclip125`
 
