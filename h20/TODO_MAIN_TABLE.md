@@ -25,7 +25,8 @@ controller uses the base forecast alone on a uniform grid (Section 3.4, "Which f
 trust"), which is exactly the `ex1` arm. Wan therefore needs one arm: `--save-op ex1`.
 
 Cog is unaffected: no Cog schedule between N=8 and N=17 is uniform, so `--auto-base 1` never
-fires and every existing Cog number stands (`autobase16` verifies this bit-for-bit).
+fires and every existing Cog number stands. Verified: `autobase16` (tea_gap with `--auto-base 1`)
+is **48/48 bit-identical** to the runs without the flag.
 
 ## 2. Runs (4 x H20)
 

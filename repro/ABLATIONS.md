@@ -6,11 +6,23 @@ Every run we produced, including the negative ones. Reduction is the median of
 `candidate / reuse` subtracted from one; win is the share of samples where the
 candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 
+## `abl_b1`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2974 | -0.218 | 0.38 |  |
+
 ## `abl_full`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
 |---|---|---|---|---|---|---|---|
 | 10 | tea_gap | 8 | 0.2959 | 0.2788 | -0.218 | 0.38 |  |
+
+## `abl_g08`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2972 | -0.217 | 0.38 |  |
 
 ## `abl_g1`
 
@@ -31,6 +43,12 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 13 | tea_gap | 8 | 0.2204 | 0.2340 | -0.180 | 0.38 |  |
 | 17 | tea_gap | 8 | 0.1272 | 0.1387 | -0.223 | 0.38 |  |
 
+## `abl_k2`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2972 | -0.213 | 0.38 |  |
+
 ## `abl_t05`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -45,6 +63,14 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 13 | tea_auto | 8 | 0.2204 | 0.2377 | -0.199 | 0.38 |  |
 | 17 | tea_auto | 8 | 0.1272 | 0.1353 | -0.206 | 0.38 |  |
 
+## `autobase16`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | tea_gap | 8 | 0.2959 | 0.2974 | -0.217 | 0.38 |  |
+| 13 | tea_gap | 8 | 0.2204 | 0.2328 | -0.175 | 0.38 |  |
+| 17 | tea_gap | 8 | 0.1272 | 0.1333 | -0.163 | 0.38 |  |
+
 ## `bias1`
 
 | N | op | n | reuse | candidate | reduction | win | 2SEM |
@@ -52,6 +78,14 @@ candidate beats reuse at the same budget. `2SEM` is the paired log-ratio test.
 | 10 | tea_gap | 16 | 0.2827 | 0.2596 | +0.102 | 0.88 | yes |
 | 13 | tea_gap | 16 | 0.2136 | 0.2089 | +0.033 | 1.00 | yes |
 | 17 | tea_gap | 16 | 0.1181 | 0.1118 | +0.053 | 1.00 | yes |
+
+## `ex1v`
+
+| N | op | n | reuse | candidate | reduction | win | 2SEM |
+|---|---|---|---|---|---|---|---|
+| 10 | ex1 | 8 | 0.2959 | 0.3771 | -0.462 | 0.25 |  |
+| 13 | ex1 | 8 | 0.2204 | 0.2845 | -0.407 | 0.12 |  |
+| 17 | ex1 | 8 | 0.1272 | 0.1657 | -0.501 | 0.38 |  |
 
 ## `full16`
 
