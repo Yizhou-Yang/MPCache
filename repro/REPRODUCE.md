@@ -32,6 +32,7 @@ version-agnostic. Weights: `zai-org/CogVideoX-2b` (was `THUDM/CogVideoX-2b`), pl
 |---|---|
 | prompts | `resources/prompts/prompt_video.txt`, 100 entries, index 0..99, the same file for every backbone |
 | seed | **seed = prompt index** (`--seed-from-prompt`), identical to RA-CFGCache's semantics |
+| forecaster | CogVideoX: corrected forecast with the age gate; Wan2.1: pure extrapolation (uniform grid rule, Section 3.4) |
 | negative prompt | `animation` |
 | CogVideoX-2B | 49 frames, 720x480, 50 DDIM steps, CFG 6 |
 | Wan2.1-T2V-1.3B | 81 frames, 480x832, 50 UniPC steps, flow shift 3, CFG 5 |
