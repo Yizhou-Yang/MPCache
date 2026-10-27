@@ -162,6 +162,7 @@ def main():
 
     ap = argparse.ArgumentParser()
     ap.add_argument('--frames', type=int, default=33, choices=[33, 81])
+    ap.add_argument('--warmup', type=int, default=3, help='always evaluate the first K steps')
     ap.add_argument('--seeds', default='3000,3001')
     ap.add_argument('--nprompt', type=int, default=8)
     ap.add_argument('--prompt-offset', type=int, default=0)
@@ -383,6 +384,16 @@ def main():
         tea = {N: sorted({round(i * (NSTEP - 1) / (N - 1)) for i in range(N)}) for N in Ns}
     else:
         tea = {N: sorted(tea_for(N)) for N in Ns}
+    def _enforce_warmup(S, N, warmup, nstep):
+        forced = set(range(min(warmup, nstep)))
+        S = set(S) | forced | {nstep - 1}
+        while len(S) > N:
+            cands = [j for j in sorted(S) if j not in forced and j != nstep - 1]
+            if not cands:
+                break
+            S.discard(cands[len(cands) // 2])
+        return sorted(S)
+    tea = {N: _enforce_warmup(v, N, a.warmup, NSTEP) for N, v in tea.items()}
     (OUT / 'schedules.json').write_text(json.dumps({str(k): v for k, v in tea.items()}))
     for N in Ns:
         print(f'tea N={N} (|S|={len(tea[N])}): {tea[N]}', flush=True)
