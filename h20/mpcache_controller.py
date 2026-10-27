@@ -43,6 +43,8 @@ KAPPA_AGE = 0.0
 TWOTAP = False
 R_CLIP = 0.0
 AUTO_BASE = False
+RANK = 0
+FORGET_ADAPT = False
 import os as _os
 _PROMPT_FILE = Path(_os.environ.get("MPCACHE_PROMPTS", "/root/viewdit/resources/prompts/prompt_video.txt"))
 
@@ -106,6 +108,8 @@ class StateModel:
         self.Spe = torch.zeros(64, device='cuda', dtype=torch.float64)
         self.Sdp = torch.zeros(64, device='cuda', dtype=torch.float64)
         self.d_prev = None
+        self.alpha = None
+        self.r_ema = None
         self.Sw = 0.0
         self.R = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
         self.n = 0
@@ -118,6 +122,9 @@ class StateModel:
         if self.kind == 'full':
             lam = LAM_F * self.G.diagonal().mean()
             A = torch.linalg.solve(self.G + lam * torch.eye(64, device='cuda', dtype=torch.float64), self.R)
+            if RANK > 0:
+                U, S_, Vh = torch.linalg.svd(A)
+                A = (U[:, :RANK] * S_[:RANK]) @ Vh[:RANK, :]
             return (d.double() @ A).float()
         a = (self.Sde / ((1 + LAM_D) * self.Sdd + 1e-12)).clamp(-ACLIP, ACLIP)
         out = d * a.float()
@@ -145,7 +152,21 @@ class StateModel:
             self.beta = min(1.0, self.beta + 0.25) if err_m < err_e else self.beta * 0.5
             self.log.append((err_m / (err_e + 1e-12), self.beta))
         dd, ee = d.double(), e.double()
-        self.Sdd = GAMMA * self.Sdd + (dd * dd).sum(0)
+        if FORGET_ADAPT:
+            if self.alpha is None:
+                self.alpha = torch.full((dd.shape[-1],), GAMMA, device=dd.device, dtype=torch.float64)
+                self.r_ema = torch.zeros((dd.shape[-1],), device=dd.device, dtype=torch.float64)
+            rc = (ee.abs() / (dd.abs() + 1e-6)).mean(0)
+            self.r_ema = 0.8 * self.r_ema + 0.2 * rc
+            ratio = (self.r_ema.median() + 1e-9) / (self.r_ema + 1e-9)
+            self.alpha = (GAMMA * ratio).clamp(0.2, 0.9)
+            gam = self.alpha
+            if not getattr(self, '_dbg', False):
+                self._dbg = True
+                print('    [fadapt] alpha range %.3f..%.3f' % (float(gam.min()), float(gam.max())), flush=True)
+        else:
+            gam = GAMMA
+        self.Sdd = gam * self.Sdd + (dd * dd).sum(0)
         self.Se = GAMMA * self.Se + ee.mean(0)
         if self.d_prev is not None and TWOTAP:
             dp = self.d_prev.double()
@@ -154,7 +175,7 @@ class StateModel:
             self.Sdp = GAMMA * self.Sdp + (dd * dp).sum(0)
         self.d_prev = dd.clone()
         self.Sw = GAMMA * self.Sw + 1.0
-        self.Sde = GAMMA * self.Sde + (dd * ee).sum(0)
+        self.Sde = gam * self.Sde + (dd * ee).sum(0)
         self.G = GAMMA * self.G + dd.T @ dd
         self.R = GAMMA * self.R + dd.T @ ee
         self.n += 1
@@ -186,6 +207,9 @@ def main():
     ap.add_argument('--kappa-age', type=float, default=0.0)
     ap.add_argument('--twotap', type=int, default=0)
     ap.add_argument('--r-clip', type=float, default=0.0)
+    ap.add_argument('--rank', type=int, default=0, help='truncate the fitted operator to this rank (0 = off)')
+    ap.add_argument('--forget-adapt', type=int, default=0, help='per-channel forget rate from the fit residual')
+    ap.add_argument('--print-config', action='store_true', help='print the effective value of every tuning global')
     ap.add_argument('--auto-base', type=int, default=0,
                     help='on a uniform schedule use pure temporal extrapolation (provably right for a linear field)')
     ap.add_argument('--pgate', type=float, default=0.02)
@@ -198,7 +222,7 @@ def main():
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
-    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, TWOTAP, R_CLIP, PGATE
+    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, TWOTAP, R_CLIP, PGATE, RANK, AUTO_BASE, FORGET_ADAPT
     MODEL_KIND = a.model_kind
     GATE_AGE = a.gate_age
     TRUST = a.trust
@@ -210,8 +234,15 @@ def main():
     TWOTAP = bool(a.twotap)
     R_CLIP = a.r_clip
     AUTO_BASE = bool(a.auto_base)
+    RANK = a.rank
+    FORGET_ADAPT = bool(a.forget_adapt)
     PGATE = a.pgate
     RESERVE = a.reserve_last
+    if a.print_config:
+        print('[config] gate_age=%s trust=%s kappa=%s kappa_age=%s gamma=%s bias=%s '
+              'twotap=%s r_clip=%s rank=%s forget_adapt=%s auto_base=%s model=%s'
+              % (GATE_AGE, TRUST, KAPPA, KAPPA_AGE, GAMMA, BIAS, TWOTAP, R_CLIP, RANK,
+                 FORGET_ADAPT, AUTO_BASE, MODEL_KIND), flush=True)
 
     seeds = [int(s) for s in a.seeds.split(',')]
     Ns = [int(n) for n in a.Ns.split(',')]
