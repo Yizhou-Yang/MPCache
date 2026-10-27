@@ -10,7 +10,7 @@
 
 | 项 | 值 |
 |---|---|
-| 控制器 | `h20/mpcache_controller.py`，本仓库 sha256 `baf74803…`；`repro/code/` 版是 `29080497…`。文档里写的 `baeb0e61…` **在仓库任何提交里都找不到**，部署版已随机器回收 → 待确认以哪个为准 |
+| 控制器 | `h20/mpcache_controller.py` 与 `repro/code/mpcache_controller.py` 现已同为一个文件，sha256 `baeb0e61c0d5a398…`（`b623a12` 恢复的权威副本）；本机已同步到 `experiments/video/` |
 | Cog 上的方法 | 对角在线模型 + 门控 `age ≥ 2`；`--auto-base 1` 在 Cog 上是空操作（48/48 逐位相同） |
 | Wan 上的方法 | 均匀调度 → 纯一阶外推（ex1），不加模型修正 |
 | 一句话 | Cog 跑 `tea_gap`，Wan 跑 `ex1` |
