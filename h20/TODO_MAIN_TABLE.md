@@ -10,7 +10,7 @@
 
 | 项 | 值 |
 |---|---|
-| 控制器 | `h20/mpcache_controller.py` = `repro/code/mpcache_controller.py`，sha256 `baeb0e61…`（已入库，唯一权威副本；含 `--auto-base/--rank/--forget-adapt/--print-config`） |
+| 控制器 | `h20/mpcache_controller.py`，本仓库 sha256 `baf74803…`；`repro/code/` 版是 `29080497…`。文档里写的 `baeb0e61…` **在仓库任何提交里都找不到**，部署版已随机器回收 → 待确认以哪个为准 |
 | Cog 上的方法 | 对角在线模型 + 门控 `age ≥ 2`；`--auto-base 1` 在 Cog 上是空操作（48/48 逐位相同） |
 | Wan 上的方法 | 均匀调度 → 纯一阶外推（ex1），不加模型修正 |
 | 一句话 | Cog 跑 `tea_gap`，Wan 跑 `ex1` |
@@ -37,25 +37,40 @@
 结论：**两者不完全等价，但已在「同一场景、同一噪声」的范围内**。0.03 是每个 ours 数字都要背的
 底噪，方法效应（0.09–0.14）仍在。主表报数时必须写这一条，不能声称 bit-level 同源。
 
-## 3. 已排期与执行（4 卡饱和，`queue_wan.sh` 串联，无空转）
+## 3. 已排期与执行（4 卡饱和，队列串联，无空转）
 
-| 时段 | 卡的用法 | 任务 | 产出 |
+阶段一（`queue_wan.sh`，自动串下一棒）：
+
+| 时段 | 卡 | 任务 | 产出 |
 |---|---|---|---|
 | 11:35–13:55 | 0-3 | RA Full，100 prompt × 50 步 | `results/ra_wan/wan_original_wan_original_full/videos` 100 mp4 |
-| 15:03–15:50 | 0-3 | Wan ours **ex1** N=13，81 帧 | `results/wan_arms/ex1/videos/ex1` |
-| 15:50–16:35 | 0-3 | Wan ours **tea_gap** N=13（对照旧 0.1375） | `results/wan_arms/tea_gap/videos/tea_gap` |
-| 16:35–19:00 | 0-3 | Wan **our full** N=50（自洽参考，100 prompt） | `results/wan_full/n50/videos/ex1` |
-| 19:00–19:15 | CPU | `repro/metrics.py` 两条评测 | `results/metrics_*.{json,csv}` |
+| 15:03–15:30 | 0-3 | Wan ours **ex1** N=13，81 帧 | `results/wan_arms/ex1/videos/ex1` |
+| 15:30–15:55 | 0-3 | Wan ours **tea_gap** N=13（对照旧 0.1375） | `results/wan_arms/tea_gap/videos/tea_gap` |
+| 15:55–18:20 | 0-3 | Wan **our full** N=50（自洽参考，100 prompt） | `results/wan_full/n50/videos/ex1` |
+| 18:20–18:35 | CPU | `repro/metrics.py`：ex1/tea_gap vs our-full 与 vs RA-full | `results/metrics_*.{json,csv}` |
 
-后续（按优先级，前一项完成才启动下一项）：
+阶段二（`queue_stage2.sh`，等阶段一退出后自动启动，继续占满 4 卡）：
 
-| # | 任务 | 前置 | 成本 | 说明 |
-|---|---|---|---|---|
-| 1 | Cog 49f：先给 controller 补 `--save-video/--no-full/--negative/--video-dir` | — | 0.5 h（纯 CPU） | 照 `PITFALLS` 与 `mpcache_wan.py::save_video`，Cog 的 VAE 是 `AutoencoderKLCogVideoX`、8 fps、无 `latents_mean/std` |
-| 2 | Cog 49f Full ×100（参考） | #1 | 10.4 h / 4 卡 | 29.9 s/step × 50 × 25 |
-| 3 | Cog 49f ours N=13 ×100 | #2 | 2.7 h / 4 卡 | `--frames 49 --Ns 13 --auto-base 1` |
-| 4 | Hunyuan NaN 定位 | — | 1–2 h | `--nprompt 1 --sanity`，先分文本编码 / VAE / transformer；修好前不进主表 |
-| 5 | Hunyuan Full + ours | #4 | 6 h + 1.6 h | 竞品四行仍缺，单跑 ours 不足以补行 |
+| 时段 | 卡 | 任务 | 为什么 |
+|---|---|---|---|
+| 18:35–19:45 | 0-3 | Wan ex1 **N=10**（100 prompt） | 质量-NFE 曲线的低预算点，直接复用已验证代码 |
+| 19:45–21:30 | 0-3 | Wan ex1 **N=17**（100 prompt） | 曲线的高预算点，同时给出「N 越大越接近 full」的单调性检查 |
+
+未排上 GPU 的两项（不是忘了，是前置条件没到，硬开只会产出不可用的数字）：
+
+| # | 任务 | 卡它的东西 | 成本 |
+|---|---|---|---|
+| 1 | Cog 49f ours | controller 还缺 `--save-video/--no-full/--negative/--video-dir`；且 **49f Full 参考要 10.4 h/4 卡**，本机时段放不下，没有它 LPIPS 无从算 | 0.5 h 改码 + 10.4 h Full + 2.7 h ours |
+| 2 | Hunyuan 13B | `rel=nan` 未定位；且竞品四行（TeaCache/TaylorSeer/RA-Slow/RA-Fast）全空，单跑 ours 补不齐一行 | 1–2 h 定位 + 6 h Full + 1.6 h ours + 4×1.5 h 竞品 |
+
+实测利用率：三个阶段内 4 张卡持续 100%（采样期 8.5 GiB/97 GiB，RA Full 16.9 GiB）；
+唯一的空转是评测那 15 分钟，评测本身跑在 CPU 上，不需要卡。
+两阶段脚本都用「等进程退出再起下一臂」，而不是按臂拆卡——拆卡会让关键路径变长（见 STATUS 决策 7）。
+
+**Cog 的移植注意**（下次别踩）：controller 的 latent 是 `(1, LT, C, PH*2, PW*2)` 布局，
+而 `AutoencoderKLCogVideoX.decode` 要 `(B, C, T, H, W)`，且 **49f/720×480 的 latent 空间是
+60×90**——`FRAMES[49]` 给的 `ph=60, pw=90` 再乘 2 就对不上，必须先写一条 17f 单样本把
+shape 打到日志里确认，再谈批量。Cog 的 VAE 没有 `latents_mean/std`，帧率是 8 fps。
 
 ## 4. 验收标准
 
