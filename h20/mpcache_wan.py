@@ -243,15 +243,24 @@ def main():
     if missing or ne is None:
         tok = AutoTokenizer.from_pretrained(MODEL / 'tokenizer')
         enc = UMT5EncoderModel.from_pretrained(MODEL / 'text_encoder', torch_dtype=torch.bfloat16).cuda().eval()
+
+        def _embed(text, max_len=512):
+            """Must match WanPipeline._get_t5_prompt_embeds exactly: keep the `seq_len`
+            real tokens and zero-pad the rest. Feeding the encoder's activations at the
+            padded positions instead conditions the transformer on garbage (it attends
+            over 500 dead tokens) and the video degenerates to a flat colour."""
+            ti = tok(text, padding='max_length', max_length=max_len, truncation=True,
+                     add_special_tokens=True, return_attention_mask=True, return_tensors='pt')
+            ids, msk = ti.input_ids.cuda(), ti.attention_mask.cuda()
+            n = int(msk.gt(0).sum())
+            h = enc(ids, msk)[0][0, :n].to(torch.bfloat16)
+            return torch.cat([h, h.new_zeros(max_len - n, h.size(1))], dim=0)[None]
+
         with torch.no_grad():
             for pi in missing:
-                ti = tok(PROMPTS[pi], padding='max_length', max_length=512, truncation=True,
-                         return_attention_mask=True, return_tensors='pt')
-                embs[pi] = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.bfloat16)
+                embs[pi] = _embed(PROMPTS[pi])
             if ne is None:
-                ti = tok(a.negative, padding='max_length', max_length=512, truncation=True,
-                         return_attention_mask=True, return_tensors='pt')
-                ne = enc(ti.input_ids.cuda(), ti.attention_mask.cuda())[0].to(torch.bfloat16)
+                ne = _embed(a.negative or '')
         del enc; torch.cuda.empty_cache()
         torch.save({'embs': {str(k): v for k, v in embs.items()}, 'ne': ne}, emb_path)
     print(f'prompts total={len(PROMPTS)} using [{lo},{hi}) -> {hi - lo} prompts', flush=True)
@@ -312,25 +321,31 @@ def main():
 
     @torch.no_grad()
     def model(lat, pe, t):
-        o = d(hidden_states=torch.cat([lat] * 2), encoder_hidden_states=torch.cat([ne, pe]),
+        o = d(hidden_states=torch.cat([lat.to(torch.bfloat16)] * 2),
+              encoder_hidden_states=torch.cat([ne, pe]),
               timestep=t.expand(2), return_dict=False)[0].float()
         u, c = o.chunk(2)
         return lat2tok(u + CFG * (c - u))
 
     def model_both(lat, pe, t):
-        o = d(hidden_states=torch.cat([lat] * 2), encoder_hidden_states=torch.cat([ne, pe]),
+        o = d(hidden_states=torch.cat([lat.to(torch.bfloat16)] * 2),
+              encoder_hidden_states=torch.cat([ne, pe]),
               timestep=t.expand(2), return_dict=False)[0].float()
         u, c = o.chunk(2)
         return lat2tok(u), lat2tok(c)
 
     def step(v, t, lat):
-        return sch.step(tok2lat(v).to(torch.bfloat16), t, lat, return_dict=False)[0]
+        # latents stay float32 like WanPipeline; only the transformer input is bf16.
+        return sch.step(tok2lat(v).float(), t, lat.float(), return_dict=False)[0]
 
     def init(seed):
         sch.set_timesteps(NSTEP, device='cuda')
         g = torch.Generator(device='cuda').manual_seed(seed)
         sig0 = float(getattr(sch, 'init_noise_sigma', 1.0))
-        return torch.randn((1, C, LT, PH, PW), generator=g, device='cuda', dtype=torch.bfloat16) * sig0
+        # float32 draw: WanPipeline.prepare_latents samples in float32, so this is the only
+        # way seed k reproduces the RA/stock initial noise.
+        return (torch.randn((1, C, LT, PH, PW), generator=g, device='cuda',
+                            dtype=torch.float32) * sig0)
 
     lat = init(0)
     print('sanity roundtrip', rel(tok2lat(lat2tok(lat)), lat.float()), flush=True)

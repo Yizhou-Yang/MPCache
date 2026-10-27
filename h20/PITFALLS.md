@@ -231,5 +231,107 @@ git push "https://x-access-token:<PAT>@github.com/Yizhou-Yang/MPCache.git" h20-r
 **临时方案**：用我们自己的 50 步 Full（`--Ns 50`，等价全精确）作为基准，ours 与它比，
 口径自洽；竞品行只能引用 RA 论文发表值，不能与本机复现并表。
 
-**下一台机器要做的**：在同一进程内调用 RA 的 `models.wan.sample` 生成 ours（把 planner
-注入它的 `cache_context`），或反向把它的 patch 移植到我们的 runner，二者必须同源。
+**根因（2026-10-27 已定位，见 P16/P17）**：不是 RA 的 patch，是 **我们自己的两处 bug**——
+文本嵌入未零填充（P16）+ 潜变量用 bf16 累计（P17）。修好后 ours N=50 vs RA Full 降到
+LPIPS 0.030 / PSNR 30.7，属于「同内容、数值路径不同」的正常下限。
+
+---
+
+## P16. 文本嵌入没按真实长度截断并零填充 → Wan 出纯色视频（已修，最阴）
+
+**症状**：ours 的 Wan 视频是**一整块深蓝色渐变**（frame mean 41 / std 34），与 RA 同 prompt
+的 LPIPS 0.89–0.98、PSNR 9.4。但 `rel`（自比自）一切正常（N=13 vs N=50 约 0.11–0.16），
+所以这个 bug 活了很久，直到把帧导出来看了一眼才发现。
+
+**根因**：runner 直接把 `UMT5EncoderModel(...)[0]` 整段（512 token）喂给 transformer，
+其中 483 个是 padding 位的激活——不是零。transformer 的 cross-attention 把这几百个
+"死 token" 一起 attend，条件信号被稀释，输出退化成常量。
+diffusers 的 `WanPipeline._get_t5_prompt_embeds` 做的是「**截到 `seq_len` 个真实 token，
+其余补 0**」。
+
+**验证**（同一进程、同权重、同 prompt）：
+
+| 版本 | pos rel | neg rel | std (pos/neg) |
+|---|---:|---:|---|
+| 未零填充 | 4.2003 | 28.6229 | 0.074 / 0.082 |
+| 零填充后 | **0.00000** | **0.00000** | 0.017 / 0.003 |
+
+修好后首帧 mean/std 从 40.8/34.2 变成 114.8/79.7（官方管线 113.1/78.8），画面就是 prompt 的
+那个电话亭。
+
+**修复**：`mpcache_wan.py` 的 `_embed()`：
+
+```python
+ti = tok(text, padding='max_length', max_length=max_len, truncation=True,
+         add_special_tokens=True, return_attention_mask=True, return_tensors='pt')
+ids, msk = ti.input_ids.cuda(), ti.attention_mask.cuda()
+n = int(msk.gt(0).sum())
+h = enc(ids, msk)[0][0, :n].to(torch.bfloat16)
+emb = torch.cat([h, h.new_zeros(max_len - n, h.size(1))], dim=0)[None]
+```
+
+**注意**：改完必须删掉旧的 `embeddings_*.pt` 缓存，否则继续读坏嵌入、表现和没修一样。
+CogVideoX 的官方 `encode_prompt` 不零填充（保留 226 个位置的激活），controller 里那段
+**不要**照抄这个改法。
+
+---
+
+## P17. 潜变量用 bf16 累计 → 与官方 50 步全精确差 LPIPS 0.09
+
+**症状**：修完 P16 后，ours `--Ns 50`（全精确）对 RA Full 仍只有 LPIPS 0.089 / PSNR 25.5。
+**根因**：runner 的 latents 一直用 bf16 保存并过 scheduler；`WanPipeline` 用 **float32** 保存
+latents，只在喂 transformer 前 `.to(bf16)`。50 步累积下来是肉眼可见的漂移。
+**修复**：latents 全程 float32，模型输入 cast bf16：
+
+```python
+lat = init(seed)                       # float32 randn * init_noise_sigma
+o = d(hidden_states=torch.cat([lat.to(torch.bfloat16)] * 2), ...)
+lat = sch.step(tok2lat(v).float(), t, lat.float(), return_dict=False)[0]
+```
+
+**效果**：ours N=50 vs RA Full：LPIPS 0.089 → **0.030**，PSNR 25.5 → **30.7**
+（对纯 diffusers 管线是 0.021 / 31.8）。剩下的 0.03 是跨实现的数值下限，
+方法效应 0.09–0.14 仍能分辨，但**报数时要写清楚这一层底噪**。
+
+---
+
+## P18. cuBLAS 12.4.5.8 会被后面任意一条 pip 静默降级 → RA 四卡全 SIGFPE
+
+**症状**：`bash RUN/demo_wan.sh --gpus 0,1,2,3` 启动 90 s 后四个卡一起
+`[ERROR] Process on GPU 0 exited with code -8`，无 traceback、无 OOM。
+**根因**：P1 的修复装的是 `nvidia-cublas-cu12==12.4.5.8`，但之后 `pip install lpips`
+会重算 torch 的依赖树，把 cublas 拉回 `12.1.3.1`。`pip list` 一查就露馅。
+**修复**：**cublas 必须是最后一条 pip**；装完立刻两条自检：
+
+```bash
+/root/miniconda3/envs/racfg/bin/pip list | grep -i cublas         # 必须是 12.4.5.8
+# 三个必崩形状：M=2,K=1536,N=9216 / M=1,K=768,N=3072 / M=1,K=3072,N=18432
+```
+
+`h20/bootstrap_h20.sh` 已按这个顺序固定下来（step 4 最后一步），不要再往它后面追加 pip。
+
+---
+
+## P19. Wan 81 帧必须显式 `--frames 81`
+
+`mpcache_wan.py` 的 `--frames` 默认 **33**。命令里漏掉它不会报错，只会安静地生成 33 帧视频，
+LPIPS 照样能算出来，但和 RA 的 81 帧参考不可比（帧对齐后仍差一截）。
+`TODO_MAIN_TABLE.md` 里最初的 ex1 命令就漏了这个参数。凡是 81 帧的臂，命令检查表里必须有
+`--frames 81`。
+
+---
+
+## P20. `scripts/eval.py` 不存在（旧机临时脚本，随机器回收）
+
+RA 公开仓库里只有 `evaluation/eval_video.py` 与 `evaluation/evaluate.py`。主表口径直接用
+`repro/metrics.py`：lpips(alex) + skimage SSIM/PSNR，按 `video_%06d.mp4` 配对，
+`--max-frames 0` 表示全帧（与 RA 的 eval 一致）。不要再去 `/root/RA-CFGCache/scripts/` 找。
+
+---
+
+## P21. 机器回收后参考视频不会自己回来（4.2 GB，不在 git 里）
+
+`h20-run` 分支只有 metadata（1.2 MB），没有 mp4。每次换机要算 LPIPS 就必须重跑
+RA Full（4 卡 100 prompt × 50 步 ≈ 2.2 h），否则只能拿 ours 自比自。
+**下次的开机顺序**：`bootstrap_h20.sh` → `queue_wan.sh`（ex1 → tea_gap → full → eval）→
+再决定是否补 RA Full。想省这 2.2 h 就把 `results/ra_wan/*/videos` 传对象存储。
