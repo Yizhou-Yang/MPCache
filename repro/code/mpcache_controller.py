@@ -40,16 +40,30 @@ W1 = 0.3
 PGATE = 0.02
 BIAS = False
 KAPPA_AGE = 0.0
-PROMPTS = [
-    'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
-    'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
-    'A brown bear walks along a river bank in a dense forest, realistic wildlife documentary.',
-    'A panda eats bamboo while sitting in a lush green bamboo forest, close-up.',
-    'Fireworks explode over a city skyline at night, reflections in the river.',
-    'A cat stretches and yawns on a sunny windowsill, soft natural light.',
-    'A surfer rides a large ocean wave, spray in the air, aerial drone shot.',
-    'A horse gallops across an open meadow at golden hour, dramatic lighting.',
-]
+TWOTAP = False
+R_CLIP = 0.0
+AUTO_BASE = False
+import os as _os
+_PROMPT_FILE = Path(_os.environ.get("MPCACHE_PROMPTS", "/root/viewdit/resources/prompts/prompt_video.txt"))
+
+def _load_prompts():
+    """Exact prompt list used by the caching baselines (RA-CFGCache / FasterCache set)."""
+    if _PROMPT_FILE.exists():
+        items = [l.strip() for l in _PROMPT_FILE.read_text().splitlines() if l.strip()]
+        if items:
+            return items
+    return [
+        'A white swan swims slowly across a calm blue pond, gentle ripples follow the swan, steady camera, realistic wildlife footage.',
+        'A red bus drives slowly along a city street, buildings in the background, steady camera, realistic footage.',
+        'A brown bear walks along a river bank in a dense forest, realistic wildlife footage.',
+        'A panda eats bamboo while sitting in a lush green bamboo forest, close-up, realistic footage.',
+        'Fireworks explode over a city skyline at night, reflections in the river, wide shot.',
+        'A train crosses a tall bridge over a deep valley at sunrise, aerial view.',
+        'A cat plays with a ball of yarn on a wooden floor, warm indoor lighting.',
+        'A chef flips a pancake in a bright kitchen, slow motion.',
+    ]
+
+PROMPTS = _load_prompts()
 
 FRAMES = {17: dict(lt=5, ph=30, pw=45, steps=30), 49: dict(lt=13, ph=60, pw=90, steps=50)}
 MAX_GAP = 4
@@ -88,6 +102,10 @@ class StateModel:
         self.Sde = torch.zeros(64, device='cuda', dtype=torch.float64)
         self.G = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
         self.Se = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Spp = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Spe = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.Sdp = torch.zeros(64, device='cuda', dtype=torch.float64)
+        self.d_prev = None
         self.Sw = 0.0
         self.R = torch.zeros(64, 64, device='cuda', dtype=torch.float64)
         self.n = 0
@@ -103,6 +121,10 @@ class StateModel:
             return (d.double() @ A).float()
         a = (self.Sde / ((1 + LAM_D) * self.Sdd + 1e-12)).clamp(-ACLIP, ACLIP)
         out = d * a.float()
+        if TWOTAP and self.Spp is not None and float(self.Spp.sum()) > 1e-9:
+            b = (self.Spe / ((1 + LAM_D) * self.Spp + 1e-12)).clamp(-ACLIP, ACLIP)
+            if self.d_prev is not None:
+                out = out + self.d_prev.float() * b.float()
         if BIAS and self.Sw > 1e-9:
             out = out + (self.Se / self.Sw).float().expand_as(out)
         return out
@@ -125,6 +147,12 @@ class StateModel:
         dd, ee = d.double(), e.double()
         self.Sdd = GAMMA * self.Sdd + (dd * dd).sum(0)
         self.Se = GAMMA * self.Se + ee.mean(0)
+        if self.d_prev is not None and TWOTAP:
+            dp = self.d_prev.double()
+            self.Spp = GAMMA * self.Spp + (dp * dp).sum(0)
+            self.Spe = GAMMA * self.Spe + (dp * ee).sum(0)
+            self.Sdp = GAMMA * self.Sdp + (dd * dp).sum(0)
+        self.d_prev = dd.clone()
         self.Sw = GAMMA * self.Sw + 1.0
         self.Sde = GAMMA * self.Sde + (dd * ee).sum(0)
         self.G = GAMMA * self.G + dd.T @ dd
@@ -141,6 +169,8 @@ def main():
     ap.add_argument('--seeds', default='3000,3001')
     ap.add_argument('--nprompt', type=int, default=8)
     ap.add_argument('--prompt-offset', type=int, default=0)
+    ap.add_argument('--seed-from-prompt', action='store_true',
+                    help='use seed == global prompt index (RA-CFGCache semantics of --seed 0)')
     ap.add_argument('--Ns', default='10,13,17')
     ap.add_argument('--planners', default='reuse,ex1,tea_mp,mpc,mpc_reuse')
     ap.add_argument('--out', default=str(ROOT / 'results/video/mpc_20261020'))
@@ -154,6 +184,10 @@ def main():
     ap.add_argument('--rls-gamma', type=float, default=0.5)
     ap.add_argument('--bias', type=int, default=0)
     ap.add_argument('--kappa-age', type=float, default=0.0)
+    ap.add_argument('--twotap', type=int, default=0)
+    ap.add_argument('--r-clip', type=float, default=0.0)
+    ap.add_argument('--auto-base', type=int, default=0,
+                    help='on a uniform schedule use pure temporal extrapolation (provably right for a linear field)')
     ap.add_argument('--pgate', type=float, default=0.02)
     ap.add_argument('--gamma', type=float, default=0.6, help='budget pacing exponent: quota_i = N*((i+1)/T)**gamma')
     ap.add_argument('--sanity', action='store_true')
@@ -164,7 +198,7 @@ def main():
     LT, PH, PW, NSTEP = cfgf['lt'], cfgf['ph'], cfgf['pw'], cfgf['steps']
     MAX_GAP = a.max_gap
     GAMMA_PACE = a.gamma
-    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, PGATE
+    global MODEL_KIND, GATE_AGE, TRUST, KAPPA, W1, GAMMA, BIAS, KAPPA_AGE, TWOTAP, R_CLIP, PGATE
     MODEL_KIND = a.model_kind
     GATE_AGE = a.gate_age
     TRUST = a.trust
@@ -173,6 +207,9 @@ def main():
     GAMMA = a.rls_gamma
     BIAS = bool(a.bias)
     KAPPA_AGE = a.kappa_age
+    TWOTAP = bool(a.twotap)
+    R_CLIP = a.r_clip
+    AUTO_BASE = bool(a.auto_base)
     PGATE = a.pgate
     RESERVE = a.reserve_last
 
@@ -306,6 +343,10 @@ def main():
             H, sm, nfe, spent = [], StateModel(MODEL_KIND if op in ('mp_reuse', 'tea_gap', 'tea_gap1') else 'diag', _bm, _in), 0, 0
             DEFER = [False]
             sm_u = StateModel('diag')
+            tok_hist = []
+            pt_err = None
+            pt_prev = None
+            ema3 = [None, None, None]   # reuse, ex1, model
             sm_c = StateModel('diag')
             lam, seen = None, []
             acc, theta, ema = 0.0, None, None
@@ -313,6 +354,11 @@ def main():
             W = {'reuse': 1.0, 'ex1': 1.0, 'model': 1.0}
             ETA_MIX = 1.0
             Sset = set(tea[N]) if op not in ('mpc', 'mpc_th_in', 'mpc_th_md', 'peak', 'dp') else None
+            UNIFORM_SCHED = False
+            if AUTO_BASE and Sset:
+                _gs = sorted(Sset)
+                _gaps = [_gs[j] - _gs[j-1] for j in range(1, len(_gs))]
+                UNIFORM_SCHED = (len(set(_gaps)) == 1)
             chosen = []
             def experts(i, x):
                 s_, sp_ = H[-1], H[-2]
@@ -399,7 +445,8 @@ def main():
                             sc = float((x - s['x']).norm()) / (float(s['x'].norm()) + 1e-9)
                         else:
                             dvec = (x - s['x']) - rt * (s['x'] - sp['x'])
-                            v_ex1 = s['v'] + rt * (s['v'] - sp['v'])
+                            rt_eff = min(rt, R_CLIP) if R_CLIP > 0 else rt
+                            v_ex1 = s['v'] + rt_eff * (s['v'] - sp['v'])
                             corr = sm.forecast(v_ex1, s['v'], dvec) - v_ex1
                             sc = float(corr.norm()) if sm.n else float((v_ex1 - s['v']).norm())
                         # normalise by a running mean so that the accumulated score has unit
@@ -429,7 +476,8 @@ def main():
                         s, sp = H[-1], H[-2]
                         rt = (i - s['i']) / (s['i'] - sp['i'])
                         dvec = (x - s['x']) - rt * (s['x'] - sp['x'])
-                        v_ex1 = s['v'] + rt * (s['v'] - sp['v'])
+                        rt_eff = min(rt, R_CLIP) if R_CLIP > 0 else rt
+                        v_ex1 = s['v'] + rt_eff * (s['v'] - sp['v'])
                         g = (NSTEP - i) / NSTEP
                         base = float((v_ex1 - s['v']).norm())
                         if op == 'mpc_in':
@@ -508,6 +556,24 @@ def main():
                         c_ex1_k = k1b['c'] + rt_b * (k1b['c'] - k2b['c'])
                         sm_u.observe(d_b, u_t - u_ex1_k, u_ex1_k, k1b['u'])
                         sm_c.observe(d_b, c_t - c_ex1_k, c_ex1_k, k1b['c'])
+                    if op in ('tea_auto', 'tea_ratio') and len(H) >= 2:
+                        k1a, k2a = H[-1], H[-2]
+                        rt_a = (i - k1a['i']) / (k1a['i'] - k2a['i'])
+                        v1_, v2_ = k1a['v'], k2a['v']
+                        ex_ = v1_ + rt_a * (v1_ - v2_)
+                        d_a = (x - k1a['x']) - rt_a * (k1a['x'] - k2a['x'])
+                        fm_ = sm.forecast(ex_, v1_, d_a) if sm.n >= 2 else ex_
+                        for j, cand in enumerate((v1_, ex_, fm_)):
+                            e_ = float((v - cand).norm()) / (float(v.norm()) + 1e-12)
+                            ema3[j] = e_ if ema3[j] is None else 0.7 * ema3[j] + 0.3 * e_
+                    if op == 'tea_pt' and pt_prev is not None:
+                        e_i = (v - pt_prev).norm(dim=-1, keepdim=True)
+                        pt_err = e_i if pt_err is None else 0.7 * pt_err + 0.3 * e_i
+                        pt_prev = None
+                    if op in ('tea_tok', 'tea_curv'):
+                        tok_hist.append(v.detach().float().clone())
+                        if len(tok_hist) > 3:
+                            tok_hist.pop(0)
                     ent = dict(i=i, x=x, v=v)
                     if op == 'tea_branch':
                         ent['u'], ent['c'] = u_t, c_t
@@ -519,8 +585,59 @@ def main():
                     else:
                         sp = H[-2]
                         rt = (i - s['i']) / (s['i'] - sp['i'])
-                        v_ex1 = s['v'] + rt * (s['v'] - sp['v'])
-                        if op == 'tea_branch':
+                        rt_eff = min(rt, R_CLIP) if R_CLIP > 0 else rt
+                        v_ex1 = s['v'] + rt_eff * (s['v'] - sp['v'])
+                        if op == 'tea_ratio':
+                            if sm.n >= 2 and all(e is not None for e in ema3):
+                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                beta_dyn = max(0.0, min(1.0, 1.0 - ema3[2] / (ema3[1] + 1e-12)))
+                                v = v_ex1 + beta_dyn * (f_ - v_ex1)
+                            else:
+                                v = v_ex1 if sm.n >= 2 else s['v']
+                        elif op == 'tea_auto':
+                            if (i - s['i']) >= 1 and sm.n >= 2 and all(e is not None for e in ema3):
+                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                cands = (s['v'], v_ex1, f_)
+                                v = cands[int(min(range(3), key=lambda j: ema3[j]))]
+                            else:
+                                v = v_ex1 if sm.n >= 2 else s['v']
+                        elif op == 'tea_pt':
+                            if (i - s['i']) >= GATE_AGE and sm.n >= 2 and pt_err is not None:
+                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                hot = (pt_err > pt_err.median()).expand_as(f_)
+                                v = torch.where(hot, f_, s['v'])
+                                pt_prev = v.detach().clone()
+                            else:
+                                v = s['v']
+                                pt_prev = v.detach().clone()
+                        elif op == 'tea_curv':
+                            if (i - s['i']) >= GATE_AGE and sm.n >= 2 and len(tok_hist) >= 3:
+                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                y1, y2, y3 = tok_hist[-1], tok_hist[-2], tok_hist[-3]
+                                vel = (y1 - y2)
+                                acc = (y1 - 2 * y2 + y3)
+                                kap = acc.norm(dim=-1) / (vel.norm(dim=-1) ** 2 + 1e-6)
+                                thr = kap.median()
+                                hot = (kap > thr).unsqueeze(-1)
+                                # stable tokens: reuse; chaotic tokens: damped mix of
+                                # extrapolation and model correction (WorldCache-style)
+                                damp = 0.5 * v_ex1 + 0.5 * f_
+                                v = torch.where(hot, damp, s['v'])
+                            else:
+                                v = s['v']
+                        elif op == 'tea_tok':
+                            if (i - s['i']) >= GATE_AGE and sm.n >= 2 and len(tok_hist) >= 3:
+                                f_ = sm.forecast(v_ex1, s['v'], dvec)
+                                y1, y2, y3 = tok_hist[-1], tok_hist[-2], tok_hist[-3]
+                                vel = (y1 - y2)
+                                acc = (y1 - 2 * y2 + y3)
+                                kap = acc.norm(dim=-1) / (vel.norm(dim=-1) ** 2 + 1e-6)
+                                thr = kap.median()
+                                mask = (kap > thr).unsqueeze(-1)
+                                v = torch.where(mask, f_, s['v'])
+                            else:
+                                v = s['v']
+                        elif op == 'tea_branch':
                             if (i - s['i']) >= GATE_AGE and sm_u.n >= 2:
                                 u_ex1 = s['u'] + rt * (s['u'] - sp['u'])
                                 c_ex1 = s['c'] + rt * (s['c'] - sp['c'])
@@ -531,7 +648,9 @@ def main():
                                 v = s['v']
                         elif op in ('tea_gap', 'tea_gap1'):
                             age_ = i - s['i']
-                            if age_ >= GATE_AGE and sm.n >= 2:
+                            if AUTO_BASE and UNIFORM_SCHED:
+                                v = v_ex1 if sm.n >= 2 else s['v']
+                            elif age_ >= GATE_AGE and sm.n >= 2:
                                 f_ = sm.forecast(v_ex1, s['v'], dvec, age=age_)
                                 v = v_ex1 + TRUST * (f_ - v_ex1) if TRUST >= 0 else f_
                             else:
@@ -578,9 +697,11 @@ def main():
                 print(f'    [model] n={sm.n} beta={sm.beta:.3f} log_tail={[(round(a,2),round(b,2)) for a,b in sm.log[-3:]]}', flush=True)
             return lat, nfe, chosen
 
-    for seed in seeds:
+    for seed in (seeds[:1] if a.seed_from_prompt else seeds):
         for pi_ in range(a.nprompt):
             pi = pi_ + a.prompt_offset
+            if a.seed_from_prompt:
+                seed = pi
             if all((pi, seed, N, op) in done for N in Ns for op in planners):
                 continue
             pe = embs[pi]
