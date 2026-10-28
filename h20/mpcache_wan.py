@@ -156,6 +156,29 @@ class StateModel:
         self.n += 1
 
 
+DAMP = 1.0
+FEATRES = False
+_FR = {}
+RESET_HIST = False
+
+
+def _fr_forward(tf, x, t, pe, residual):
+    bs, nc, nf, h, w = x.shape
+    p_t, p_h, p_w = tf.config.patch_size
+    ppf, pph, ppw = nf // p_t, h // p_h, w // p_w
+    hs = tf.patch_embedding(x)
+    hs = hs.flatten(2).transpose(1, 2)
+    temb, tproj, enc, encimg = tf.condition_embedder(t, pe, None)
+    hs = hs + residual
+    shift, scale = (tf.scale_shift_table.to(hs.device) + temb.unsqueeze(1)).chunk(2, dim=1)
+    shift = shift.to(hs.device); scale = scale.to(hs.device)
+    hs = (tf.norm_out(hs.float()) * (1 + scale) + shift).type_as(hs)
+    hs = tf.proj_out(hs)
+    hs = hs.reshape(bs, ppf, pph, ppw, p_t, p_h, p_w, -1)
+    hs = hs.permute(0, 7, 1, 4, 2, 5, 3, 6)
+    return hs.flatten(6, 7).flatten(4, 5).flatten(2, 3)
+
+
 def main():
     from diffusers import WanTransformer3DModel, UniPCMultistepScheduler, FlowMatchEulerDiscreteScheduler
     from transformers import AutoTokenizer, UMT5EncoderModel
@@ -163,6 +186,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--frames', type=int, default=33, choices=[33, 81])
     ap.add_argument('--warmup', type=int, default=3, help='always evaluate the first K steps')
+    ap.add_argument('--damp', type=float, default=1.0)
+    ap.add_argument('--feat-res', type=int, default=0)
+    ap.add_argument('--reset-history', type=int, default=0)
     ap.add_argument('--seeds', default='3000,3001')
     ap.add_argument('--nprompt', type=int, default=8)
     ap.add_argument('--prompt-offset', type=int, default=0)
@@ -199,6 +225,11 @@ def main():
                          'kappa=||a||/||v||^2 above this quantile (0..1); <0 disables')
     ap.add_argument('--sanity', action='store_true')
     a = ap.parse_args()
+    global DAMP, RESET_HIST, FEATRES
+    DAMP = float(a.damp)
+    RESET_HIST = bool(a.reset_history)
+    FEATRES = bool(a.feat_res)
+    print(f'[cfg] warmup={a.warmup} damp={DAMP} sched={a.sched} solver={a.solver} frames={a.frames}', flush=True)
 
     global LT, PH, PW, NSTEP, MAX_GAP, GAMMA_PACE, RESERVE
     cfgf = FRAMES[a.frames]
@@ -267,6 +298,16 @@ def main():
     print(f'prompts total={len(PROMPTS)} using [{lo},{hi}) -> {hi - lo} prompts', flush=True)
 
     d = WanTransformer3DModel.from_pretrained(MODEL / 'transformer', torch_dtype=torch.bfloat16).cuda().eval().requires_grad_(False)
+    if FEATRES:
+        def _cap_pre(mod, inp):
+            _FR['base'] = inp[0].detach() if inp else None
+        def _cap_post(mod, inp, out):
+            y = out[0] if isinstance(out, (tuple, list)) else out
+            if _FR.get('base') is not None:
+                _FR['res'] = (y.detach() - _FR['base'])
+        d.blocks[0].register_forward_pre_hook(_cap_pre)
+        d.blocks[-1].register_forward_hook(_cap_post)
+        print('[fr] hooks installed', flush=True)
 
     # cuBLAS 12.4 still SIGFPEs on the timestep branch (M=2, K=1536, N=9216) in bf16.
     # That branch is tiny; run it in fp32 and cast back, leaving the rest bf16 so our
@@ -389,8 +430,7 @@ def main():
         S = set(S) | forced | {nstep - 1}
         while len(S) > N:
             cands = [j for j in sorted(S) if j not in forced and j != nstep - 1]
-            if not cands:
-                break
+            if not cands: break
             S.discard(cands[len(cands) // 2])
         return sorted(S)
     tea = {N: _enforce_warmup(v, N, a.warmup, NSTEP) for N, v in tea.items()}
@@ -608,6 +648,9 @@ def main():
                         nfe += 1; spent += 1
                     else:
                         v = model(lat, pe, tt); nfe += 1; spent += 1
+                        if RESET_HIST and hasattr(sch, 'model_outputs'):
+                            sch.model_outputs = [None] * len(sch.model_outputs)
+                            sch.lower_order_nums = 0
                     if op == 'mix' and len(H) >= 2:
                         e_, _, _ = experts(i, x)
                         g_ = (NSTEP - i) / NSTEP          # remaining-horizon weight: early errors propagate further
@@ -641,7 +684,7 @@ def main():
                         c_ex1_k = k1b['c'] + rt_b * (k1b['c'] - k2b['c'])
                         sm_u.observe(d_b, u_t - u_ex1_k, u_ex1_k, k1b['u'])
                         sm_c.observe(d_b, c_t - c_ex1_k, c_ex1_k, k1b['c'])
-                    ent = dict(i=i, x=x, v=v)
+                    ent = dict(i=i, x=x, v=v, l=lat.detach().clone())
                     if op == 'tea_branch':
                         ent['u'], ent['c'] = u_t, c_t
                     H = (H + [ent])[-2:]
@@ -718,8 +761,57 @@ def main():
                             v = e_[max(W, key=W.get)]
                         elif op in ('reuse', 'mpc_reuse', 'mpc_in', 'mpc_tm', 'mpc_md', 'mpc_th_in', 'mpc_th_md', 'mp_reuse', 'peak', 'dp', 'tea_gap', 'tea_gap1', 'tea_ex', 'tea_ex2', 'tea_swap', 'tea_mix', 'tea_pgate'):
                             v = s['v']
+                        elif op == 'cr':
+                            dvec = (x - s['x']) - rt * (s['x'] - sp['x'])
+                            v = sm.forecast(s['v'], s['v'], dvec) if sm.n >= 2 else s['v']
+                        elif op == 'fr':
+                            if _FR.get('res') is not None:
+                                _x2 = torch.cat([lat, lat])
+                                _o = _fr_forward(d, _x2.to(torch.bfloat16), tt.expand(2),
+                                                 torch.cat([ne, pe]), _FR['res'])
+                                _u, _c = _o.chunk(2)
+                                v = lat2tok(_u + CFG * (_c - _u))
+                            else:
+                                v = s['v']
+                        elif op == 'frg':
+                            if _FR.get('res') is not None:
+                                _x2 = torch.cat([lat, lat])
+                                _o = _fr_forward(d, _x2.to(torch.bfloat16), tt.expand(2),
+                                                 torch.cat([ne, pe]), _FR['res'])
+                                _u, _c = _o.chunk(2)
+                                _v0 = lat2tok(_u + CFG * (_c - _u))
+                                _dv = (x - s['x']) - rt * (s['x'] - sp['x'])
+                                v = sm.forecast(_v0, _v0, _dv) if sm.n >= 2 else _v0
+                            else:
+                                v = s['v']
+                        elif op == 'tg':
+                            dvec = (x - s['x']) - rt * (s['x'] - sp['x'])
+                            f_ = sm.forecast(v_ex1, s['v'], dvec)
+                            delta = s['v'] - sp['v']
+                            g_ = delta.norm(dim=-1, keepdim=True)
+                            g_ = (g_ / (g_.mean() + 1e-9)).clamp(0.5, 2.0)
+                            v = s['v'] + g_ * (f_ - s['v'])
+                        elif op == 'inv':
+                            import copy as _copy
+                            r_ = (i - s['i']) / max(1, (s['i'] - sp['i']))
+                            x_star = s['l'] + r_ * (s['l'] - sp['l'])
+                            m0 = tok2lat(s['v'])
+                            s2 = _copy.deepcopy(sch); p1 = s2.step(m0, tt, lat.float(), return_dict=False)[0]
+                            s3 = _copy.deepcopy(sch); p2 = s3.step(torch.zeros_like(m0), tt, lat.float(), return_dict=False)[0]
+                            den = (p1 - p2)
+                            safe = den.abs() > (0.05 * den.abs().mean() + 1e-9)
+                            m_star = torch.where(safe, m0 * (x_star.float() - p2) / (den + torch.sign(den) * 1e-9), m0)
+                            lat = sch.step(m_star, tt, lat.float(), return_dict=False)[0]
+                            continue
+                        elif op == 'lx':
+                            r_ = (i - s['i']) / max(1, (s['i'] - sp['i']))
+                            lat = s['l'] + r_ * (s['l'] - sp['l'])
+                            if hasattr(sch, '_step_index'):
+                                sch._step_index = i + 1
+                            nfe += 0
+                            continue
                         elif op == 'ex1':
-                            v = v_ex1
+                            v = s['v'] + DAMP * (v_ex1 - s['v']) if DAMP != 1.0 else v_ex1
                         else:
                             dvec = (x - s['x']) - rt * (s['x'] - sp['x'])
                             if sm.innov_norm == 'r' and rt > 1e-6:
