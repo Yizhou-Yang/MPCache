@@ -389,3 +389,22 @@ hidden_states = cfg_base_hidden_states + previous_residual  # 加回上一步全
 **当前状态**：`fr` op 已回退为 `tea_gap` 路径（安全），`--feat-res` 仅保留脚手架。下一次分配若要做，应按“复制 forward 并替换 blocks 循环”的方式重写，预计 3–4 小时。
 
 **教训（再次）**：任何新 op 如果与对照**逐位相同**，先假定没接上；本次两次踩到（hook 未注册、引号被 shell 吞掉导致语法错误）。
+
+## P29 · 2026-10-28 晚 · 隐藏层残差跑通 + 三个结论
+
+**实现**：`_fr_forward()` 完整复制 WanTransformer3DModel.forward（patch_embed → 条件嵌入 → **blocks 替换为 `x + residual`** → norm_out → proj_out → unpatchify）。hooks 在 `d.blocks[0]` 前、`d.blocks[-1]` 后捕获 base 与残差。
+
+**结果（N=19，prompts 0-5，对 RA Full）**：
+
+| 臂 | LPIPS |
+|---|---:|
+| `fr`（残差重建） | 0.1458 |
+| `frg`（残差 + 我们的对角修正） | 0.1594 |
+| `tg`（我们的 tea_gap） | **0.1244** |
+
+**三个结论**：
+1. 残差重建**跑通了**（不再崩），但在这 6 个 prompt 上**不如我们的 tea_gap**；
+2. 把我们的修正**叠加**到残差重建上反而更差（0.159）——两种重建的误差结构不同，修正方向不兼容；
+3. 单 prompt 上 `tea_gap` 最好（p0: 0.079 vs fr 0.106），但 100-prompt 均值我们更差（0.169 vs RA 0.094）→ **差距在难 prompt 的尾部**，不在典型样本。
+
+**下一步**：要让残差重建在难 prompt 上体现优势，并找出与 tea_gap 的**分工条件**（例如按预测误差选择用哪种重建），这本身就是一个可发表的“控制器选择重建器”的贡献。

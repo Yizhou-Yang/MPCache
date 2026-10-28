@@ -781,7 +781,7 @@ def main():
                                 _u, _c = _o.chunk(2)
                                 _v0 = lat2tok(_u + CFG * (_c - _u))
                                 _dv = (x - s['x']) - rt * (s['x'] - sp['x'])
-                                v = sm.forecast(_v0, _v0, _dv) if sm.n >= 2 else _v0
+                                v = _v0 + sm.correction(_dv) if sm.n >= 2 else _v0
                             else:
                                 v = s['v']
                         elif op == 'tg':
