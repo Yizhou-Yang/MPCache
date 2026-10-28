@@ -335,3 +335,40 @@ RA 公开仓库里只有 `evaluation/eval_video.py` 与 `evaluation/evaluate.py`
 RA Full（4 卡 100 prompt × 50 步 ≈ 2.2 h），否则只能拿 ours 自比自。
 **下次的开机顺序**：`bootstrap_h20.sh` → `queue_wan.sh`（ex1 → tea_gap → full → eval）→
 再决定是否补 RA Full。想省这 2.2 h 就把 `results/ra_wan/*/videos` 传对象存储。
+
+## P22 · 2026-10-28 · 我们自己的三处 Cog/Wan 管线 bug
+
+1. **Cog 缺视频导出** → 只能拿到潜变量 rel，无法算 LPIPS。已在 `mpcache_controller.py` 补 `--save-video`（VAE 解码 + 8fps）。
+2. **初始化噪声张量布局错**：官方是 `[B,C,T,H,W]`，我们是 `[B,T,C,H,W]`。同 seed 得到完全不同的噪声 → 内容不同的视频。已改为按官方布局采样再 permute。
+3. **文本嵌入未按 attention mask 清零 padding**（与 Wan 的 P16 同源）。已改为 `embeds * mask`。
+
+**仍然未解决**：修完这三处后，我们的 Cog 30 步全量 vs 官方 `CogVideoXPipeline` 30 步仍是 **LPIPS 0.674**。
+说明还有更深层不一致（模型调用约定 / 调度器 / VAE 缩放）。**在解决前，Cog 的 LPIPS 不能与 RA 的数字同表比较**。
+
+Wan 管线是对的：我们 full vs RA full = **0.035**，可同表比较。
+
+## P23 · 2026-10-28 · RA 的重建机制与我们差在哪（读源码得到）
+
+Wan 上 RA 跳过一步时：
+
+```python
+cfg_base_hidden_states = hidden_states.detach()          # 当前 latent 的嵌入（便宜，不跑 blocks）
+hidden_states = cfg_base_hidden_states + previous_residual  # 加回上一步全量的残差
+```
+
+- 基座**跟着当前输入走**（每次重新嵌入当前 latent），残差是**逐 token 的高维张量**；
+- 我们：基座是**冻结的输出外推**，修正是 **64 参数的全局对角模型**。
+
+这解释了我们落后约 0.07 LPIPS。**注意：直接照搬“嵌入+残差”等于采用竞品机制**，需要独立的重建原则。
+
+## P24 · 2026-10-28 · 调度构造的两个坑
+
+- warmup 后**从中间删步**保持预算 → 造出 8 步大间隔，LPIPS 从 0.12 掉到 0.74；
+- 用 sigma 相对变化率驱动调度 → `|S|=15`（预算没凑够）且间隔 15 步。
+
+结论：高噪声段必须密（1,1,1,2,3…），不能均匀。目前实测最好的构造是“保留 dense head + 中间删步”，prompt 0 上 0.120。
+
+## P25 · 2026-10-28 · 后台任务存活
+
+`setsid nohup` 不足以保证长任务存活：昨晚 14h 流水线启动即死、评测脚本只完成第一个臂。
+**对策**：每步一个短任务 + 30 秒后二次确认 `pgrep`；不要把多阶段串在一个 bash 里。
