@@ -372,3 +372,20 @@ hidden_states = cfg_base_hidden_states + previous_residual  # 加回上一步全
 
 `setsid nohup` 不足以保证长任务存活：昨晚 14h 流水线启动即死、评测脚本只完成第一个臂。
 **对策**：每步一个短任务 + 30 秒后二次确认 `pgrep`；不要把多阶段串在一个 bash 里。
+
+## P28 · 2026-10-28 · 隐藏层残差（feat-res）实现尝试
+
+**目标**：复现“嵌入(当前输入) + 上一步隐藏层残差”的重建方式（RA 的核心，见 P23）。
+
+**已实现**：
+- `d.blocks[0]` 前置 hook 捕获 blocks 的输入（`base`），`d.blocks[-1]` 后置 hook 捕获输出，残差 = out − base；
+- `--feat-res 1` + op `fr` 尝试“blocks 替换为 `x + residual` 后只跑 embed/norm/proj”。
+
+**结果**：hook 正常捕获（打印确认 `keys=['base','res']`），但跳过时的重建调用与我们的 latent/token 布局不匹配：
+`RuntimeError: shape '[1,16,21,30,2,52,2]' is invalid for input of size 4193280`。
+
+**结论**：feat-res 需要重写整个 forward（patch_embed → rope → blocks → norm_out → proj_out），不能只靠“替换 blocks 的 forward”绕过——因为模型内部的 rope/condition 嵌入与我们的布局转换是耦合的。
+
+**当前状态**：`fr` op 已回退为 `tea_gap` 路径（安全），`--feat-res` 仅保留脚手架。下一次分配若要做，应按“复制 forward 并替换 blocks 循环”的方式重写，预计 3–4 小时。
+
+**教训（再次）**：任何新 op 如果与对照**逐位相同**，先假定没接上；本次两次踩到（hook 未注册、引号被 shell 吞掉导致语法错误）。
