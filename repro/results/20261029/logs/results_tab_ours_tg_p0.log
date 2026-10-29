@@ -1,0 +1,2 @@
+[prompts] 100 from /root/viewdit/resources/prompts/prompt_video.txt
+[cfg] warmup=3 damp=1.0 sched=uniform solver=unipc frames=81

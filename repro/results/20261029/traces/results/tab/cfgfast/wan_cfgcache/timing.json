@@ -1,0 +1,9 @@
+{
+  "total_sec": 1786.5645359903574,
+  "sampling_sec": 1637.244113445282,
+  "save_sec": 148.67982230335474,
+  "total_videos": 13,
+  "total_prompts": 13,
+  "avg_sec_per_video": 137.4280412300275,
+  "avg_sec_per_prompt": 137.4280412300275
+}

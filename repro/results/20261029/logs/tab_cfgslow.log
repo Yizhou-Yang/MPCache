@@ -1,0 +1,400 @@
+CFGCache step 30: dhat=0.0907, ghat=0.5516, rhat=0.0500, tau=0.4000, accumulated_risk=0.3087, action=reuse_both
+CFGCache step 31: dhat=0.1235, ghat=0.5397, rhat=0.0667, tau=0.4000, accumulated_risk=0.3587, action=full_both
+CFGCache step 32: dhat=0.1803, ghat=0.5295, rhat=0.0955, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 33: dhat=0.0707, ghat=0.5209, rhat=0.0368, tau=0.4000, accumulated_risk=0.0955, action=reuse_both
+CFGCache step 34: dhat=0.0493, ghat=0.5137, rhat=0.0253, tau=0.4000, accumulated_risk=0.1323, action=reuse_both
+CFGCache step 35: dhat=0.0608, ghat=0.5077, rhat=0.0309, tau=0.4000, accumulated_risk=0.1576, action=reuse_both
+CFGCache step 36: dhat=0.0929, ghat=0.5028, rhat=0.0467, tau=0.4000, accumulated_risk=0.1885, action=reuse_both
+CFGCache step 37: dhat=0.1339, ghat=0.4989, rhat=0.0668, tau=0.4000, accumulated_risk=0.2352, action=reuse_both
+CFGCache step 38: dhat=0.1855, ghat=0.4958, rhat=0.0920, tau=0.4000, accumulated_risk=0.3020, action=reuse_both
+CFGCache step 39: dhat=0.2348, ghat=0.4933, rhat=0.1158, tau=0.4000, accumulated_risk=0.3940, action=full_both
+CFGCache step 40: dhat=0.1140, ghat=0.4915, rhat=0.0560, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 41: dhat=0.0538, ghat=0.4902, rhat=0.0264, tau=0.4000, accumulated_risk=0.0560, action=reuse_both
+CFGCache step 42: dhat=0.0861, ghat=0.4893, rhat=0.0421, tau=0.4000, accumulated_risk=0.0824, action=reuse_both
+CFGCache step 43: dhat=0.1599, ghat=0.4887, rhat=0.0781, tau=0.4000, accumulated_risk=0.1246, action=reuse_both
+CFGCache step 44: dhat=0.2423, ghat=0.4883, rhat=0.1183, tau=0.4000, accumulated_risk=0.2027, action=reuse_both
+CFGCache step 45: dhat=0.2947, ghat=0.4881, rhat=0.1438, tau=0.4000, accumulated_risk=0.3210, action=full_both
+CFGCache step 46: dhat=0.0700, ghat=0.4880, rhat=0.0342, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 47: dhat=0.1815, ghat=0.4879, rhat=0.0885, tau=0.4000, accumulated_risk=0.0342, action=reuse_both
+CFGCache step 48: dhat=0.3303, ghat=0.4879, rhat=0.1611, tau=0.4000, accumulated_risk=0.1227, action=reuse_both
+CFGCache step 49: dhat=0.2008, ghat=0.4879, rhat=0.0980, tau=0.4000, accumulated_risk=0.2838, action=reuse_both
+
+  0%|          | 0/50 [00:00<?, ?it/s][A
+ 92%|█████████▏| 46/50 [01:55<00:05,  1.30s/it][A100%|██████████| 50/50 [01:55<00:00,  2.31s/it]
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+
+  2%|▏         | 1/50 [00:06<05:14,  6.43s/it][AMultiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+
+  4%|▍         | 2/50 [00:12<05:08,  6.43s/it][AGenerating videos: 100%|██████████| 12/12 [27:42<00:00, 137.25s/it]Generating videos: 100%|██████████| 12/12 [27:42<00:00, 138.55s/it]
+CFGCache step 0: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=False, uncond_ready=False)
+CFGCache step 1: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 2: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 3: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 4: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 5: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 6: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 7: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 8: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 9: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 10: dhat=0.2027, ghat=1.4907, rhat=0.3022, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 11: dhat=0.1001, ghat=1.3957, rhat=0.1398, tau=0.4000, accumulated_risk=0.3022, action=full_both
+CFGCache step 12: dhat=0.2107, ghat=1.3075, rhat=0.2755, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 13: dhat=0.1038, ghat=1.2258, rhat=0.1273, tau=0.4000, accumulated_risk=0.2755, action=full_both
+CFGCache step 14: dhat=0.2295, ghat=1.1503, rhat=0.2640, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 15: dhat=0.1134, ghat=1.0807, rhat=0.1226, tau=0.4000, accumulated_risk=0.2640, action=reuse_both
+CFGCache step 16: dhat=0.0689, ghat=1.0166, rhat=0.0700, tau=0.4000, accumulated_risk=0.3866, action=full_both
+CFGCache step 17: dhat=0.2528, ghat=0.9578, rhat=0.2421, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 18: dhat=0.1118, ghat=0.9040, rhat=0.1011, tau=0.4000, accumulated_risk=0.2421, action=reuse_both
+CFGCache step 19: dhat=0.0680, ghat=0.8548, rhat=0.0582, tau=0.4000, accumulated_risk=0.3432, action=full_both
+CFGCache step 20: dhat=0.2472, ghat=0.8101, rhat=0.2003, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 21: dhat=0.1079, ghat=0.7696, rhat=0.0831, tau=0.4000, accumulated_risk=0.2003, action=reuse_both
+CFGCache step 22: dhat=0.0645, ghat=0.7329, rhat=0.0473, tau=0.4000, accumulated_risk=0.2833, action=reuse_both
+CFGCache step 23: dhat=0.0554, ghat=0.6999, rhat=0.0388, tau=0.4000, accumulated_risk=0.3307, action=reuse_both
+CFGCache step 24: dhat=0.0636, ghat=0.6704, rhat=0.0427, tau=0.4000, accumulated_risk=0.3694, action=full_both
+CFGCache step 25: dhat=0.2237, ghat=0.6439, rhat=0.1440, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 26: dhat=0.0978, ghat=0.6205, rhat=0.0607, tau=0.4000, accumulated_risk=0.1440, action=reuse_both
+CFGCache step 27: dhat=0.0585, ghat=0.5997, rhat=0.0351, tau=0.4000, accumulated_risk=0.2047, action=reuse_both
+CFGCache step 28: dhat=0.0536, ghat=0.5814, rhat=0.0312, tau=0.4000, accumulated_risk=0.2398, action=reuse_both
+CFGCache step 29: dhat=0.0668, ghat=0.5655, rhat=0.0378, tau=0.4000, accumulated_risk=0.2709, action=reuse_both
+CFGCache step 30: dhat=0.0907, ghat=0.5516, rhat=0.0500, tau=0.4000, accumulated_risk=0.3087, action=reuse_both
+CFGCache step 31: dhat=0.1235, ghat=0.5397, rhat=0.0667, tau=0.4000, accumulated_risk=0.3587, action=full_both
+CFGCache step 32: dhat=0.1803, ghat=0.5295, rhat=0.0955, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 33: dhat=0.0707, ghat=0.5209, rhat=0.0368, tau=0.4000, accumulated_risk=0.0955, action=reuse_both
+CFGCache step 34: dhat=0.0493, ghat=0.5137, rhat=0.0253, tau=0.4000, accumulated_risk=0.1323, action=reuse_both
+CFGCache step 35: dhat=0.0608, ghat=0.5077, rhat=0.0309, tau=0.4000, accumulated_risk=0.1576, action=reuse_both
+CFGCache step 36: dhat=0.0929, ghat=0.5028, rhat=0.0467, tau=0.4000, accumulated_risk=0.1885, action=reuse_both
+CFGCache step 37: dhat=0.1339, ghat=0.4989, rhat=0.0668, tau=0.4000, accumulated_risk=0.2352, action=reuse_both
+CFGCache step 38: dhat=0.1855, ghat=0.4958, rhat=0.0920, tau=0.4000, accumulated_risk=0.3020, action=reuse_both
+CFGCache step 39: dhat=0.2348, ghat=0.4933, rhat=0.1158, tau=0.4000, accumulated_risk=0.3940, action=full_both
+CFGCache step 40: dhat=0.1140, ghat=0.4915, rhat=0.0560, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 41: dhat=0.0538, ghat=0.4902, rhat=0.0264, tau=0.4000, accumulated_risk=0.0560, action=reuse_both
+CFGCache step 42: dhat=0.0861, ghat=0.4893, rhat=0.0421, tau=0.4000, accumulated_risk=0.0824, action=reuse_both
+CFGCache step 43: dhat=0.1599, ghat=0.4887, rhat=0.0781, tau=0.4000, accumulated_risk=0.1246, action=reuse_both
+CFGCache step 44: dhat=0.2423, ghat=0.4883, rhat=0.1183, tau=0.4000, accumulated_risk=0.2027, action=reuse_both
+CFGCache step 45: dhat=0.2947, ghat=0.4881, rhat=0.1438, tau=0.4000, accumulated_risk=0.3210, action=full_both
+CFGCache step 46: dhat=0.0700, ghat=0.4880, rhat=0.0342, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 47: dhat=0.1815, ghat=0.4879, rhat=0.0885, tau=0.4000, accumulated_risk=0.0342, action=reuse_both
+CFGCache step 48: dhat=0.3303, ghat=0.4879, rhat=0.1611, tau=0.4000, accumulated_risk=0.1227, action=reuse_both
+CFGCache step 49: dhat=0.2008, ghat=0.4879, rhat=0.0980, tau=0.4000, accumulated_risk=0.2838, action=reuse_both
+
+================ Timing Summary ================
+Total elapsed:        1662.619 s
+Sampling time:        1502.763 s
+Saving time:          159.214 s
+Total videos:         12
+Total prompts:        12
+Avg sec / video:      138.552 s
+Avg sec / prompt:     138.552 s  (includes 1 video/prompt)
+Avg sampling sec/video: 125.230 s
+Avg sampling sec/prompt: 125.230 s  (includes 1 video/prompt)
+================================================
+
+Generated 12 videos in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu2/videos
+Metadata saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu2/metadata
+Eval frames saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu2/eval_frames
+Manifest saved at /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu2/manifest.jsonl
+
+  6%|▌         | 3/50 [00:19<05:01,  6.43s/it][AGenerating videos:  92%|█████████▏| 12/13 [27:43<02:19, 139.72s/it]CFGCache step 0: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=False, uncond_ready=False)
+CFGCache step 1: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 2: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 3: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 4: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 5: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 6: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 7: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 8: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 9: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 10: dhat=0.2027, ghat=1.4907, rhat=0.3022, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 11: dhat=0.1001, ghat=1.3957, rhat=0.1398, tau=0.4000, accumulated_risk=0.3022, action=full_both
+CFGCache step 12: dhat=0.2107, ghat=1.3075, rhat=0.2755, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 13: dhat=0.1038, ghat=1.2258, rhat=0.1273, tau=0.4000, accumulated_risk=0.2755, action=full_both
+CFGCache step 14: dhat=0.2295, ghat=1.1503, rhat=0.2640, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 15: dhat=0.1134, ghat=1.0807, rhat=0.1226, tau=0.4000, accumulated_risk=0.2640, action=reuse_both
+CFGCache step 16: dhat=0.0689, ghat=1.0166, rhat=0.0700, tau=0.4000, accumulated_risk=0.3866, action=full_both
+CFGCache step 17: dhat=0.2528, ghat=0.9578, rhat=0.2421, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 18: dhat=0.1118, ghat=0.9040, rhat=0.1011, tau=0.4000, accumulated_risk=0.2421, action=reuse_both
+CFGCache step 19: dhat=0.0680, ghat=0.8548, rhat=0.0582, tau=0.4000, accumulated_risk=0.3432, action=full_both
+CFGCache step 20: dhat=0.2472, ghat=0.8101, rhat=0.2003, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 21: dhat=0.1079, ghat=0.7696, rhat=0.0831, tau=0.4000, accumulated_risk=0.2003, action=reuse_both
+CFGCache step 22: dhat=0.0645, ghat=0.7329, rhat=0.0473, tau=0.4000, accumulated_risk=0.2833, action=reuse_both
+CFGCache step 23: dhat=0.0554, ghat=0.6999, rhat=0.0388, tau=0.4000, accumulated_risk=0.3307, action=reuse_both
+CFGCache step 24: dhat=0.0636, ghat=0.6704, rhat=0.0427, tau=0.4000, accumulated_risk=0.3694, action=full_both
+CFGCache step 25: dhat=0.2237, ghat=0.6439, rhat=0.1440, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 26: dhat=0.0978, ghat=0.6205, rhat=0.0607, tau=0.4000, accumulated_risk=0.1440, action=reuse_both
+CFGCache step 27: dhat=0.0585, ghat=0.5997, rhat=0.0351, tau=0.4000, accumulated_risk=0.2047, action=reuse_both
+CFGCache step 28: dhat=0.0536, ghat=0.5814, rhat=0.0312, tau=0.4000, accumulated_risk=0.2398, action=reuse_both
+CFGCache step 29: dhat=0.0668, ghat=0.5655, rhat=0.0378, tau=0.4000, accumulated_risk=0.2709, action=reuse_both
+CFGCache step 30: dhat=0.0907, ghat=0.5516, rhat=0.0500, tau=0.4000, accumulated_risk=0.3087, action=reuse_both
+CFGCache step 31: dhat=0.1235, ghat=0.5397, rhat=0.0667, tau=0.4000, accumulated_risk=0.3587, action=full_both
+CFGCache step 32: dhat=0.1803, ghat=0.5295, rhat=0.0955, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 33: dhat=0.0707, ghat=0.5209, rhat=0.0368, tau=0.4000, accumulated_risk=0.0955, action=reuse_both
+CFGCache step 34: dhat=0.0493, ghat=0.5137, rhat=0.0253, tau=0.4000, accumulated_risk=0.1323, action=reuse_both
+CFGCache step 35: dhat=0.0608, ghat=0.5077, rhat=0.0309, tau=0.4000, accumulated_risk=0.1576, action=reuse_both
+CFGCache step 36: dhat=0.0929, ghat=0.5028, rhat=0.0467, tau=0.4000, accumulated_risk=0.1885, action=reuse_both
+CFGCache step 37: dhat=0.1339, ghat=0.4989, rhat=0.0668, tau=0.4000, accumulated_risk=0.2352, action=reuse_both
+CFGCache step 38: dhat=0.1855, ghat=0.4958, rhat=0.0920, tau=0.4000, accumulated_risk=0.3020, action=reuse_both
+CFGCache step 39: dhat=0.2348, ghat=0.4933, rhat=0.1158, tau=0.4000, accumulated_risk=0.3940, action=full_both
+CFGCache step 40: dhat=0.1140, ghat=0.4915, rhat=0.0560, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 41: dhat=0.0538, ghat=0.4902, rhat=0.0264, tau=0.4000, accumulated_risk=0.0560, action=reuse_both
+CFGCache step 42: dhat=0.0861, ghat=0.4893, rhat=0.0421, tau=0.4000, accumulated_risk=0.0824, action=reuse_both
+CFGCache step 43: dhat=0.1599, ghat=0.4887, rhat=0.0781, tau=0.4000, accumulated_risk=0.1246, action=reuse_both
+CFGCache step 44: dhat=0.2423, ghat=0.4883, rhat=0.1183, tau=0.4000, accumulated_risk=0.2027, action=reuse_both
+CFGCache step 45: dhat=0.2947, ghat=0.4881, rhat=0.1438, tau=0.4000, accumulated_risk=0.3210, action=full_both
+CFGCache step 46: dhat=0.0700, ghat=0.4880, rhat=0.0342, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 47: dhat=0.1815, ghat=0.4879, rhat=0.0885, tau=0.4000, accumulated_risk=0.0342, action=reuse_both
+CFGCache step 48: dhat=0.3303, ghat=0.4879, rhat=0.1611, tau=0.4000, accumulated_risk=0.1227, action=reuse_both
+CFGCache step 49: dhat=0.2008, ghat=0.4879, rhat=0.0980, tau=0.4000, accumulated_risk=0.2838, action=reuse_both
+
+  0%|          | 0/50 [00:00<?, ?it/s][A
+  8%|▊         | 4/50 [00:25<04:55,  6.43s/it][AGenerating videos: 100%|██████████| 12/12 [27:49<00:00, 138.50s/it]Generating videos: 100%|██████████| 12/12 [27:49<00:00, 139.12s/it]
+CFGCache step 0: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=False, uncond_ready=False)
+CFGCache step 1: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 2: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 3: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 4: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 5: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 6: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 7: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 8: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 9: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 10: dhat=0.2027, ghat=1.4907, rhat=0.3022, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 11: dhat=0.1001, ghat=1.3957, rhat=0.1398, tau=0.4000, accumulated_risk=0.3022, action=full_both
+CFGCache step 12: dhat=0.2107, ghat=1.3075, rhat=0.2755, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 13: dhat=0.1038, ghat=1.2258, rhat=0.1273, tau=0.4000, accumulated_risk=0.2755, action=full_both
+CFGCache step 14: dhat=0.2295, ghat=1.1503, rhat=0.2640, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 15: dhat=0.1134, ghat=1.0807, rhat=0.1226, tau=0.4000, accumulated_risk=0.2640, action=reuse_both
+CFGCache step 16: dhat=0.0689, ghat=1.0166, rhat=0.0700, tau=0.4000, accumulated_risk=0.3866, action=full_both
+CFGCache step 17: dhat=0.2528, ghat=0.9578, rhat=0.2421, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 18: dhat=0.1118, ghat=0.9040, rhat=0.1011, tau=0.4000, accumulated_risk=0.2421, action=reuse_both
+CFGCache step 19: dhat=0.0680, ghat=0.8548, rhat=0.0582, tau=0.4000, accumulated_risk=0.3432, action=full_both
+CFGCache step 20: dhat=0.2472, ghat=0.8101, rhat=0.2003, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 21: dhat=0.1079, ghat=0.7696, rhat=0.0831, tau=0.4000, accumulated_risk=0.2003, action=reuse_both
+CFGCache step 22: dhat=0.0645, ghat=0.7329, rhat=0.0473, tau=0.4000, accumulated_risk=0.2833, action=reuse_both
+CFGCache step 23: dhat=0.0554, ghat=0.6999, rhat=0.0388, tau=0.4000, accumulated_risk=0.3307, action=reuse_both
+CFGCache step 24: dhat=0.0636, ghat=0.6704, rhat=0.0427, tau=0.4000, accumulated_risk=0.3694, action=full_both
+CFGCache step 25: dhat=0.2237, ghat=0.6439, rhat=0.1440, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 26: dhat=0.0978, ghat=0.6205, rhat=0.0607, tau=0.4000, accumulated_risk=0.1440, action=reuse_both
+CFGCache step 27: dhat=0.0585, ghat=0.5997, rhat=0.0351, tau=0.4000, accumulated_risk=0.2047, action=reuse_both
+CFGCache step 28: dhat=0.0536, ghat=0.5814, rhat=0.0312, tau=0.4000, accumulated_risk=0.2398, action=reuse_both
+CFGCache step 29: dhat=0.0668, ghat=0.5655, rhat=0.0378, tau=0.4000, accumulated_risk=0.2709, action=reuse_both
+CFGCache step 30: dhat=0.0907, ghat=0.5516, rhat=0.0500, tau=0.4000, accumulated_risk=0.3087, action=reuse_both
+CFGCache step 31: dhat=0.1235, ghat=0.5397, rhat=0.0667, tau=0.4000, accumulated_risk=0.3587, action=full_both
+CFGCache step 32: dhat=0.1803, ghat=0.5295, rhat=0.0955, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 33: dhat=0.0707, ghat=0.5209, rhat=0.0368, tau=0.4000, accumulated_risk=0.0955, action=reuse_both
+CFGCache step 34: dhat=0.0493, ghat=0.5137, rhat=0.0253, tau=0.4000, accumulated_risk=0.1323, action=reuse_both
+CFGCache step 35: dhat=0.0608, ghat=0.5077, rhat=0.0309, tau=0.4000, accumulated_risk=0.1576, action=reuse_both
+CFGCache step 36: dhat=0.0929, ghat=0.5028, rhat=0.0467, tau=0.4000, accumulated_risk=0.1885, action=reuse_both
+CFGCache step 37: dhat=0.1339, ghat=0.4989, rhat=0.0668, tau=0.4000, accumulated_risk=0.2352, action=reuse_both
+CFGCache step 38: dhat=0.1855, ghat=0.4958, rhat=0.0920, tau=0.4000, accumulated_risk=0.3020, action=reuse_both
+CFGCache step 39: dhat=0.2348, ghat=0.4933, rhat=0.1158, tau=0.4000, accumulated_risk=0.3940, action=full_both
+CFGCache step 40: dhat=0.1140, ghat=0.4915, rhat=0.0560, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 41: dhat=0.0538, ghat=0.4902, rhat=0.0264, tau=0.4000, accumulated_risk=0.0560, action=reuse_both
+CFGCache step 42: dhat=0.0861, ghat=0.4893, rhat=0.0421, tau=0.4000, accumulated_risk=0.0824, action=reuse_both
+CFGCache step 43: dhat=0.1599, ghat=0.4887, rhat=0.0781, tau=0.4000, accumulated_risk=0.1246, action=reuse_both
+CFGCache step 44: dhat=0.2423, ghat=0.4883, rhat=0.1183, tau=0.4000, accumulated_risk=0.2027, action=reuse_both
+CFGCache step 45: dhat=0.2947, ghat=0.4881, rhat=0.1438, tau=0.4000, accumulated_risk=0.3210, action=full_both
+CFGCache step 46: dhat=0.0700, ghat=0.4880, rhat=0.0342, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 47: dhat=0.1815, ghat=0.4879, rhat=0.0885, tau=0.4000, accumulated_risk=0.0342, action=reuse_both
+CFGCache step 48: dhat=0.3303, ghat=0.4879, rhat=0.1611, tau=0.4000, accumulated_risk=0.1227, action=reuse_both
+CFGCache step 49: dhat=0.2008, ghat=0.4879, rhat=0.0980, tau=0.4000, accumulated_risk=0.2838, action=reuse_both
+
+================ Timing Summary ================
+Total elapsed:        1669.444 s
+Sampling time:        1506.493 s
+Saving time:          162.395 s
+Total videos:         12
+Total prompts:        12
+Avg sec / video:      139.120 s
+Avg sec / prompt:     139.120 s  (includes 1 video/prompt)
+Avg sampling sec/video: 125.541 s
+Avg sampling sec/prompt: 125.541 s  (includes 1 video/prompt)
+================================================
+
+Generated 12 videos in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu3/videos
+Metadata saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu3/metadata
+Eval frames saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu3/eval_frames
+Manifest saved at /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu3/manifest.jsonl
+
+  2%|▏         | 1/50 [00:06<05:12,  6.38s/it][A
+ 10%|█         | 5/50 [00:32<04:49,  6.43s/it][A
+  4%|▍         | 2/50 [00:12<05:06,  6.38s/it][A
+ 12%|█▏        | 6/50 [00:38<04:42,  6.43s/it][A
+  6%|▌         | 3/50 [00:19<04:59,  6.38s/it][A
+ 14%|█▍        | 7/50 [00:44<04:36,  6.43s/it][A
+  8%|▊         | 4/50 [00:25<04:53,  6.38s/it][A
+ 16%|█▌        | 8/50 [00:51<04:29,  6.43s/it][A
+ 10%|█         | 5/50 [00:31<04:47,  6.38s/it][A
+ 18%|█▊        | 9/50 [00:57<04:23,  6.43s/it][A
+ 12%|█▏        | 6/50 [00:38<04:40,  6.38s/it][A
+ 20%|██        | 10/50 [01:04<04:17,  6.43s/it][A
+ 14%|█▍        | 7/50 [00:44<04:34,  6.38s/it][A
+ 16%|█▌        | 8/50 [00:51<04:27,  6.38s/it][A
+ 24%|██▍       | 12/50 [01:10<03:07,  4.92s/it][A
+ 18%|█▊        | 9/50 [00:57<04:21,  6.38s/it][A
+ 28%|██▊       | 14/50 [01:17<02:32,  4.23s/it][A
+ 20%|██        | 10/50 [01:03<04:15,  6.38s/it][A
+ 34%|███▍      | 17/50 [01:23<01:47,  3.27s/it][A
+ 24%|██▍       | 12/50 [01:10<03:05,  4.89s/it][A
+ 40%|████      | 20/50 [01:29<01:24,  2.82s/it][A
+ 28%|██▊       | 14/50 [01:16<02:31,  4.21s/it][A
+ 50%|█████     | 25/50 [01:36<00:51,  2.08s/it][A
+ 62%|██████▏   | 31/50 [01:36<00:21,  1.14s/it][A
+ 34%|███▍      | 17/50 [01:23<01:47,  3.26s/it][A
+ 66%|██████▌   | 33/50 [01:42<00:25,  1.51s/it][A
+ 78%|███████▊  | 39/50 [01:43<00:09,  1.16it/s][A
+ 40%|████      | 20/50 [01:29<01:24,  2.81s/it][A
+ 84%|████████▍ | 42/50 [01:49<00:09,  1.16s/it][A
+ 50%|█████     | 25/50 [01:35<00:51,  2.07s/it][A
+ 62%|██████▏   | 31/50 [01:36<00:21,  1.14s/it][A
+ 92%|█████████▏| 46/50 [01:55<00:05,  1.30s/it][A100%|██████████| 50/50 [01:55<00:00,  2.32s/it]
+
+ 66%|██████▌   | 33/50 [01:42<00:25,  1.51s/it][A
+ 78%|███████▊  | 39/50 [01:42<00:09,  1.16it/s][AMultiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+
+ 84%|████████▍ | 42/50 [01:48<00:09,  1.16s/it][A
+ 92%|█████████▏| 46/50 [01:55<00:05,  1.30s/it][A100%|██████████| 50/50 [01:55<00:00,  2.31s/it]
+Generating videos: 100%|██████████| 13/13 [29:43<00:00, 139.22s/it]Generating videos: 100%|██████████| 13/13 [29:43<00:00, 137.22s/it]
+CFGCache step 0: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=False, uncond_ready=False)
+CFGCache step 1: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 2: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 3: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 4: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 5: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 6: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 7: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 8: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 9: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 10: dhat=0.2027, ghat=1.4907, rhat=0.3022, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 11: dhat=0.1001, ghat=1.3957, rhat=0.1398, tau=0.4000, accumulated_risk=0.3022, action=full_both
+CFGCache step 12: dhat=0.2107, ghat=1.3075, rhat=0.2755, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 13: dhat=0.1038, ghat=1.2258, rhat=0.1273, tau=0.4000, accumulated_risk=0.2755, action=full_both
+CFGCache step 14: dhat=0.2295, ghat=1.1503, rhat=0.2640, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 15: dhat=0.1134, ghat=1.0807, rhat=0.1226, tau=0.4000, accumulated_risk=0.2640, action=reuse_both
+CFGCache step 16: dhat=0.0689, ghat=1.0166, rhat=0.0700, tau=0.4000, accumulated_risk=0.3866, action=full_both
+CFGCache step 17: dhat=0.2528, ghat=0.9578, rhat=0.2421, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 18: dhat=0.1118, ghat=0.9040, rhat=0.1011, tau=0.4000, accumulated_risk=0.2421, action=reuse_both
+CFGCache step 19: dhat=0.0680, ghat=0.8548, rhat=0.0582, tau=0.4000, accumulated_risk=0.3432, action=full_both
+CFGCache step 20: dhat=0.2472, ghat=0.8101, rhat=0.2003, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 21: dhat=0.1079, ghat=0.7696, rhat=0.0831, tau=0.4000, accumulated_risk=0.2003, action=reuse_both
+CFGCache step 22: dhat=0.0645, ghat=0.7329, rhat=0.0473, tau=0.4000, accumulated_risk=0.2833, action=reuse_both
+CFGCache step 23: dhat=0.0554, ghat=0.6999, rhat=0.0388, tau=0.4000, accumulated_risk=0.3307, action=reuse_both
+CFGCache step 24: dhat=0.0636, ghat=0.6704, rhat=0.0427, tau=0.4000, accumulated_risk=0.3694, action=full_both
+CFGCache step 25: dhat=0.2237, ghat=0.6439, rhat=0.1440, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 26: dhat=0.0978, ghat=0.6205, rhat=0.0607, tau=0.4000, accumulated_risk=0.1440, action=reuse_both
+CFGCache step 27: dhat=0.0585, ghat=0.5997, rhat=0.0351, tau=0.4000, accumulated_risk=0.2047, action=reuse_both
+CFGCache step 28: dhat=0.0536, ghat=0.5814, rhat=0.0312, tau=0.4000, accumulated_risk=0.2398, action=reuse_both
+CFGCache step 29: dhat=0.0668, ghat=0.5655, rhat=0.0378, tau=0.4000, accumulated_risk=0.2709, action=reuse_both
+CFGCache step 30: dhat=0.0907, ghat=0.5516, rhat=0.0500, tau=0.4000, accumulated_risk=0.3087, action=reuse_both
+CFGCache step 31: dhat=0.1235, ghat=0.5397, rhat=0.0667, tau=0.4000, accumulated_risk=0.3587, action=full_both
+CFGCache step 32: dhat=0.1803, ghat=0.5295, rhat=0.0955, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 33: dhat=0.0707, ghat=0.5209, rhat=0.0368, tau=0.4000, accumulated_risk=0.0955, action=reuse_both
+CFGCache step 34: dhat=0.0493, ghat=0.5137, rhat=0.0253, tau=0.4000, accumulated_risk=0.1323, action=reuse_both
+CFGCache step 35: dhat=0.0608, ghat=0.5077, rhat=0.0309, tau=0.4000, accumulated_risk=0.1576, action=reuse_both
+CFGCache step 36: dhat=0.0929, ghat=0.5028, rhat=0.0467, tau=0.4000, accumulated_risk=0.1885, action=reuse_both
+CFGCache step 37: dhat=0.1339, ghat=0.4989, rhat=0.0668, tau=0.4000, accumulated_risk=0.2352, action=reuse_both
+CFGCache step 38: dhat=0.1855, ghat=0.4958, rhat=0.0920, tau=0.4000, accumulated_risk=0.3020, action=reuse_both
+CFGCache step 39: dhat=0.2348, ghat=0.4933, rhat=0.1158, tau=0.4000, accumulated_risk=0.3940, action=full_both
+CFGCache step 40: dhat=0.1140, ghat=0.4915, rhat=0.0560, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 41: dhat=0.0538, ghat=0.4902, rhat=0.0264, tau=0.4000, accumulated_risk=0.0560, action=reuse_both
+CFGCache step 42: dhat=0.0861, ghat=0.4893, rhat=0.0421, tau=0.4000, accumulated_risk=0.0824, action=reuse_both
+CFGCache step 43: dhat=0.1599, ghat=0.4887, rhat=0.0781, tau=0.4000, accumulated_risk=0.1246, action=reuse_both
+CFGCache step 44: dhat=0.2423, ghat=0.4883, rhat=0.1183, tau=0.4000, accumulated_risk=0.2027, action=reuse_both
+CFGCache step 45: dhat=0.2947, ghat=0.4881, rhat=0.1438, tau=0.4000, accumulated_risk=0.3210, action=full_both
+CFGCache step 46: dhat=0.0700, ghat=0.4880, rhat=0.0342, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 47: dhat=0.1815, ghat=0.4879, rhat=0.0885, tau=0.4000, accumulated_risk=0.0342, action=reuse_both
+CFGCache step 48: dhat=0.3303, ghat=0.4879, rhat=0.1611, tau=0.4000, accumulated_risk=0.1227, action=reuse_both
+CFGCache step 49: dhat=0.2008, ghat=0.4879, rhat=0.0980, tau=0.4000, accumulated_risk=0.2838, action=reuse_both
+
+================ Timing Summary ================
+Total elapsed:        1783.825 s
+Sampling time:        1634.112 s
+Saving time:          149.059 s
+Total videos:         13
+Total prompts:        13
+Avg sec / video:      137.217 s
+Avg sec / prompt:     137.217 s  (includes 1 video/prompt)
+Avg sampling sec/video: 125.701 s
+Avg sampling sec/prompt: 125.701 s  (includes 1 video/prompt)
+================================================
+
+Generated 13 videos in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu0/videos
+Metadata saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu0/metadata
+Eval frames saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu0/eval_frames
+Manifest saved at /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu0/manifest.jsonl
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+Generating videos: 100%|██████████| 13/13 [30:01<00:00, 139.10s/it]Generating videos: 100%|██████████| 13/13 [30:01<00:00, 138.57s/it]
+CFGCache step 0: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=False, uncond_ready=False)
+CFGCache step 1: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 2: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 3: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 4: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 5: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 6: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 7: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 8: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 9: full_both (reason=warmup_or_residual_not_ready, warmup_steps=10, cond_ready=True, uncond_ready=True)
+CFGCache step 10: dhat=0.2027, ghat=1.4907, rhat=0.3022, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 11: dhat=0.1001, ghat=1.3957, rhat=0.1398, tau=0.4000, accumulated_risk=0.3022, action=full_both
+CFGCache step 12: dhat=0.2107, ghat=1.3075, rhat=0.2755, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 13: dhat=0.1038, ghat=1.2258, rhat=0.1273, tau=0.4000, accumulated_risk=0.2755, action=full_both
+CFGCache step 14: dhat=0.2295, ghat=1.1503, rhat=0.2640, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 15: dhat=0.1134, ghat=1.0807, rhat=0.1226, tau=0.4000, accumulated_risk=0.2640, action=reuse_both
+CFGCache step 16: dhat=0.0689, ghat=1.0166, rhat=0.0700, tau=0.4000, accumulated_risk=0.3866, action=full_both
+CFGCache step 17: dhat=0.2528, ghat=0.9578, rhat=0.2421, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 18: dhat=0.1118, ghat=0.9040, rhat=0.1011, tau=0.4000, accumulated_risk=0.2421, action=reuse_both
+CFGCache step 19: dhat=0.0680, ghat=0.8548, rhat=0.0582, tau=0.4000, accumulated_risk=0.3432, action=full_both
+CFGCache step 20: dhat=0.2472, ghat=0.8101, rhat=0.2003, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 21: dhat=0.1079, ghat=0.7696, rhat=0.0831, tau=0.4000, accumulated_risk=0.2003, action=reuse_both
+CFGCache step 22: dhat=0.0645, ghat=0.7329, rhat=0.0473, tau=0.4000, accumulated_risk=0.2833, action=reuse_both
+CFGCache step 23: dhat=0.0554, ghat=0.6999, rhat=0.0388, tau=0.4000, accumulated_risk=0.3307, action=reuse_both
+CFGCache step 24: dhat=0.0636, ghat=0.6704, rhat=0.0427, tau=0.4000, accumulated_risk=0.3694, action=full_both
+CFGCache step 25: dhat=0.2237, ghat=0.6439, rhat=0.1440, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 26: dhat=0.0978, ghat=0.6205, rhat=0.0607, tau=0.4000, accumulated_risk=0.1440, action=reuse_both
+CFGCache step 27: dhat=0.0585, ghat=0.5997, rhat=0.0351, tau=0.4000, accumulated_risk=0.2047, action=reuse_both
+CFGCache step 28: dhat=0.0536, ghat=0.5814, rhat=0.0312, tau=0.4000, accumulated_risk=0.2398, action=reuse_both
+CFGCache step 29: dhat=0.0668, ghat=0.5655, rhat=0.0378, tau=0.4000, accumulated_risk=0.2709, action=reuse_both
+CFGCache step 30: dhat=0.0907, ghat=0.5516, rhat=0.0500, tau=0.4000, accumulated_risk=0.3087, action=reuse_both
+CFGCache step 31: dhat=0.1235, ghat=0.5397, rhat=0.0667, tau=0.4000, accumulated_risk=0.3587, action=full_both
+CFGCache step 32: dhat=0.1803, ghat=0.5295, rhat=0.0955, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 33: dhat=0.0707, ghat=0.5209, rhat=0.0368, tau=0.4000, accumulated_risk=0.0955, action=reuse_both
+CFGCache step 34: dhat=0.0493, ghat=0.5137, rhat=0.0253, tau=0.4000, accumulated_risk=0.1323, action=reuse_both
+CFGCache step 35: dhat=0.0608, ghat=0.5077, rhat=0.0309, tau=0.4000, accumulated_risk=0.1576, action=reuse_both
+CFGCache step 36: dhat=0.0929, ghat=0.5028, rhat=0.0467, tau=0.4000, accumulated_risk=0.1885, action=reuse_both
+CFGCache step 37: dhat=0.1339, ghat=0.4989, rhat=0.0668, tau=0.4000, accumulated_risk=0.2352, action=reuse_both
+CFGCache step 38: dhat=0.1855, ghat=0.4958, rhat=0.0920, tau=0.4000, accumulated_risk=0.3020, action=reuse_both
+CFGCache step 39: dhat=0.2348, ghat=0.4933, rhat=0.1158, tau=0.4000, accumulated_risk=0.3940, action=full_both
+CFGCache step 40: dhat=0.1140, ghat=0.4915, rhat=0.0560, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 41: dhat=0.0538, ghat=0.4902, rhat=0.0264, tau=0.4000, accumulated_risk=0.0560, action=reuse_both
+CFGCache step 42: dhat=0.0861, ghat=0.4893, rhat=0.0421, tau=0.4000, accumulated_risk=0.0824, action=reuse_both
+CFGCache step 43: dhat=0.1599, ghat=0.4887, rhat=0.0781, tau=0.4000, accumulated_risk=0.1246, action=reuse_both
+CFGCache step 44: dhat=0.2423, ghat=0.4883, rhat=0.1183, tau=0.4000, accumulated_risk=0.2027, action=reuse_both
+CFGCache step 45: dhat=0.2947, ghat=0.4881, rhat=0.1438, tau=0.4000, accumulated_risk=0.3210, action=full_both
+CFGCache step 46: dhat=0.0700, ghat=0.4880, rhat=0.0342, tau=0.4000, accumulated_risk=0.0000, action=reuse_both
+CFGCache step 47: dhat=0.1815, ghat=0.4879, rhat=0.0885, tau=0.4000, accumulated_risk=0.0342, action=reuse_both
+CFGCache step 48: dhat=0.3303, ghat=0.4879, rhat=0.1611, tau=0.4000, accumulated_risk=0.1227, action=reuse_both
+CFGCache step 49: dhat=0.2008, ghat=0.4879, rhat=0.0980, tau=0.4000, accumulated_risk=0.2838, action=reuse_both
+
+================ Timing Summary ================
+Total elapsed:        1801.422 s
+Sampling time:        1628.762 s
+Saving time:          172.038 s
+Total videos:         13
+Total prompts:        13
+Avg sec / video:      138.571 s
+Avg sec / prompt:     138.571 s  (includes 1 video/prompt)
+Avg sampling sec/video: 125.289 s
+Avg sampling sec/prompt: 125.289 s  (includes 1 video/prompt)
+================================================
+
+Generated 13 videos in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu1/videos
+Metadata saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu1/metadata
+Eval frames saved in /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu1/eval_frames
+Manifest saved at /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu1/manifest.jsonl
+[MERGE] Aggregated outputs merged into: /root/viewdit/results/tab/cfgslow/wan_cfgcache
+[CLEANUP] Removed shard directory: /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu0
+[CLEANUP] Removed shard directory: /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu1
+[CLEANUP] Removed shard directory: /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu2
+[CLEANUP] Removed shard directory: /root/viewdit/results/tab/cfgslow/.multi_gpu_tmp/wan_cfgcache_20261029_170835/gpu3
+[INFO] Wan2.1 多卡采样完成
+[INFO] 最终视频目录: /root/viewdit/results/tab/cfgslow/wan_cfgcache
