@@ -1,1 +1,1 @@
-232K	/root/viewdit/verify_pkg
+644K	/root/viewdit/verify_pkg
