@@ -1,94 +1,77 @@
-# H20 执行清单（2026-10-27，第二次修订）
+# 主表执行清单（2026-10-29 第三次修订）
 
-> 上一版（`482ebf0`）有三处与现实不符，本版按实测替换：
-> 1. 这台机器是**全新**的（无 conda/权重/参考视频），"10 分钟口径校验"根本无从谈起；
-> 2. P0 的同源校验**已经失败**：`PITFALLS P15` 记录过 ours 与 RA 同 prompt/seed 的
->    LPIPS ≈ 0.98。本次定位到根因是我们自己的两个 bug（`P16`/`P17`），不是 RA 的 patch；
-> 3. ex1 命令漏了 `--frames 81`，默认 33 帧（`P19`）。
+> 本版按 2026-10-28（hy4，4×H20）与 2026-10-29（V100）两天的**实测**重写。
+> 历史版本见 git；本次改动集中在：方法定版、可信度分级、失败清单、下一步排序。
 
-## 0. 方法状态
+## 0. 方法状态（已定版）
 
 | 项 | 值 |
 |---|---|
-| 控制器 | `h20/mpcache_controller.py` 与 `repro/code/mpcache_controller.py` 现已同为一个文件，sha256 `baeb0e61c0d5a398…`（`b623a12` 恢复的权威副本）；本机已同步到 `experiments/video/` |
-| Cog 上的方法 | 对角在线模型 + 门控 `age ≥ 2`；`--auto-base 1` 在 Cog 上是空操作（48/48 逐位相同） |
-| Wan 上的方法 | 均匀调度 → 纯一阶外推（ex1），不加模型修正 |
-| 一句话 | Cog 跑 `tea_gap`，Wan 跑 `ex1` |
+| 生产方法 | **`tea_gap`**：输出空间一阶外推 + 对角在线模型修正 + 门控 `age ≥ 2` |
+| Wan 配置 | 81f / 50 步 UniPC / **N=19（2.63×）** / warmup 3 |
+| Cog 配置 | 49f / 50 步 DDIM / `tea_gap`（`--auto-base 1` 是空操作） |
+| 代码位置 | `h20/mpcache_wan.py`（Wan，含 `fr`/`frg`/`sel`/`cr`/`tg` 实验 op）、`h20/mpcache_controller.py`（Cog） |
 
-## 1. 主表状态
+**一句话**：Cog 和 Wan 都跑 `tea_gap`（Wan 早期结论“均匀调度只该外推”已被推翻，见 P29）。
 
-| Backbone | Full | TeaCache | TaylorSeer | RA-Slow | RA-Fast | ours |
-|---|---|---|---|---|---|---|
-| CogVideoX-2B | ✅（RA 侧） | ✅ | ✅ | ✅ | ✅ | ❌ 需 49f Full 参考 + controller 加 `--save-video` |
-| Wan2.1-T2V-1.3B | ✅ 本机已重跑 | ✅ | ✅ | ✅ | ✅ | 🔄 本机重跑中（P16/P17 修复后） |
-| HunyuanVideo-13B | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ NaN 未修 |
+## 1. 主表状态与可信度
 
-## 2. 口径校验（已完成，结论与上一版相反）
-
-上一版要求「ours full50 vs RA Full，LPIPS < 0.01 且 PSNR > 35」。实测（81 帧、seed 0、50 步全精确）：
-
-| 对比 | LPIPS | SSIM | PSNR | 结论 |
-|---|---:|---:|---:|---|
-| ours（修 P16/P17 前） vs RA Full | 0.891 | 0.207 | 9.4 | 完全无关（ours 是纯蓝屏，见 P16） |
-| ours（修 P16，bf16 latent） vs RA Full | 0.089 | 0.867 | 25.5 | 同内容，但 bf16 累计漂移（P17） |
-| **ours（修 P16+P17） vs RA Full** | **0.030** | 0.927 | 30.7 | 同内容，剩的是跨实现数值底噪 |
-| ours（同上） vs 纯 diffusers 管线 | 0.021 | 0.936 | 31.8 | 我们的 runner 本身已对齐官方 |
-
-结论：**两者不完全等价，但已在「同一场景、同一噪声」的范围内**。0.03 是每个 ours 数字都要背的
-底噪，方法效应（0.09–0.14）仍在。主表报数时必须写这一条，不能声称 bit-level 同源。
-
-## 3. 已排期与执行（4 卡饱和，队列串联，无空转）
-
-阶段一（`queue_wan.sh`，自动串下一棒）：
-
-| 时段 | 卡 | 任务 | 产出 |
+| Backbone | 竞品 | ours | 可信度 |
 |---|---|---|---|
-| 11:35–13:55 | 0-3 | RA Full，100 prompt × 50 步 | `results/ra_wan/wan_original_wan_original_full/videos` 100 mp4 |
-| 15:03–15:30 | 0-3 | Wan ours **ex1** N=13，81 帧 | `results/wan_arms/ex1/videos/ex1` |
-| 15:30–15:55 | 0-3 | Wan ours **tea_gap** N=13（对照旧 0.1375） | `results/wan_arms/tea_gap/videos/tea_gap` |
-| 15:55–18:20 | 0-3 | Wan **our full** N=50（自洽参考，100 prompt） | `results/wan_full/n50/videos/ex1` |
-| 18:20–18:35 | CPU | `repro/metrics.py`：ex1/tea_gap vs our-full 与 vs RA-full | `results/metrics_*.{json,csv}` |
+| **Wan2.1-1.3B** | ✅ 已有（TeaCache 0.168 / TaylorSeer 0.350 / RA-Slow 0.094 / RA-Fast 0.135） | ✅ **0.169**（100 prompt） | ✅ **同源可比**（ours full vs RA full = 0.035） |
+| **CogVideoX-2B** | ✅ 已有（RA 侧 49f） | ⚠️ 17f: **0.1746 vs reuse 0.1790**（12 prompt，胜率 83%） | ❌ **不可比**：我们的 Cog 管线 vs 官方 stock = 0.674 |
+| HunyuanVideo-13B | ❌ | ❌ | ❌ NaN 未修 |
 
-阶段二（`queue_stage2.sh`，等阶段一退出后自动启动，继续占满 4 卡）：
+### Wan 的分布（100 prompt，N=19）
 
-| 时段 | 卡 | 任务 | 为什么 |
-|---|---|---|---|
-| 18:35–19:45 | 0-3 | Wan ex1 **N=10**（100 prompt） | 质量-NFE 曲线的低预算点，直接复用已验证代码 |
-| 19:45–21:30 | 0-3 | Wan ex1 **N=17**（100 prompt） | 曲线的高预算点，同时给出「N 越大越接近 full」的单调性检查 |
+| 统计 | 值 |
+|---|---:|
+| mean / median | 0.1690 / 0.1633 |
+| p10 / p90 | 0.0617 / 0.2931 |
+| ≤0.094（RA-Slow 水平）占比 | **23%** |
+| ≤0.135（RA-Fast 水平）占比 | 40% |
 
-未排上 GPU 的两项（不是忘了，是前置条件没到，硬开只会产出不可用的数字）：
+### Cog 17f 的分布（12 prompt，N=13）
 
-| # | 任务 | 卡它的东西 | 成本 |
-|---|---|---|---|
-| 1 | Cog 49f ours | controller 还缺 `--save-video/--no-full/--negative/--video-dir`；且 **49f Full 参考要 10.4 h/4 卡**，本机时段放不下，没有它 LPIPS 无从算 | 0.5 h 改码 + 10.4 h Full + 2.7 h ours |
-| 2 | Hunyuan 13B | `rel=nan` 未定位；且竞品四行（TeaCache/TaylorSeer/RA-Slow/RA-Fast）全空，单跑 ours 补不齐一行 | 1–2 h 定位 + 6 h Full + 1.6 h ours + 4×1.5 h 竞品 |
+| 臂 | mean | median | p10 | p90 |
+|---|---:|---:|---:|---:|
+| **tea_gap** | **0.1746** | 0.2008 | 0.0590 | **0.2371** |
+| reuse | 0.1790 | 0.2045 | 0.0654 | 0.2502 |
 
-实测利用率：三个阶段内 4 张卡持续 100%（采样期 8.5 GiB/97 GiB，RA Full 16.9 GiB）；
-唯一的空转是评测那 15 分钟，评测本身跑在 CPU 上，不需要卡。
-两阶段脚本都用「等进程退出再起下一臂」，而不是按臂拆卡——拆卡会让关键路径变长（见 STATUS 决策 7）。
+配对胜率 **83%**，均值 +2.5%，**尾部也更好**（p90 0.237 vs 0.250）。
 
-**Cog 的移植注意**（下次别踩）：controller 的 latent 是 `(1, LT, C, PH*2, PW*2)` 布局，
-而 `AutoencoderKLCogVideoX.decode` 要 `(B, C, T, H, W)`，且 **49f/720×480 的 latent 空间是
-60×90**——`FRAMES[49]` 给的 `ph=60, pw=90` 再乘 2 就对不上，必须先写一条 17f 单样本把
-shape 打到日志里确认，再谈批量。Cog 的 VAE 没有 `latents_mean/std`，帧率是 8 fps。
+## 2. 已证否的方向（不要再试）
 
-## 4. 验收标准
-
-| 检查 | 期望 | 现状 |
+| 方向 | 结果 | 记录 |
 |---|---|---|
-| Wan ex1 LPIPS（vs RA Full） | ≤ 0.12 | 待评测 |
-| Wan ex1 vs tea_gap | ex1 更低 | 待评测 |
-| 视频非纯色 | 帧 std > 40 | ✅ 114.8/79.7 |
-| 主表每格 | 有数或 `--`，不估算 | 遵守 |
-| 加速比 | 实测 wall-clock，不用 NFE 比 | 遵守 |
+| 状态空间外推、绕过求解器（`lx`） | 0.83，崩 | P28 |
+| 黑盒反解求解器（`inv`） | 0.83，崩 | P28 |
+| 逐 token 增益（`tg`） | 0.136/0.233，比 tea_gap 差 | P28 |
+| 修正加在 reuse 基上（`cr`） | 0.155，更差 | P28 |
+| κ=2 / trust=1.5 | 无差别（0.131/0.132） | P28 |
+| 残差重建单用（`fr`） | 0.1458 vs tea_gap 0.1244 | P29 |
+| 残差 + 我们的修正（`frg`） | 0.1594，更差 | P29 |
+| 按年龄选择残差/修正（`sel`） | 32 prompt 上 −21.7% | P30 |
+| 可靠性门（`--rel-gate`，4 个阈值） | 全部略差 | P31 |
 
-## 5. 本轮修掉的环境/代码问题（详见 `PITFALLS`）
+## 3. 三个硬阻塞
 
-| 编号 | 问题 | 影响 |
-|---|---|---|
-| P16 | 文本嵌入没截断到真实长度、padding 位没清零 | Wan 出纯蓝视频，`rel` 却正常 |
-| P17 | latents 用 bf16 累计 | 与官方 50 步全精确差 LPIPS 0.06 |
-| P18 | cublas 12.4.5.8 被后续 pip 降回 12.1.3.1 | RA 四卡同时 SIGFPE (-8) |
-| P19 | `--frames` 默认 33 | 与 81 帧参考不可比 |
-| P20 | `scripts/eval.py` 不存在 | 实际用 `repro/metrics.py` |
-| P21 | 参考视频不在 git | 换机必须重跑 RA Full（2.2 h） |
+| # | 阻塞 | 影响 | 代价 |
+|---|---|---|---|
+| 1 | **Cog 管线与官方不一致**（LPIPS 0.674，已修 init 布局/文本 mask/视频导出仍不对） | Cog 的绝对数不能进主表 | 3–4h（改用官方 pipeline + monkey-patch） |
+| 2 | **Cog 49f 极慢**（单进程 46–56 s/step，17f 仅 1.5 s） | 100 prompt 需 ~13h | 不可压缩，只能排长队列 |
+| 3 | Hunyuan NaN（β 塌到 0） | 第三行缺失 | 1–2h 修复 + 8h 跑 |
+
+## 4. 下一步排序（按性价比）
+
+1. **Cog 管线对齐**（3–4h）——决定 Cog 能否进主表，最高优先；
+2. **Cog 49f ours**（先只跑 ours，用 RA 的 Full 作参考；8 prompt 约 6h，100 prompt 约 13h）；
+3. **Hunyuan 修复**（1–2h）→ 先跑 8 prompt 验证再扩；
+4. Wan：已定版，除非有新机制，否则不再调参。
+
+## 5. 报数纪律（必须遵守）
+
+- 同一张表里的数字必须**同一参考**（我们 vs RA Full 的底噪是 0.030–0.035，要写明）；
+- 不得声称 bit-level 同源；Cog 在管线对齐前**不得**与 RA 同表；
+- 报告均值时必须同时报告**中位/p90/胜率**（我们的弱点在尾部，均值会掩盖）；
+- 任何新 op 若结果与对照逐位相同，先假定没接上（P25/P28 两次踩坑）。
