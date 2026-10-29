@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/root/MPCache/repro/metrics.py", line 19, in <module>
+    from skimage.metrics import structural_similarity as ssim_fn
+ModuleNotFoundError: No module named 'skimage'

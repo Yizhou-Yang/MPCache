@@ -1,1 +1,88 @@
 [prompts] 100 from /root/viewdit/resources/prompts/prompt_video.txt
+[cfg] warmup=3 damp=1.0 sched=uniform solver=unipc frames=81
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:02,  1.67it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.48it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:01<00:01,  1.76it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.98it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:02<00:00,  2.53it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:02<00:00,  2.10it/s]
+prompts total=100 using [26,39) -> 13 prompts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  3.29it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  5.96it/s]
+sanity roundtrip 0.0
+one CFG step 6.49s; peak 10.88 GiB
+tea N=19 (|S|=19): [0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000026 -> results/tab/ours_tg/p2/videos/tea_gap
+p26 s26 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000027 -> results/tab/ours_tg/p2/videos/tea_gap
+p27 s27 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000028 -> results/tab/ours_tg/p2/videos/tea_gap
+p28 s28 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.84, 1.0)]
+[video] tea_gap 000029 -> results/tab/ours_tg/p2/videos/tea_gap
+p29 s29 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000030 -> results/tab/ours_tg/p2/videos/tea_gap
+p30 s30 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.83, 1.0)]
+[video] tea_gap 000031 -> results/tab/ours_tg/p2/videos/tea_gap
+p31 s31 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000032 -> results/tab/ours_tg/p2/videos/tea_gap
+p32 s32 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000033 -> results/tab/ours_tg/p2/videos/tea_gap
+p33 s33 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.82, 1.0), (0.86, 1.0), (0.85, 1.0)]
+[video] tea_gap 000034 -> results/tab/ours_tg/p2/videos/tea_gap
+p34 s34 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.86, 1.0)]
+[video] tea_gap 000035 -> results/tab/ours_tg/p2/videos/tea_gap
+p35 s35 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000036 -> results/tab/ours_tg/p2/videos/tea_gap
+p36 s36 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.85, 1.0)]
+[video] tea_gap 000037 -> results/tab/ours_tg/p2/videos/tea_gap
+p37 s37 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000038 -> results/tab/ours_tg/p2/videos/tea_gap
+p38 s38 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000026 -> results/tab/ours_tg/p2/videos/tea_gap
+p26 s26 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000027 -> results/tab/ours_tg/p2/videos/tea_gap
+p27 s27 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000028 -> results/tab/ours_tg/p2/videos/tea_gap
+p28 s28 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.84, 1.0)]
+[video] tea_gap 000029 -> results/tab/ours_tg/p2/videos/tea_gap
+p29 s29 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000030 -> results/tab/ours_tg/p2/videos/tea_gap
+p30 s30 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.83, 1.0)]
+[video] tea_gap 000031 -> results/tab/ours_tg/p2/videos/tea_gap
+p31 s31 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000032 -> results/tab/ours_tg/p2/videos/tea_gap
+p32 s32 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000033 -> results/tab/ours_tg/p2/videos/tea_gap
+p33 s33 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.82, 1.0), (0.86, 1.0), (0.85, 1.0)]
+[video] tea_gap 000034 -> results/tab/ours_tg/p2/videos/tea_gap
+p34 s34 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.86, 1.0)]
+[video] tea_gap 000035 -> results/tab/ours_tg/p2/videos/tea_gap
+p35 s35 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.81, 1.0), (0.85, 1.0), (0.83, 1.0)]
+[video] tea_gap 000036 -> results/tab/ours_tg/p2/videos/tea_gap
+p36 s36 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.85, 1.0)]
+[video] tea_gap 000037 -> results/tab/ours_tg/p2/videos/tea_gap
+p37 s37 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+    [model] n=17 beta=1.000 log_tail=[(0.8, 1.0), (0.84, 1.0), (0.84, 1.0)]
+[video] tea_gap 000038 -> results/tab/ours_tg/p2/videos/tea_gap
+p38 s38 N=19 tea_gap: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[done]

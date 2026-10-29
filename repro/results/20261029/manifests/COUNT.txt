@@ -1,1 +1,1 @@
-524 /root/viewdit/verify_pkg/manifests/sha256sums.txt
+756 /root/viewdit/verify_pkg/manifests/sha256sums.txt

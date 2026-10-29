@@ -1,0 +1,63 @@
+[prompts] 100 from /root/viewdit/resources/prompts/prompt_video.txt
+[cfg] warmup=3 damp=1.0 sched=uniform solver=unipc frames=81
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:02,  1.40it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.47it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.13it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.45it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.94it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.62it/s]
+prompts total=100 using [0,13) -> 13 prompts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.62s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.34s/it]
+[fr] hooks installed
+sanity roundtrip 0.0
+one CFG step 6.46s; peak 10.88 GiB
+tea N=19 (|S|=19): [0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000000 -> results/tab/ours_fr/p0/videos/fr
+p0 s0 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000001 -> results/tab/ours_fr/p0/videos/fr
+p1 s1 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000002 -> results/tab/ours_fr/p0/videos/fr
+p2 s2 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000003 -> results/tab/ours_fr/p0/videos/fr
+p3 s3 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000004 -> results/tab/ours_fr/p0/videos/fr
+p4 s4 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000005 -> results/tab/ours_fr/p0/videos/fr
+p5 s5 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000006 -> results/tab/ours_fr/p0/videos/fr
+p6 s6 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000007 -> results/tab/ours_fr/p0/videos/fr
+p7 s7 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000008 -> results/tab/ours_fr/p0/videos/fr
+p8 s8 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000009 -> results/tab/ours_fr/p0/videos/fr
+p9 s9 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000010 -> results/tab/ours_fr/p0/videos/fr
+p10 s10 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000011 -> results/tab/ours_fr/p0/videos/fr
+p11 s11 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000012 -> results/tab/ours_fr/p0/videos/fr
+p12 s12 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000000 -> results/tab/ours_fr/p0/videos/fr
+p0 s0 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000001 -> results/tab/ours_fr/p0/videos/fr
+p1 s1 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000002 -> results/tab/ours_fr/p0/videos/fr
+p2 s2 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000003 -> results/tab/ours_fr/p0/videos/fr
+p3 s3 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000004 -> results/tab/ours_fr/p0/videos/fr
+p4 s4 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000005 -> results/tab/ours_fr/p0/videos/fr
+p5 s5 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000006 -> results/tab/ours_fr/p0/videos/fr
+p6 s6 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000007 -> results/tab/ours_fr/p0/videos/fr
+p7 s7 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000008 -> results/tab/ours_fr/p0/videos/fr
+p8 s8 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000009 -> results/tab/ours_fr/p0/videos/fr
+p9 s9 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000010 -> results/tab/ours_fr/p0/videos/fr
+p10 s10 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000011 -> results/tab/ours_fr/p0/videos/fr
+p11 s11 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[video] fr 000012 -> results/tab/ours_fr/p0/videos/fr
+p12 s12 N=19      fr: rel=nan nfe=19 steps=[0, 1, 2, 3, 5, 8, 11, 14, 16, 19, 22, 30, 33, 35, 38, 41, 44, 46, 49]
+[done]

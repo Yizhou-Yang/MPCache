@@ -1,1 +1,1 @@
-2.2M	/root/viewdit/verify_pkg
+2.6M	/root/viewdit/verify_pkg
