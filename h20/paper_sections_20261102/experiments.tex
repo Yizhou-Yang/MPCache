@@ -39,6 +39,13 @@ Wan 81f (16) & TaylorSeer & 19 & 0.379 & 0.385 \\
 \label{tab:main}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.46\linewidth]{figures/fig_curve.pdf}
+\caption{LPIPS against the number of transformer calls on CogVideoX-2B at 17 frames, 16 prompts. The red curve varies only the length of our schedule; the three markers are the released baselines at their own default budgets, which their public entry points do not expose as a continuous knob. At seventeen calls our schedule is 21\% closer to the full run than the threshold-based cache at the same cost.}
+\label{fig:curve}
+\end{figure}
+
 \paragraph{The tail must grow, not spread.} At a fixed budget the only freedom is the shape of the gaps after the head. We compare a uniform tail with the growing tail of Eq.~\ref{eq:sched}, both with the same head and the same number of calls, and the growing tail lowers LPIPS by 34\% relative to a uniform tail on the same twelve prompts. The threshold rule fails the same way for a different reason. Its first exact calls are driven by the change of the input, which is largest at the start, but its budget tightens after four steps, and from there it spaces the rest by a threshold rather than by the profile: Figure~\ref{fig:sensitivity}b shows the four-step head against the twelve the profile asks for. Keeping more of the head exact is what the growing-gap rule buys.
 
 \paragraph{The head length follows from the profile.} We measure the single-skip profile once per backbone and read the head length from it, without search: the first ten steps of CogVideoX-2B carry $92\%$ of the total sensitivity, and the schedule therefore holds them exact. With a budget below the head length the rule keeps the earliest steps exact and accepts long gaps later, which is the regime where the gap between schedules is largest: at ten calls the schedule is 5.0 times closer to the full run than a uniform grid of the same size.
