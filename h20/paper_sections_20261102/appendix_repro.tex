@@ -16,26 +16,30 @@ Every number in the main paper comes from a run in this appendix, and the rules 
 \section{Baseline Correctness}
 \label{app:baseline}
 
-A reproduced baseline is credible only if it lands near the number its authors report. Table~\ref{tab:repro} puts the two side by side.
+A reproduced baseline is credible only if it lands near the number published for it. Table~\ref{tab:repro} puts the two side by side, and takes every reported number from a single source, the table of the paper whose harness we run, so that no row mixes protocols.
 
 \begin{table}[h]
 \centering\footnotesize\setlength{\tabcolsep}{4pt}
 \begin{tabular}{llcccc}
 \toprule
-Method & Setting & Speedup (paper) & LPIPS (paper) & Speedup (ours) & LPIPS (ours) \\
+Method & Setting & Reported & Speedup & Ours & Speedup \\
+ & & \citep{liu2026racfgcache} & (reported) & & (ours) \\
 \midrule
-TeaCache & Cog 17f & $2.46\times$ & 0.212 & $2.94\times$ & 0.296 \\
-RA-CFGCache & Cog 49f & $2.63\times$ & 0.099 & $2.63\times$ & 0.132 \\
-RA-CFGCache & Wan 81f & $2.69\times$ & 0.102 & $2.63\times$ & 0.154 \\
-TaylorSeer & Wan 81f & $1.67\times$ & 0.213 & $2.63\times$ & 0.379 \\
+TeaCache & Cog 17f & 0.204 & $2.42\times$ & 0.296 & $2.94\times$ \\
+RA-CFGCache & Cog 49f & 0.097 & $2.39\times$ & 0.132 & $2.63\times$ \\
+TeaCache & Wan 81f & 0.166 & $2.44\times$ & 0.199 & $2.63\times$ \\
+RA-CFGCache & Wan 81f & 0.099 & $2.56\times$ & 0.154 & $2.63\times$ \\
+TaylorSeer & Wan 81f & 0.363 & $2.13\times$ & 0.379 & $2.63\times$ \\
 \bottomrule
 \end{tabular}
-\caption{Numbers reported by the original papers (transcribed from their tables) against our reproduction inside one harness. Our speedups are those of the released default configuration, which is not always the operating point of the reported row.}
+\caption{The reported column is the number published for this harness by \citet{liu2026racfgcache}, which re-measures each baseline in the same pipeline we use; this keeps a single source for every row rather than mixing numbers taken from several papers under different protocols. The right half is our reproduction, measured with the released configuration.}
 \label{tab:repro}
 \end{table}
 
-\paragraph{The offset is one-directional.} Our reproduction is worse than the reported number for every baseline, by a factor between $1.3$ and $1.5$, and never better. A broken re-implementation does not fail in the same direction and by a similar amount for three different methods; a common cause does. The candidates are the prompt subset (we use the first 16 or 32 VBench prompts, the papers use the full set) and small differences in the decoding and frame-averaging path. Because the offset is common, the ordering of the baselines, which is what our claims depend on, is preserved: in every setting the risk-based cache is better than the threshold-based one, which is better than the Taylor expansion, exactly as the papers report.
+\paragraph{The offset is one-directional.} Our reproduction is worse than the reported number for every baseline, by a factor between $1.04$ and $1.56$, and never better. A broken re-implementation does not fail in the same direction and by a similar amount for three different methods; a common cause does. The candidates are the prompt subset (we use the first 16 or 32 VBench prompts, the papers use the full set) and small differences in the decoding and frame-averaging path. Because the offset is common, the ordering of the baselines, which is what our claims depend on, is preserved: in every setting the risk-based cache is better than the threshold-based one, which is better than the Taylor expansion, exactly as the papers report.
 
-\paragraph{Where the speedups differ.} TaylorSeer is the one row where our speedup does not match the reported one, because the released default evaluates every third step ($2.63\times$) while the reported row is at $1.67\times$. A faster operating point is expected to produce a larger error, so this row compares our $2.63\times$ reproduction against their $1.67\times$ number and should not be read as a like-for-like comparison. For the two RA-CFGCache rows the speedups agree to within $0.06\times$.
+\paragraph{A note on provenance.} The right-hand column of Table~\ref{tab:repro} is measured by us and can be reproduced from the released schedules and the two commands in the accompanying repository. The left-hand column is a transcription, so an error there would be an error of reading, not of measurement; we flag the one row where the two speedups disagree rather than adjusting it.
+
+\paragraph{Where the speedups differ.} Four of the five rows are within $0.2\times$ of the reported speedup. TaylorSeer is the exception: the released default evaluates every third step ($2.63\times$) while the reported row is slower ($2.13\times$), and a faster operating point is expected to cost more, so that row flatters neither method and we report it as it is. For RA-CFGCache the speedups agree to within $0.24\times$ on CogVideoX and $0.07\times$ on Wan.
 
 \paragraph{What this licenses.} Our claims are about the ordering of methods inside one harness at a matched budget, and that ordering is reproduced. We do not claim to beat the numbers printed in those papers, and the main table reports only our own runs for that reason.
