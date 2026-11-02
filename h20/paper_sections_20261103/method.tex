@@ -1,0 +1,30 @@
+\section{Method}
+\label{sec:method}
+A training-free cache answers one question per step: evaluate exactly, or reuse. The literature answers it with a threshold on a quantity that has already been observed, and spends its design effort on how to reconstruct a skipped step. We measure what the answer actually depends on and find that it is the position of the exact calls relative to the sampler's noise schedule, not the replacement.
+
+\subsection{Preliminaries}
+\label{sec:prelim}
+Fix a prompt, a guidance scale, and a grid $i=0,\ldots,T-1$ with latent $x_i$. An exact step evaluates both guidance branches and returns $v_i$; a skipped step returns the last exact output. The solver advances $x_{i+1}=A_ix_i+B_iv_i$ with coefficients from the base sampler, which we never modify. A schedule is a set $S\subset\{0,\ldots,T-1\}$ of exact steps, and the budget is $|S|$, counted in transformer calls. The reference for every number in this paper is a full run of the same sampler.
+
+\subsection{Where an exact call is worth paying for}
+\label{sec:core}
+The value of an exact call at step $i$ is how much a skip there would cost, measured at the end of the trajectory. We measure it directly: run the full sampler, then rerun with exactly one step skipped, and record LPIPS against the full run. On CogVideoX-2B at 30 steps the profile is monotone and steep. Skipping step $1$ costs $0.57$ LPIPS, step $2$ costs $0.45$, step $6$ costs $0.09$, and every step from $11$ to $28$ costs about $0.04$. The first ten steps carry about three quarters of the total, and the profile is a property of the sampler rather than of the prompt: the two prompts we measured correlate at $0.94$, and their first eight steps are identical.
+
+The profile has a simple explanation. An error introduced while the latent is still mostly noise is carried by every later step, because each step conditions on the current latent; an error introduced near the end is re-explained by the next few evaluations before the final decode. The quantity that matters is therefore the distance of a call from the head of the trajectory, and it is available before any denoising starts.
+
+\subsection{The schedule}
+\label{sec:control}
+Given a budget $B$ and a measured profile, the optimal schedule is greedy on the profile, and the profile's shape gives it a closed form: a dense head, then gaps that grow. We use
+\begin{equation}
+ S=\{\,0,\ldots,H-1\,\}\;\cup\;\{\,g_k\,\}\;\cup\;\{T-1\},
+ \qquad
+ g_{k+1}=g_k+\lceil r\,(g_k-g_{k-1})\rceil ,
+ \label{eq:sched}
+\end{equation}
+with head length $H$, first tail gap $2$, and growth $r>1$. The head is where the profile is above half its maximum; the growing gaps follow the observation that the profile decays, so no two consecutive decisions near the end deserve the same spacing. The last step is always exact because it produces the latent that is decoded. For $T=50$ and $B=20$ this gives $H=12$ and the tail $13,15,18,22,27,33,40,48$.
+
+Two properties follow. The number of calls is $|S|=B$ by construction, so the schedule can be compared with any other policy at equal budget. And the rule uses no learned quantity and no calibration pass: $H$ and $r$ follow from the measured profile of the backbone, which is obtained once by the single-skip measurement above.
+
+\subsection{Why threshold rules lose}
+\label{sec:price}
+A threshold on the change of the input fires where the input moves fastest, which is exactly the head. That sounds correct and is not: it spends its early budget on consecutive steps that are already cheap in relative terms, and then, as the budget tightens, it must skip inside the head, which is where a skip costs the most. On CogVideoX-2B at 50 steps the threshold rule evaluates seventeen steps and reaches 0.296 LPIPS, while the same budget placed by Eq.~\ref{eq:sched} reaches 0.151. The failure is in the placement, not in the reconstruction: replacing the reconstruction of a skipped step by plain reuse leaves our numbers unchanged, and replacing the schedule by a threshold loses a factor of three.
