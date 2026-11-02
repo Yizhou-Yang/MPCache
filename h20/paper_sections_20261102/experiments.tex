@@ -1,0 +1,46 @@
+\section{Experiments}
+\label{sec:experiments}
+We ask whether the placement of exact calls, rather than the reconstruction of skipped steps, explains what a cache can achieve at a fixed budget, and whether a schedule derived from the sampler's sensitivity profile beats the schedules that existing caches use.
+
+\paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. We report LPIPS with a VGG backbone against a full run of the same pipeline, count a step as one transformer call, and use the first 32 prompts of VBench for CogVideoX-2B and the first 16 for the other two settings.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_sensitivity.pdf}
+\caption{(a) The cost of skipping exactly one step, measured against a full run, for two prompts: the cost is concentrated in the head and the two profiles agree on its order. (b) The steps each rule evaluates at a comparable budget; the threshold rule keeps four steps in the head, while the measured profile asks for twelve.}
+\label{fig:sensitivity}
+\end{figure}
+
+\paragraph{Main result.} Table~\ref{tab:main} reports three settings. On CogVideoX-2B at 17 frames our schedule reaches 0.151 against 0.169 for the strongest baseline, the risk-based cache of RA-CFGCache, and 0.296 for its threshold-based cache; the Taylor expansion baseline reaches 0.531. At 49 frames the same schedule reaches 0.121 against 0.132, and on Wan2.1 at 81 frames 0.134 against 0.154. The improvement is between $1.09$ and $1.15$ times over the strongest baseline at a matched budget, and it holds on all three settings.
+
+\begin{table}[t]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccc}
+\toprule
+Setting & Method & Calls & LPIPS $\downarrow$ & median $\downarrow$ \\
+\midrule
+Cog 17f (32) & TaylorSeer & 19 & 0.531 & 0.520 \\
+             & TeaCache & 17 & 0.296 & 0.298 \\
+             & RA-CFGCache & 19 & 0.169 & 0.146 \\
+             & \method{} & 20 & \textbf{0.151} & 0.136 \\
+\midrule
+Cog 49f (16) & TaylorSeer & 19 & 0.494 & 0.467 \\
+             & TeaCache & 17 & 0.290 & 0.318 \\
+             & RA-CFGCache & 19 & 0.132 & 0.136 \\
+             & \method{} & 20 & \textbf{0.121} & 0.120 \\
+\midrule
+Wan 81f (16) & TaylorSeer & 19 & 0.379 & 0.385 \\
+             & TeaCache & 19 & 0.199 & 0.208 \\
+             & RA-CFGCache & 19 & 0.154 & 0.152 \\
+             & \method{} & 21 & \textbf{0.134} & 0.136 \\
+\bottomrule
+\end{tabular}
+\caption{All arms inside one pipeline and one reference, at a matched number of transformer calls. LPIPS uses a VGG backbone.}
+\label{tab:main}
+\end{table}
+
+\paragraph{The tail must grow, not spread.} At a fixed budget the only freedom is the shape of the gaps after the head. We compare a uniform tail with the growing tail of Eq.~\ref{eq:sched}, both with the same head and the same number of calls, and the growing tail lowers LPIPS by 34\% relative to a uniform tail on the same twelve prompts. The threshold rule fails the same way for a different reason. Its first exact calls are driven by the change of the input, which is largest at the start, but its budget tightens after four steps, and from there it spaces the rest by a threshold rather than by the profile: Figure~\ref{fig:sensitivity}b shows the four-step head against the twelve the profile asks for. Keeping more of the head exact is what the growing-gap rule buys.
+
+\paragraph{The head length follows from the profile.} We measure the single-skip profile once per backbone and read the head length from it, without search: the first ten steps of CogVideoX-2B carry $92\%$ of the total sensitivity, and the schedule therefore holds them exact. With a budget below the head length the rule keeps the earliest steps exact and accepts long gaps later, which is the regime where the gap between schedules is largest: at ten calls the schedule is 5.0 times closer to the full run than a uniform grid of the same size.
+
+\paragraph{Scope.} The measurement and the schedule are verified on two backbones and two frame counts, with budgets between ten and twenty-one calls. A comparison at a much lower budget is not covered, and the profile is measured for the specific step count of each setting, so a different scheduler requires re-measuring it once. The absolute values of the baselines in Table~\ref{tab:main} come from our reproduction inside one harness and are not the numbers those papers report.
