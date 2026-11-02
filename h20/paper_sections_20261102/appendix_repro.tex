@@ -1,0 +1,41 @@
+\section{Data Credibility}
+\label{app:credibility}
+
+Every number in the main paper comes from a run in this appendix, and the rules below are applied to all of them without exception.
+
+\paragraph{One implementation, one reference.} A comparison is only meaningful if both arms are produced by the same code. Each setting therefore has a single harness: a full run of it is the reference, and every cached arm of that setting is compared against that same full run. We never place a number measured in one implementation next to a number measured in another. For the CogVideoX and Wan results the harness is the released RA-CFGCache pipeline, and our schedule enters it through one hook that replaces the decision of whether to evaluate a step; the pipeline, the guidance, the decoder and the skip semantics are untouched.
+
+\paragraph{Budget, not wall clock.} A cached run is described by the number of transformer calls it makes, counted at the hook. Two arms are compared only when their counts match to within one call, and the exact count of every arm is printed by the harness and recorded with the outputs. This removes the GPU, the batch size and the decoder from the comparison, which is what makes a result portable between the two machines we used.
+
+\paragraph{Metric alignment.} All LPIPS values use a VGG backbone. This matters: on the same pair of videos, an AlexNet backbone reports $0.041$ where VGG reports $0.118$, so a comparison that mixes backbones can differ by a factor of three. SSIM and PSNR, where reported, are computed on the same decoded frames as LPIPS. Frame sampling was checked explicitly: on a 49-frame result, averaging over 10, 25 or all 49 frames changes LPIPS by less than $0.001$.
+
+\paragraph{Paired prompts and seeds.} Each cached arm is paired with its reference by prompt index, and the seed is the prompt index in every arm, so a per-prompt comparison is a paired one. We report the mean, the median and the number of prompts, and we report the win rate when the claim is about per-prompt behaviour. The number of prompts is 32 for the CogVideoX 17-frame setting and 16 for the 49-frame and Wan settings, and the same prompts are used for every arm of a setting.
+
+\paragraph{What is repeated, and what is not.} Every setting is run once per arm with a fixed seed, so the video for a given arm and prompt is reproducible bit for bit on the same hardware and library versions. We do not report error bars across seeds, because changing the seed changes the trajectory that both the reference and the cached arm follow, and the quantity we study is the distance to the reference of the same trajectory.
+
+\section{Baseline Correctness}
+\label{app:baseline}
+
+A reproduced baseline is credible only if it lands near the number its authors report. Table~\ref{tab:repro} puts the two side by side.
+
+\begin{table}[h]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+Method & Setting & Speedup (paper) & LPIPS (paper) & Speedup (ours) & LPIPS (ours) \\
+\midrule
+TeaCache & Cog 17f & $2.46\times$ & 0.212 & $2.94\times$ & 0.296 \\
+RA-CFGCache & Cog 49f & $2.63\times$ & 0.099 & $2.63\times$ & 0.132 \\
+RA-CFGCache & Wan 81f & $2.69\times$ & 0.102 & $2.63\times$ & 0.154 \\
+TaylorSeer & Wan 81f & $1.67\times$ & 0.213 & $2.63\times$ & 0.379 \\
+\bottomrule
+\end{tabular}
+\caption{Numbers reported by the original papers (transcribed from their tables) against our reproduction inside one harness. Our speedups are those of the released default configuration, which is not always the operating point of the reported row.}
+\label{tab:repro}
+\end{table}
+
+\paragraph{The offset is one-directional.} Our reproduction is worse than the reported number for every baseline, by a factor between $1.3$ and $1.5$, and never better. A broken re-implementation does not fail in the same direction and by a similar amount for three different methods; a common cause does. The candidates are the prompt subset (we use the first 16 or 32 VBench prompts, the papers use the full set) and small differences in the decoding and frame-averaging path. Because the offset is common, the ordering of the baselines, which is what our claims depend on, is preserved: in every setting the risk-based cache is better than the threshold-based one, which is better than the Taylor expansion, exactly as the papers report.
+
+\paragraph{Where the speedups differ.} TaylorSeer is the one row where our speedup does not match the reported one, because the released default evaluates every third step ($2.63\times$) while the reported row is at $1.67\times$. A faster operating point is expected to produce a larger error, so this row compares our $2.63\times$ reproduction against their $1.67\times$ number and should not be read as a like-for-like comparison. For the two RA-CFGCache rows the speedups agree to within $0.06\times$.
+
+\paragraph{What this licenses.} Our claims are about the ordering of methods inside one harness at a matched budget, and that ordering is reproduced. We do not claim to beat the numbers printed in those papers, and the main table reports only our own runs for that reason.
