@@ -41,8 +41,8 @@ Wan 81f (16) & TaylorSeer & 19 & 0.379 & 0.385 \\
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.46\linewidth]{figures/fig_curve.pdf}
-\caption{LPIPS against the number of transformer calls on CogVideoX-2B at 17 frames, 16 prompts. The red curve varies only the length of our schedule; the three markers are the released baselines at their own default budgets, which their public entry points do not expose as a continuous knob. At seventeen calls our schedule is 21\% closer to the full run than the threshold-based cache at the same cost.}
+\includegraphics[width=\linewidth]{figures/fig_curve2.pdf}
+\caption{LPIPS against the number of transformer calls at 16 prompts. The red curve varies only the length of our schedule; the three markers are the released baselines at their own default budgets, which their public entry points do not expose as a continuous knob. At seventeen calls our schedule is 20\% closer to the full run than the threshold-based cache at the same cost on CogVideoX-2B, and at nineteen calls it is below the risk-based cache on both backbones.}
 \label{fig:curve}
 \end{figure}
 
