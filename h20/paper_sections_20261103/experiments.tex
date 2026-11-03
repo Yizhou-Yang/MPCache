@@ -11,7 +11,7 @@ We ask whether the placement of exact calls, rather than the reconstruction of s
 \label{fig:sensitivity}
 \end{figure}
 
-\paragraph{Main result.} Table~\ref{tab:main} reports three settings. On CogVideoX-2B at 17 frames our schedule reaches 0.151 against 0.169 for the strongest baseline, the risk-based cache of RA-CFGCache, and 0.296 for its threshold-based cache; the Taylor expansion baseline reaches 0.531. At 49 frames the same schedule reaches 0.121 against 0.132, and on Wan2.1 at 81 frames 0.134 against 0.154. The improvement is between $1.09$ and $1.15$ times over the strongest baseline at a matched budget, and it holds on all three settings.
+\paragraph{Main result.} Table~\ref{tab:main} reports three settings. On CogVideoX-2B at 17 frames our schedule reaches 0.151 against 0.169 for the strongest baseline, the risk-based cache of RA-CFGCache, and 0.296 for its threshold-based cache; the Taylor expansion baseline reaches 0.531. At 49 frames the same schedule reaches 0.121 against 0.132, and on Wan2.1 at 81 frames 0.134 against 0.154. The improvement is between $1.09$ and $1.15$ times over the strongest baseline at a matched budget, and it holds on all three settings. Figure~\ref{fig:curve} sweeps the budget rather than comparing a single operating point: on both backbones the curve stays below every released baseline at the budget those baselines use.
 
 \begin{table}[t]
 \centering\footnotesize\setlength{\tabcolsep}{4pt}
