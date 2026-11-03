@@ -1,8 +1,26 @@
 \section{Experiments}
 \label{sec:experiments}
-We ask whether the placement of exact calls, rather than the reconstruction of skipped steps, explains what a cache can achieve at a fixed budget, and whether a schedule derived from the sampler's sensitivity profile beats the schedules that existing caches use.
+We ask whether the placement of exact calls, rather than the reconstruction of skipped steps, explains what a cache can achieve at a fixed budget, and whether a schedule derived from the sampler's measured profile beats the schedules that existing caches use.
 
-\paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. We report LPIPS with a VGG backbone against a full run of the same pipeline, count a step as one transformer call, and use the first 32 prompts of VBench for CogVideoX-2B and the first 16 for the other two settings.
+\paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, the VBench prompts of that release (48 of them, the number we could run at this frame count before the machine was returned). We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
+
+\paragraph{Main result.} Table~\ref{tab:main} compares our schedule with the strongest released baseline at the same budget. On all three metrics our schedule is better: LPIPS falls from 0.155 to 0.144, SSIM rises from 0.904 to 0.914 and PSNR from 29.1 to 29.9. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
+
+\begin{table}[t]
+\centering\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccc}
+\toprule
+Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+\midrule
+RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
+\method{} & 20 & \textbf{0.144} & \textbf{0.914} & \textbf{29.9} \\
+\bottomrule
+\end{tabular}
+\caption{CogVideoX-2B, 49 frames, 50 steps, 48 VBench prompts, one pipeline and one reference. The schedule is the only difference between the two rows.}
+\label{tab:main}
+\end{table}
+
+\paragraph{Two more settings, same ordering.} Appendix~\ref{app:cog17} repeats the comparison at 17 frames over the same 100 prompts with all four baselines, where the threshold-based cache and the Taylor expansion are also present: our schedule reaches 0.145 LPIPS against 0.159 for the risk-based cache, 0.279 for the threshold-based one and 0.492 for the expansion, and it is first on SSIM and PSNR as well. Appendix~\ref{app:wan} repeats it on Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, where the ordering is again unchanged. The gap does not depend on the backbone, which is what a positional effect should look like.
 
 \begin{figure}[t]
 \centering
@@ -11,31 +29,9 @@ We ask whether the placement of exact calls, rather than the reconstruction of s
 \label{fig:sensitivity}
 \end{figure}
 
-\paragraph{Main result.} Table~\ref{tab:main} reports three settings on all three metrics. On CogVideoX-2B at 17 frames, over one hundred prompts, our schedule reaches 0.145 LPIPS, 0.906 SSIM and 28.6 PSNR against 0.159, 0.895 and 27.7 for the strongest baseline, the risk-based cache of RA-CFGCache; the threshold-based cache falls to 0.279 and the Taylor expansion to 0.492. At 49 frames over 48 prompts it reaches 0.144 against 0.155, and on Wan2.1 at 81 frames 0.134 against 0.154. The ordering is the same on every metric and every setting, which is what a placement effect should look like: it does not trade one axis of quality for another. The improvement over the strongest baseline is between $1.09$ and $1.15$ times in LPIPS. Figure~\ref{fig:curve} sweeps the budget rather than comparing a single operating point: on both backbones the curve stays below every released baseline at the budget those baselines use.
+\paragraph{The tail must grow, not spread.} At a fixed budget the only freedom left is the shape of the gaps after the head. Holding the head and the number of calls fixed and varying only that shape, a uniform tail costs $34\%$ more LPIPS than the growing tail of Eq.~\ref{eq:sched} (Appendix~\ref{app:shape}). The threshold rule fails for the same reason with a different mechanism: its first exact calls are driven by the change of the input, which is largest at the start, but its budget tightens after four steps, so from there it spaces the rest by a threshold rather than by the profile. Figure~\ref{fig:sensitivity}b shows that four-step head against the twelve the profile asks for.
 
-\begin{table*}[t]
-\centering\footnotesize\setlength{\tabcolsep}{5pt}
-\begin{tabular}{llcccc}
-\toprule
-Setting & Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
-\midrule
-Cog 17f (100) & TaylorSeer & 19 & 0.492 & 0.526 & 13.9 \\
-              & TeaCache & 17 & 0.279 & 0.752 & 21.1 \\
-              & RA-CFGCache & 19 & 0.159 & 0.895 & 27.7 \\
-              & \method{} & 20 & \textbf{0.145} & \textbf{0.906} & \textbf{28.6} \\
-\midrule
-Cog 49f (48)  & RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
-              & \method{} & 20 & \textbf{0.144} & \textbf{0.914} & \textbf{29.9} \\
-\midrule
-Wan 81f (16)  & TaylorSeer & 19 & 0.379 & 0.620 & 17.6 \\
-              & TeaCache & 19 & 0.199 & 0.827 & 24.0 \\
-              & RA-CFGCache & 19 & 0.154 & 0.870 & 27.8 \\
-              & \method{} & 21 & \textbf{0.134} & \textbf{0.888} & \textbf{28.9} \\
-\bottomrule
-\end{tabular}
-\caption{All arms inside one pipeline and one reference, at a matched number of transformer calls; the number in parentheses is the prompt count. Our schedule is first on all three metrics in every setting. LPIPS uses a VGG backbone.}
-\label{tab:main}
-\end{table*}
+\paragraph{The head length follows from the profile.} We measure the single-skip profile once per setting and read the head length from it, without search: the first ten steps of CogVideoX-2B carry about three quarters of the total sensitivity, and the schedule therefore holds a dozen of them exact. With a budget below the head length the rule keeps the earliest steps exact and accepts long gaps later, which is the regime where the gap between schedules is largest: at ten calls the schedule is 5.0 times closer to the full run than a uniform grid of the same size. Appendix~\ref{app:params} reports how the schedule behaves when the head is varied.
 
 \begin{figure}[t]
 \centering
@@ -44,10 +40,6 @@ Wan 81f (16)  & TaylorSeer & 19 & 0.379 & 0.620 & 17.6 \\
 \label{fig:curve}
 \end{figure}
 
-\paragraph{The tail must grow, not spread.} At a fixed budget the only freedom is the shape of the gaps after the head. We compare a uniform tail with the growing tail of Eq.~\ref{eq:sched}, both with the same head and the same number of calls, and the growing tail lowers LPIPS by 34\% relative to a uniform tail on the same twelve prompts. \paragraph{The interval sweep, and what it does not show.} A natural control is the family of fixed-interval schedules: the Taylor expansion baseline with its interval set to two, three and four, which costs about 26, 19 and 15 calls. On 32 prompts it reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval. That comparison is not evidence for the shape of the tail, because the degradation of that baseline is dominated by its forecast rather than by its spacing: even at 26 calls, where its spacing is denser than ours, it stays at 0.40. The shape is isolated by the control above, which holds the head and the budget fixed and varies only the gaps.
+\paragraph{The interval sweep.} A natural control is the family of fixed-interval schedules: the Taylor expansion baseline with its interval set to two, three and four, which costs about 26, 19 and 15 calls. On 32 prompts it reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval, as Figure~\ref{fig:curve} shows for the two backbones. That comparison is not evidence for the shape of the tail, because the degradation of that baseline is dominated by its forecast rather than by its spacing: even at 26 calls, where its spacing is denser than ours, it stays at 0.40.
 
-The threshold rule fails the same way for a different reason. Its first exact calls are driven by the change of the input, which is largest at the start, but its budget tightens after four steps, and from there it spaces the rest by a threshold rather than by the profile: Figure~\ref{fig:sensitivity}b shows the four-step head against the twelve the profile asks for. Keeping more of the head exact is what the growing-gap rule buys.
-
-\paragraph{The head length follows from the profile.} We measure the single-skip profile once per backbone and read the head length from it, without search: the first ten steps of CogVideoX-2B carry about three quarters of the total sensitivity, and the schedule therefore holds them exact. With a budget below the head length the rule keeps the earliest steps exact and accepts long gaps later, which is the regime where the gap between schedules is largest: at ten calls the schedule is 5.0 times closer to the full run than a uniform grid of the same size.
-
-\paragraph{Scope.} The measurement and the schedule are verified on two backbones and two frame counts, with budgets between ten and twenty-one calls. A comparison at a much lower budget is not covered, and the profile is measured for the specific step count of each setting, so a different scheduler requires re-measuring it once. The absolute values of the baselines in Table~\ref{tab:main} come from our reproduction inside one harness and are not the numbers those papers report.
+\paragraph{Scope.} The measurement and the schedule are verified on two backbones and two frame counts, with budgets between ten and twenty-one calls. A comparison at a much lower budget is not covered, and the profile is measured for the specific step count of each setting, so a different scheduler requires re-measuring it once. The absolute values of the baselines come from our reproduction inside one harness and are not the numbers those papers report; Appendix~\ref{app:baseline} puts the two side by side.
