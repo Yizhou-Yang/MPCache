@@ -1,0 +1,137 @@
+{
+  "_metric": "LPIPS(VGG)/SSIM/PSNR vs a full run of the same harness",
+  "_harness": "RA-CFGCache release, schedule injected via MPC_SCHED",
+  "cog_17f": {
+    "n": 100,
+    "steps": 50,
+    "frames": 17,
+    "rows": [
+      [
+        "TaylorSeer",
+        19,
+        0.4917,
+        0.5259,
+        13.91
+      ],
+      [
+        "TeaCache",
+        17,
+        0.2786,
+        0.7522,
+        21.05
+      ],
+      [
+        "RA-CFGCache",
+        19,
+        0.1587,
+        0.8948,
+        27.72
+      ],
+      [
+        "ours",
+        20,
+        0.1454,
+        0.9059,
+        28.58
+      ]
+    ]
+  },
+  "cog_49f": {
+    "n": 16,
+    "steps": 50,
+    "frames": 49,
+    "rows": [
+      [
+        "TaylorSeer",
+        19,
+        0.4939,
+        0.5339,
+        14.46
+      ],
+      [
+        "TeaCache",
+        17,
+        0.2895,
+        0.7357,
+        20.4
+      ],
+      [
+        "RA-CFGCache",
+        19,
+        0.1323,
+        0.9316,
+        30.59
+      ],
+      [
+        "ours",
+        20,
+        0.1211,
+        0.9404,
+        31.6
+      ]
+    ]
+  },
+  "wan_81f": {
+    "n": 16,
+    "steps": 50,
+    "frames": 81,
+    "rows": [
+      [
+        "TaylorSeer",
+        19,
+        0.3794,
+        0.6196,
+        17.61
+      ],
+      [
+        "TeaCache",
+        19,
+        0.1991,
+        0.8268,
+        24.04
+      ],
+      [
+        "RA-CFGCache",
+        19,
+        0.1544,
+        0.8703,
+        27.79
+      ],
+      [
+        "ours",
+        21,
+        0.1343,
+        0.8884,
+        28.85
+      ]
+    ]
+  },
+  "taylor_interval_sweep_32prompts": {
+    "interval_2": {
+      "calls": 26,
+      "lpips": 0.4015
+    },
+    "interval_3": {
+      "calls": 19,
+      "lpips": 0.5312
+    },
+    "interval_4": {
+      "calls": 15,
+      "lpips": 0.6148
+    }
+  },
+  "budget_sweep_32prompts": {
+    "ours_17": {
+      "calls": 17,
+      "lpips": 0.2243,
+      "ssim": 0.8374,
+      "psnr": 23.76
+    },
+    "ours_21": {
+      "calls": 21,
+      "lpips": 0.1619,
+      "ssim": 0.8977,
+      "psnr": 27.54
+    }
+  }
+}
