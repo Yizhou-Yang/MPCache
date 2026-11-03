@@ -25,7 +25,7 @@ RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_sensitivity.pdf}
-\caption{(a) The cost of skipping exactly one step, measured against a full run, for two prompts: the cost is concentrated in the head and the two profiles agree on its order. (b) The steps each rule evaluates at a comparable budget; the threshold rule keeps four steps in the head, while the measured profile asks for twelve.}
+\caption{(a) The cost of skipping exactly one step, measured against a full run, for two prompts (left axis), and its cumulative share (dotted, right axis): the first ten steps carry about three quarters of the total, and the two prompts agree on the order. (b) The steps each rule evaluates at a comparable budget; the threshold rule keeps four steps in the head, while the measured profile asks for twelve.}
 \label{fig:sensitivity}
 \end{figure}
 
@@ -41,5 +41,7 @@ RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
 \end{figure}
 
 \paragraph{The interval sweep.} A natural control is the family of fixed-interval schedules: the Taylor expansion baseline with its interval set to two, three and four, which costs about 26, 19 and 15 calls. On 32 prompts it reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval, as Figure~\ref{fig:curve} shows for the two backbones. That comparison is not evidence for the shape of the tail, because the degradation of that baseline is dominated by its forecast rather than by its spacing: even at 26 calls, where its spacing is denser than ours, it stays at 0.40.
+
+\paragraph{Wall clock.} The budget is counted in transformer calls, and on one H20 the call ratio is also the latency ratio up to the decoder, which is constant across arms. Measured on the same box, a CogVideoX-2B transformer call costs 0.69 s at 17 frames, 2.7 s at 49 frames and 6.5 s on Wan2.1 at 81 frames, so a 49-frame full run spends about 135 s in the network and our twenty-call schedule spends about 54 s, a $2.5\times$ end-to-end speedup before the decode is added. We report calls rather than seconds because the decoder, the batch size and the host are not part of the claim, and because a call count transfers between machines while a latency does not.
 
 \paragraph{Scope.} The measurement and the schedule are verified on two backbones and two frame counts, with budgets between ten and twenty-one calls. A comparison at a much lower budget is not covered, and the profile is measured for the specific step count of each setting, so a different scheduler requires re-measuring it once. The absolute values of the baselines come from our reproduction inside one harness and are not the numbers those papers report; Appendix~\ref{app:baseline} puts the two side by side.
