@@ -1,0 +1,45 @@
+{
+  "_metric": "LPIPS with a VGG backbone against a full run of the same harness",
+  "_harness": "RA-CFGCache release; our schedule injected via MPC_SCHED / MPC_SCHEDW",
+  "main_table": {
+    "cog_17f": {"n": 32, "harness": "RA-CFGCache cog demo, 50 steps, 17 frames",
+      "taylor":   {"calls": 19, "mean": 0.5312, "median": 0.5195},
+      "teacache": {"calls": 17, "mean": 0.2955, "median": 0.2977},
+      "cfgcache": {"calls": 19, "mean": 0.1685, "median": 0.1459},
+      "ours":     {"calls": 20, "mean": 0.1506, "median": 0.1364}},
+    "cog_49f": {"n": 16, "harness": "same, 49 frames",
+      "taylor":   {"calls": 19, "mean": 0.4939, "median": 0.4671},
+      "teacache": {"calls": 17, "mean": 0.2895, "median": 0.3181},
+      "cfgcache": {"calls": 19, "mean": 0.1323, "median": 0.1363},
+      "ours":     {"calls": 20, "mean": 0.1211, "median": 0.1195}},
+    "wan_81f": {"n": 16, "harness": "RA-CFGCache wan demo, 50 steps, 81 frames",
+      "taylor":   {"calls": 19, "mean": 0.3794, "median": 0.3847},
+      "teacache": {"calls": 19, "mean": 0.1991, "median": 0.2078},
+      "cfgcache": {"calls": 19, "mean": 0.1544, "median": 0.1518},
+      "ours":     {"calls": 21, "mean": 0.1343, "median": 0.1362}}
+  },
+  "curves": {
+    "cog_17f_n16": {"ours": [[10,0.3797],[14,0.2719],[17,0.2131],[21,0.1567]],
+                     "teacache_17": 0.2674, "cfgcache_19": 0.1633, "taylor_19": 0.4946},
+    "wan_81f_n16": {"ours": [[13,0.2348],[17,0.1663],[21,0.1343],[26,0.1029]],
+                     "teacache_19": 0.1991, "cfgcache_19": 0.1544, "taylor_19": 0.3794}
+  },
+  "sensitivity_profile_vgg": {
+    "protocol": "skip exactly one step, compare against the full run; CogVideoX-2B, 30 steps, 17 frames",
+    "prompt0": {"step1": 0.5688, "step2": 0.4524, "step6": 0.0940, "tail_mean_11_28": 0.0419, "head_1_10_share": 0.709},
+    "prompt1": {"step1": 0.5950, "step2": 0.3992, "step6": 0.1572, "tail_mean_11_28": 0.0411, "head_1_10_share": 0.754},
+    "cross_prompt_correlation": 0.939
+  },
+  "baseline_reproduction_check": {
+    "source": "reported column from the RA-CFGCache paper (same harness)",
+    "rows": [
+      ["TeaCache","Cog 17f",0.204,2.42,0.296,2.94],
+      ["RA-CFGCache","Cog 49f",0.097,2.39,0.132,2.63],
+      ["TeaCache","Wan 81f",0.166,2.44,0.199,2.63],
+      ["RA-CFGCache","Wan 81f",0.099,2.56,0.154,2.63],
+      ["TaylorSeer","Wan 81f",0.363,2.13,0.379,2.63]
+    ],
+    "offset_range": "1.04x - 1.56x, always in the same direction"
+  },
+  "_note": "Raw videos lived on the H20 that was reclaimed on 2026-11-03; these are the evaluated numbers. Re-run from h20/reproduce/ to regenerate them."
+}

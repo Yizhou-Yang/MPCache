@@ -1,0 +1,14 @@
+{
+  "harness": "RA-CFGCache release; schedule injected via MPC_SCHED / MPC_SCHEDW",
+  "metric": "LPIPS (VGG backbone) against a full run of the same harness",
+  "settings": {
+    "cog_17f": {"frames": 17, "steps": 50, "prompts": 100,
+                "schedule": [0,1,2,3,4,5,6,7,8,9,10,11,13,15,18,22,27,33,40,48]},
+    "cog_49f": {"frames": 49, "steps": 50, "prompts": 48,
+                "schedule": [0,1,2,3,4,5,6,7,8,9,10,11,13,15,18,22,27,33,40,48]},
+    "wan_81f": {"frames": 81, "steps": 50, "prompts": 24,
+                "schedule": [0,1,2,3,4,5,6,7,8,9,11,12,14,17,20,24,28,33,38,43,49]}
+  },
+  "arms": ["original", "TeaCache", "Taylor", "CFGCache", "ours"],
+  "seed_rule": "seed = prompt index in every arm"
+}
