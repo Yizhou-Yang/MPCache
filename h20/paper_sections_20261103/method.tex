@@ -25,6 +25,18 @@ with head length $H$, first tail gap $2$, and growth $r>1$. The head is where th
 
 Two properties follow. The number of calls is $|S|=B$ by construction, so the schedule can be compared with any other policy at equal budget. And the rule uses no learned quantity and no calibration pass: $H$ and $r$ follow from the measured profile of the backbone, which is obtained once by the single-skip measurement above.
 
+\subsection{The schedule as an open-loop solution}
+\label{sec:openloop}
+Write the profile as $w_i$, the terminal loss caused by skipping step $i$ alone, and let $S$ be the set of exact steps. Under the additive model of Section~\ref{sec:core} the choice is the program
+\begin{equation}
+\min_{S\subseteq\{0,\ldots,T-1\}}\ \sum_{i\notin S} w_i
+\quad\text{s.t.}\quad |S|=B,\ \ T-1\in S ,
+\label{eq:alloc}
+\end{equation}
+whose exact solution is greedy: keep the last step, then the $B-1$ steps with the largest $w_i$. A model-predictive controller would re-solve \eqref{eq:alloc} at every step on the observed state and apply the first decision. Here that loop collapses, and the reason is measurable rather than argued: $w$ is a property of the sampler, so re-solving on a fresh observation returns the same set and the controller executes an open-loop schedule. We verified the premise directly. Replacing $w$ by an online estimate of the local error, refitted at every exact step and used to re-rank the remaining steps, changes no decision on our settings, and the schedules it produces are identical to those of the static profile.
+
+The controller therefore runs once, before denoising, which is why the method has no per-step overhead and no threshold to tune. What remains is to choose a parametric family for $w$ that a practitioner can instantiate without the measurement: the profile decays from the head, so we use an exact head of length $H$ and gaps that grow by a fixed ratio, as in Eq.~\ref{eq:sched}. The measurement in Section~\ref{sec:core} is what fixes $H$; the growing gaps are what the tail of the profile asks for.
+
 \subsection{Why threshold rules lose}
 \label{sec:price}
 A threshold on the change of the input fires where the input moves fastest, which is exactly the head. That sounds correct and is not: it spends its early budget on consecutive steps that are already cheap in relative terms, and then, as the budget tightens, it must skip inside the head, which is where a skip costs the most. On CogVideoX-2B at 50 steps the threshold rule evaluates seventeen steps and reaches 0.296 LPIPS, while the same budget placed by Eq.~\ref{eq:sched} reaches 0.151. The failure is in the placement, not in the reconstruction: replacing the reconstruction of a skipped step by plain reuse leaves our numbers unchanged, and replacing the schedule by a threshold loses a factor of three.
