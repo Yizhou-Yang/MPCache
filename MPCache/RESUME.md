@@ -15,10 +15,15 @@ see "Autopilot" below). Anything not there did not finish.
 |  |  | TeaCache | 0.2786 | 0.7522 | 21.05 |
 |  |  | RA-CFGCache | 0.1587 | 0.8948 | 27.72 |
 |  |  | **ours** | **0.1454** | **0.9059** | **28.58** |
-| Wan 81f | 80 (65 evaluated) | orig + **ours** 0.1469 / 0.8899 / 28.88 | | | |
+| Wan 81f | 65 | RA-CFGCache | 0.1716 | 0.8655 | 27.72 |
+|  |  | **ours** (head 12) | **0.1469** | **0.8899** | **28.88** |
 
 Shape ablation (17f, 32 prompts, head 12, budget 20): uniform 0.1656; r=1.4 0.1560; r=2.0 0.1566;
 r=3.0 0.1541. Taylor interval sweep: 0.402 / 0.531 / 0.615 at 26 / 19 / 15 calls.
+
+Head ablation (17f, 32 prompts): H=6 0.2877; H=12 0.1566; H=16 0.1325. Confirmed end to end at
+49 frames and 100 prompts: H=12 0.1424 (20 calls) vs **H=16 0.1300 (22 calls)**. The shipped
+schedule therefore uses a head of sixteen: `0..15, 18, 22, 28, 35, 42, 49`.
 
 ## Autopilot on the box
 
