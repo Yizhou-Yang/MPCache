@@ -31,6 +31,30 @@ The ordering of Table~\ref{tab:cog17} is the same as in the main table, and the 
 
 At a fixed head and a fixed budget, the only freedom left is the spacing of the tail. With the head fixed at twelve steps and the budget at twenty calls, we vary only the ratio at which the gaps grow. On CogVideoX-2B at 17 frames over 32 prompts the uniform tail reaches 0.166 LPIPS, and the growing tails reach 0.156, 0.157 and 0.154 at ratios of 1.4, 2.0 and 3.0. The growth is therefore worth 5 to 7 percent, and its exact value is not: the three ratios are within noise of one another. We also swept the Taylor expansion baseline over its interval, at two, three and four steps, which cost about 26, 19 and 15 calls. It reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval. That comparison is not evidence for the shape, because the degradation of that baseline is dominated by its forecast rather than by its spacing.
 
+\subsection{Why the forecast-based baseline degrades}
+\label{app:taylor}
+
+A reader may suspect that the Taylor expansion baseline is simply given a smaller budget than ours, and that a denser spacing would rescue it. Table~\ref{tab:taylor} rules this out: at an interval of two steps it spends about 26 calls, 30\% more than our twenty, and still sits at 0.402 LPIPS, almost three times our 0.142.
+
+\begin{table}[h]
+\centering\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccc}
+\toprule
+Spacing & Calls & LPIPS $\downarrow$ & PSNR $\uparrow$ \\
+\midrule
+TaylorSeer, interval 2 & 26 & 0.402 & 16.7 \\
+TaylorSeer, interval 3 & 19 & 0.531 & not measured \\
+TaylorSeer, interval 4 & 15 & 0.615 & 11.6 \\
+\midrule
+\method{} & 20 & \textbf{0.142} & \textbf{30.2} \\
+\bottomrule
+\end{tabular}
+\caption{The Taylor expansion baseline at three spacings, against our schedule, on CogVideoX-2B at 17 frames and 32 prompts. Denser spacing does not close the gap, so the loss is in the forecast rather than in the budget.}
+\label{tab:taylor}
+\end{table}
+
+The mechanism is a mismatch between the extrapolator's assumption and the sampler it is applied to. A first-order Taylor expansion assumes the hidden state evolves smoothly between the steps it observes. CogVideoX-2B predicts $v$ rather than $\epsilon$, and with fifty steps its latent moves in jumps rather than along a smooth curve, so a derivative estimated from the two previous outputs points away from the next one. The released defaults of that baseline (an interval of three steps, first order, three enhanced steps) were tuned on architectures whose features are smoother, and its own paper does not report CogVideoX. This is why we treat it as a baseline rather than as a competing design point: its degradation is a property of the forecast, and a better forecast would be a different method, not a better schedule.
+
 \subsection{The two parameters of the schedule}
 \label{app:params}
 
