@@ -6,6 +6,18 @@
 # Usage:  RA_REPO=/path/to/RA-CFGCache bash run_freeze.sh [cog|wan|both]
 # Cost on 4 GPUs at 49f: ~56 min/arm; at 81f: ~135 min/arm. Use a dedicated machine.
 set -euo pipefail
+# Rule learned the hard way: evaluate every arm as soon as it finishes and append the
+# number to a JSONL on disk. Machines get reclaimed between arms, and a run that is
+# evaluated only at the end loses everything when the box disappears.
+HERE=$(cd "$(dirname "$0")" && pwd)
+LEDGER=${LEDGER:-$OUT/metrics.jsonl}
+mkdir -p "$(dirname "$LEDGER")"
+evaluate() {  # evaluate <ref_dir> <arm_dir> <tag>
+  [ -d "$2" ] || return 0
+  out=$(python "$HERE/eval_lpips_vgg.py" "$1" "$2")
+  echo "{\"tag\": \"$3\", \"result\": \"$out\", \"at\": \"$(date -Is)\"}" >> "$LEDGER"
+  echo "$3: $out"
+}
 REPO_RA=${RA_REPO:?set RA_REPO to the RA-CFGCache checkout}
 COG=${COG_MODEL:-$HOME/weights/CogVideoX-2b}
 WAN=${WAN_MODEL:-$HOME/weights/Wan2.1-T2V-1.3B}
@@ -24,6 +36,10 @@ cog() {
   bash RUN/demo_cogvideox.sh --mode CFGCache --gpus 0,1,2,3 --limit 100 --num_frames 49 \
        --model_path "$COG" --output_dir "$OUT/cog49_100/cfg"
 }
+cog_eval() {
+  evaluate "$OUT/cog49_100/orig" "$OUT/cog49_100/cfg"  cog49_100_cfg
+  evaluate "$OUT/cog49_100/orig" "$OUT/cog49_100/ours" cog49_100_ours
+}
 wan() {
   bash RUN/demo_wan.sh --mode original --gpus 0,1,2,3 --limit 100 \
        --model_path "$WAN" --output_dir "$OUT/wan81_100/orig"
@@ -37,13 +53,11 @@ wan() {
   fi
 }
 case "$WHAT" in
-  cog) cog ;;
+  cog) cog; cog_eval ;;
   wan) wan ;;
-  both) cog; wan ;;
+  both) cog; cog_eval; wan ;;
   *) echo "usage: $0 [cog|wan|both]"; exit 2 ;;
 esac
 
-echo "=== evaluation (LPIPS-VGG / SSIM / PSNR) ==="
-HERE=$(cd "$(dirname "$0")" && pwd)
-for arm in cfg ours; do [ -d "$OUT/cog49_100/$arm" ] && python "$HERE/eval_lpips_vgg.py" "$OUT/cog49_100/orig" "$OUT/cog49_100/$arm"; done
-for arm in cfg ours tea taylor; do [ -d "$OUT/wan81_100/$arm" ] && python "$HERE/eval_lpips_vgg.py" "$OUT/wan81_100/orig" "$OUT/wan81_100/$arm"; done
+echo "=== ledger: $LEDGER ==="
+cat "$LEDGER" 2>/dev/null || true
