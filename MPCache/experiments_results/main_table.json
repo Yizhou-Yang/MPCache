@@ -144,5 +144,14 @@
       "psnr": 29.08
     },
     "_conclusion": "a growing tail beats a uniform one by 5-7%; the ratio itself is insensitive between 1.4 and 3.0"
+  },
+  "cog_49f_100prompts": {
+    "ours": {
+      "calls": 20,
+      "lpips": 0.1424,
+      "ssim": 0.9093,
+      "psnr": 30.21,
+      "n": 100
+    }
   }
 }
