@@ -92,3 +92,33 @@ GH_TOK=<token> RESULTS_DIR=/root/viewdit/results REPO_DIR=/root/MPCache \
 
 token 只在启动时的环境变量里，通过临时 askpass 使用，不写进仓库、不改 remote URL。
 这样即使本地关机、机器半夜被回收，已经评测的数字也已经在 GitHub 上。
+
+## 2026-11-04 —— 新机器上跑通，两个设定补齐
+
+### 环境教训（会浪费一天）
+
+RA-CFGCache 的 `requirements.txt` 要 **torch==2.10.0 / torchvision 0.25.0**。我先装了 2.5.1，
+表现是**第一条 transformer 调用就 SIGFPE / core dump**（`--mode original` 也一样崩），
+看起来像 CUDA 或模型问题，实际是版本不匹配。换回 2.10.0 后一次跑通。
+
+判据：**在 RA 的 harness 里，任何原生崩溃先核对 torch 版本**，再怀疑驱动、显存和模型。
+
+### 今天完成
+
+| 设定 | n | 方法 | LPIPS | SSIM | PSNR |
+|---|---:|---|---:|---:|---:|
+| Cog 49f | 100 | RA-CFGCache | 0.1554 | 0.8973 | 29.17 |
+|  |  | **ours** | **0.1424** | **0.9093** | **30.21** |
+| 形状消融（17f, 32 prompt, 同头12/同预算20） | | uniform | 0.1656 | 0.8958 | 27.44 |
+|  |  | r=1.4 | 0.1560 | 0.9101 | 28.61 |
+|  |  | r=2.0 | 0.1566 | 0.9066 | 28.32 |
+|  |  | r=3.0 | 0.1541 | 0.9118 | 29.08 |
+
+形状结论：**几何尾部比均匀好 5–7%，比例本身不敏感**（论文已按此改写，旧 34% 已删）。
+
+### 仍需补（n 不一致会暴露）
+
+| 设定 | 缺 | 原因 |
+|---|---|---|
+| Cog 49f @100 | TaylorSeer、TeaCache | 主表该 block 只有 CFG 与 ours 是 100 |
+| Wan 81f @100 | TaylorSeer、TeaCache | 它们还是 n=16，而 CFG/ours 将变 100 |
