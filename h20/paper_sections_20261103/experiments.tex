@@ -2,9 +2,9 @@
 \label{sec:experiments}
 We ask whether the placement of exact calls, rather than the reconstruction of skipped steps, explains what a cache can achieve at a fixed budget, and whether a schedule derived from the sampler's measured profile beats the schedules that existing caches use.
 
-\paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, the VBench prompts of that release (48 of them, the number we could run at this frame count before the machine was returned). We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
+\paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, and the hundred VBench prompts of that release. We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
 
-\paragraph{Main result.} Table~\ref{tab:main} reports both main settings. On CogVideoX-2B at 49 frames, against the strongest released baseline at the same budget, LPIPS falls from 0.155 to 0.144, SSIM rises from 0.904 to 0.914 and PSNR from 29.1 to 29.9. On Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, the same schedule reaches 0.134 against 0.154 for the risk-based cache, 0.199 for the threshold-based one and 0.379 for the Taylor expansion, and it is first on SSIM and PSNR as well. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
+\paragraph{Main result.} Table~\ref{tab:main} reports both main settings. On CogVideoX-2B at 49 frames over one hundred prompts, the setting the baseline papers report, LPIPS falls from 0.155 to 0.142, SSIM rises from 0.897 to 0.909 and PSNR from 29.2 to 30.2 against the strongest released baseline at the same budget. On Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, the same schedule reaches 0.134 against 0.154 for the risk-based cache, 0.199 for the threshold-based one and 0.379 for the Taylor expansion, and it is first on SSIM and PSNR as well. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
 
 \begin{table*}[t]
 \centering\footnotesize\setlength{\tabcolsep}{6pt}
@@ -12,8 +12,8 @@ We ask whether the placement of exact calls, rather than the reconstruction of s
 \toprule
 Setting & Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
 \midrule
-Cog 49f (48) & RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
-             & \method{} & 20 & \textbf{0.144} & \textbf{0.914} & \textbf{29.9} \\
+Cog 49f (100) & RA-CFGCache & 19 & 0.155 & 0.897 & 29.2 \\
+              & \method{} & 20 & \textbf{0.142} & \textbf{0.909} & \textbf{30.2} \\
 \midrule
 Wan 81f (16) & TaylorSeer & 19 & 0.379 & 0.620 & 17.6 \\
              & TeaCache & 19 & 0.199 & 0.827 & 24.0 \\
