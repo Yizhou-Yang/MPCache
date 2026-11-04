@@ -21,7 +21,7 @@ Given a budget $B$ and a measured profile, the optimal schedule is greedy on the
  g_{k+1}=g_k+\lceil r\,(g_k-g_{k-1})\rceil ,
  \label{eq:sched}
 \end{equation}
-with head length $H$, first tail gap $2$, and growth $r>1$. The head is where the profile is above half its maximum; the growing gaps follow the observation that the profile decays, so no two consecutive decisions near the end deserve the same spacing. The last step is always exact because it produces the latent that is decoded. For $T=50$ and $B=20$ this gives $H=12$ and the tail $13,15,18,22,27,33,40,48$.
+with head length $H$, first tail gap $2$, and growth $r>1$. The head is where the profile is above half its maximum; the growing gaps follow the observation that the profile decays, so no two consecutive decisions near the end deserve the same spacing. The last step is always exact because it produces the latent that is decoded. For $T=50$ and $B=22$ this gives $H=16$ and the tail $18,22,28,35,42,49$. The head is not a constant: Appendix~\ref{app:head} shows that at a budget of twenty calls a head of sixteen beats one of twelve, so the head should be read from the budget, and we use sixteen throughout.
 
 Two properties follow. The number of calls is $|S|=B$ by construction, so the schedule can be compared with any other policy at equal budget. And the rule uses no learned quantity and no calibration pass: $H$ and $r$ follow from the measured profile of the backbone, which is obtained once by the single-skip measurement above.
 

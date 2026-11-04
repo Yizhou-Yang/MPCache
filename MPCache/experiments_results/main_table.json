@@ -147,17 +147,25 @@
   },
   "cog_49f_100prompts": {
     "ours": {
-      "calls": 20,
-      "lpips": 0.1424,
-      "ssim": 0.9093,
-      "psnr": 30.21,
-      "n": 100
+      "calls": 22,
+      "lpips": 0.13,
+      "ssim": 0.9247,
+      "psnr": 31.63,
+      "n": 100,
+      "head": 16
     },
     "RA-CFGCache": {
       "calls": 19,
       "lpips": 0.1554,
       "ssim": 0.8973,
       "psnr": 29.17,
+      "n": 100
+    },
+    "ours_head12": {
+      "calls": 20,
+      "lpips": 0.1424,
+      "ssim": 0.9093,
+      "psnr": 30.21,
       "n": 100
     }
   },
@@ -177,5 +185,26 @@
       "n": 65
     }
   },
-  "_note_main_table": "Main table = one row per setting: strongest baseline vs ours (Cog 49f n=100, Wan 81f n=65). Other baselines live in the appendix at their own n."
+  "_note_main_table": "Main table = one row per setting: strongest baseline vs ours (Cog 49f n=100, Wan 81f n=65). Other baselines live in the appendix at their own n.",
+  "head_ablation_cog17f_32prompts": {
+    "H6": {
+      "calls": 20,
+      "lpips": 0.2877,
+      "ssim": 0.7717,
+      "psnr": 21.46
+    },
+    "H12": {
+      "calls": 20,
+      "lpips": 0.1566,
+      "ssim": 0.9066,
+      "psnr": 28.32
+    },
+    "H16": {
+      "calls": 22,
+      "lpips": 0.1325,
+      "ssim": 0.9304,
+      "psnr": 30.83
+    }
+  },
+  "_schedule": "head 16, geometric tail, last step exact: 22 calls at T=50"
 }

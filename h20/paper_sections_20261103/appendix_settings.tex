@@ -74,6 +74,28 @@ TaylorSeer, interval 4 & 15 & 0.615 & 11.6 \\
 
 The mechanism is a mismatch between the extrapolator's assumption and the sampler it is applied to. A first-order Taylor expansion assumes the hidden state evolves smoothly between the steps it observes. CogVideoX-2B predicts $v$ rather than $\epsilon$, and with fifty steps its latent moves in jumps rather than along a smooth curve, so a derivative estimated from the two previous outputs points away from the next one. The released defaults of that baseline (an interval of three steps, first order, three enhanced steps) were tuned on architectures whose features are smoother, and its own paper does not report CogVideoX. This is why we treat it as a baseline rather than as a competing design point: its degradation is a property of the forecast, and a better forecast would be a different method, not a better schedule.
 
+\subsection{The head length, measured}
+\label{app:head}
+
+Table~\ref{tab:head} varies the head at a fixed budget of about twenty calls, with the tail grown from the head to the last step in each case.
+
+\begin{table}[h]
+\centering\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccc}
+\toprule
+Head $H$ & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+\midrule
+6  & 20 & 0.288 & 0.772 & 21.5 \\
+12 & 20 & 0.157 & 0.907 & 28.3 \\
+16 & 22 & \textbf{0.133} & \textbf{0.930} & \textbf{30.8} \\
+\bottomrule
+\end{tabular}
+\caption{CogVideoX-2B, 17 frames, 32 prompts. A short head is catastrophic and a longer one keeps helping at this budget. At 49 frames and 100 prompts the same comparison gives 0.142 with a head of twelve and 0.130 with a head of sixteen, so the schedule we ship uses sixteen.}
+\label{tab:head}
+\end{table}
+
+Two things follow. A head of six is far worse than one of twelve, which is the sharp end of the effect and the reason a uniform grid loses: it effectively takes a head of zero. And the optimum at a budget of twenty calls lies at or above sixteen, not at twelve, which means the head should be read from the budget rather than fixed. At 49 frames and 100 prompts this is confirmed end to end: a head of twelve reaches 0.142 LPIPS and a head of sixteen 0.130, at 20 and 22 calls respectively.
+
 \subsection{The two parameters of the schedule}
 \label{app:params}
 
