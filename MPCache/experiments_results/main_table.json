@@ -168,6 +168,14 @@
       "ssim": 0.8899,
       "psnr": 28.88,
       "n": 65
+    },
+    "RA-CFGCache": {
+      "calls": 19,
+      "lpips": 0.1716,
+      "ssim": 0.8655,
+      "psnr": 27.72,
+      "n": 65
     }
-  }
+  },
+  "_note_main_table": "Main table = one row per setting: strongest baseline vs ours (Cog 49f n=100, Wan 81f n=65). Other baselines live in the appendix at their own n."
 }
