@@ -29,7 +29,7 @@ The ordering of Table~\ref{tab:cog17} is the same as in the main table, and the 
 \subsection{The shape of the tail}
 \label{app:shape}
 
-At a fixed head and a fixed budget, the only freedom left is the spacing of the tail. We compare a uniform tail with the growing tail of Eq.~\ref{eq:sched} on CogVideoX-2B at 50 steps and 12 prompts: the growing tail changes LPIPS by $-34\%$ relative to the uniform one. We also swept the Taylor expansion baseline over its interval, at two, three and four steps, which cost about 26, 19 and 15 calls. It reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval. That comparison is not evidence for the shape, because the degradation of that baseline is dominated by its forecast rather than by its spacing.
+At a fixed head and a fixed budget, the only freedom left is the spacing of the tail. With the head fixed at twelve steps and the budget at twenty calls, we vary only the ratio at which the gaps grow. On CogVideoX-2B at 17 frames over 32 prompts the uniform tail reaches 0.166 LPIPS, and the growing tails reach 0.156, 0.157 and 0.154 at ratios of 1.4, 2.0 and 3.0. The growth is therefore worth 5 to 7 percent, and its exact value is not: the three ratios are within noise of one another. We also swept the Taylor expansion baseline over its interval, at two, three and four steps, which cost about 26, 19 and 15 calls. It reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval. That comparison is not evidence for the shape, because the degradation of that baseline is dominated by its forecast rather than by its spacing.
 
 \subsection{The two parameters of the schedule}
 \label{app:params}

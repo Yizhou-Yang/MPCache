@@ -120,5 +120,29 @@
       "psnr": 27.54
     }
   },
-  "_note_on_settings": "Main table = cog_49f and wan_81f. Appendix = cog_17f. Wan is a main setting, not an appendix setting."
+  "_note_on_settings": "Main table = cog_49f and wan_81f. Appendix = cog_17f. Wan is a main setting, not an appendix setting.",
+  "shape_ablation_cog17f_32prompts": {
+    "_setup": "same head (12), same budget (20 calls), only the growth ratio of the tail varies; CogVideoX-2B 17 frames 50 steps",
+    "uniform_r1.0": {
+      "lpips": 0.1656,
+      "ssim": 0.8958,
+      "psnr": 27.44
+    },
+    "r1.4": {
+      "lpips": 0.156,
+      "ssim": 0.9101,
+      "psnr": 28.61
+    },
+    "r2.0": {
+      "lpips": 0.1566,
+      "ssim": 0.9066,
+      "psnr": 28.32
+    },
+    "r3.0": {
+      "lpips": 0.1541,
+      "ssim": 0.9118,
+      "psnr": 29.08
+    },
+    "_conclusion": "a growing tail beats a uniform one by 5-7%; the ratio itself is insensitive between 1.4 and 3.0"
+  }
 }
