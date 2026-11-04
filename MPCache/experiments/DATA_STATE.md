@@ -75,3 +75,20 @@ done
 
 **正确做法**：用 `schedule_create` 设一个 19:50 的提醒。到点会**唤醒会话并投递提示**，
 推送动作真正执行。下次任何"到点必须做某事"都应该用提醒，而不是 sleep。
+
+## 为什么"设个提醒"也救不了
+
+提醒跑在**本地 Mac** 上。下班后 Mac 睡眠，提醒同样不会触发——和 `sleep` 一样依赖同一台机器醒着。
+
+唯一不依赖本地状态的方案：**让产出数据的机器自己推送**。
+
+`scripts/sync_results.sh` 就是干这个的：在 GPU 机器上每 10 分钟把
+`metrics.jsonl` / `*.json`（只推小文件，不推视频）提交并推到 `results` 分支。
+
+```bash
+GH_TOK=<token> RESULTS_DIR=/root/viewdit/results REPO_DIR=/root/MPCache \
+  nohup bash sync_results.sh > /root/sync.log 2>&1 &
+```
+
+token 只在启动时的环境变量里，通过临时 askpass 使用，不写进仓库、不改 remote URL。
+这样即使本地关机、机器半夜被回收，已经评测的数字也已经在 GitHub 上。
