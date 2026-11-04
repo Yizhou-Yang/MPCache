@@ -1,3 +1,5 @@
+# The path that produced the paper's numbers: the released RA-CFGCache pipeline with the
+# schedule injected through MPC_SCHED. Use `run_arm.sh` for the SDK runner instead.
 #!/usr/bin/env bash
 # Regenerate one arm of the main table. Usage: run_main_table.sh <mode> <frames> <limit> <outdir> [schedule]
 set -euo pipefail
