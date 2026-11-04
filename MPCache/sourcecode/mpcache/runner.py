@@ -49,7 +49,9 @@ def main():
     ap.add_argument("--tag", default=None)
     a = ap.parse_args()
 
-    from .backends import get
+    import os, sys
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "benchmarks"))
+    from loader import get
     be = get(a.backend)
     steps_in = build_schedule(a.schedule, a.budget, a.steps)
     if len(steps_in) > a.steps:
