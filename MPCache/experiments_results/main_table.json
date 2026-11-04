@@ -119,5 +119,6 @@
       "ssim": 0.8977,
       "psnr": 27.54
     }
-  }
+  },
+  "_note_on_settings": "Main table = cog_49f and wan_81f. Appendix = cog_17f. Wan is a main setting, not an appendix setting."
 }

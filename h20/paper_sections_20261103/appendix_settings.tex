@@ -1,0 +1,37 @@
+\section{Additional Settings and Ablations}
+\label{app:settings}
+
+The main paper reports the settings that the baselines' papers use: CogVideoX-2B at 49 frames and Wan2.1 at 81 frames. This appendix reports the third frame count we ran, so that the ordering can be checked away from the flagship configurations, and the ablations that fix the two parameters of the schedule.
+
+\subsection{17 frames, 100 prompts}
+\label{app:cog17}
+
+At 17 frames the trajectory is cheaper per call, which lets us run all four methods over the full prompt set.
+
+\begin{table}[h]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}
+\toprule
+Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+\midrule
+TaylorSeer & 19 & 0.492 & 0.526 & 13.9 \\
+TeaCache & 17 & 0.279 & 0.752 & 21.1 \\
+RA-CFGCache & 19 & 0.159 & 0.895 & 27.7 \\
+\method{} & 20 & \textbf{0.145} & \textbf{0.906} & \textbf{28.6} \\
+\bottomrule
+\end{tabular}
+\caption{CogVideoX-2B, 17 frames, 50 steps, 100 prompts, one pipeline and one reference.}
+\label{tab:cog17}
+\end{table}
+
+The ordering of Table~\ref{tab:cog17} is the same as in the main table, and the gap to the strongest baseline is of the same size, which is what a placement effect should look like: it does not depend on the frame count through any mechanism of its own, only through the profile, which we re-measure for each setting.
+
+\subsection{The shape of the tail}
+\label{app:shape}
+
+At a fixed head and a fixed budget, the only freedom left is the spacing of the tail. We compare a uniform tail with the growing tail of Eq.~\ref{eq:sched} on CogVideoX-2B at 50 steps and 12 prompts: the growing tail changes LPIPS by $-34\%$ relative to the uniform one. We also swept the Taylor expansion baseline over its interval, at two, three and four steps, which cost about 26, 19 and 15 calls. It reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval. That comparison is not evidence for the shape, because the degradation of that baseline is dominated by its forecast rather than by its spacing.
+
+\subsection{The two parameters of the schedule}
+\label{app:params}
+
+The schedule has two parameters: the head length $H$ and the ratio at which the gaps grow. $H$ is not searched; it is read from the measured profile as the number of leading steps above a fraction of the maximum. Read at one half of the maximum, the profile gives four steps on CogVideoX-2B and more when the fraction is lowered; at one tenth it gives nine. The schedules we ship use twelve, where the measured profile has decayed to about a tenth of its maximum. The ordering against the baselines is preserved for every head we tried, so the exact value is not a knife edge. What the budget decides is how much of the head can be held exact.

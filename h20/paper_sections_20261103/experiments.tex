@@ -4,23 +4,28 @@ We ask whether the placement of exact calls, rather than the reconstruction of s
 
 \paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, the VBench prompts of that release (48 of them, the number we could run at this frame count before the machine was returned). We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
 
-\paragraph{Main result.} Table~\ref{tab:main} compares our schedule with the strongest released baseline at the same budget. On all three metrics our schedule is better: LPIPS falls from 0.155 to 0.144, SSIM rises from 0.904 to 0.914 and PSNR from 29.1 to 29.9. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
+\paragraph{Main result.} Table~\ref{tab:main} reports both main settings. On CogVideoX-2B at 49 frames, against the strongest released baseline at the same budget, LPIPS falls from 0.155 to 0.144, SSIM rises from 0.904 to 0.914 and PSNR from 29.1 to 29.9. On Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, the same schedule reaches 0.134 against 0.154 for the risk-based cache, 0.199 for the threshold-based one and 0.379 for the Taylor expansion, and it is first on SSIM and PSNR as well. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
 
-\begin{table}[t]
-\centering\footnotesize\setlength{\tabcolsep}{5pt}
-\begin{tabular}{lcccc}
+\begin{table*}[t]
+\centering\footnotesize\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llcccc}
 \toprule
-Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+Setting & Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
 \midrule
-RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
-\method{} & 20 & \textbf{0.144} & \textbf{0.914} & \textbf{29.9} \\
+Cog 49f (48) & RA-CFGCache & 19 & 0.155 & 0.904 & 29.1 \\
+             & \method{} & 20 & \textbf{0.144} & \textbf{0.914} & \textbf{29.9} \\
+\midrule
+Wan 81f (16) & TaylorSeer & 19 & 0.379 & 0.620 & 17.6 \\
+             & TeaCache & 19 & 0.199 & 0.827 & 24.0 \\
+             & RA-CFGCache & 19 & 0.154 & 0.870 & 27.8 \\
+             & \method{} & 21 & \textbf{0.134} & \textbf{0.888} & \textbf{28.9} \\
 \bottomrule
 \end{tabular}
-\caption{CogVideoX-2B, 49 frames, 50 steps, 48 VBench prompts, one pipeline and one reference. The schedule is the only difference between the two rows.}
+\caption{The two main settings, one pipeline and one reference each, at a matched number of transformer calls; the number in parentheses is the prompt count. Our schedule is first on all three metrics in both settings. LPIPS uses a VGG backbone.}
 \label{tab:main}
-\end{table}
+\end{table*}
 
-\paragraph{Two more settings, same ordering.} Appendix~\ref{app:cog17} repeats the comparison at 17 frames over the same 100 prompts with all four baselines, where the threshold-based cache and the Taylor expansion are also present: our schedule reaches 0.145 LPIPS against 0.159 for the risk-based cache, 0.279 for the threshold-based one and 0.492 for the expansion, and it is first on SSIM and PSNR as well. Appendix~\ref{app:wan} repeats it on Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, where the ordering is again unchanged. The gap does not depend on the backbone, which is what a positional effect should look like.
+\paragraph{A third frame count, same ordering.} Appendix~\ref{app:cog17} repeats the CogVideoX comparison at 17 frames over a full hundred prompts, with all four baselines present: our schedule reaches 0.145 LPIPS against 0.159 for the risk-based cache, 0.279 for the threshold-based one and 0.492 for the expansion, and it is first on SSIM and PSNR as well. The gap does not depend on the frame count or the backbone, which is what a positional effect should look like.
 
 \begin{figure}[t]
 \centering
