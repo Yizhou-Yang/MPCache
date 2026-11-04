@@ -44,3 +44,26 @@ and 16 (Wan 81f). Both need a **dedicated** machine: on a shared 4-GPU box the 4
    mean the arm failed; check the log and the temp shard directory.
 4. Report the prompt count with every number: the 16-prompt subset is easier than the 100-prompt
    set (49f: 0.121 vs 0.144 for the same method), so a subset number flatters the method.
+
+## 2026-11-03 17:39 —— 丢失的一批实验（必须重跑）
+
+机器在 **17:39** 前后被回收（早于原定 20:00）。当时正在跑、**未来得及评测**的三组实验随机器丢失：
+
+| 实验 | 当时状态 | 结论 |
+|---|---|---|
+| 形状消融（u / r=1.4 / r=2.0 / r=3.0） | 第一对跑到 30/64 片 | **无数据**，需重跑 |
+| 头长消融（H=6 / H=16） | 排队中，未启动 | **无数据**，需重跑 |
+| 墙钟实测（49f full vs ours） | 排队中，未启动 | **无数据**，需重跑 |
+
+**教训（升级 I23）**：不只是"评估完立刻写 JSON"，而是**每跑完一个臂就立刻评测并写回本地**。
+昨晚的流程是"全部跑完再统一评测"，机器一回收就全部作废。正确顺序是：
+
+```
+for arm in ...; do
+  run $arm
+  python eval3.py ref $arm >> results.jsonl     # 立刻落盘
+done
+```
+
+形状主张目前仍只有 `I16` 里那一个数据点（均匀尾 0.114 vs 几何尾 0.075，−34%，12 prompt、50 步、AlexNet 口径；
+比值与主干无关，但它只是**一个点**，不是梯度证据）。
