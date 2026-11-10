@@ -206,5 +206,15 @@
       "psnr": 30.83
     }
   },
-  "_schedule": "head 16, geometric tail, last step exact: 22 calls at T=50"
+  "_schedule": "head 16, geometric tail, last step exact: 22 calls at T=50",
+  "wan_81f_100prompts": {
+    "ours_head16": {
+      "calls": 22,
+      "lpips": 0.1527,
+      "ssim": 0.8853,
+      "psnr": 29.27,
+      "n": 100
+    }
+  },
+  "_wan_note": "ours at n=100 is 0.1527; CFGCache at n=100 was not finished (12/100). CFGCache at n=65 is 0.1716."
 }
