@@ -4,7 +4,7 @@ We ask whether the placement of exact calls, rather than the reconstruction of s
 
 \paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, and the hundred VBench prompts of that release. We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
 
-\paragraph{Main result.} Table~\ref{tab:main} reports both main settings. On CogVideoX-2B at 49 frames over one hundred prompts, the setting the baseline papers report, LPIPS falls from 0.155 to 0.130, SSIM rises from 0.897 to 0.925 and PSNR from 29.2 to 31.6 against the strongest released baseline at the same budget. On Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, the same schedule reaches 0.147 against 0.172 for the risk-based cache, and it is first on SSIM and PSNR as well. Appendix~\ref{app:wanfull} adds the threshold-based and Taylor baselines at the prompt count we could run for them. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
+\paragraph{Main result.} Table~\ref{tab:main} reports both main settings. On CogVideoX-2B at 49 frames over one hundred prompts, the setting the baseline papers report, LPIPS falls from 0.155 to 0.130, SSIM rises from 0.897 to 0.925 and PSNR from 29.2 to 31.6 against the strongest released baseline at the same budget. On Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, the same schedule reaches 0.153 against 0.169 for the risk-based cache, and it is first on SSIM and PSNR as well. Appendix~\ref{app:wanfull} adds the threshold-based and Taylor baselines at the prompt count we could run for them. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
 
 \begin{table*}[t]
 \centering\footnotesize\setlength{\tabcolsep}{6pt}
@@ -15,8 +15,8 @@ Setting & Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow
 Cog 49f (100) & RA-CFGCache & 19 & 0.155 & 0.897 & 29.2 \\
               & \method{} & 22 & \textbf{0.130} & \textbf{0.925} & \textbf{31.6} \\
 \midrule
-Wan 81f (65)  & RA-CFGCache & 19 & 0.172 & 0.866 & 27.7 \\
-              & \method{} & 21 & \textbf{0.147} & \textbf{0.890} & \textbf{28.9} \\
+Wan 81f (100) & RA-CFGCache & 19 & 0.169 & 0.869 & 27.9 \\
+              & \method{} & 22 & \textbf{0.153} & \textbf{0.885} & \textbf{29.3} \\
 \bottomrule
 \end{tabular}
 \caption{Both main settings against the strongest released baseline at a matched budget, on three metrics; the number in parentheses is the prompt count. Our schedule is first everywhere. The remaining baselines appear in Appendix~\ref{app:cog17} and Appendix~\ref{app:wanfull}, where each is reported at its own prompt count. LPIPS uses a VGG backbone.}
