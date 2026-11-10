@@ -222,5 +222,19 @@
       "psnr": 29.27
     }
   },
-  "_wan_note": "ours at n=100 is 0.1527; CFGCache at n=100 was not finished (12/100). CFGCache at n=65 is 0.1716."
+  "_wan_note": "ours at n=100 is 0.1527; CFGCache at n=100 was not finished (12/100). CFGCache at n=65 is 0.1716.",
+  "reuse_comparison_cog17f_16prompts": {
+    "_setup": "same schedule (head 16 + 6 tail steps, 22 calls), same prompts; the only difference is what a skipped step returns",
+    "latest": {
+      "lpips": 0.1471,
+      "ssim": 0.9093,
+      "psnr": 27.47
+    },
+    "two_anchor_extrapolation": {
+      "lpips": 0.1161,
+      "ssim": 0.9359,
+      "psnr": 30.42
+    },
+    "_note": "contradicts the earlier claim that the replacement is inert; that claim came from a different, broken predictor"
+  }
 }
