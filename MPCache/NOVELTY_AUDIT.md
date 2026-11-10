@@ -53,3 +53,33 @@ As framed in the first draft ("placement matters; the profile is prompt-independ
 schedule is the open-loop optimum") the paper is **anticipated** by SenCache and DPCache.
 It becomes publishable only if one of the three items above is demonstrated against those
 two baselines at a matched budget, in one harness.
+
+## Addendum, same day: the "control" framing is also taken
+
+Searching the phrase rather than the mechanism finds four more, all recent:
+
+| prior work | framing | what it takes from us |
+|---|---|---|
+| **IdealCache** (NeurIPS 2026, [arXiv 2611.10340](https://arxiv.org/abs/2611.10340), submitted 7 Nov 2026) | "abandons step-wise imitation of the reference trajectory… what truly matters is the ideal result"; schedules found by a **constrained shortest path** on a graph of ideal trajectories | both the *optimal non-uniform schedule* and the *terminal-outcome rather than local-error* argument — item ① of the earlier list |
+| **SoftCap** ([link](https://www.catalyzex.com/paper/softcap-soft-budget-control-for-diffusion)) | "**Soft-Budget Control** for DiT acceleration" | the word *control* over a *budget* |
+| **ReCache** ([link](https://www.semanticscholar.org/paper/f5da4f234363201fbd8c4760e0c5f042bd242e4d)) | "Learning **Budget-Aware** Caching Schedules … via **REINFORCE**" | caching as a sequential decision process (MDP) with a budget |
+| **CEM-MPC** ([arXiv 2610.18677](https://export.arxiv.org/pdf/2610.18677)) | cross-entropy-method **MPC** | the receding-horizon solver itself |
+
+**Therefore "we are the first system to model caching as a control problem" is not defensible**, and neither is
+"first to optimise the schedule globally" (DPCache, IdealCache), "first to use a calibrated profile"
+(SenCache), or "first to target the terminal outcome instead of the trajectory" (IdealCache).
+
+## What this leaves
+
+The only statements that survive a priority check are narrow and empirical:
+
+1. **A head-length law**, measured: H=6 → 0.288, H=12 → 0.157, H=16 → 0.133 at a twenty-call
+   budget (17f); H=12 → 0.142 vs H=16 → 0.130 at 49f/100. Nobody publishes this curve.
+2. **The value of feedback at a matched budget**: closed loop vs the open-loop optimum, same
+   calls. If feedback is worth little, that is a useful negative result against the adaptive
+   line (SenCache, ReCache); if it is worth a lot, it is a method — but then the novelty is the
+   controller, and CEM-MPC/ReCache are the baselines it must beat.
+3. **A cheap measurement**: one single-skip ablation per (model, step count) replaces the
+   calibration sets that SenCache (8 videos), DPCache (~10 samples) and IdealCache (an ensemble
+   of ideal trajectories) need. "Same schedule quality, one pass of measurement" is a modest but
+   real claim — and it is only real if we run those methods and match them.
