@@ -76,3 +76,19 @@ empirical paper, not a method paper, and it must be titled and framed as such.
 A paper cannot be built on "we are the first to model caching as control": SenCache,
 DPCache, IdealCache, SoftCap, ReCache and CEM-MPC all occupy parts of that framing
 (see NOVELTY_AUDIT.md).
+
+## Machine loss, 2026-11-10 21:00
+
+The box was reclaimed with the 49-frame confirmation of section 5 unfinished (it had produced
+one of eight reference runs). Everything above was pushed before the loss. The next session
+starts from here:
+
+1. **Confirm section 5 at the main setting**: 49 frames, 100 prompts, reference + both reuse
+   modes at the shipped schedule (~40 min on four GPUs). Until then the 21% is a 17-frame,
+   16-prompt, deterministic result.
+2. **The ablation that follows from it**: what to extrapolate (output vs feature space) and how
+   far (one step vs scaled by the gap). TaylorSeer's feature-space predictor reaches 0.49 at a
+   comparable budget while output-space one-step extrapolation reaches 0.116, so the axis is
+   real and unexplored.
+3. Only then decide the framing: schedule + replacement as two axes is a measurement paper;
+   "MPC as the core" is not supportable (NOVELTY_AUDIT.md).
