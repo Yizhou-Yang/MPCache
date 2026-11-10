@@ -1,6 +1,6 @@
 \section{Experiments}
 \label{sec:experiments}
-We ask whether the placement of exact calls, rather than the reconstruction of skipped steps, explains what a cache can achieve at a fixed budget, and whether a schedule derived from the sampler's measured profile beats the schedules that existing caches use.
+We ask two things at a fixed budget: how much of what a cache achieves comes from the placement of the exact calls, how much from the reconstruction of the skipped ones, and whether a schedule read off the sampler's measured profile beats the schedules existing caches use.
 
 \paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, and the hundred VBench prompts of that release. We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
 

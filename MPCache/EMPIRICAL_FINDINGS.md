@@ -47,11 +47,24 @@ One free scale, fitted: alpha = 0.140, **R^2 = 0.59**; ratio realised/predicted 
 therefore cannot serve as an error certificate, and a path-dependent cost (DPCache) is
 required to fix it.
 
-## 5. Forecasting the skipped output hurts
+## 5. The replacement is NOT inert — an earlier conclusion of ours was an artefact
 
-Recorded earlier and unchanged: replacing the cached value with a Taylor-style extrapolation
-of the last two exact outputs is worse than plain reuse at every budget. K=2 anchor selection
-is a variant of the same idea and is measured in `k2.log` (16 prompts) for completeness.
+Holding the schedule and the calls fixed (head 16 + six tail steps, 22 calls) and changing only
+what a skipped step returns, on CogVideoX-2B at 17 frames, 16 prompts:
+
+| what a skip returns | LPIPS | SSIM | PSNR |
+|---|---:|---:|---:|
+| the last exact output (plain reuse) | 0.1471 | 0.9093 | 27.47 |
+| one-step velocity extrapolation `2 v_s - v_{s-1}` | **0.1161** | **0.9359** | **30.42** |
+
+A fifth of the error, at identical cost, reproduced deterministically. This **contradicts the
+earlier claim that the replacement does not matter**; that claim came from a predictor applied
+over the whole gap instead of one step, and that version does hurt.
+
+The open question it raises is the one worth a paper: *why* does output-space extrapolation
+work here when the feature-space Taylor predictor of the same family fails badly on this
+backbone (0.49 LPIPS at the same budget)? "What to extrapolate" looks like a real axis, and it
+is not the one the caching literature has been tuning.
 
 ## What this adds up to
 
