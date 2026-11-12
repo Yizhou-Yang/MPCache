@@ -236,5 +236,19 @@
       "psnr": 30.42
     },
     "_note": "contradicts the earlier claim that the replacement is inert; that claim came from a different, broken predictor"
+  },
+  "reuse_comparison_cog49f_100prompts": {
+    "_setup": "plain diffusers harness, head-16 + 6 tail steps (22 calls), 49 frames, 100 prompts, seed = prompt index",
+    "latest": {
+      "lpips": 0.1549,
+      "ssim": 0.8771,
+      "psnr": 27.55
+    },
+    "two_anchor_extrapolation": {
+      "lpips": 0.1174,
+      "ssim": 0.9273,
+      "psnr": 31.54
+    },
+    "_note": "24% lower LPIPS at identical cost; reproduces the 17-frame result (0.1471 -> 0.1161)"
   }
 }
