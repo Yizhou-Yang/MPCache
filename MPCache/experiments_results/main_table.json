@@ -250,5 +250,29 @@
       "psnr": 31.54
     },
     "_note": "24% lower LPIPS at identical cost; reproduces the 17-frame result (0.1471 -> 0.1161)"
+  },
+  "extrapolation_strength_cog17f_32prompts": {
+    "_setup": "plain diffusers, head-16 + 6 tail steps (22 calls), 17 frames, 32 prompts, 50 steps",
+    "latest_no_extrapolation": {
+      "lpips": 0.1556,
+      "ssim": 0.8985,
+      "psnr": 27.23
+    },
+    "alpha_1.0": {
+      "lpips": 0.125,
+      "ssim": 0.9303,
+      "psnr": 29.98
+    },
+    "alpha_0.5": {
+      "lpips": 0.1084,
+      "ssim": 0.9394,
+      "psnr": 30.41
+    },
+    "gap_scaled": {
+      "lpips": 0.4419,
+      "ssim": 0.6304,
+      "psnr": 15.63
+    },
+    "_note": "damped extrapolation of the model output is the lever; scaling the extrapolation by the gap (the textbook first-order choice, and what feature-space Taylor predictors do) is catastrophic and matches TaylorSeer's 0.49 at a comparable budget"
   }
 }
