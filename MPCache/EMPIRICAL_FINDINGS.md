@@ -92,3 +92,43 @@ starts from here:
    real and unexplored.
 3. Only then decide the framing: schedule + replacement as two axes is a measurement paper;
    "MPC as the core" is not supportable (NOVELTY_AUDIT.md).
+
+## 6. How far to extrapolate — the damping law (2026-11-12)
+
+Same schedule (head 16 + six tail steps, 22 calls), same prompts, 17 frames, 32 prompts.
+`alpha` is how much of the one-step output difference is added at every skip:
+`v_j = v_s + alpha * (v_s - v_{s-1})`, with `s` the anchor. It does **not** depend on the gap.
+
+| alpha | LPIPS | SSIM | PSNR |
+|---|---:|---:|---:|
+| 0.0 (plain reuse) | 0.1556 | 0.8985 | 27.23 |
+| 0.25 | 0.1239 | 0.9252 | 28.97 |
+| **0.5** | **0.1084** | 0.9394 | 30.41 |
+| 0.75 | 0.1131 | **0.9399** | 30.80 |
+| 1.0 | 0.1250 | 0.9303 | 29.98 |
+| scaled by the gap | 0.4419 | 0.6304 | 15.63 |
+
+Three findings, in order of how surprising they are:
+
+1. **Scaling the extrapolation by the gap destroys the result** (0.442). That is the textbook
+   first-order choice — and the one feature-space Taylor predictors make. It also matches
+   TaylorSeer's 0.49 on this backbone at a comparable budget, so the mechanism is not
+   "Taylor is worse", it is "the step is not locally linear enough to scale".
+2. **The optimum is damped, at about half a step** (0.108, a 30% improvement over reuse), and it
+   is flat between 0.5 and 0.75. The best alpha is a property of the sampler, not of the prompt.
+3. **Confirmed at the main setting**: at 49 frames and 100 prompts, plain reuse gives 0.1549 and
+   a one-step extrapolation 0.1174 (24% better, +0.05 SSIM, +4 dB PSNR) at identical cost.
+
+The paper's story therefore becomes: *placement and prediction are two axes, and the prediction
+must be damped rather than gap-scaled.* The second half of that sentence is a measured law that
+explains a published failure mode.
+
+## State at hand-off, 2026-11-12 17:40
+
+Finished and pushed: everything above, plus the main tables at the competitor spec, the head
+law, the three negative results (feedback, additivity, forecasting-as-practised), and the
+novelty audit.
+
+Running when the box was released: `alpha = 0.5` at 49 frames / 100 prompts (24 of 100 done).
+Next session starts by finishing it (about 25 minutes on four GPUs) and then running the same
+sweep at 49 frames, which is the only number still missing for the paper's main claim.
