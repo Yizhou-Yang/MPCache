@@ -274,5 +274,29 @@
       "psnr": 15.63
     },
     "_note": "damped extrapolation of the model output is the lever; scaling the extrapolation by the gap (the textbook first-order choice, and what feature-space Taylor predictors do) is catastrophic and matches TaylorSeer's 0.49 at a comparable budget"
+  },
+  "reuse_policy_cog49f_100prompts": {
+    "_setup": "plain diffusers harness, head-16 + six tail steps (22 calls), 49 frames, 100 VBench prompts, seed = prompt index",
+    "latest_alpha0": {
+      "lpips": 0.1549,
+      "ssim": 0.8771,
+      "psnr": 27.55
+    },
+    "damped_alpha0.5": {
+      "lpips": 0.1041,
+      "ssim": 0.9293,
+      "psnr": 31.25
+    },
+    "onestep_alpha1.0": {
+      "lpips": 0.1176,
+      "ssim": 0.9273,
+      "psnr": 31.53
+    },
+    "gap_scaled": {
+      "lpips": 0.4417,
+      "ssim": 0.6129,
+      "psnr": 15.84
+    },
+    "_conclusion": "the damping law holds at the main setting: alpha 0.5 is 33% better than plain reuse, and scaling by the gap is catastrophic"
   }
 }
