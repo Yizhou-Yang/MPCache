@@ -25,6 +25,28 @@ with head length $H$, first tail gap $2$, and growth $r>1$. The head is where th
 
 Two properties follow. The number of calls is $|S|=B$ by construction, so the schedule can be compared with any other policy at equal budget. And the rule uses no learned quantity and no calibration pass: $H$ and $r$ follow from the measured profile of the backbone, which is obtained once by the single-skip measurement above.
 
+\subsection{What a skipped step returns}
+\label{sec:reuse}
+
+A cache stores the output of its last exact step. When a step is skipped, the pipeline needs an
+output for it, and the simplest choice, which every training-free cache in this literature makes,
+is to return the stored one unchanged. Nothing forces that choice. With the anchor at step $s$
+and the previous exact step at $s'$, the two stored outputs define a one-step difference
+$\Delta$, and a skipped step at $j$ can return
+
+\begin{equation}
+\tilde v_j = v_s + \alpha\,\Delta\,, \qquad \alpha \in [0, 1]\,,
+\label{eq:reuse}
+\end{equation}
+independently of how far $j$ is from $s$. The parameter $\alpha$ is the only freedom, it is a
+property of the sampler, and Section~\ref{sec:experiments} measures it. Two natural alternatives frame the choice. Setting the damping to zero recovers plain reuse, and letting the correction grow with the distance, that is adding $(j-s)\Delta$ at a skip of length $j-s$, is what a first-order Taylor predictor does when it extrapolates along the tangent. The second is the choice that fails.
+
+The reason is visible in the geometry. Two outputs determine a tangent, and a tangent determines
+the next point only if the trajectory is close to straight. At fifty steps the latent turns
+faster than the gap between exact calls, so extrapolating along the tangent for several steps
+overshoots the trajectory, while a damped correction moves the reused output in the right
+direction without claiming to know how far.
+
 \subsection{The schedule as an open-loop solution}
 \label{sec:openloop}
 Write the profile as $w_i$, the terminal loss caused by skipping step $i$ alone, and let $S$ be the set of exact steps. Under the additive model of Section~\ref{sec:core} the choice is the program

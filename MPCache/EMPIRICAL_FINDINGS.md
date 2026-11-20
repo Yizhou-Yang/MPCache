@@ -132,3 +132,15 @@ novelty audit.
 Running when the box was released: `alpha = 0.5` at 49 frames / 100 prompts (24 of 100 done).
 Next session starts by finishing it (about 25 minutes on four GPUs) and then running the same
 sweep at 49 frames, which is the only number still missing for the paper's main claim.
+
+## 2026-11-20 — paper rewritten around the two decisions
+
+The abstract, the introduction and the method now lead with the two decisions a cache makes
+(where to place the exact calls, what a skipped step returns) and with the damping law, instead
+of leading with the placement-only story. The new method section states the reuse rule and why
+scaling the correction by the gap is the choice that fails.
+
+The 49-frame damping sweep was interrupted by the machine being reclaimed with the reference at
+96 of 100 prompts and no arm finished, so the law is still measured at 17 frames only. The
+49-frame evidence for the reuse axis remains the alpha = 1 comparison (0.1549 to 0.1174 at 100
+prompts), which is already in `experiments_results/main_table.json`.
