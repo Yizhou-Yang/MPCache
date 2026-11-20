@@ -1,47 +1,96 @@
-# Todo — state at 2026-11-12 17:45
+# Hand-off — last updated 2026-11-21 03:15
 
-## Done (all pushed)
+Repository is in sync with `origin/h20-run`. Everything below is measured and pushed; nothing
+is a placeholder.
 
-| # | item | result |
-|---|---|---|
-| 1 | Cog 49f @100, CFGCache vs ours | 0.1554 / 0.8973 / 29.17 vs **0.1300 / 0.9247 / 31.63** |
-| 2 | Wan 81f @100, CFGCache vs ours | 0.1685 / 0.8686 / 27.91 vs **0.1527 / 0.8853 / 29.27** |
-| 3 | Cog 17f @100, four baselines | ours **0.1454**, CFG 0.1587, Tea 0.2786, Taylor 0.4917 |
-| 4 | Head-length law | H=6 0.288, H=12 0.157, H=16 0.133 |
-| 5 | Tail-shape ablation | uniform 0.1656 vs growing 0.1541; ratio 1.4-3.0 within noise |
-| 6 | Feedback control | unidentifiable with a scalar error scale (three implementations) |
-| 7 | Additivity of single-skip gains | fails: R^2 = 0.59, 29% above prediction |
-| 8 | Damping law (17f, 32 prompts) | alpha 0 / 0.25 / **0.5** / 0.75 / 1.0 = 0.1556 / 0.1239 / **0.1084** / 0.1131 / 0.1250; gap-scaled 0.4419 |
-| 9 | Reuse at the main setting | plain reuse 0.1549 vs one-step extrapolation **0.1174** at 49f/100 |
-| 10 | Novelty audit | SenCache, DPCache, IdealCache, SoftCap, ReCache, CEM-MPC all occupy the control framing |
-| 11 | Paper | 10 pages, 0 error, discussion carries the two axes and the damping law |
-| 12 | Repository | CuratorMem layout, SDK, experiment scripts, results ledger, all pushed |
+## The paper's claim, in one paragraph
 
-## Next session, in order
+A training-free cache makes two decisions that the literature keeps apart: where to place the
+exact calls, and what a skipped step returns. Placement is positional and steep (a head of
+sixteen of fifty steps carries about three quarters of the sensitivity). The replacement has a
+law: adding a *damped* part of the one-step difference of the model output (damping about one
+half) lowers LPIPS by a third, while scaling that difference by the gap destroys the result.
+Re-planning placement at every step cannot help, because a global error scale does not reorder a
+fixed-budget allocation.
 
-1. ~~Finish alpha = 0.5 at 49f / 100 prompts~~ **done 2026-11-21**: 0.1041 against 0.1549 for
-   plain reuse, a third of the error better at identical cost.
-2. ~~Damping sweep at 49 frames~~ **done**: 0.1549 (none) / 0.1214 (0.25) / **0.1041 (0.5)** /
-   0.1176 (1.0) / 0.4417 (scaled by the gap), n=100 each. The optimum sits at one half and the
-   basin is flat over a factor of two. Alpha 0.75 at 49 frames is the only missing point; the
-   17-frame curve covers it (0.1131).
-3. ~~Rewrite the paper around the two decisions~~ **done**: abstract, introduction, a new method
-   section on what a skip returns, and Table 3 at the main setting.
-4. HunyuanVideo 17 frames: still deferred by decision.
-5. Next, if the paper continues: a stronger baseline comparison for the reuse axis, since
-   TaylorSeer's feature-space predictor is the closest published method and is only compared at
-   17 frames so far.
+## The numbers, frozen
 
-## Commands
+### Main table (RA-CFGCache pipeline, the competitor's own harness)
+
+| setting | n | baseline | ours |
+|---|---:|---|---:|
+| CogVideoX-2B 49f | 100 | 0.1554 / 0.8973 / 29.17 | **0.1300 / 0.9247 / 31.63** |
+| Wan2.1-1.3B 81f | 100 | 0.1685 / 0.8686 / 27.91 | **0.1527 / 0.8853 / 29.27** |
+| CogVideoX-2B 17f | 100 | CFG 0.1587, Tea 0.2786, Taylor 0.4917 | **0.1454** |
+
+### Replacement law (plain diffusers harness, our own; head-16 + six tail steps = 22 calls)
+
+CogVideoX-2B, 49 frames, 100 prompts:
+
+| what a skip returns | LPIPS | SSIM | PSNR |
+|---|---:|---:|---:|
+| the last exact output | 0.1549 | 0.8771 | 27.55 |
+| one-step difference, damping 0.25 | 0.1214 | 0.9100 | 29.46 |
+| one-step difference, damping 0.5 | **0.1041** | 0.9293 | 31.25 |
+| one-step difference, damping 1.0 | 0.1176 | 0.9273 | 31.53 |
+| the same, scaled by the gap | 0.4417 | 0.6129 | 15.84 |
+
+Same sweep at 17 frames, 32 prompts: 0.1556 / 0.1239 / **0.1084** / 0.1131 / 0.1250 / 0.4419.
+
+**The two harnesses do not share absolute numbers.** The main table lives in the RA pipeline; the
+replacement law lives in plain diffusers. Never mix rows from the two in one comparison.
+
+### Negative results
+
+| claim | evidence |
+|---|---|
+| feedback cannot help with a global error scale | budgeted DP is invariant to it; three implementations, one degenerate |
+| single-skip gains do not add up | R^2 = 0.59; 29% of samples exceed the additive prediction |
+| gap-scaled extrapolation destroys quality | 0.4417 at 49f, 0.4419 at 17f, and TaylorSeer itself is 0.4917 at 17f |
+
+## What is missing, in priority order
+
+1. **Alpha 0.75 at 49 frames.** The videos exist on the 2026-11-20 machine (100/100 at
+   `/root/rp2/e075`); the evaluation did not finish before the box went away. Re-run
+   `evaluate_reuse.sh` against `/root/rp/full` if that box returns, otherwise regenerate.
+2. **TaylorSeer in the replacement comparison at 49 frames.** The law's strongest claim is that
+   a gap-scaled predictor fails; that is currently supported by our own scaled variant plus
+   TaylorSeer at 17 frames only.
+3. **HunyuanVideo 17 frames.** Adapter written, never exercised. Deferred by decision; belongs in
+   the final version, not before.
+4. **A figure for the damping law.** One line, three curves (damping 0.5, damping 1.0, gap-scaled)
+   against LPIPS; the table alone undersells it.
+
+## How to resume
 
 ```bash
-# one arm of the reuse comparison, sharded
-CUDA_VISIBLE_DEVICES=$sid python reuse_cmp.py --model /weights/CogVideoX-2b \
-  --prompts prompts_video.txt --frames 49 --mode extrap --alpha 0.5 \
-  --offset $((sid*25)) --limit 25 --out out/half/s$sid
+# 1. environment (torch 2.10.0 / torchvision 0.25.0 is required; 2.5.1 dies with SIGFPE)
+#    see the deploy script used on 2026-11-20; weights: zai-org/CogVideoX-2b and
+#    Wan-AI/Wan2.1-T2V-1.3B-Diffusers into /root/viewdit/weights
 
-# evaluation (matches by basename across shards)
-python - <<'PY'
-# see EMPIRICAL_FINDINGS.md for the exact block
-PY
+# 2. one arm of the replacement comparison, sharded over four GPUs
+for sid in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=$sid python reuse_policy.py --model /weights/CogVideoX-2b \
+    --prompts prompts_video.txt --frames 49 --policy extrap --alpha 0.5 \
+    --offset $((sid*25)) --limit 25 --out out/e05/s$sid
+done
+
+# 3. evaluate every arm against the full reference
+PYTHON=python evaluate_reuse.sh out/full out latest e025 e05 e10 scaled
+
+# 4. compile the paper
+cd paper && pdflatex main && bibtex main && pdflatex main && pdflatex main
 ```
+
+## Pitfalls that have cost time before
+
+- **Sharding needs the global seed.** `--offset` shifts both the prompt and the seed; without it
+  shards produce different trajectories and cannot be compared to the reference.
+- **File names carry the global prompt index**, so a recursive evaluation matches shards by
+  basename. Do not rename outputs.
+- **The boxes are recycled without notice.** Push results as soon as an arm finishes; do not
+  batch a night of runs and push in the morning. Two nights of numbers were lost that way.
+- **GitHub push from this network fails with SSL timeouts intermittently.** Retry; the commit is
+  local and safe.
+- **Clone the RA repository's hooks before comparing both harnesses**, and remember the RA
+  pipeline needs its own environment (see its README).
