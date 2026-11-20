@@ -297,6 +297,11 @@
       "ssim": 0.6129,
       "psnr": 15.84
     },
-    "_conclusion": "the damping law holds at the main setting: alpha 0.5 is 33% better than plain reuse, and scaling by the gap is catastrophic"
+    "_conclusion": "the damping law holds at the main setting: alpha 0.5 is 33% better than plain reuse, and scaling by the gap is catastrophic",
+    "damped_alpha0.25": {
+      "lpips": 0.1214,
+      "ssim": 0.91,
+      "psnr": 29.46
+    }
   }
 }
