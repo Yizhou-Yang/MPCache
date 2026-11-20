@@ -19,14 +19,18 @@
 
 ## Next session, in order
 
-1. **Finish alpha = 0.5 at 49f / 100 prompts** (28 of 100 were generated; about 25 min on four GPUs,
-   shard with `reuse_cmp.py --offset`). This is the only number missing for the main claim.
-2. **Run the damping sweep at 49 frames** (alpha 0.25 / 0.5 / 0.75), since the law is currently
-   measured at 17 frames only.
-3. **Rewrite the paper around the three axes**: where to place the exact calls, what a skip
-   returns, and how far the correction may reach. The title should follow the finding, not the
-   old framing.
+1. ~~Finish alpha = 0.5 at 49f / 100 prompts~~ **done 2026-11-21**: 0.1041 against 0.1549 for
+   plain reuse, a third of the error better at identical cost.
+2. ~~Damping sweep at 49 frames~~ **done**: 0.1549 (none) / 0.1214 (0.25) / **0.1041 (0.5)** /
+   0.1176 (1.0) / 0.4417 (scaled by the gap), n=100 each. The optimum sits at one half and the
+   basin is flat over a factor of two. Alpha 0.75 at 49 frames is the only missing point; the
+   17-frame curve covers it (0.1131).
+3. ~~Rewrite the paper around the two decisions~~ **done**: abstract, introduction, a new method
+   section on what a skip returns, and Table 3 at the main setting.
 4. HunyuanVideo 17 frames: still deferred by decision.
+5. Next, if the paper continues: a stronger baseline comparison for the reuse axis, since
+   TaylorSeer's feature-space predictor is the closest published method and is only compared at
+   17 frames so far.
 
 ## Commands
 
