@@ -74,3 +74,21 @@ the same, scaled by the gap & 0.4417 & 0.6129 & 15.84 \\
 \paragraph{Wall clock.} The budget is counted in transformer calls, and on one H20 the call ratio is also the latency ratio up to the decoder, which is constant across arms. Measured on the same box, a CogVideoX-2B transformer call costs 0.69 s at 17 frames, 2.7 s at 49 frames and 6.5 s on Wan2.1 at 81 frames, so a 49-frame full run spends about 135 s in the network and our twenty-call schedule spends about 54 s, a $2.5\times$ end-to-end speedup before the decode is added. We report calls rather than seconds because the decoder, the batch size and the host are not part of the claim, and because a call count transfers between machines while a latency does not.
 
 \paragraph{Scope.} The measurement and the schedule are verified on two backbones and two frame counts, with budgets between ten and twenty-one calls. A comparison at a much lower budget is not covered, and the profile is measured for the specific step count of each setting, so a different scheduler requires re-measuring it once. The absolute values of the baselines come from our reproduction inside one harness and are not the numbers those papers report; Appendix~\ref{app:baseline} puts the two side by side.
+
+% ---- qualitative figures: uncomment once qual_A.pdf and qual_B.pdf exist ----
+% \begin{figure*}[t]
+% \centering
+% \includegraphics[width=\textwidth]{figures/qual_A.pdf}
+% \caption{The same prompt and seed under the policies of Table~\ref{tab:main}, all produced by
+% one harness. Our schedule holds the first sixteen of fifty steps exact; the baselines decide
+% with a threshold. Speedups in parentheses are measured, not quoted.}
+% \label{fig:qualA}
+% \end{figure*}
+%
+% \begin{figure*}[t]
+% \centering
+% \includegraphics[width=\textwidth]{figures/qual_B.pdf}
+% \caption{One schedule, four replacements. Plain reuse and the gap-scaled correction blur or
+% break the moving detail; the damped correction keeps it.}
+% \label{fig:qualB}
+% \end{figure*}
