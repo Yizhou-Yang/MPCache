@@ -3,8 +3,20 @@
 \subsection{Background: the cost of sampling}
 Training-free caching accelerates diffusion inference by reusing intermediate features, residuals, or model outputs across timesteps without retraining \citep{liu2025teacache,liu2025taylorseer,liu2026racfgcache}. Two properties of the sampling loop bound what such a cache can do. The first is the per-step cost: a latent diffusion model evaluates a large network at every step \citep{rombach2022ldm,peebles2023dit}, guidance doubles that evaluation \citep{ho2022cfg}, and video models multiply the token count by the frame count \citep{yang2025cogvideox,wan2025wan,kong2024hunyuanvideo,zheng2024opensora}. Each output then enters a solver update \citep{song2021ddim,zhao2023unipc,lu2022dpm}, so a substituted value changes every later state, and how far the change travels depends on the solver coefficients and the remaining horizon. Distillation and consistency models shorten the trajectory itself \citep{salimans2022progressive,meng2023lcm,song2023consistency}; caching keeps the weights and the grid and is orthogonal to both \citep{liu2025teacache,liu2025taylorseer,liu2026racfgcache}.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_map.pdf}
+\caption{The design space the literature has explored, with the two coordinates this paper
+separates. The horizontal axis is how the exact calls are placed, from a local rule evaluated
+during denoising to a plan fixed before it starts. The vertical axis is what a skipped step
+returns, from the stored output to a corrected one. Threshold caches and the risk-based cache sit
+in the lower left; TaylorSeer corrects but still decides locally. We move right first, which is
+worth $0.155$ against $0.169$, and then up, which is worth $0.104$ against $0.155$.}
+\label{fig:map}
+\end{figure}
+
 \subsection{Cache control and error estimation}
-Existing caches estimate the error of a reuse decision from three kinds of evidence: the change of the input, a temporal extrapolation of past outputs, or a propagated risk that prices the step against the terminal sample. They differ further in whether that evidence is computed from the current run or fixed in advance.
+Existing caches estimate the error of a reuse decision from three kinds of evidence: the change of the input, a temporal extrapolation of past outputs, or a propagated risk that prices the step against the terminal sample. They differ further in whether that evidence is computed from the current run or fixed in advance; Figure~\ref{fig:map} arranges the families along these two coordinates and marks where this paper sits.
 
 Input-change thresholds decide from the trajectory: TeaCache refreshes when a rescaled input difference crosses a calibrated threshold \citep{liu2025teacache}, a signal that is cheap but measures the input, not the output error. Caches differ in granularity, from step \citep{liu2025teacache,liu2025taylorseer} and block \citep{chen2024ddit} to token \citep{zou2024toca,feng2026worldcache} and attention \citep{lv2024fastercache,zhao2024pab}, but share the decision structure.
 
