@@ -5,8 +5,8 @@ Diffusion transformers generate a video by iterating a denoiser fifty times, and
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.94\textwidth]{figures/fig_teaser.pdf}
-\caption{Four facts that set up the paper. A video costs fifty steps and, with guidance, a hundred forward passes, so a cache must choose twenty-two of them. The steps are not equal: skipping the first costs 0.57 LPIPS and every step late in the trajectory costs about 0.04, measured by removing one step at a time. A skipped step still has to return something, and two exact outputs fix a tangent but not how far along it to travel. Holding the twenty-two calls fixed and returning a damped part of that tangent lowers LPIPS from 0.155 to 0.104, while scaling it by the gap gives 0.442. Numbers are CogVideoX-2B at forty-nine frames, one hundred prompts; the profile and the three values are measured, the middle panels diagram the two decisions.}
+\includegraphics[width=0.99\textwidth]{figures/fig_teaser2.pdf}
+\caption{One clip, decoded from the full run, and the two decisions a cache makes in it. The strip is the video. The band beneath it is the measured cost of skipping one step, dark where a skip is expensive, and the dots are the twenty-two exact calls our schedule keeps, sixteen of them packed at the head. The two annotations state the mechanism: an error admitted early is carried by every later step, while an error admitted late is re-explained before the decode. The insets give the two quantities the paper turns on, what one skip costs and what a skipped step returns. Numbers are CogVideoX-2B at forty-nine frames and one hundred prompts; the strip is a single clip shown for orientation.}
 \label{fig:teaser}
 \end{figure*}
 
