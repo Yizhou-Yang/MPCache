@@ -50,6 +50,32 @@ replacement law lives in plain diffusers. Never mix rows from the two in one com
 
 ## What is missing, in priority order
 
+0. **The two qualitative figures (highest value, about 30 minutes on one box).** Everything is
+   built and tested; only the generation is missing, because every video on this laptop comes
+   from an older method (gap-scaled extrapolation, warmup-4 schedule) and using them would
+   misrepresent the paper.
+
+   ```bash
+   RA_REPO=/root/RA-CFGCache COG=/root/viewdit/weights/CogVideoX-2b \
+     bash MPCache/sourcecode/scripts/latest/make_qualitative.sh
+   ```
+
+   Produces `qual_A.pdf` (Original / TeaCache / RA-CFGCache / Ours, all inside the RA harness,
+   matching Table 1) and `qual_B.pdf` (Original / plain reuse / damped 0.5 / scaled by gap,
+   inside the diffusers harness, matching Table 2). Three prompts, four columns, 49 frames,
+   four GPUs in parallel.
+
+   The composer takes red circles once we have looked at the frames:
+   `--circle row,col,x,y,r` in fractions of a cell. Insertion points: `qual_A.pdf` goes next to
+   Table 1 as a `figure*`, `qual_B.pdf` next to Table 2. Caption drafts:
+
+   > **A.** The same prompt and seed under the policies of Table 1, all produced by one
+   > harness. Our schedule holds the first sixteen steps exact; the baselines decide with a
+   > threshold. Speedups in parentheses are measured, not quoted.
+
+   > **B.** The same schedule, four replacements. Plain reuse and the gap-scaled correction
+   > blur or break the moving detail; the damped correction keeps it.
+
 1. **Alpha 0.75 at 49 frames.** The videos exist on the 2026-11-20 machine (100/100 at
    `/root/rp2/e075`); the evaluation did not finish before the box went away. Re-run
    `evaluate_reuse.sh` against `/root/rp/full` if that box returns, otherwise regenerate.
