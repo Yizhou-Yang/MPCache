@@ -2,6 +2,20 @@
 
 Diffusion transformers generate a video by iterating a denoiser fifty times, and classifier-free guidance doubles each iteration into a conditional and an unconditional pass, so a single clip costs a hundred forward passes. Training-free caching reduces this cost without touching the weights. A subset of the steps is evaluated exactly, and the remaining steps reuse something that was computed earlier. TeaCache, TaylorSeer, RA-CFGCache and the sensitivity-based caches that followed all follow this recipe, and they differ in two decisions that the literature has largely kept apart: where to place the exact calls, and what a skipped step should return.
 
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{figures/fig_teaser.pdf}
+\caption{A cache makes two decisions, and they are separable. Top: the measured cost of a single
+skip along the trajectory, darkest where a skip is expensive. The three strips spend the same
+twenty-two transformer calls in different places; ours holds the first sixteen steps exact and
+puts the remaining six where the profile says a skip is nearly free. Right: with the schedule
+fixed, what a skipped step returns is worth a third of the error, and the choice that scales the
+correction by the gap loses a factor of four. Numbers are LPIPS against a full run of the same
+pipeline on CogVideoX-2B at forty-nine frames, one hundred prompts.}
+\label{fig:teaser}
+\end{figure*}
+
 The first decision is usually made by a threshold on a quantity that has already been observed. TeaCache accumulates the change of the modulated input and skips while that change stays under a level, RA-CFGCache composes a risk from the two guidance branches and compares it to a calibrated table, and the sensitivity-aware caches calibrate a per-timestep quantity and threshold it. Each of these is a rule for the second decision applied at every step, which makes the placement local in time.
 
 We separated the two decisions and measured each at a matched number of transformer calls. The cost of skipping is positional and steep. On CogVideoX-2B, skipping the first step costs 0.57 LPIPS against the full run and the second 0.45, while every step after the tenth costs about 0.04, so the head carries about three quarters of the sensitivity and the tail is nearly flat. A schedule that holds sixteen of fifty steps exact and spreads the remaining six along the tail therefore beats a uniform grid, which is the zero-head limit of the same family, by five to six times at tight budgets. The profile that produces this schedule is a property of the sampler: two prompts rank the first eight steps identically and correlate at 0.94.

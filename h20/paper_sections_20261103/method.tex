@@ -2,6 +2,19 @@
 \label{sec:method}
 A training-free cache answers one question per step: evaluate exactly, or reuse. The literature answers it with a threshold on a quantity that has already been observed, and spends its design effort on how to reconstruct a skipped step. We measure what the answer actually depends on and find that it is the position of the exact calls relative to the sampler's noise schedule, not the replacement.
 
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{figures/fig_arch.pdf}
+\caption{The method in two stages. (A) Once per sampler, a single-skip ablation measures what
+each step costs, and the allocation program turns the profile into a schedule with a fixed number
+of calls. (B) Per video, a step either pays for the transformer call and refreshes the anchor, or
+returns the anchor corrected by a damped part of the last output difference. Nothing is learned
+and the denoiser is untouched; the only per-sampler cost is the ablation in (A), which is fifty
+runs and is done once.}
+\label{fig:arch}
+\end{figure*}
+
 \subsection{Preliminaries}
 \label{sec:prelim}
 Fix a prompt, a guidance scale, and a grid $i=0,\ldots,T-1$ with latent $x_i$. An exact step evaluates both guidance branches and returns $v_i$; a skipped step returns the last exact output. The solver advances $x_{i+1}=A_ix_i+B_iv_i$ with coefficients from the base sampler, which we never modify. A schedule is a set $S\subset\{0,\ldots,T-1\}$ of exact steps, and the budget is $|S|$, counted in transformer calls. The reference for every number in this paper is a full run of the same sampler.
