@@ -6,13 +6,7 @@ Diffusion transformers generate a video by iterating a denoiser fifty times, and
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.94\textwidth]{figures/fig_teaser.pdf}
-\caption{A cache makes two decisions, and they are separable. Top: the measured cost of a single
-skip along the trajectory, darkest where a skip is expensive. The three strips spend the same
-twenty-two transformer calls in different places; ours holds the first sixteen steps exact and
-puts the remaining six where the profile says a skip is nearly free. Right: with the schedule
-fixed, what a skipped step returns is worth a third of the error, and the choice that scales the
-correction by the gap loses a factor of four. Numbers are LPIPS against a full run of the same
-pipeline on CogVideoX-2B at forty-nine frames, one hundred prompts.}
+\caption{Four facts that set up the paper. A video costs fifty steps and, with guidance, a hundred forward passes, so a cache must choose twenty-two of them. The steps are not equal: skipping the first costs 0.57 LPIPS and every step late in the trajectory costs about 0.04, measured by removing one step at a time. A skipped step still has to return something, and two exact outputs fix a tangent but not how far along it to travel. Holding the twenty-two calls fixed and returning a damped part of that tangent lowers LPIPS from 0.155 to 0.104, while scaling it by the gap gives 0.442. Numbers are CogVideoX-2B at forty-nine frames, one hundred prompts; the profile and the three values are measured, the middle panels diagram the two decisions.}
 \label{fig:teaser}
 \end{figure*}
 
