@@ -2,43 +2,43 @@
 \label{sec:related}
 
 \subsection{Sampling Acceleration and Caching Granularities}
-Accelerating diffusion inference broadly follows two orthogonal axes. Trajectory-shortening methods redesign numerical ODE/SDE integrators \citep{song2021ddim,lu2022dpm,zhao2023unipc} or distill many-step teachers into few-step generators \citep{salimans2022progressive,song2023consistency,meng2023lcm}. While effective, distillation requires costly post-training and can degrade motion diversity under high CFG in video generation \citep{yang2025cogvideox,wan2025wan,kong2024hunyuanvideo,zheng2024opensora}. Training-free caching preserves pretrained weights and native solver grids, skipping redundant computation at the granularity of transformer blocks \citep{ma2024deepcache,chen2024ddit}, attention maps and CFG branches \citep{zhao2024pab,lv2024fastercache}, spatial-temporal tokens \citep{zou2024toca,feng2026worldcache}, or full-forward denoiser steps \citep{liu2025teacache,liu2025taylorseer,liu2026racfgcache}. Full-step caching delivers architecture-agnostic speedups proportional to $T / B$ without custom sparse kernels, and forms the focus of our framework.
+Accelerating diffusion sampling follows two complementary directions. Trajectory-compression methods design high-order ODE/SDE solvers \citep{song2021ddim,lu2022dpm,zhao2023unipc} or distill teachers into few-step generators \citep{salimans2022progressive,song2023consistency,meng2023lcm}, at the cost of post-training compute and potential motion degradation under strong CFG \citep{yang2025cogvideox,wan2025wan,kong2024hunyuanvideo,zheng2024opensora}. Training-free caching preserves pretrained weights and native solver grids, reusing computations across blocks \citep{ma2024deepcache,chen2024ddit}, attention/CFG branches \citep{zhao2024pab,lv2024fastercache}, spatiotemporal tokens \citep{zou2024toca,feng2026worldcache}, or full-forward DiT steps \citep{liu2025teacache,liu2025taylorseer,liu2026racfgcache}. Full-step caching achieves wall-clock speedups proportional to $T / B$ without custom sparse kernels, and is the focus of our framework.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_map.pdf}
-\caption{\textbf{Bilevel operator design plane.} Training-free DiT caches decompose into an outer placement operator $\cS$ (horizontal) and an inner reconstruction operator $\cR$ (vertical). \method{} jointly solves horizon Bellman DP ($\text{LPIPS } 0.155$) and causal midpoint chord-shrinkage ($\text{LPIPS } 0.104$).}
+\caption{\textbf{Bilevel operator design plane.} Training-free DiT caches factor into an outer placement/certification operator $\cS$ (horizontal) and an inner tangent reconstruction operator $\cR$ (vertical). \method{} couples boundary-pinned Bellman DP ($\text{LPIPS } 0.155$) with phase-gated midpoint shrinkage ($\text{LPIPS } 0.104$).}
 \label{fig:map}
 \end{figure}
 
 \begin{table*}[t]
-\centering\footnotesize\setlength{\tabcolsep}{4.0pt}
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{llllll}
+\begin{tabular}{lllllll}
 \toprule
-Method & Offline Calibration & Outer Placement $\cS$ & Head Allocation & Online Cost & Inner Reconstruction $\cR$ \\
+Method & Calibration & Outer Operator $\cS$ & Head / Terminal Pin & Quality Certificate & Cache State & Inner Operator $\cR$ \\
 \midrule
-TeaCache \citep{liu2025teacache} & Polynomial fit & Greedy input-drift threshold & Implicit ($\approx 4$ steps) & Per-step check & Plain reuse ($\alpha = 0$) \\
-TaylorSeer \citep{liu2025taylorseer} & None & Periodic uniform grid & Ad-hoc warmup ($H \le 3$) & Multi-order buf. & Gap-scaled Taylor ($(j{-}s)^p$) \\
-ERTACache \citep{peng2025ertacache} & Residual profile & Adjusted offline intervals & Heuristic warmup & Rectification & Gap-scaled rectification \\
-RA-CFGCache \citep{liu2026racfgcache} & Prior table & Greedy CFG-branch risk & Threshold-driven & Branch check & Plain reuse ($\alpha = 0$) \\
-SenCache \citep{haghighi2026sencache} & 8-video Jacobians & Online local Jacobian tol. & Max-gap cap & Per-step score & Plain reuse ($\alpha = 0$) \\
-DPCache \citep{cui2026dpcache} & $\mathcal{O}(N_{\mathrm{cal}} T^2)$ tensor & Offline path-tensor DP & Hard-coded $M = 3$ & Zero & Reuse / gap-scaled Taylor \\
-IdealCache \citep{xue2026idealcache} & Ideal-line ensemble & Constrained shortest path & Unconstrained & Zero & Plain residual reuse \\
+TeaCache \citep{liu2025teacache} & Poly.\ fit & Input-delta threshold & Implicit ($\approx 4$) / No & None (greedy) & 1 output + mod. & Plain reuse ($\alpha = 0$) \\
+TaylorSeer \citep{liu2025taylorseer} & None & Periodic uniform grid & Warmup $\le 3$ / No & None & $L(O{+}1)$ hidden & Gap-scaled Taylor $(j{-}s)^p$ \\
+ERTACache \citep{peng2025ertacache} & Residual prof. & Adjusted intervals & Heuristic / No & None & Multi-step buf. & Gap-scaled rectification \\
+RA-CFGCache \citep{liu2026racfgcache} & Prior table & Dual-branch CFG risk & Threshold / No & None (greedy) & Branch buffers & Plain reuse ($\alpha = 0$) \\
+SenCache \citep{haghighi2026sencache} & 8-vid.\ Jacob. & Local $\partial_x v_\theta, \partial_t v_\theta$ tol. & Max-gap / No & Local step tol. & 1 output + JVP & Plain reuse ($\alpha = 0$) \\
+DPCache \citep{cui2026dpcache} & $\mathcal{O}(N_{\mathrm{cal}} T^2)$ & Pairwise tensor DP & Fixed $M{=}3$ / No & None (fixed $B$) & $2\text{--}3$ outputs & Reuse / gap-scaled Taylor \\
+IdealCache \citep{xue2026idealcache} & Line ensemble & Shortest-path graph & Unconstrained / No & None (fixed $B$) & 1 residual & Plain residual reuse \\
 \midrule
-\textbf{\method{} (Ours)} & \textbf{1-pass $\mathcal{O}(T)$ impulse} & \textbf{Age-weighted Bellman DP} & \textbf{KKT law $H^\star(B)$ (Thm.~\ref{thm:kkt})} & \textbf{Zero (Thm.~\ref{thm:invariance})} & \textbf{Midpoint shrinkage (Thm.~\ref{thm:shrinkage})} \\
+\textbf{\method{} (Ours)} & \textbf{1-pass $\mathcal{O}(T)$} & \textbf{Diffusive Bellman DP} & \textbf{KKT $H^\star(B)$ + $T{-}1$} & \textbf{Conformal $B^\star(\eps,\delta)$} & \textbf{2 output slots} & \textbf{Phase-gated midpoint} \\
 \bottomrule
 \end{tabular}%
 }
-\caption{\textbf{Operator-level taxonomy of training-free full-step DiT caching frameworks.} Unlike local Jacobian/risk caches or $\mathcal{O}(N_{\mathrm{cal}} T^2)$ pairwise tensor planners, \method{} derives an age-weighted interval DP from a single $\mathcal{O}(T)$ terminal perceptual impulse pass, proves why $H^\star(B)$ scales monotonically with budget ($H^\star(22)=16$), establishes online scale-invariance collapse, and introduces causal midpoint chord-shrinkage.}
+\caption{\textbf{Operator-level taxonomy of training-free full-step DiT caching frameworks.} Beyond replacing myopic input/Jacobian rules and $\mathcal{O}(N_{\mathrm{cal}} T^2)$ rollout tensors with a single $\mathcal{O}(T)$ closed-loop impulse sweep, \method{} introduces conformal minimum-budget certification (Theorem~\ref{thm:certify}), stiff-sloppy cross-backbone transfer (Corollary~\ref{cor:sloppy}), and 2-slot phase-gated midpoint shrinkage (Theorem~\ref{thm:shrinkage}).}
 \label{tab:taxonomy}
 \end{table*}
 
-\subsection{Placement and Reconstruction Operators}
-Figure~\ref{fig:map} and Table~\ref{tab:taxonomy} organize modern full-step DiT caches along the two coupled operators formalized in this work.
+\subsection{Placement, Certification, and Reconstruction}
+Figure~\ref{fig:map} and Table~\ref{tab:taxonomy} contrast modern full-step DiT caches across five algorithmic axes.
 
-\paragraph{Local Thresholds vs.\ Global Horizon Planning.}
-TeaCache \citep{liu2025teacache} accumulates rescaled modulated-input differences; SenCache \citep{haghighi2026sencache} formalizes local denoiser sensitivity via input/timestep Jacobians ($\partial_x v_\theta, \partial_t v_\theta$) calibrated on 8 videos; RA-CFGCache \citep{liu2026racfgcache} composes dual-branch CFG risk weighted by an offline prior; and RACER \citep{li2026racer} triggers refreshes from forecaster disagreement. Because local rules price perturbations myopically or exhaust budget prematurely when early inputs move rapidly, they systematically under-protect the late-head transition, while learned routers \citep{ma2024learning} leave the training-free setting. Concurrent global planners---DPCache \citep{cui2026dpcache} and IdealCache \citep{xue2026idealcache}---cast step selection as dynamic programming or shortest-path search. However, DPCache requires an expensive $\mathcal{O}(N_{\mathrm{cal}} T^2)$ pairwise rollout tensor and hard-codes the first $M=3$ steps without analyzing head scaling, whereas IdealCache optimizes intermediate Euclidean distance to a straight-line interpolation rather than decoded perceptual distortion. In contrast, \method{} needs only one $\mathcal{O}(T)$ terminal perceptual impulse pass, derives super-additive interval costs from anchor-age drift, proves the KKT head-saturation law ($H^\star(22)=16$), and establishes when online receding-horizon MPC \citep{rawlings2017mpc} collapses to offline Bellman optimality.
+\paragraph{Myopic Proxies and Pairwise Planners vs.\ Certified Horizon Control.}
+TeaCache \citep{liu2025teacache} monitors rescaled modulated-input deltas; SenCache \citep{haghighi2026sencache} bounds local denoiser Jacobians ($\partial_x v_\theta, \partial_t v_\theta$); RA-CFGCache \citep{liu2026racfgcache} tracks dual-branch CFG risk; and RACER \citep{li2026racer} uses forecaster disagreement, while learned routers \citep{ma2024learning} require training. As shown in Section~\ref{sec:laws}, local input/open-loop signals fail to observe closed-loop Jacobian contraction and can exhaust budgets prematurely, leaving terminal blackouts on multistep flow solvers. Offline planners such as DPCache \citep{cui2026dpcache} and IdealCache \citep{xue2026idealcache} use dynamic programming or graph search, but DPCache requires an $\mathcal{O}(N_{\mathrm{cal}} T^2)$ pairwise rollout tensor and hard-codes $M=3$ initial steps, while neither provides distribution-free error certificates or explains cross-backbone schedule transfer. \method{} derives global schedules from one $\mathcal{O}(T)$ impulse pass, proves why $H^\star(B)$ scales with $B$ ($H^\star(22)=16$) while interior tail ratios remain spectrally sloppy, proves fixed-budget MPC collapse \citep{rawlings2017mpc}, and introduces conformal minimum-budget synthesis $B^\star(\eps, \delta)$.
 
-\paragraph{Zeroth-Order Reuse vs.\ Extrapolated Reconstruction.}
-On skipped steps, threshold and graph-planning caches return the stored output unchanged ($\alpha=0$). TaylorSeer \citep{liu2025taylorseer} and DPCache's predictive variant instead extrapolate cached features or outputs via gap-scaled finite-difference Taylor polynomials, scaling step differences by $(j - s)^p$. As Theorem~\ref{thm:shrinkage} proves, two noisy anchors on a curved 50-step video trajectory determine a local chord direction but cannot support unbounded gap scaling without inflating unmeasured curvature by $\mathcal{O}(g^3)$. Our midpoint chord-shrinkage operator resolves this bias-variance trade-off in closed form.
+\paragraph{Hidden-Feature Polynomials vs.\ Output-Tangent Shrinkage.}
+Threshold and graph caches default to plain reuse ($\alpha=0$), whereas TaylorSeer \citep{liu2025taylorseer} caches $O{+}1$ finite-difference tensors inside every transformer block ($L(O{+}1)$ buffers) and scales updates by $(j - s)^p$. We show that feature-space polynomial forecasting fails due to $\Theta(g^3)$ curvature inflation, inter-block representation rotation, and cross-patch phase incoherence---all resolved by 2-slot phase-gated midpoint shrinkage in guided velocity space.

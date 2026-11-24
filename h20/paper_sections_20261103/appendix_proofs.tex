@@ -1,7 +1,7 @@
 \section{Complete Mathematical Proofs}
 \label{app:proofs}
 
-In this appendix, we provide complete derivations and proofs for Proposition~\ref{prop:subspace}, Theorem~\ref{thm:kkt}, Theorem~\ref{thm:invariance}, and Theorem~\ref{thm:shrinkage}.
+In this appendix, we provide complete derivations and proofs for Proposition~\ref{prop:subspace}, Theorem~\ref{thm:kkt}, Corollary~\ref{cor:sloppy}, Theorem~\ref{thm:invariance}, Theorem~\ref{thm:certify}, and Theorem~\ref{thm:shrinkage}.
 
 \subsection{Proof of Proposition~\ref{prop:subspace} (Adjoint Decomposition)}
 \label{app:proof_prop1}
@@ -53,56 +53,97 @@ Where $\rho^\star(t) < 1$, complementary slackness gives $\mu^\star(t) = 0$, so
 \begin{equation}
 \beta \tilde{w}(t) \rho^\star(t)^{-(1+\beta)} = (1+\beta)\lambda^\star - \tilde{w}(t).
 \end{equation}
-Having $\rho^\star(t) \in (0, 1)$ requires $(1+\beta)\lambda^\star - \tilde{w}(t) > \beta\tilde{w}(t) \iff \tilde{w}(t) < \lambda^\star$, yielding $\rho^\star(t) = \bigl(\frac{\beta\tilde{w}(t)}{(1+\beta)\lambda^\star - \tilde{w}(t)}\bigr)^{\frac{1}{1+\beta}}$. Where $\tilde{w}(t) \ge \lambda^\star$, setting $\rho^\star(t) = 1$ and $\mu^\star(t) = \tilde{w}(t) - \lambda^\star \ge 0$ satisfies Eqs.~\eqref{eq:kkt_stat}--\eqref{eq:kkt_cs}. Since $\tilde{w}$ is strictly decreasing, $\{t : \tilde{w}(t) \ge \lambda^\star\} = [0, H^\star(B)]$. Moreover, $G(\lambda) \coloneqq \int_0^T \rho^\star(t; \lambda)\,dt$ is continuous and strictly decreasing for $\lambda \in (\tilde{w}(T), \infty)$ with $G(\tilde{w}(0)) \le T$ and $\lim_{\lambda \to \infty} G(\lambda) = 0$ (and $G(\lambda) = T$ for $\lambda \le \tilde{w}(T)$). Hence $\lambda^\star(B)$ is unique and strictly decreasing in $B \in (0, T)$, so $H^\star(B) = \min(T, \max(0, \tilde{w}^{-1}(\lambda^\star(B))))$ is non-decreasing in $B$. As $\beta \downarrow 0$, $f(\rho) \to 1 - \rho$ becomes affine and degenerates to $\rho^\star(t) = \mathbb{I}[t \le B]$.
+Having $\rho^\star(t) \in (0, 1)$ requires $(1+\beta)\lambda^\star - \tilde{w}(t) > \beta\tilde{w}(t) \iff \tilde{w}(t) < \lambda^\star$, yielding $\rho^\star(t) = \bigl(\frac{\beta\tilde{w}(t)}{(1+\beta)\lambda^\star - \tilde{w}(t)}\bigr)^{\frac{1}{1+\beta}}$. Where $\tilde{w}(t) \ge \lambda^\star$, setting $\rho^\star(t) = 1$ and $\mu^\star(t) = \tilde{w}(t) - \lambda^\star \ge 0$ satisfies Eqs.~\eqref{eq:kkt_stat}--\eqref{eq:kkt_cs}. Since $\tilde{w}$ is strictly decreasing, $\{t : \tilde{w}(t) \ge \lambda^\star\} = [0, H^\star(B)]$. Moreover, $G(\lambda) \coloneqq \int_0^T \rho^\star(t; \lambda)\,dt$ is continuous and strictly decreasing for $\lambda \in (\tilde{w}(T), \infty)$ with $G(\tilde{w}(0)) \le T$ and $\lim_{\lambda \to \infty} G(\lambda) = 0$. Hence $\lambda^\star(B)$ is unique and strictly decreasing in $B \in (0, T)$, so $H^\star(B) = \min(T, \max(0, \tilde{w}^{-1}(\lambda^\star(B))))$ is non-decreasing in $B$. As $\beta \downarrow 0$, $f(\rho) \to 1 - \rho$ degenerates to $\rho^\star(t) = \mathbb{I}[t \le B]$.
 
 \textbf{Part 2 (Growing tail).}
 For $t > H^\star(B)$, $g^\star(t) = 1/\rho^\star(t) = \bigl(\frac{1+\beta}{\beta}\frac{\lambda^\star}{\tilde{w}(t)} - \frac{1}{\beta}\bigr)^{\frac{1}{1+\beta}}$ increases strictly with $t$. When $\tilde{w}(t) = w_0 e^{-\eta t} \ll (1+\beta)\lambda^\star$, $g^\star(t) \simeq C e^{\frac{\eta}{1+\beta} t}$, giving discrete ratio $g_{k+1}/g_k \approx e^{\eta/(1+\beta)} = r > 1$.
+\end{proof}
+
+\subsection{Proof of Corollary~\ref{cor:sloppy} (Stiff-Sloppy Anisotropy)}
+\label{app:proof_cor1}
+
+\begin{proof}
+Let $\rho \in L^\infty([0, T]; (0, 1])$ satisfy $\int_0^T \rho(t)\,dt = B$. By convexity of $f(\rho)$ and KKT stationarity~\eqref{eq:kkt_stat}, Taylor expansion around $\rho^\star$ gives the exact Bregman decomposition
+\begin{equation}
+\begin{aligned}
+\mathcal{J}(\rho) - \mathcal{J}(\rho^\star) &= \int_0^{H^\star(B)} \bigl(\tilde{w}(t) - \lambda^\star\bigr)\bigl(1 - \rho(t)\bigr)\,dt \\
+&\quad + \frac{\beta}{2}\int_0^T \frac{\tilde{w}(t)}{\tilde{\rho}(t)^{2+\beta}}\bigl(\rho(t) - \rho^\star(t)\bigr)^2\,dt,
+\end{aligned}
+\end{equation}
+where we used $\tilde{w}(t) f'(\rho^\star(t)) = -\lambda^\star - \mu^\star(t)$, $\int_0^T \lambda^\star(\rho - \rho^\star)\,dt = 0$, and $\mu^\star(t) = 0$ on $(H^\star(B), T]$.
+
+1.~\emph{Stiff head perturbation:} If $\rho_H$ forces skips on $[H, H^\star(B)]$ ($H = H^\star(B) - \Delta$, $\rho_H(t) \le \rho_{\max} < 1$), the active KKT multiplier $\mu^\star(t) = \tilde{w}(t) - \lambda^\star > 0$ yields a strictly positive \emph{first-order} penalty
+\begin{equation}
+\begin{aligned}
+\mathcal{J}(\rho_H) - \mathcal{J}(\rho^\star) &\ge (1 - \rho_{\max})\int_H^{H^\star} \bigl(\tilde{w}(t) - \lambda^\star\bigr)\,dt \\
+&= \Theta(\Delta\,\bar{\mu}_{\mathrm{head}}).
+\end{aligned}
+\end{equation}
+
+2.~\emph{Sloppy tail perturbation:} If $\rho_\delta$ keeps $\rho_\delta(t) = 1$ on $[0, H^\star(B)]$ and perturbs tail decay $\eta \mapsto \eta(1+\delta)$ while preserving $\int_{H^\star}^T \rho_\delta(t)\,dt = B - H^\star(B)$, then $\rho_\delta(t) - \rho^\star(t) = -\frac{\delta \eta}{1+\beta}(t - \bar{t})\rho^\star(t) + \mathcal{O}(\delta^2)$ on $(H^\star, T]$ (with $\rho^\star$-centroid $\bar{t}$). Substituting $\tilde{w}(t) \approx \frac{1+\beta}{\beta}\lambda^\star \rho^\star(t)^{1+\beta}$ yields
+\begin{equation}
+\begin{aligned}
+\mathcal{J}(\rho_\delta) - \mathcal{J}(\rho^\star) &= \frac{\delta^2 \eta^2 \lambda^\star}{2(1+\beta)}\int_{H^\star(B)}^T (t - \bar{t})^2 \rho^\star(t)\,dt \\
+&\quad + \mathcal{O}(\delta^3),
+\end{aligned}
+\end{equation}
+which vanishes to first order and is suppressed by small tail density $\rho^\star(t) \ll 1$ and $\lambda^\star \ll \tilde{w}(0)$.
 \end{proof}
 
 \subsection{Proof of Theorem~\ref{thm:invariance} (Scale-Invariance Collapse)}
 \label{app:proof_thm2}
 
 \begin{proof}
-We induct on the exact call index $k = 0, \dots, B - 2$. At $k=0$, $s_0 = 0 = s_0^\star$. Assume after $k$ exact calls the online controller matches the offline optimum prefix $(s_0^\star, \dots, s_k^\star)$. At step $s_k^\star$ with $B - k$ calls remaining, let $\mathfrak{S}_{B-k}(s_k^\star)$ denote strictly increasing sequences $(u_0, \dots, u_{B-1-k})$ with $u_0 = s_k^\star$ and $u_{B-1-k} = T-1$. Since $\hat{\sigma}_k(x_{0:s_k^\star}) > 0$ is constant wrt $(u_1, \dots, u_{B-2-k})$,
+We induct on the exact call index $k = 0, \dots, B - 2$. At $k=0$, $s_0 = 0 = s_0^\star$. Assume after $k$ exact calls the online controller matches $(s_0^\star, \dots, s_k^\star)$. At step $s_k^\star$ with $B - k$ calls left, let $\mathfrak{S}_{B-k}(s_k^\star)$ be strictly increasing sequences $(u_0, \dots, u_{B-1-k})$ with $u_0 = s_k^\star, u_{B-1-k} = T-1$. Since $\hat{\sigma}_k(x_{0:s_k^\star}) > 0$ is constant wrt $(u_1, \dots, u_{B-2-k})$,
 \begin{equation}
 \begin{aligned}
 &\arg\min_{u \in \mathfrak{S}_{B-k}(s_k^\star)} \sum_{m=0}^{B-2-k} \hat{\sigma}_k\, C_\beta(u_m, u_{m+1}) \\
 &\qquad = \arg\min_{u \in \mathfrak{S}_{B-k}(s_k^\star)} \sum_{m=0}^{B-2-k} C_\beta(u_m, u_{m+1}).
 \end{aligned}
 \end{equation}
-By Bellman's Principle of Optimality on $\cS^\star$, $(s_k^\star, s_{k+1}^\star, \dots, s_{B-1}^\star)$ solves the unscaled suffix problem, so the controller chooses $u_1 = s_{k+1}^\star$. By induction, $\cS_{\mathrm{MPC}} \equiv \cS^\star$. Because $\mathfrak{S}_B$ partitions $\R_{>0}^T$ into finitely many cones defined by homogeneous linear inequalities in $\tilde{w}$, altering $\cS^\star$ requires changing ratios $\tilde{w}_j / \tilde{w}_{j'}$.
+By Bellman's Principle of Optimality on $\cS_B^\star$, $(s_k^\star, \dots, s_{B-1}^\star)$ solves the unscaled suffix problem, so $u_1 = s_{k+1}^\star$.
 \end{proof}
 
-\subsection{Proof of Theorem~\ref{thm:shrinkage} (Midpoint Chord-Shrinkage)}
-\label{app:proof_thm3}
+\subsection{Proof of Theorem~\ref{thm:certify} (Conformal Budget Certification)}
+\label{app:proof_thm3_cert}
 
 \begin{proof}
-Fix $\cS \in \mathfrak{S}_B$. Under $\cR_\alpha(\cB_{s_m}, s_m + k) = v_{s_m} + \alpha \Delta_{s_m}$, substituting into Eq.~\eqref{eq:adjoint_sum} gives $\delta\Phi(\alpha) = u_0 + \alpha u_1 \in \cH$, where $u_0$ is the $\alpha=0$ perturbation and $u_1 = J_{\Phi \circ \cD}(x_T^\star)\sum_{m=0}^{B-2}\Psi_{s_{m+1}\to T}(\sum_{k=1}^{g_m-1}\omega_{m,k})\Delta_{s_m}$. Expanding the Hilbert norm yields
+Let $\{c_1, \dots, c_n, c_{\mathrm{new}}\}$ be exchangeable prompts drawn from $\mathcal{P}$, with $\kappa(c) \coloneqq \mathrm{LPIPS}(\cS_{\mathrm{cal}}, 0; c) / \cC_\beta(\cS_{\mathrm{cal}})$. By exchangeability of $\{\kappa(c_1), \dots, \kappa(c_n), \kappa(c_{\mathrm{new}})\}$, the rank of $\kappa(c_{\mathrm{new}})$ among the $n+1$ variables is uniform on $\{1, \dots, n+1\}$, giving
+\begin{equation}
+\mathbb{P}\bigl[\kappa(c_{\mathrm{new}}) \le \hat{\kappa}_{1-\delta}\bigr] \ge \frac{\lceil (n+1)(1-\delta)\rceil}{n+1} \ge 1 - \delta.
+\end{equation}
+On $\{\kappa(c_{\mathrm{new}}) \le \hat{\kappa}_{1-\delta}\}$, evaluating at $\cS_{B^\star}^\star$ ($V_{B^\star}(T-1) = \cC_\beta(\cS_{B^\star}^\star)$) yields
 \begin{equation}
 \begin{aligned}
-\mathcal{E}(\alpha) &= \E\norm{u_0 + \alpha u_1}_2^2 \\
-&= \E\norm{u_0}_2^2 + 2\alpha\E\langle u_0, u_1\rangle + \alpha^2\E\norm{u_1}_2^2 \\
-&= \mathcal{E}_{\min} + c_2(\alpha - \alpha^\star)^2,
+\mathrm{LPIPS}(\cS_{B^\star}^\star, \alpha; c_{\mathrm{new}}) &\le \kappa(c_{\mathrm{new}})\,\rho(\alpha)\,V_{B^\star}(T-1) + \xi_{\mathrm{res}} \\
+&\le \hat{\kappa}_{1-\delta}\,\rho(\alpha)\,V_{B^\star}(T-1) + \xi_{\mathrm{res}} \\
+&\le \eps + \xi_{\mathrm{res}},
 \end{aligned}
 \end{equation}
-with $c_2 = \E\norm{u_1}_2^2 > 0$ and $\alpha^\star = -\E\langle u_0, u_1\rangle / c_2$, proving Part~1.
+by Eq.~\eqref{eq:cert_budget}. Since $\tilde{w}_j > 0$, $B \mapsto V_B(T-1)$ is strictly decreasing on $\{2, \dots, T\}$, so $\rho(\alpha) < 1$ implies $B^\star(\eps, \delta, \alpha) \le B^\star(\eps, \delta, 0)$.
+\end{proof}
 
-For Part~2, over $\mathcal{I}_m = [s_m, s_{m+1})$ with $a_\ell \approx 1$, $b_{s_m+k} \approx \bar{b}_m$, and $v_{s_m+k}^\star - v_{s_m}^\star = k\dot{v}_{s_m} + \mathcal{O}(k^2 \norm{\ddot{v}_{s_m}}_2)$, using $\sum_{k=1}^{g_m-1} k = \frac{(g_m-1)g_m}{2}$ gives the interval state drift
+\subsection{Proof of Theorem~\ref{thm:shrinkage} (Phase-Gated Midpoint Shrinkage)}
+\label{app:proof_thm4}
+
+\begin{proof}
+Fix $\cS \in \mathfrak{S}_B$. On Regime~II ($s_m \ge H_{\mathrm{crit}}$), $\cR_{\alpha, H_{\mathrm{crit}}}(\cB_{s_m}, s_m + k) = v_{s_m} + \alpha \Delta_{s_m}$, so Eq.~\eqref{eq:adjoint_sum} gives $\delta\Phi(\alpha) = u_0 + \alpha u_1 \in \cH$. Expanding $\mathcal{E}(\alpha) = \E\norm{u_0 + \alpha u_1}_2^2$ gives $\mathcal{E}_{\min} + c_2(\alpha - \alpha^\star)^2$ with $c_2 = \E\norm{u_1}_2^2 > 0$ and $\alpha^\star = -\E\langle u_0, u_1\rangle / c_2$, proving Part~1.
+
+For Part~2, over $\mathcal{I}_m = [s_m, s_{m+1})$ with $a_\ell \approx 1$, $b_{s_m+k} \approx \bar{b}_m$, and $\sum_{k=1}^{g_m-1} k = \frac{(g_m-1)g_m}{2}$:
 \begin{equation}
 \begin{aligned}
-\Delta x_m(\alpha) &= \bar{b}_m \sum_{k=1}^{g_m - 1} (\alpha \Delta_{s_m} - k\dot{v}_{s_m}) + \mathcal{O}(g_m^3 \norm{\ddot{v}_{s_m}}_2) \\
-&= \bar{b}_m(g_m - 1)\!\left(\alpha \Delta_{s_m} - \frac{g_m}{2}\dot{v}_{s_m}\right) \\
-&\quad + \mathcal{O}(g_m^3 \norm{\ddot{v}_{s_m}}_2).
+\Delta x_m(\alpha) &= \bar{b}_m(g_m - 1)\!\left(\alpha \Delta_{s_m} - \frac{g_m}{2}\dot{v}_{s_m}\right) \\
+&\quad + \mathcal{O}(g_m^3 \norm{\ddot{v}_{s_m}}_2),
 \end{aligned}
 \end{equation}
-Minimizing $\E\norm{\alpha \Delta_{s_m} - \frac{g_m}{2}\dot{v}_{s_m}}_2^2$ wrt $\alpha$ yields $\alpha_m^\star = \frac{g_m}{2h_m}\bar{\rho}_m$ with $\bar{\rho}_m = \frac{h_m \E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle}{\E\norm{\Delta_{s_m}}_2^2}$, proving Eq.~\eqref{eq:midpoint_alpha}.
+minimized wrt $\alpha$ at $\alpha_m^\star = \frac{g_m}{2h_m}\bar{\rho}_m$ with $\bar{\rho}_m = \frac{h_m \E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle}{\E\norm{\Delta_{s_m}}_2^2}$.
 
-For Part~3, under $\cR_{\mathrm{scale}}(s_m+k) = v_{s_m} + k\Delta_{s_m}$ ($h_m=1$, $\Delta_{s_m} = \dot{v}_{s_m} - \frac{1}{2}\ddot{v}_{s_m} + \xi_m$), the step-$k$ error is $-\frac{k(k+1)}{2}\ddot{v}_{s_m} + k\xi_m + \mathcal{O}(k^3)$. Summing over $k = 1, \dots, g_m - 1$ gives
+For Part~3, under gap-scaling $v_{s_m} + k\Delta_{s_m}$ ($h_m=1$), summing $-\frac{k(k+1)}{2}\ddot{v}_{s_m} + k\xi_m$ over $k=1..g_m-1$ yields
 \begin{equation}
 \begin{aligned}
-\Delta x_m(\cR_{\mathrm{scale}}) = \bar{b}_m \Bigl[&-\frac{(g_m - 1)g_m(g_m + 1)}{6}\ddot{v}_{s_m} \\
+\Delta x_m(\cR_{\mathrm{scale}}) = \bar{b}_m\Bigl[&-\frac{(g_m - 1)g_m(g_m + 1)}{6}\ddot{v}_{s_m} \\
 &+ \frac{(g_m - 1)g_m}{2}\xi_m\Bigr],
 \end{aligned}
 \end{equation}
-up to $\mathcal{O}(g_m^4)$, scaling as $\Theta(g_m^3 \norm{\ddot{v}_{s_m}}_2)$ and inflating step-level variance by $k_{\mathrm{rms}}^2(\cS) = \frac{1}{T-B}\sum_m \sum_{k=1}^{g_m-1} k^2$.
+scaling as $\Theta(g_m^3 \norm{\ddot{v}_{s_m}}_2)$ with variance multiplier $k_{\mathrm{rms}}^2(\cS) = \frac{1}{T-B}\sum_m\sum_{k=1}^{g_m-1}k^2$. Finally, in Regime~I ($j < H_{\mathrm{crit}}$) where $\E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle \le 0$, $\E\norm{\alpha\Delta_{s_m} - \frac{g_m}{2}\dot{v}_{s_m}}_2^2$ is strictly increasing on $\alpha > 0$, so gating $g_t = 0$ strictly lowers interval MSE while preserving $\cR_\alpha$ whenever $H^\star(B) \ge H_{\mathrm{crit}}$.
 \end{proof}

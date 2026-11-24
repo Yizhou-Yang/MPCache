@@ -54,7 +54,7 @@ fig, (ax, bx) = plt.subplots(
 
 # Shaded theoretical midpoint quadrature basin [0.50, 0.65]
 ax.axvspan(0.48, 0.66, color="#fdf3f1", zorder=0)
-ax.text(0.57, 0.1635, "Thm. 3 midpoint\nbasin", fontsize=5.7, color="#c0504d", ha="center", va="top", linespacing=1.12)
+ax.text(0.57, 0.1635, "Thm. 4 midpoint\nbasin", fontsize=5.7, color="#c0504d", ha="center", va="top", linespacing=1.12)
 
 ax.plot(grid, curve17, "-", color="#2f6fb3", lw=1.05, alpha=0.85, label="17f Hilbert law ($R^2{=}0.987$)")
 ax.plot(a17, l17, "o", color="#2f6fb3", ms=3.8)
@@ -88,10 +88,10 @@ for i, v in enumerate(vals):
     bx.text(i, v + 0.013, f"{v:.3f}", ha="center", fontsize=6.5, weight="bold" if i == 0 else "normal")
 bx.set_xticks([0, 1])
 bx.set_xticklabels(labels, fontsize=6.3)
-bx.set_ylim(0, 0.51)
+bx.set_ylim(0, 0.54)
 bx.set_ylabel("VGG-LPIPS (49f, $n{=}100$)")
-bx.text(0.5, 0.445, "$4.24\\times$ worse", ha="center", fontsize=6.6, color="#333333")
-bx.annotate("", xy=(1, 0.405), xytext=(0, 0.405), arrowprops=dict(arrowstyle="<|-|>", lw=0.65, color="#333333"))
+bx.text(0.45, 0.425, "$4.24\\times$ worse", ha="center", fontsize=6.4, color="#333333")
+bx.annotate("", xy=(1, 0.39), xytext=(0, 0.39), arrowprops=dict(arrowstyle="<|-|>", lw=0.65, color="#333333"))
 
 for out_dir in OUT_DIRS:
     out_dir.mkdir(parents=True, exist_ok=True)

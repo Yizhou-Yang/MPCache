@@ -1,9 +1,11 @@
-\section{Problem Formulation and Adjoint Perturbation Analysis}
+\section{Operator Dynamics and Four Structural Laws}
 \label{sec:formulation}
 
-\subsection{Guided Solver Dynamics and Bilevel Objective}
+To move beyond empirical trial-and-error, we derive the exact closed-loop perturbation operator of a cached guided DiT and distill four structural laws from $>2{,}600$ GPU trajectory runs that directly prescribe the operators in Section~\ref{sec:method}.
+
+\subsection{Closed-Loop Adjoint Operator Formulation}
 \label{sec:bilevel_obj}
-Consider a pretrained video Diffusion Transformer generating a latent trajectory $\{x_i\}_{i=0}^T \subset \R^d$ over a $T$-step grid $\{\tau_0 > \dots > \tau_T\}$ conditioned on prompt $c$ and guidance scale $\omega \ge 1$. At step $i \in \{0,\dots,T-1\}$, an exact evaluation queries both branches to form the guided velocity
+Let a pretrained video DiT evolve $\{x_i\}_{i=0}^T \subset \R^d$ across grid $\{\tau_0 > \dots > \tau_T\}$ under prompt $c$ and CFG scale $\omega \ge 1$. Evaluating step $i$ queries both branches for the guided velocity
 \begin{equation}
 \begin{aligned}
 v_i &= f_\omega(x_i, \tau_i, c) \\
@@ -11,35 +13,18 @@ v_i &= f_\omega(x_i, \tau_i, c) \\
 \end{aligned}
 \label{eq:cfg_velocity}
 \end{equation}
-Deterministic video samplers---including DDIM \citep{song2021ddim} on CogVideoX and multistep flow solvers such as UniPC \citep{zhao2023unipc} on Wan2.1---advance the state via
+Deterministic integrators---including DDIM \citep{song2021ddim} on CogVideoX and multistep UniPC \citep{zhao2023unipc} on Wan2.1---advance the state via exact solver bookkeeping
 \begin{equation}
 x_{i+1} = a_i x_i + b_i \tilde{v}_i, \qquad i = 0, \dots, T - 1,
 \label{eq:solver_step}
 \end{equation}
-where $(a_i, b_i)$ are solver coefficients and $\tilde{v}_i \in \R^d$ is either $v_i$ (exact) or a cached reconstruction (skipped).\footnote{For multistep solvers such as UniPC, writing Eq.~\eqref{eq:solver_step} on the augmented state $\bar{x}_i = (x_i, \tilde{v}_{i-1}, \dots)$ preserves exact affine form.} Let $x_T^\star$ denote the uncached 50-step terminal latent, $\cD$ the causal video VAE decoder, and $\Phi$ a perceptual feature map (multi-layer VGG \citep{zhang2018lpips}, where $\mathrm{LPIPS}(\hat{y}, y^\star)^2 = \norm{\Phi(\hat{y}) - \Phi(y^\star)}_2^2$).
-
-Under a hard budget of $B$ transformer calls ($2 \le B \le T$), a training-free cache comprises two coupled operators:
-\begin{enumerate}
-\item \textbf{Outer Placement Operator $\cS$:} An ordered anchor set $\cS = \{s_0, \dots, s_{B-1}\} \in \mathfrak{S}_B \coloneqq \{\cS \subseteq \{0,\dots,T-1\} : |\cS| = B,\; s_0 = 0,\; s_{B-1} = T-1\}$, partitioning the horizon into $B-1$ intervals $\mathcal{I}_m = [s_m, s_{m+1})$ of gap $g_m = s_{m+1} - s_m \ge 1$.
-\item \textbf{Inner Causal Reconstruction Operator $\cR$:} A causal mapping taking the two-anchor buffer $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$ and returning $\tilde{v}_j = \cR(\cB_{s_m}, j)$ for every skipped step $j \in (s_m, s_{m+1})$.
-\end{enumerate}
-We cast caching as the \textbf{bilevel operator-design problem}
+where $\tilde{v}_i = v_i$ for $i \in \cS$ and $\tilde{v}_i = \cR(\cB_{s_m}, i)$ on $i \in (s_m, s_{m+1})$, with 2-anchor buffer $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$.\footnote{For multistep UniPC, writing Eq.~\eqref{eq:solver_step} on augmented history $\bar{x}_i = (x_i, \tilde{v}_{i-1})$ preserves exact affine dynamics.} Let $x_T^\star$ be the 50-step terminal latent, $\cD$ the 3D causal VAE decoder, and $\Phi$ the VGG perceptual map \citep{zhang2018lpips} ($\mathrm{LPIPS}(\hat{y}, y^\star)^2 = \norm{\Phi(\hat{y}) - \Phi(y^\star)}_2^2$). Over boundary-pinned sets $\mathfrak{S}_B \coloneqq \{\cS \subseteq \{0,\dots,T-1\} : |\cS| = B,\; s_0 = 0,\; s_{B-1} = T-1\}$ ($g_m = s_{m+1} - s_m$), caching solves the bilevel problem
 \begin{equation}
 \min_{\cS \in \mathfrak{S}_B} \min_{\cR \in \mathfrak{R}} \E_{c, x_0}\!\Bigl[\norm{\Phi(\cD(x_T(\cS, \cR))) - \Phi(\cD(x_T^\star))}_2^2\Bigr].
 \label{eq:bilevel}
 \end{equation}
 
-\subsection{Closed-Loop Adjoint Propagation and Subspace Barrier}
-\label{sec:adjoint}
-Let $\delta x_i \coloneqq x_i(\cS, \cR) - x_i^\star$ and $\eps_j(\cR) \coloneqq \tilde{v}_j - f_\omega(x_j, \tau_j, c)$ ($\eps_s = 0$ for $s \in \cS$). First-order linearization around $\{x_i^\star\}$ gives
-\begin{equation}
-\begin{aligned}
-\delta x_{i+1} &= A_i^{\mathrm{cl}} \delta x_i + b_i \eps_i(\cR), \\
-A_i^{\mathrm{cl}} &\coloneqq a_i I + b_i \nabla_x f_\omega(x_i^\star, \tau_i, c).
-\end{aligned}
-\label{eq:linearized_step}
-\end{equation}
-Defining the \textbf{closed-loop horizon propagation operator} $\Psi_{k \to T} \coloneqq A_{T-1}^{\mathrm{cl}} \cdots A_k^{\mathrm{cl}}$ ($\Psi_{T\to T} = I$) and interval weights $\omega_{m,k} \coloneqq (\prod_{\ell=s_m+k+1}^{s_{m+1}-1} a_\ell) b_{s_m+k}$ yields:
+Linearizing $\delta x_i \coloneqq x_i(\cS, \cR) - x_i^\star$ defines the \textbf{closed-loop step Jacobian} $A_i^{\mathrm{cl}} \coloneqq a_i I + b_i \nabla_x f_\omega(x_i^\star, \tau_i, c)$, \textbf{horizon adjoint} $\Psi_{k \to T} \coloneqq A_{T-1}^{\mathrm{cl}} \cdots A_k^{\mathrm{cl}}$ ($\Psi_{T\to T} = I$), and open-loop weights $\omega_{m,k} \coloneqq (\prod_{\ell=s_m+k+1}^{s_{m+1}-1} a_\ell) b_{s_m+k}$:
 
 \begin{proposition}[Adjoint Horizon Decomposition \& Subspace Barrier]
 \label{prop:subspace}
@@ -47,23 +32,29 @@ Let $\Pi_{\cB_{s_m}}$ be the orthogonal projector onto $\mathrm{span}\{v : (\cdo
 \begin{equation}
 \begin{aligned}
 \delta x_T = \sum_{m=0}^{B-2} \Psi_{s_{m+1} \to T} \sum_{k=1}^{g_m - 1} \omega_{m,k} \bigl(&\cR(\cB_{s_m}, s_m + k) \\[-3pt]
-&- v_{s_m+k}^\star\bigr).
+&- v_{s_m+k}^\star\bigr),
 \end{aligned}
 \label{eq:adjoint_sum}
 \end{equation}
-Moreover, for \emph{any} linear predictor $\cR_{\mathrm{lin}}(\cB_{s_m}, j) \in \mathrm{span}(\cB_{s_m})$---including hindsight least-squares oracles---every skipped step $j \in (s_m, s_{m+1})$ obeys the lower bound
+and for \emph{any} linear predictor $\cR_{\mathrm{lin}}(\cB_{s_m}, j) \in \mathrm{span}(\cB_{s_m})$ (including hindsight least-squares oracles),
 \begin{equation}
 \inf_{\cR_{\mathrm{lin}} \in \mathrm{span}(\cB_{s_m})} \norm{\cR_{\mathrm{lin}}(\cB_{s_m}, j) - v_j^\star}_2 = \norm{\Pi_{\cB_{s_m}}^\perp v_j^\star}_2.
 \label{eq:subspace_floor}
 \end{equation}
 \end{proposition}
 
-Proposition~\ref{prop:subspace} (proved in Appendix~\ref{app:proof_prop1}) explains two key phenomena verified on 768 GPU runs in Section~\ref{sec:exp_theory}: (i)~open-loop solver priors $\prod_{\ell=k}^{T-1} a_\ell$ omit the contractive denoiser Jacobians $b_\ell \nabla_x f_\omega$, missing a $6.4\times$ head-to-tail decay in $\norm{\Psi_{i\to T}}$; and (ii)~in high-noise steps ($i \le 12$), orthogonal velocity rotation ($\norm{\Pi_{\cB}^\perp v_j^\star}/\norm{v_j^\star} \approx 1.09$) creates a subspace barrier that traps even hindsight linear oracles at $0.422$ rel-$L_2$ under uniform skipping, inducing a lexicographic coupling where $\cS^\star$ must saturate the head before $\cR$ refines the smooth tail.
+\subsection{Four Sharp Laws and Design Principles}
+\label{sec:laws}
+Evaluating Eqs.~\eqref{eq:adjoint_sum}--\eqref{eq:subspace_floor} across controlled diagnostic suites on CogVideoX-2B and Wan2.1-1.3B (Appendix~\ref{app:proof_prop1} and Section~\ref{sec:exp_theory}) reveals four counter-intuitive laws, each prescribing a core mechanism of \method{}:
 
-\paragraph{Single-Pass Terminal Impulse Identification.}
-Evaluating an isolated single skip $\cS_{-j} = \{0,\dots,T-1\} \setminus \{j\}$ ($g = 2$, age $k = 1$) isolates $\delta x_T^{(-j)} = \Psi_{j+1 \to T} b_j (v_{j-1}^\star - v_j^\star)$. Measuring
-\begin{equation}
-w_j \coloneqq \mathrm{LPIPS}\!\bigl(\cD(x_T(\cS_{-j}, \cR_0)),\, \cD(x_T^\star)\bigr)
-\label{eq:impulse}
-\end{equation}
-across $j = 1, \dots, T-2$ costs a single $\mathcal{O}(T)$ sweep on one prompt while capturing $\Psi_{j+1\to T}$ and nonlinear VAE decoding $\Phi \circ \cD$ directly. Subtracting the fp16 decode floor $w_{\mathrm{floor}} = \min_{1 \le k \le T-2} w_k$ gives $\tilde{w}_j = \max(w_j - w_{\mathrm{floor}}, \eps_0)$.
+\paragraph{Law I: Two-Regime Bifurcation \& Sign-Inversion $\implies$ Phase-Gated Non-Commutativity.}
+Guided trajectories bifurcate sharply at $H_{\mathrm{crit}}$ (steps $10\text{--}12$ at $T=30$, $14\text{--}16$ at $T=50$; Figure~\ref{fig:theory}a): in \emph{Regime~I ($i < H_{\mathrm{crit}}$)}, consecutive chords rotate nearly orthogonally ($\cos\theta_5 = \mathbf{0.0959}$, i.e., $\mathbf{84.5^\circ}$!; innovation $1.088$) while closed-loop gain peaks at $\gamma_3 = \mathbf{0.9630}$; in \emph{Regime~II ($i \ge H_{\mathrm{crit}}$)}, chord alignment recovers $\mathbf{5.20\times}$ ($0.0959 \to 0.4988$) while Jacobian gain contracts $\mathbf{8.11\times}$ ($0.9630 \to 0.1188$; ratio-of-means $6.42\times$), whereas solver-only $c_0$ moves backwards ($0.85\times$). \emph{Implication:} $\cS$ and $\cR$ \textbf{do not commute} (Figure~\ref{fig:theory}b). Across 576 runs, 1st-order extrapolation \emph{hurts} by $\mathbf{+31.0\%}$ ($0.2810 \to 0.3681$ rel-$L_2$) when the head is skipped and uniform grids trap 3-anchor least-squares at $0.4218$; yet locking $[0, H_{\mathrm{crit}})$ flips the \emph{exact same} chord to $\mathbf{-42.2\%}$ ($0.1568 \to 0.0907$), motivating both head saturation and inner phase gating $\mathbb{I}[i \ge H_{\mathrm{crit}}]$.
+
+\paragraph{Law II: Input Anti-Observability, Rank Inversion, \& Terminal Blackout $\implies$ Boundary-Pinned Closed-Loop Pricing.}
+At strictly matched 19 calls on CogVideoX-2B, TeaCache's input-modulation delta yields $0.2320$ LPIPS vs.\ $\mathbf{0.0523}$ for output drift (\textbf{$4.44\times$ worse}; our 10-call schedule at $0.1229$ beats 22-call input thresholding at $0.2543$). Across 160 multi-gap runs, open-loop solver priors \emph{invert Spearman rank} with terminal error from $+0.545$ ($g=2$) to $\mathbf{-0.148}$ ($g=6$), while cumulative drift retains $+0.909$ and compounds $6.56\times$ (Figure~\ref{fig:theory}c). Across 699 Wan2.1 UniPC runs, bypassing Eq.~\eqref{eq:solver_step} collapses LPIPS to $0.83$, and unpinned greedy schedules suffer a $4.56\times$ terminal blackout ($0.3295$ vs.\ $0.0723$ rel-$L_2$). \emph{Implication:} Placement must price closed-loop impulse $w_j = \mathrm{LPIPS}(\cD(x_T(\cS_{-j}, \cR_0)), \cD(x_T^\star))$ ($\tilde{w}_j = \max(w_j - \min_k w_k, \eps_0)$) from one $\mathcal{O}(T)$ sweep, preserve solver bookkeeping, and pin $s_{B-1} = T - 1$.
+
+\paragraph{Law III: Multiplicative Cross-Prompt Scaling $\implies$ Offline Collapse \& Conformal Budget Synthesis.}
+Across $B \in \{16, 22, 28\}$, single-skip profiles correlate at $\rho = 0.94$ and the worst-to-mean LPIPS ratio across prompts is **invariant to $1.04\%$ CV** ($1.636, 1.639, 1.602$). Distortion factors as $\mathrm{LPIPS}(\cS, \alpha; c) \approx \kappa(c)\,\rho(\alpha)\,\cC_{0.5}(\cS)$, where $\cC_{0.5}$ achieves $R^2 = \mathbf{0.9847}$ (mean) / $\mathbf{0.9814}$ (worst) vs.\ $0.8345$ for additive $\beta=0$ ($29\%$ bound violation). \emph{Implication:} $\kappa(c) > 0$ cancels under fixed $B$, while its stable upper quantile enables inverse budget certification $B^\star(\eps, \delta, \alpha)$ (Figure~\ref{fig:theory}d).
+
+\paragraph{Law IV: Output-Tangent Spatial Coherence $\implies$ 2-Slot Scalar Shrinkage.}
+Hidden-feature TaylorSeer collapses to $0.4917$ LPIPS ($4.72\times$ worse than our $0.1041$) for three reasons: (1)~scaling by step age $(j - s_m)$ inflates curvature variance by $k_{\mathrm{rms}}^2 = \mathbf{12.39\times}$ ($0.1041 \to 0.4417$ even in output space); (2)~hidden features rotate across \texttt{AdaLN-Zero} and 3D \texttt{RoPE}; and (3)~across 144 runs, per-token gates (\texttt{pt16c}: $12\%$ win rate) and $64{\times}64$ channel maps (\texttt{lr8c}: $0.2418$ vs.\ $0.2375$ scalar) induce inter-patch phase tears in 3D VAE decoding. \emph{Implication:} Use a spatially uniform scalar $\alpha$ in guided output-tangent space with only 2 cached tensors.

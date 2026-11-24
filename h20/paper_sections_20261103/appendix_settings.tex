@@ -1,7 +1,7 @@
-\section{Additional Settings and Extended Ablations}
+\section{Additional Settings and Extended Trace Diagnostics}
 \label{app:settings}
 
-This appendix provides the complete four-baseline Wan2.1 comparison, the exact Bellman DP schedule table across budgets, and full parameter sweeps for head length, tail growth ratio, and TaylorSeer forecast intervals.
+This appendix provides the complete four-baseline Wan2.1 comparison, the exact Bellman DP schedule table across budgets, extended tables from our $>2{,}600$ GPU diagnostic trace suites, and parameter sweeps for head length, tail growth ratio, and TaylorSeer forecast intervals.
 
 \subsection{CogVideoX-2B at 17 Frames (100 Prompts)}
 \label{app:cog17}
@@ -28,17 +28,45 @@ RA-CFGCache \citep{liu2026racfgcache} & 19 & 0.154 & 0.870 & 27.8 \\
 \label{tab:wanfull}
 \end{table}
 
+\subsection{Extended Trace Breakdowns of the Four Structural Laws}
+\label{app:extended_traces}
+
+Table~\ref{tab:trace_laws} documents the exact quantitative measurements from the controlled GPU trajectory datasets summarized in Section~\ref{sec:laws} and Table~\ref{tab:theory_verif}:
+\begin{itemize}
+\item \textbf{576-Run Oracle Matrix (\texttt{step\_oracle\_20261015}):} Crosses 5 outer placement policies (\texttt{uniform}, \texttt{teacache}, \texttt{head\_uniform}, \texttt{oracle\_greedy}, \texttt{othr}) with 4 inner reconstruction operators (\texttt{reuse}, \texttt{ex1}, \texttt{ab2}, and hindsight 3-anchor least-squares \texttt{lsq}) on CogVideoX-2B ($T=30$). Without head protection (\texttt{teacache} $N=10$), \texttt{ex1} degrades rel-$L_2$ from $0.2810 \to 0.3681$ ($+31.0\%$), whereas under \texttt{othr} ($\tau=0.16$) \texttt{ex1} slashes rel-$L_2$ from $0.1568 \to 0.0907$ ($-42.2\%$).
+\item \textbf{Matched 19-Call Signal Ablation (\texttt{SIGNAL\_ABLATION\_20261031}):} Holding budget ($B=19$), step quota rule, and solver identical on 50-step CogVideoX-2B, TeaCache's modulated-input delta yields $0.2320$ LPIPS vs.\ $0.0523$ for output drift ($4.44\times$ better).
+\item \textbf{699-Run Wan2.1 UniPC Anatomy (\texttt{wan33\_20261022a}):} Demonstrates both solver-bookkeeping necessity (direct latent extrapolation \texttt{lx} / inversion \texttt{inv} collapses LPIPS to $0.831$) and terminal boundary pinning (unpinned greedy \texttt{mpc} stops at step $27/39$ for $N=10/13$ with $0.4493 / 0.3295$ rel-$L_2$, whereas pinning $T-1=49$ drops error to $0.1933 / 0.1247$, and reaching step $48$ at $N=17$ drops error $4.56\times$ to $0.0723$).
+\end{itemize}
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3.2pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llccc}
+\toprule
+Outer Policy ($\cS$) & Calls & Reuse ($\alpha{=}0$) & Causal 1st-Ord & Hindsight LSQ \\
+\midrule
+Uniform grid ($H{=}0$) & 17 & 0.4239 & 0.4270 & 0.4218 \\
+TeaCache-style (skipped head) & 10 & 0.2810 & 0.3681 ($+31\%$) & 0.3712 \\
+Head-uniform ($H{=}10$) & 17 & 0.1458 & 0.1189 ($-18\%$) & 0.1011 \\
+Horizon-dense (\texttt{othr}) & 17 & 0.1568 & \textbf{0.0907} ($\mathbf{-42\%}$) & \textbf{0.0884} \\
+\bottomrule
+\end{tabular}%
+}
+\caption{\textbf{Non-commutativity of outer placement and inner prediction} (terminal latent rel-$L_2 \downarrow$, 576 GPU runs on CogVideoX-2B). Saturating Regime~I turns causal 1st-order prediction from $+31\%$ harm into within $2.6\%$ of the hindsight 3-anchor subspace oracle.}
+\label{tab:trace_laws}
+\end{table}
+
 \subsection{Exact Bellman DP Schedules Across Budgets}
 \label{app:dp_schedules}
 
-Table~\ref{tab:dp_scheds} lists the globally optimal schedules $\cS^\star$ produced by Algorithm~\ref{alg:mpcache}'s exact $\mathcal{O}(BT^2)$ Bellman DP solver ($\beta = 0.5$) across call budgets $B \in \{10, 14, 17, 20, 22\}$ on the 50-step CogVideoX-2B impulse profile. As predicted by Theorem~\ref{thm:kkt}, the saturated exact head $H^\star(B)$ expands monotonically with $B$ while the tail spaces anchors at progressively growing intervals.
+Table~\ref{tab:dp_scheds} lists the globally optimal schedules $\cS_B^\star$ produced by Eq.~\eqref{eq:bellman_dp} ($\beta = 0.5$) across budgets $B \in \{10, 14, 17, 20, 22\}$.
 
 \begin{table}[ht]
 \centering\footnotesize\setlength{\tabcolsep}{3.4pt}
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{cccl}
 \toprule
-Budget $B$ & DP $H^\star$ & KKT $H^\star$ & Exact Bellman DP Schedule $\cS^\star$ \\
+Budget $B$ & DP $H^\star$ & KKT $H^\star$ & Exact Bellman DP Schedule $\cS_B^\star$ \\
 \midrule
 10 & 8  & 6  & $\{0..7,\, 10, 49\}$ \\
 14 & 10 & 8  & $\{0..9,\, 11, 16, 35, 49\}$ \\
@@ -48,13 +76,13 @@ Budget $B$ & DP $H^\star$ & KKT $H^\star$ & Exact Bellman DP Schedule $\cS^\star
 \bottomrule
 \end{tabular}%
 }
-\caption{\textbf{Exact Bellman DP schedules ($\beta = 0.5$) vs.\ quantized KKT head lengths} across call budgets $B$ at $T=50$. At $B=22$, Bellman DP automatically recovers $H^\star = 16$ and max tail gap $9$ (whereas naive additive $\beta=0$ leaves a 29-step blackout gap).}
+\caption{\textbf{Exact Bellman DP schedules ($\beta = 0.5$) vs.\ quantized KKT head lengths} across call budgets $B$ at $T=50$.}
 \label{tab:dp_scheds}
 \end{table}
 
-\subsection{Tail Growth Ratio Sensitivity}
+\subsection{Stiff Head vs.\ Sloppy Tail Growth Sensitivity}
 \label{app:shape}
-Fixing $H = 12$ and $B = 20$ on CogVideoX-2B (17 frames, 32 prompts) and varying only the geometric tail growth ratio $r \in \{1.0, 1.4, 2.0, 3.0\}$ yields $0.1656$ LPIPS ($0.8958$ SSIM, $27.44$~dB PSNR) for a uniform tail ($r=1.0$), compared to $0.1560$ ($28.61$~dB), $0.1566$ ($28.32$~dB), and $\mathbf{0.1541}$ ($29.08$~dB) at $r = 1.4, 2.0, 3.0$. Growing tail gaps improve LPIPS by $5\text{--}7\%$ over uniform tail spacing and exhibit broad insensitivity across $r \in [1.4, 3.0]$.
+Fixing $H = 12$ and $B = 20$ on CogVideoX-2B (17 frames, 32 prompts) and varying only the geometric tail growth ratio $r \in \{1.0, 1.4, 2.0, 3.0\}$ yields $0.1656$ LPIPS ($27.44$~dB PSNR) for a uniform tail ($r=1.0$), compared to $0.1560$ ($28.61$~dB), $0.1566$ ($28.32$~dB), and $\mathbf{0.1541}$ ($29.08$~dB) at $r = 1.4, 2.0, 3.0$ ($<1.6\%$ variation across $r \in [1.4, 3.0]$), empirically confirming Corollary~\ref{cor:sloppy}.
 
 \subsection{Why Denser Spacing Does Not Rescue TaylorSeer}
 \label{app:taylor}
@@ -76,8 +104,6 @@ TaylorSeer, interval 4 & 15 & 0.615 & 11.6 \\
 \label{tab:taylor}
 \end{table}
 
-Table~\ref{tab:taylor} confirms that TaylorSeer's degradation stems from combining zero-head periodic skipping (Proposition~\ref{prop:subspace}) with un-damped gap-scaled extrapolation (Theorem~\ref{thm:shrinkage}), rather than an insufficient call budget.
-
 \subsection{Head Length Scaling Ablation}
 \label{app:head}
 \label{app:params}
@@ -93,8 +119,6 @@ $H = 12$ & 20 & 0.157 & 0.907 & 28.3 \\
 $\mathbf{H = 16}$ & 22 & \textbf{0.133} & \textbf{0.930} & \textbf{30.8} \\
 \bottomrule
 \end{tabular}
-\caption{\textbf{Head-length ablation} on CogVideoX-2B (17 frames, 32 prompts). Under-allocating the head ($H=6$) nearly doubles perceptual error; at 49 frames and 100 prompts, $H=16$ ($0.1300$ LPIPS, $31.63$~dB) likewise beats $H=12$ ($0.1424$ LPIPS, $30.21$~dB), validating Theorem~\ref{thm:kkt}.}
+\caption{\textbf{Head-length ablation} on CogVideoX-2B (17 frames, 32 prompts). Under-allocating the head ($H=6$) nearly doubles perceptual error ($+178.5\%$ horizon cost), confirming stiff head sensitivity.}
 \label{tab:head}
 \end{table}
-
-Table~\ref{tab:head} empirically confirms the KKT head-saturation law: short prefixes ($H \le 6$, and a fortiori $M=3$ or uniform $H=0$) admit large early errors where $\norm{\Psi_{j\to T}}$ is maximal, whereas expanding $H$ in accordance with Bellman DP optimality ($H^\star(22) = 16$) yields substantial perceptual gains across both 17-frame and 49-frame generation.
