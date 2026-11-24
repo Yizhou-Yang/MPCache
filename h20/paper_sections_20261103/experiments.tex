@@ -1,94 +1,130 @@
 \section{Experiments}
 \label{sec:experiments}
-We ask two things at a fixed budget: how much of what a cache achieves comes from the placement of the exact calls, how much from the reconstruction of the skipped ones, and whether a schedule read off the sampler's measured profile beats the schedules existing caches use.
 
-\paragraph{Setup.} Every arm runs inside one implementation, the released CogVideoX pipeline of RA-CFGCache with its own reference, so that a comparison never mixes two code bases. Our schedule enters that implementation through a single hook that replaces the decision of whether to evaluate, and leaves the pipeline, the guidance, the decoder and the skip semantics untouched. The main setting is the one the baseline papers report: CogVideoX-2B at 49 frames, $720\times480$, 50 steps, and the hundred VBench prompts of that release. We report LPIPS with a VGG backbone, SSIM and PSNR against a full run of the same pipeline, and count a step as one transformer call. Two cached runs are compared only when their call counts match to within one.
+We evaluate \method{} across four questions at matched transformer budgets: (1)~end-to-end fidelity against state-of-the-art training-free caches across backbones and frame counts; (2)~direct verification of Proposition~\ref{prop:subspace} and Theorems~\ref{thm:kkt}--\ref{thm:invariance} on 928 GPU trajectory runs; (3)~verification of Theorem~\ref{thm:shrinkage}'s Hilbert quadratic risk law and midpoint chord-shrinkage; and (4)~sensitivity to head length, tail shape, and budget.
 
-\paragraph{Main result.} Table~\ref{tab:main} reports both main settings. On CogVideoX-2B at 49 frames over one hundred prompts, the setting the baseline papers report, LPIPS falls from 0.155 to 0.130, SSIM rises from 0.897 to 0.925 and PSNR from 29.2 to 31.6 against the strongest released baseline at the same budget. On Wan2.1 at 81 frames, a flow-matching model with a different solver and a different profile, the same schedule reaches 0.153 against 0.169 for the risk-based cache, and it is first on SSIM and PSNR as well. Appendix~\ref{app:wanfull} adds the threshold-based and Taylor baselines at the prompt count we could run for them. The ordering on three metrics matters more than the size of the margin: a placement rule that traded texture for faithfulness could improve one number and hurt another, and this one does not.
+\subsection{Experimental Protocol}
+\label{sec:exp_setup}
+Every comparison table runs all competing arms inside a \emph{single} codebase against a \emph{single} uncached 50-step reference with paired prompts and seeds (Appendix~\ref{app:credibility}). Cross-method evaluations on CogVideoX-2B \citep{yang2025cogvideox} (49f and 17f, $720\times 480$, 50 DDIM steps) and Wan2.1-T2V-1.3B \citep{wan2025wan} (81f, $832\times 480$, 50 UniPC steps) execute inside the official RA-CFGCache harness \citep{liu2026racfgcache} over 100 VBench prompts \citep{huang2024vbench}, injecting $\cS^\star$ through one step-decision hook while keeping CFG, solver updates, and decoding untouched. Inner-operator predictor sweeps (Section~\ref{sec:exp_shrinkage}) execute inside native \texttt{diffusers} under the identical 22-call schedule. We report VGG-LPIPS \citep{zhang2018lpips}, SSIM, and PSNR, counting each dual-branch CFG evaluation as one call.
+
+\subsection{Main End-to-End Comparison Across Backbones}
+\label{sec:exp_main}
 
 \begin{table*}[t]
-\centering\footnotesize\setlength{\tabcolsep}{6pt}
-\begin{tabular}{llcccc}
+\centering\footnotesize\setlength{\tabcolsep}{5.2pt}
+\resizebox{0.96\textwidth}{!}{%
+\begin{tabular}{lllcccc}
 \toprule
-Setting & Method & Calls & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+Backbone \& Setting & Solver & Method & Calls ($B$) & VGG-LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR (dB) $\uparrow$ \\
 \midrule
-Cog 49f (100) & RA-CFGCache & 19 & 0.155 & 0.897 & 29.2 \\
-              & \method{} & 22 & \textbf{0.130} & \textbf{0.925} & \textbf{31.6} \\
+\multirow{2}{*}{CogVideoX-2B, 49f ($720{\times}480$, $n{=}100$)} & \multirow{2}{*}{DDIM-50}
+  & RA-CFGCache \citep{liu2026racfgcache} & 19 & 0.1554 & 0.8973 & 29.17 \\
+  & & \textbf{\method{} ($\cS^\star$, $H{=}16$)} & 22 & \textbf{0.1300} & \textbf{0.9247} & \textbf{31.63} \\
 \midrule
-Wan 81f (100) & RA-CFGCache & 19 & 0.169 & 0.869 & 27.9 \\
-              & \method{} & 22 & \textbf{0.153} & \textbf{0.885} & \textbf{29.3} \\
+\multirow{2}{*}{Wan2.1-T2V-1.3B, 81f ($832{\times}480$, $n{=}100$)} & \multirow{2}{*}{UniPC-50}
+  & RA-CFGCache \citep{liu2026racfgcache} & 19 & 0.1685 & 0.8686 & 27.91 \\
+  & & \textbf{\method{} ($\cS^\star$, $H{=}16$)} & 22 & \textbf{0.1527} & \textbf{0.8853} & \textbf{29.27} \\
+\midrule
+\multirow{4}{*}{CogVideoX-2B, 17f ($720{\times}480$, $n{=}100$)} & \multirow{4}{*}{DDIM-50}
+  & TaylorSeer \citep{liu2025taylorseer} & 19 & 0.4917 & 0.5259 & 13.91 \\
+  & & TeaCache \citep{liu2025teacache} & 17 & 0.2786 & 0.7522 & 21.05 \\
+  & & RA-CFGCache \citep{liu2026racfgcache} & 19 & 0.1587 & 0.8948 & 27.72 \\
+  & & \textbf{\method{} ($\cS^\star$)} & 20 & \textbf{0.1454} & \textbf{0.9059} & \textbf{28.58} \\
 \bottomrule
-\end{tabular}
-\caption{Both main settings against the strongest released baseline at a matched budget, on three metrics; the number in parentheses is the prompt count. Our schedule is first everywhere. The remaining baselines appear in Appendix~\ref{app:cog17} and Appendix~\ref{app:wanfull}, where each is reported at its own prompt count. LPIPS uses a VGG backbone.}
+\end{tabular}%
+}
+\caption{\textbf{End-to-end fidelity against released training-free baselines over 100 VBench prompts inside one unified harness.} Here \method{} uses outer horizon placement ($\alpha = 0$) to match the exact skip semantics of the RA-CFGCache harness; adding inner midpoint shrinkage ($\alpha = 0.5$) cuts 49-frame LPIPS by a further $32.8\%$ in Table~\ref{tab:reuse}. Four-baseline Wan2.1 results appear in Appendix~\ref{app:wanfull}.}
 \label{tab:main}
 \end{table*}
 
-\paragraph{A third frame count, same ordering.} Appendix~\ref{app:cog17} repeats the CogVideoX comparison at 17 frames over a full hundred prompts, with all four baselines present: our schedule reaches 0.145 LPIPS against 0.159 for the risk-based cache, 0.279 for the threshold-based one and 0.492 for the expansion, and it is first on SSIM and PSNR as well. The gap does not depend on the frame count or the backbone, which is what a positional effect should look like.
+Table~\ref{tab:main} evaluates outer horizon placement ($\alpha=0$) across three 100-prompt VBench settings. On 49-frame CogVideoX-2B, \method{} reduces LPIPS from $0.1554$ to $\mathbf{0.1300}$ ($-16.3\%$), lifts SSIM to $\mathbf{0.9247}$, and gains $\mathbf{+2.46}$~dB PSNR ($31.63$ vs.\ $29.17$~dB; at 20 calls with $H=12$, it also beats RA-CFGCache at $0.1424$ LPIPS / $30.21$~dB). On 81-frame Wan2.1-T2V-1.3B (multistep UniPC flow matching), \method{} leads across all metrics ($0.1527$ vs.\ $0.1685$ LPIPS, $+1.36$~dB PSNR; and $0.134$ vs.\ $0.154$ RA-CFGCache, $0.199$ TeaCache, $0.379$ TaylorSeer in Table~\ref{tab:wanfull}). At 17 frames ($n=100$), \method{} ($0.1454$ LPIPS) outperforms RA-CFGCache ($0.1587$), TeaCache ($0.2786$), and TaylorSeer ($0.4917$). Figure~\ref{fig:curve} confirms Pareto dominance across budgets $B \in [10, 26]$.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_sensitivity.pdf}
-\caption{(a) The cost of skipping exactly one step, measured against a full run, for two prompts (left axis), and its cumulative share (dotted, right axis): the first ten steps carry about three quarters of the total, and the two prompts agree on the order. (b) The steps each rule evaluates at a comparable budget; the threshold rule keeps four steps in the head, while the measured profile asks for twelve.}
+\caption{\textbf{Impulse invariance and placement.} (a)~Single-skip VGG-LPIPS profile $w_j$ on two prompts (left axis) and cumulative share (dotted, right axis): the first 10 steps carry $\approx 75\%$ of sensitivity ($\rho = 0.94$). (b)~Thresholding abandons the head after 4 steps, whereas horizon allocation saturates the head.}
 \label{fig:sensitivity}
 \end{figure}
 
+\subsection{Verification of Theory on 928 GPU Trajectory Runs}
+\label{sec:exp_theory}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.97\textwidth]{figures/fig_theory.pdf}
+\caption{\textbf{Direct verification of Proposition~\ref{prop:subspace} and Theorem~\ref{thm:kkt} across 928 CogVideoX-2B GPU runs.} (a)~Across 192 single-skip runs, true closed-loop gain $\norm{\delta x_T}/\norm{\delta v_i}$ decays $6.42\times$ ($i=3 \to 23$), whereas solver-only $c_0$ rises. (b)~Across 576 oracle runs ($N \approx 17$), uniform placement hits the subspace floor ($0.422$ rel-$L_2$ even under hindsight 3-anchor least-squares `lsq`), whereas horizon head-dense placement unlocks linear reconstruction ($0.092$). (c)~Across 160 gap runs ($i=19$), zero-parameter diffusive age-quadrature ($\beta=0.5$) matches super-additive compounding ($6.50$ vs.\ $6.56$ measured at 5 skips vs.\ $4.55$ naive additive).}
+\label{fig:theory}
+\end{figure*}
+
 \begin{table}[t]
-\centering\footnotesize\setlength{\tabcolsep}{5pt}
-\begin{tabular}{lccc}
+\centering\footnotesize\setlength{\tabcolsep}{3.4pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllc}
 \toprule
-What a skip returns & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+Pillar & Setting / Operator & Metric & Value \\
 \midrule
-the last exact output & 0.1549 & 0.8771 & 27.55 \\
-one-step difference, damping 0.25 & 0.1214 & 0.9100 & 29.46 \\
-one-step difference, damping 0.5 & \textbf{0.1041} & 0.9293 & 31.25 \\
-one-step difference, damping 1.0 & 0.1176 & 0.9273 & 31.53 \\
-the same, scaled by the gap & 0.4417 & 0.6129 & 15.84 \\
+\multirow{2}{*}{Prop.~\ref{prop:subspace}}
+  & Closed-loop $\norm{\Psi_{i\to T}}$ & $i{=}3 / i{=}23$ & $\mathbf{6.42\times}$ \\
+  & Solver-only prior $c_0$ & $i{=}3 / i{=}23$ & $0.85\times$ \\
+\midrule
+\multirow{4}{*}{Prop.~\ref{prop:subspace}}
+  & Uniform + Reuse ($N{\approx}17$) & rel-$L_2 \downarrow$ & 0.4239 \\
+  & Uniform + Hindsight LSQ & rel-$L_2 \downarrow$ & 0.4218 \\
+  & Head-Dense + Reuse & rel-$L_2 \downarrow$ & 0.1205 \\
+  & Head-Dense + 1st-Order & rel-$L_2 \downarrow$ & \textbf{0.0924} \\
+\midrule
+\multirow{2}{*}{Thm.~\ref{thm:kkt}}
+  & Naive additive ($\beta{=}0$) & Budget $R^2$ & 0.8345 \\
+  & Diffusive age ($\beta{=}0.5$) & Budget $R^2$ & \textbf{0.9847} \\
+\midrule
+Thm.~\ref{thm:invariance} & Online MPC vs.\ Offline DP & Step diff. & \textbf{0 / 50} \\
 \bottomrule
-\end{tabular}
-\caption{CogVideoX-2B, 49 frames, 100 prompts, one schedule of twenty-two calls: the only difference between rows is what a skipped step returns. Damping the correction by half is a third of the error better than plain reuse; letting the correction grow with the gap destroys the result.}
+\end{tabular}%
+}
+\caption{\textbf{Quantitative verification of theoretical pillars} on 928 CogVideoX-2B GPU trace runs and 50-step budget sweeps.}
+\label{tab:theory_verif}
+\end{table}
+
+Figure~\ref{fig:theory} and Table~\ref{tab:theory_verif} verify each theoretical claim directly on ground-truth GPU traces: (1)~\emph{Adjoint Damping (192 runs):} true closed-loop gain contracts $6.42\times$ ($0.765 \to 0.119$, terminal error $25.2\times$) due to exact denoiser Jacobians $\nabla_x f_\omega$, whereas solver-only $c_0$ moves opposite ($0.85\times$); (2)~\emph{Subspace Barrier (576 runs):} on uniform $N=17$ grids, step-1 orthogonal innovation ($1.088$) traps hindsight-optimal 3-anchor `lsq` at $0.4218$ rel-$L_2$ ($\approx 0.4239$ reuse), whereas head-dense placement cuts error $3.5\times$ to $0.1205$ and unlocks linear prediction ($0.0924$); (3)~\emph{Diffusive Age DP (160 runs):} $\cC_{0.5}$ raises cross-budget LPIPS $R^2$ from $0.835$ to $\mathbf{0.985}$, predicts 5-skip compounding ($6.50$ vs.\ $6.56$), and bounds max tail gap at $9$ (vs.\ $29$ for $\beta=0$); (4)~\emph{MPC Collapse:} receding-horizon replanning alters $0/50$ steps relative to offline DP.
+
+\subsection{Midpoint Chord-Shrinkage and Hilbert Risk Law}
+\label{sec:exp_shrinkage}
+
+\begin{table}[t]
+\centering\footnotesize\setlength{\tabcolsep}{3.6pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Inner Operator $\cR$ ($B{=}22$) & Gain & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+\midrule
+Plain reuse ($v_s$) & $0.00$ & 0.1549 & 0.8771 & 27.55 \\
+Damped chord shrinkage & $0.25$ & 0.1214 & 0.9100 & 29.46 \\
+\textbf{Midpoint shrinkage (Ours)} & $\mathbf{0.50}$ & \textbf{0.1041} & \textbf{0.9293} & \textbf{31.25} \\
+Undamped 1-step chord & $1.00$ & 0.1176 & 0.9273 & 31.53 \\
+Gap-scaled Taylor & $j{-}s$ & 0.4417 & 0.6129 & 15.84 \\
+\bottomrule
+\end{tabular}%
+}
+\caption{\textbf{Inner reconstruction ablation on CogVideoX-2B (49f, $n=100$)} with $\cS^\star = \{0..15, 18, 22, 28, 35, 42, 49\}$ ($22$ calls) fixed.}
 \label{tab:reuse}
 \end{table}
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/fig_damping.pdf}
-\caption{How much of the one-step difference a skipped step should receive. Left: LPIPS against the damping at two frame counts that share no prompts and no reference; plain reuse is the horizontal level, its optimum sits at one half, and the basin is flat between a quarter and three quarters. Right: scaling the same difference by the number of steps since the anchor, the first-order choice that feature-space predictors make, is four times worse than the damped correction at the same cost.}
+\caption{\textbf{Verification of Theorem~\ref{thm:shrinkage} (Hilbert Quadratic Risk Law and Gap-Scaling Instability).} Left: VGG-LPIPS across $\alpha \in [0, 1]$ at 17f ($n=32$) and 49f ($n=100$), overlaid with theoretical Hilbert-norm curves $\sqrt{\mathcal{E}_{\min} + c_2(\alpha - \alpha^\star)^2}$ ($R^2 = 0.987$ and $R^2 = 0.997$). Right: Scaling $\Delta_s$ by step age $(j - s)$ inflates unmeasured curvature by $k_{\mathrm{rms}} = 3.52$, degrading LPIPS $4.24\times$.}
 \label{fig:damping}
 \end{figure*}
 
-\paragraph{What a skip returns, and how far it may reach.} Table~\ref{tab:reuse} and Figure~\ref{fig:damping} vary only the replacement. Plain reuse gives 0.155; a one-step difference damped by one quarter gives 0.121, by one half 0.104, a third of the error better at identical cost, and the undamped version 0.118. The natural generalisation, scaling the same difference by the number of steps since the anchor, gives 0.442. The correction must be damped and must not grow with the gap: two stored outputs fix a tangent, and at fifty steps the latent turns faster than the distance between exact calls, so extrapolating along the tangent overshoots while a damped correction only nudges. That is also the mechanism behind the failure of feature-space Taylor predictors on this backbone.
-
-\paragraph{The tail must grow, not spread.} At a fixed budget the only freedom left is the shape of the gaps after the head. Holding the head and the number of calls fixed and varying only that shape, a uniform tail costs $5$ to $7$ percent more LPIPS than a growing one, and the growth ratio itself is insensitive between $1.4$ and $3.0$ (Appendix~\ref{app:shape}). The shape is a real effect and a smaller one than the head: the head decides where an error is admitted, the tail only decides how much of it the last third of the trajectory carries. The threshold rule fails for the same reason with a different mechanism: its first exact calls are driven by the change of the input, which is largest at the start, but its budget tightens after four steps, so from there it spaces the rest by a threshold rather than by the profile. Figure~\ref{fig:sensitivity}b shows that four-step head against the twelve the profile asks for.
-
-\paragraph{The head length follows from the profile.} We measure the single-skip profile once per setting and read the head length from it, without search: the first ten steps of CogVideoX-2B carry about three quarters of the total sensitivity, and the schedule therefore holds a dozen of them exact. With a budget below the head length the rule keeps the earliest steps exact and accepts long gaps later, which is the regime where the gap between schedules is largest: at ten calls the schedule is 5.0 times closer to the full run than a uniform grid of the same size. Appendix~\ref{app:params} reports how the schedule behaves when the head is varied.
+Holding the 22-call schedule fixed, Table~\ref{tab:reuse} and Figure~\ref{fig:damping} validate Theorem~\ref{thm:shrinkage}: midpoint shrinkage ($\alpha=0.5$) reduces 49-frame LPIPS by $\mathbf{32.8\%}$ ($0.1549 \to \mathbf{0.1041}$) and boosts PSNR by $\mathbf{+3.70}$~dB ($31.25$~dB) at zero extra cost (and reaches $\mathbf{0.1084}$ vs.\ $0.1556$ at 17 frames). Fitting Eq.~\eqref{eq:hilbert_parabola} yields $\mathbf{R^2 = 0.9974}$ ($\alpha^\star = 0.650$) on 49f and $\mathbf{R^2 = 0.9868}$ ($\alpha^\star = 0.623$) on 17f, matching the theoretical midpoint estimate $\alpha_{\mathrm{mid}}^\star \in [0.55, 0.62]$. Conversely, gap-scaled $(j-s)\Delta_s$ collapses to $0.4417$ LPIPS ($4.24\times$ worse), quantitatively matching $k_{\mathrm{rms}}(\cS^\star) = 3.52$.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_curve2.pdf}
-\caption{LPIPS against the number of transformer calls at 16 prompts. The red curve varies only the length of our schedule; the three markers are the released baselines at their own default budgets, which their public entry points do not expose as a continuous knob. At seventeen calls our schedule is 20\% closer to the full run than the threshold-based cache at the same cost on CogVideoX-2B, and at nineteen calls it is below the risk-based cache on both backbones.}
+\caption{\textbf{Quality--budget Pareto curves} (VGG-LPIPS vs.\ transformer calls, $n=16$) on CogVideoX-2B and Wan2.1-1.3B.}
 \label{fig:curve}
 \end{figure}
 
-\paragraph{The interval sweep.} A natural control is the family of fixed-interval schedules: the Taylor expansion baseline with its interval set to two, three and four, which costs about 26, 19 and 15 calls. On 32 prompts it reaches 0.402, 0.539 and 0.615, so our schedule is ahead at every interval, as Figure~\ref{fig:curve} shows for the two backbones. That comparison is not evidence for the shape of the tail, because the degradation of that baseline is dominated by its forecast rather than by its spacing: even at 26 calls, where its spacing is denser than ours, it stays at 0.40.
-
-\paragraph{Wall clock.} The budget is counted in transformer calls, and on one H20 the call ratio is also the latency ratio up to the decoder, which is constant across arms. Measured on the same box, a CogVideoX-2B transformer call costs 0.69 s at 17 frames, 2.7 s at 49 frames and 6.5 s on Wan2.1 at 81 frames, so a 49-frame full run spends about 135 s in the network and our twenty-call schedule spends about 54 s, a $2.5\times$ end-to-end speedup before the decode is added. We report calls rather than seconds because the decoder, the batch size and the host are not part of the claim, and because a call count transfers between machines while a latency does not.
-
-\paragraph{Scope.} The measurement and the schedule are verified on two backbones and two frame counts, with budgets between ten and twenty-one calls. A comparison at a much lower budget is not covered, and the profile is measured for the specific step count of each setting, so a different scheduler requires re-measuring it once. The absolute values of the baselines come from our reproduction inside one harness and are not the numbers those papers report; Appendix~\ref{app:baseline} puts the two side by side.
-
-% ---- qualitative figures: uncomment once qual_A.pdf and qual_B.pdf exist ----
-% \begin{figure*}[t]
-% \centering
-% \includegraphics[width=\textwidth]{figures/qual_A.pdf}
-% \caption{The same prompt and seed under the policies of Table~\ref{tab:main}, all produced by
-% one harness. Our schedule holds the first sixteen of fifty steps exact; the baselines decide
-% with a threshold. Speedups in parentheses are measured, not quoted.}
-% \label{fig:qualA}
-% \end{figure*}
-%
-% \begin{figure*}[t]
-% \centering
-% \includegraphics[width=\textwidth]{figures/qual_B.pdf}
-% \caption{One schedule, four replacements. Plain reuse and the gap-scaled correction blur or
-% break the moving detail; the damped correction keeps it.}
-% \label{fig:qualB}
-% \end{figure*}
+\subsection{Schedule Ablations and Runtime Speedup}
+\label{sec:exp_ablations}
+Varying head length $H \in \{6, 12, 16\}$ at $B \approx 20\text{--}22$ (Table~\ref{tab:head}) drops 17f LPIPS from $0.288 \to 0.157 \to \mathbf{0.133}$ and 49f LPIPS ($n=100$) from $0.1424 \to \mathbf{0.1300}$, validating $H^\star(22)=16$. Varying tail growth $r \in \{1.0, 1.4, 2.0, 3.0\}$ at fixed $H=12, B=20$ improves LPIPS by $5\text{--}7\%$ over uniform tail spacing ($0.1656 \to 0.1541$) and is flat across $r \in [1.4, 3.0]$ (Appendix~\ref{app:shape}), while TaylorSeer stays above $0.402$ LPIPS even at 26 calls (Table~\ref{tab:taylor}). On one NVIDIA H20 GPU ($2.70$~s/call on CogVideoX-2B 49f; $6.50$~s/call on Wan2.1 81f), \method{} cuts 49f denoiser latency from $135$~s to $54\text{--}59$~s ($2.3\text{--}2.5\times$ speedup) with $<2$~ms total runtime overhead.

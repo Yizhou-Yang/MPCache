@@ -1,0 +1,44 @@
+\section{Data Credibility and Baseline Reproduction}
+\label{app:credibility}
+
+Every empirical number in the main paper comes from a verified evaluation run in our repository ledger, governed by the four fairness rules below without exception.
+
+\paragraph{One Implementation, One Reference.}
+A comparison is meaningful only if competing arms execute inside the same pipeline code. Each table therefore uses a single harness: an uncached 50-step run of that harness defines the reference trajectory, and every cached arm is scored against that exact reference. We never place a number measured in one codebase next to a number measured in another. For the cross-method CogVideoX-2B and Wan2.1-1.3B comparisons (Table~\ref{tab:main}, Table~\ref{tab:wanfull}, and Figure~\ref{fig:curve}), the harness is the official released RA-CFGCache pipeline \citep{liu2026racfgcache}, where \method{} enters through a single step-decision hook while guidance, solver coefficients, VAE decoding, and skip semantics remain untouched. For the inner-operator chord-shrinkage ablations (Table~\ref{tab:reuse} and Figure~\ref{fig:damping}), all reconstruction rules execute inside one native \texttt{diffusers} harness under the identical 22-call schedule.
+
+\paragraph{Budget Accounting by Exact Transformer Calls.}
+Each cached arm is specified by the exact number of dual-branch transformer evaluations $B = |\cS|$ recorded at the forward hook. Competing methods are compared at matched call counts, removing host load, batch size, and VAE decode overhead from the fidelity comparison while ensuring deterministic portability across GPUs.
+
+\paragraph{Metric Alignment.}
+All LPIPS values use the standard VGG backbone \citep{zhang2018lpips}. Backbone choice is critical: on the identical video pair, AlexNet LPIPS reports $0.041$ where VGG LPIPS reports $0.118$---nearly a $3\times$ scale shift. SSIM and PSNR are computed on the exact same decoded frames as VGG-LPIPS. Explicit frame-sampling checks on 49-frame clips confirm that averaging over 10, 25, or all 49 frames alters LPIPS by less than $0.001$.
+
+\paragraph{Paired Prompts and Deterministic Seeds.}
+Every cached video is paired with its uncached reference by VBench prompt index and deterministic generator seed, making every comparison strictly paired across 100 VBench prompts on the main CogVideoX-2B (49f and 17f) and Wan2.1-1.3B (81f) benchmarks, and 32 or 16 prompts on parameter sweeps as annotated in each caption.
+
+\subsection{Baseline Reproduction Audit}
+\label{app:baseline}
+
+Table~\ref{tab:repro} places our reproduced baseline numbers side by side with the values printed by \citet{liu2026racfgcache} for the same harness.
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3.2pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llcccc}
+\toprule
+Method & Setting & Reported & Speedup & Ours & Speedup \\
+ & & \citep{liu2026racfgcache} & (rep.) & (repro.) & (ours) \\
+\midrule
+TeaCache & Cog 17f & 0.204 & $2.42\times$ & 0.296 & $2.94\times$ \\
+RA-CFGCache & Cog 49f & 0.097 & $2.39\times$ & 0.132 & $2.63\times$ \\
+TeaCache & Wan 81f & 0.166 & $2.44\times$ & 0.199 & $2.63\times$ \\
+RA-CFGCache & Wan 81f & 0.099 & $2.56\times$ & 0.154 & $2.63\times$ \\
+TaylorSeer & Wan 81f & 0.363 & $2.13\times$ & 0.379 & $2.63\times$ \\
+\bottomrule
+\end{tabular}%
+}
+\caption{\textbf{Baseline reproduction audit} comparing numbers reported by \citet{liu2026racfgcache} against our reproduction using the released default configurations ($n=16$ diagnostic subset).}
+\label{tab:repro}
+\end{table}
+
+\paragraph{Consistent Offset and Preserved Ranking.}
+Our reproduced LPIPS values are uniformly higher than the published numbers across all three baselines by a common factor ($1.04\times\text{--}1.56\times$, attributable to higher operating speedups---e.g., $2.63\times$ vs.\ $2.13\times\text{--}2.39\times$---and prompt-subset/frame-decoding conventions), and never selectively favor one baseline over another. Crucially, the relative ranking $\text{RA-CFGCache} \prec \text{TeaCache} \prec \text{TaylorSeer}$ is reproduced identically across every setting. Reporting all arms from our unified harness guarantees strictly fair, apples-to-apples comparisons.

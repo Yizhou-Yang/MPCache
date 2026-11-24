@@ -1,0 +1,69 @@
+\section{Problem Formulation and Adjoint Perturbation Analysis}
+\label{sec:formulation}
+
+\subsection{Guided Solver Dynamics and Bilevel Objective}
+\label{sec:bilevel_obj}
+Consider a pretrained video Diffusion Transformer generating a latent trajectory $\{x_i\}_{i=0}^T \subset \R^d$ over a $T$-step grid $\{\tau_0 > \dots > \tau_T\}$ conditioned on prompt $c$ and guidance scale $\omega \ge 1$. At step $i \in \{0,\dots,T-1\}$, an exact evaluation queries both branches to form the guided velocity
+\begin{equation}
+\begin{aligned}
+v_i &= f_\omega(x_i, \tau_i, c) \\
+&\coloneqq v_\theta(x_i, \tau_i, \varnothing) + \omega \bigl(v_\theta(x_i, \tau_i, c) - v_\theta(x_i, \tau_i, \varnothing)\bigr).
+\end{aligned}
+\label{eq:cfg_velocity}
+\end{equation}
+Deterministic video samplers---including DDIM \citep{song2021ddim} on CogVideoX and multistep flow solvers such as UniPC \citep{zhao2023unipc} on Wan2.1---advance the state via
+\begin{equation}
+x_{i+1} = a_i x_i + b_i \tilde{v}_i, \qquad i = 0, \dots, T - 1,
+\label{eq:solver_step}
+\end{equation}
+where $(a_i, b_i)$ are solver coefficients and $\tilde{v}_i \in \R^d$ is either $v_i$ (exact) or a cached reconstruction (skipped).\footnote{For multistep solvers such as UniPC, writing Eq.~\eqref{eq:solver_step} on the augmented state $\bar{x}_i = (x_i, \tilde{v}_{i-1}, \dots)$ preserves exact affine form.} Let $x_T^\star$ denote the uncached 50-step terminal latent, $\cD$ the causal video VAE decoder, and $\Phi$ a perceptual feature map (multi-layer VGG \citep{zhang2018lpips}, where $\mathrm{LPIPS}(\hat{y}, y^\star)^2 = \norm{\Phi(\hat{y}) - \Phi(y^\star)}_2^2$).
+
+Under a hard budget of $B$ transformer calls ($2 \le B \le T$), a training-free cache comprises two coupled operators:
+\begin{enumerate}
+\item \textbf{Outer Placement Operator $\cS$:} An ordered anchor set $\cS = \{s_0, \dots, s_{B-1}\} \in \mathfrak{S}_B \coloneqq \{\cS \subseteq \{0,\dots,T-1\} : |\cS| = B,\; s_0 = 0,\; s_{B-1} = T-1\}$, partitioning the horizon into $B-1$ intervals $\mathcal{I}_m = [s_m, s_{m+1})$ of gap $g_m = s_{m+1} - s_m \ge 1$.
+\item \textbf{Inner Causal Reconstruction Operator $\cR$:} A causal mapping taking the two-anchor buffer $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$ and returning $\tilde{v}_j = \cR(\cB_{s_m}, j)$ for every skipped step $j \in (s_m, s_{m+1})$.
+\end{enumerate}
+We cast caching as the \textbf{bilevel operator-design problem}
+\begin{equation}
+\min_{\cS \in \mathfrak{S}_B} \min_{\cR \in \mathfrak{R}} \E_{c, x_0}\!\Bigl[\norm{\Phi(\cD(x_T(\cS, \cR))) - \Phi(\cD(x_T^\star))}_2^2\Bigr].
+\label{eq:bilevel}
+\end{equation}
+
+\subsection{Closed-Loop Adjoint Propagation and Subspace Barrier}
+\label{sec:adjoint}
+Let $\delta x_i \coloneqq x_i(\cS, \cR) - x_i^\star$ and $\eps_j(\cR) \coloneqq \tilde{v}_j - f_\omega(x_j, \tau_j, c)$ ($\eps_s = 0$ for $s \in \cS$). First-order linearization around $\{x_i^\star\}$ gives
+\begin{equation}
+\begin{aligned}
+\delta x_{i+1} &= A_i^{\mathrm{cl}} \delta x_i + b_i \eps_i(\cR), \\
+A_i^{\mathrm{cl}} &\coloneqq a_i I + b_i \nabla_x f_\omega(x_i^\star, \tau_i, c).
+\end{aligned}
+\label{eq:linearized_step}
+\end{equation}
+Defining the \textbf{closed-loop horizon propagation operator} $\Psi_{k \to T} \coloneqq A_{T-1}^{\mathrm{cl}} \cdots A_k^{\mathrm{cl}}$ ($\Psi_{T\to T} = I$) and interval weights $\omega_{m,k} \coloneqq (\prod_{\ell=s_m+k+1}^{s_{m+1}-1} a_\ell) b_{s_m+k}$ yields:
+
+\begin{proposition}[Adjoint Horizon Decomposition \& Subspace Barrier]
+\label{prop:subspace}
+Let $\Pi_{\cB_{s_m}}$ be the orthogonal projector onto $\mathrm{span}\{v : (\cdot, v) \in \cB_{s_m}\}$ and $\Pi_{\cB_{s_m}}^\perp = I - \Pi_{\cB_{s_m}}$. To first order, $\Phi(\cD(x_T)) - \Phi(\cD(x_T^\star)) = J_{\Phi \circ \cD}(x_T^\star)\,\delta x_T$ with
+\begin{equation}
+\begin{aligned}
+\delta x_T = \sum_{m=0}^{B-2} \Psi_{s_{m+1} \to T} \sum_{k=1}^{g_m - 1} \omega_{m,k} \bigl(&\cR(\cB_{s_m}, s_m + k) \\[-3pt]
+&- v_{s_m+k}^\star\bigr).
+\end{aligned}
+\label{eq:adjoint_sum}
+\end{equation}
+Moreover, for \emph{any} linear predictor $\cR_{\mathrm{lin}}(\cB_{s_m}, j) \in \mathrm{span}(\cB_{s_m})$---including hindsight least-squares oracles---every skipped step $j \in (s_m, s_{m+1})$ obeys the lower bound
+\begin{equation}
+\inf_{\cR_{\mathrm{lin}} \in \mathrm{span}(\cB_{s_m})} \norm{\cR_{\mathrm{lin}}(\cB_{s_m}, j) - v_j^\star}_2 = \norm{\Pi_{\cB_{s_m}}^\perp v_j^\star}_2.
+\label{eq:subspace_floor}
+\end{equation}
+\end{proposition}
+
+Proposition~\ref{prop:subspace} (proved in Appendix~\ref{app:proof_prop1}) explains two key phenomena verified on 768 GPU runs in Section~\ref{sec:exp_theory}: (i)~open-loop solver priors $\prod_{\ell=k}^{T-1} a_\ell$ omit the contractive denoiser Jacobians $b_\ell \nabla_x f_\omega$, missing a $6.4\times$ head-to-tail decay in $\norm{\Psi_{i\to T}}$; and (ii)~in high-noise steps ($i \le 12$), orthogonal velocity rotation ($\norm{\Pi_{\cB}^\perp v_j^\star}/\norm{v_j^\star} \approx 1.09$) creates a subspace barrier that traps even hindsight linear oracles at $0.422$ rel-$L_2$ under uniform skipping, inducing a lexicographic coupling where $\cS^\star$ must saturate the head before $\cR$ refines the smooth tail.
+
+\paragraph{Single-Pass Terminal Impulse Identification.}
+Evaluating an isolated single skip $\cS_{-j} = \{0,\dots,T-1\} \setminus \{j\}$ ($g = 2$, age $k = 1$) isolates $\delta x_T^{(-j)} = \Psi_{j+1 \to T} b_j (v_{j-1}^\star - v_j^\star)$. Measuring
+\begin{equation}
+w_j \coloneqq \mathrm{LPIPS}\!\bigl(\cD(x_T(\cS_{-j}, \cR_0)),\, \cD(x_T^\star)\bigr)
+\label{eq:impulse}
+\end{equation}
+across $j = 1, \dots, T-2$ costs a single $\mathcal{O}(T)$ sweep on one prompt while capturing $\Psi_{j+1\to T}$ and nonlinear VAE decoding $\Phi \circ \cD$ directly. Subtracting the fp16 decode floor $w_{\mathrm{floor}} = \min_{1 \le k \le T-2} w_k$ gives $\tilde{w}_j = \max(w_j - w_{\mathrm{floor}}, \eps_0)$.

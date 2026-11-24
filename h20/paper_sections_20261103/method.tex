@@ -1,77 +1,130 @@
-\section{Method}
+\section{The \method{} Framework}
 \label{sec:method}
-A training-free cache answers one question per step: evaluate exactly, or reuse. The literature answers it with a threshold on a quantity that has already been observed, and spends its design effort on how to reconstruct a skipped step. We measure what the answer actually depends on and find that it is the position of the exact calls relative to the sampler's noise schedule, not the replacement.
 
+Building on Proposition~\ref{prop:subspace}, \method{} solves Eq.~\eqref{eq:bilevel} in two coupled stages (Figure~\ref{fig:arch}): an offline outer horizon solver mapping $\{\tilde{w}_j\}$ to $\cS^\star$ via age-weighted Bellman DP (Sections~\ref{sec:dp}--\ref{sec:invariance}), and an online inner midpoint chord-shrinkage operator (Section~\ref{sec:shrinkage}).
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.94\textwidth]{figures/fig_arch.pdf}
-\caption{The method in two stages. (A) Once per sampler, a single-skip ablation measures what
-each step costs, and the allocation program turns the profile into a schedule with a fixed number
-of calls. (B) Per video, a step either pays for the transformer call and refreshes the anchor, or
-returns the anchor corrected by a damped part of the last output difference. Nothing is learned
-and the denoiser is untouched; the only per-sampler cost is the ablation in (A), which is fifty
-runs and is done once.}
+\includegraphics[width=0.95\textwidth]{figures/fig_arch.pdf}
+\caption{\textbf{Overview of the two-stage \method{} framework.} \textbf{Stage I (Outer Horizon Synthesis, offline once per sampler):} A single $\mathcal{O}(T)$ terminal impulse pass measures closed-loop perceptual sensitivity $\tilde{w}_j$, which an $\mathcal{O}(BT^2)$ age-weighted Bellman DP solves globally to obtain $\cS^\star$---an exact prefix $0..H^\star(B)-1$ followed by growing tail gaps (Theorem~\ref{thm:kkt}). By Theorem~\ref{thm:invariance}, online scalar drift feedback leaves $\cS^\star$ invariant. \textbf{Stage II (Inner Causal Reconstruction, online per video):} Scheduled steps evaluate the DiT and update a two-slot anchor cache $\{(s', v_{s'}), (s, v_s)\}$; skipped steps return $\tilde{v}_t = v_s + \alpha(v_s - v_{s'})$ ($\alpha = 0.5$, Theorem~\ref{thm:shrinkage}).}
 \label{fig:arch}
 \end{figure*}
 
-\subsection{Preliminaries}
-\label{sec:prelim}
-Fix a prompt, a guidance scale, and a grid $i=0,\ldots,T-1$ with latent $x_i$. An exact step evaluates both guidance branches and returns $v_i$; a skipped step returns the last exact output. The solver advances $x_{i+1}=A_ix_i+B_iv_i$ with coefficients from the base sampler, which we never modify. A schedule is a set $S\subset\{0,\ldots,T-1\}$ of exact steps, and the budget is $|S|$, counted in transformer calls. The reference for every number in this paper is a full run of the same sampler.
+\subsection{Diffusive Age-Weighted DP and KKT Head Law}
+\label{sec:dp}
 
-\subsection{Where an exact call is worth paying for}
-\label{sec:core}
-The value of an exact call at step $i$ is how much a skip there would cost, measured at the end of the trajectory. We measure it directly: run the full sampler, then rerun with exactly one step skipped, and record LPIPS against the full run. On CogVideoX-2B at 30 steps the profile is monotone and steep. Skipping step $1$ costs $0.57$ LPIPS, step $2$ costs $0.45$, step $6$ costs $0.09$, and every step from $11$ to $28$ costs about $0.04$. The first ten steps carry about three quarters of the total, and the profile is a property of the sampler rather than of the prompt: the two prompts we measured correlate at $0.94$, and their first eight steps are identical.
+Modeling schedule loss additively as $\cC_0(\cS) = \sum_{j \notin \cS} \tilde{w}_j$ fails for two reasons: (i)~in a single-skip run step $j$ reuses $v_{j-1}^\star$ (\emph{anchor age} $1$), whereas under $\cS$ a skipped step $j \in (s_m, s_{m+1})$ reuses $v_{s_m}$ at \emph{anchor age} $k = j - s_m \ge 1$, where diffusive angular velocity drift scales mismatch as $\E\norm{v_{s_m+k}^\star - v_{s_m}^\star}_2 \asymp k^\beta \norm{\Delta v_{s_m+k}^\star}_2$ ($\beta = 1/2$); and (ii)~minimizing $\cC_0$ ignores contiguous gap length, packing all calls into $\{0,\dots,B-2\}$ and leaving a 29-step unrefreshed blackout at $T=50, B=22$.
 
-The profile has a simple explanation. An error introduced while the latent is still mostly noise is carried by every later step, because each step conditions on the current latent; an error introduced near the end is re-explained by the next few evaluations before the final decode. The quantity that matters is therefore the distance of a call from the head of the trajectory, and it is available before any denoising starts.
-
-\subsection{The schedule}
-\label{sec:control}
-Given a budget $B$ and a measured profile, the optimal schedule is greedy on the profile, and the profile's shape gives it a closed form: a dense head, then gaps that grow. We use
+Incorporating anchor age yields the \textbf{age-weighted interval compounding functional} ($\beta = 1/2$, zero free parameters):
 \begin{equation}
- S=\{\,0,\ldots,H-1\,\}\;\cup\;\{\,g_k\,\}\;\cup\;\{T-1\},
- \qquad
- g_{k+1}=g_k+\lceil r\,(g_k-g_{k-1})\rceil ,
- \label{eq:sched}
+\begin{aligned}
+\min_{\cS \in \mathfrak{S}_B}\; \cC_\beta(\cS) &\coloneqq \sum_{m=0}^{B-2} C_\beta(s_m, s_{m+1}), \\
+C_\beta(s, s') &\coloneqq \sum_{j = s + 1}^{s' - 1} (j - s)^\beta \tilde{w}_j.
+\end{aligned}
+\label{eq:age_objective}
 \end{equation}
-with head length $H$, first tail gap $2$, and growth $r>1$. The head is where the profile is above half its maximum; the growing gaps follow the observation that the profile decays, so no two consecutive decisions near the end deserve the same spacing. The last step is always exact because it produces the latent that is decoded. For $T=50$ and $B=22$ this gives $H=16$ and the tail $18,22,28,35,42,49$. The head is not a constant: Appendix~\ref{app:head} shows that at a budget of twenty calls a head of sixteen beats one of twelve, so the head should be read from the budget, and we use sixteen throughout.
-
-Two properties follow. The number of calls is $|S|=B$ by construction, so the schedule can be compared with any other policy at equal budget. And the rule uses no learned quantity and no calibration pass: $H$ and $r$ follow from the measured profile of the backbone, which is obtained once by the single-skip measurement above.
-
-\subsection{What a skipped step returns}
-\label{sec:reuse}
-
-A cache stores the output of its last exact step. When a step is skipped, the pipeline needs an
-output for it, and the simplest choice, which every training-free cache in this literature makes,
-is to return the stored one unchanged. Nothing forces that choice. With the anchor at step $s$
-and the previous exact step at $s'$, the two stored outputs define a one-step difference
-$\Delta$, and a skipped step at $j$ can return
-
+Note $C_\beta(s, s+1) = 0$, and $C_\beta(s, s+2) = \tilde{w}_{s+1}$ matches the single-skip ablation identically for all $\beta \ge 0$. Because $C_\beta(s_m, s_{m+1})$ depends only on $(s_m, s_{m+1})$, initializing $V_1(0) = 0$ and solving the \textbf{Bellman recursion}
 \begin{equation}
-\tilde v_j = v_s + \alpha\,\Delta\,, \qquad \alpha \in [0, 1]\,,
-\label{eq:reuse}
+V_b(s') = \min_{b - 2 \le s < s'} \bigl\{ V_{b-1}(s) + C_\beta(s, s') \bigr\}
+\label{eq:bellman_dp}
 \end{equation}
-independently of how far $j$ is from $s$. The parameter $\alpha$ is the only freedom, it is a
-property of the sampler, and Section~\ref{sec:experiments} measures it. Two natural alternatives frame the choice. Setting the damping to zero recovers plain reuse, and letting the correction grow with the distance, that is adding $(j-s)\Delta$ at a skip of length $j-s$, is what a first-order Taylor predictor does when it extrapolates along the tangent. The second is the choice that fails.
+for $b = 2, \dots, B$ and $s' \in [b-1, T - 1 - (B - b)]$ recovers the exact global optimum $\cS^\star$ in $\mathcal{O}(B T^2)$ CPU operations ($< 1$~ms at $T=50, B=22$). Passing to a continuous call density $\rho(t) \in (0, 1]$ (local gap $g(t) = 1 / \rho(t) \ge 1$) yields an exact analytical characterization:
 
-The reason is visible in the geometry. Two outputs determine a tangent, and a tangent determines
-the next point only if the trajectory is close to straight. At fifty steps the latent turns
-faster than the gap between exact calls, so extrapolating along the tangent for several steps
-overshoots the trajectory, while a damped correction moves the reused output in the right
-direction without claiming to know how far.
-
-\subsection{The schedule as an open-loop solution}
-\label{sec:openloop}
-Write the profile as $w_i$, the terminal loss caused by skipping step $i$ alone, and let $S$ be the set of exact steps. Under the additive model of Section~\ref{sec:core} the choice is the program
+\begin{theorem}[KKT Head-Saturation \& Geometric Tail Law]
+\label{thm:kkt}
+Let $\tilde{w} : [0, T] \to (0, \infty)$ be continuous and strictly decreasing, $\beta > 0$, and $B \in (0, T)$. The strictly convex density program
 \begin{equation}
-\min_{S\subseteq\{0,\ldots,T-1\}}\ \sum_{i\notin S} w_i
-\quad\text{s.t.}\quad |S|=B,\ \ T-1\in S ,
-\label{eq:alloc}
+\begin{aligned}
+\min_{\rho : [0, T] \to (0, 1]} &\int_0^T \frac{\tilde{w}(t)}{1+\beta}\bigl(\rho(t)^{-\beta} - \rho(t)\bigr)\, dt \\
+\text{s.t.}\quad &\int_0^T \rho(t)\, dt = B
+\end{aligned}
+\label{eq:kkt_prog}
 \end{equation}
-whose exact solution is greedy: keep the last step, then the $B-1$ steps with the largest $w_i$. A model-predictive controller would re-solve \eqref{eq:alloc} at every step on the observed state and apply the first decision. Here that loop collapses, and the reason is measurable rather than argued: $w$ is a property of the sampler, so re-solving on a fresh observation returns the same set and the controller executes an open-loop schedule. We verified the premise directly. Replacing $w$ by an online estimate of the local error, refitted at every exact step and used to re-rank the remaining steps, changes no decision on our settings, and the schedules it produces are identical to those of the static profile.
+admits a unique continuous global minimizer $\rho^\star(t)$ determined by a unique dual multiplier $\lambda^\star > 0$:
+\begin{enumerate}
+\item \textbf{Active Head Saturation:} Let $H^\star(B) \coloneqq \sup\{t \in [0, T] : \tilde{w}(t) \ge \lambda^\star\}$. Then
+\begin{equation}
+\rho^\star(t) = \begin{cases}
+1, & t \le H^\star(B), \\[4pt]
+\Bigl(\frac{\beta\,\tilde{w}(t)}{(1+\beta)\lambda^\star - \tilde{w}(t)}\Bigr)^{\!\frac{1}{1+\beta}}, & t > H^\star(B),
+\end{cases}
+\label{eq:kkt_density}
+\end{equation}
+so every step in $[0, H^\star(B)]$ is evaluated exactly, and $H^\star(B)$ grows monotonically with $B$ ($\frac{dH^\star(B)}{dB} \ge 0$), whereas $\beta \downarrow 0$ degenerates to a bang-bang blackout on $(B, T]$.
+\item \textbf{Geometric Tail Law:} For $t > H^\star(B)$, $g^\star(t) = 1 / \rho^\star(t) > 1$ is strictly increasing. When $\tilde{w}(t) = w_0 e^{-\eta t} \ll (1+\beta)\lambda^\star$, consecutive discrete tail gaps grow geometrically with ratio $r = e^{\eta / (1+\beta)} > 1$:
+\begin{equation}
+\begin{aligned}
+\cS_{\mathrm{KKT}} &= \{0, \dots, H^\star{-}1\} \cup \{s_k\} \cup \{T{-}1\}, \\
+s_{k+1} - s_k &= \lceil r\,(s_k - s_{k-1}) \rceil.
+\end{aligned}
+\label{eq:sched_kkt}
+\end{equation}
+\end{enumerate}
+\end{theorem}
 
-The controller therefore runs once, before denoising, which is why the method has no per-step overhead and no threshold to tune. What remains is to choose a parametric family for $w$ that a practitioner can instantiate without the measurement: the profile decays from the head, so we use an exact head of length $H$ and gaps that grow by a fixed ratio, as in Eq.~\ref{eq:sched}. The measurement in Section~\ref{sec:core} is what fixes $H$; the growing gaps are what the tail of the profile asks for.
+On CogVideoX-2B ($T=50$), Eq.~\eqref{eq:bellman_dp} with $\beta=0.5$ automatically yields $H^\star(B) = 8, 10, 12, 14, 16$ at $B = 10, 14, 17, 20, 22$ (Appendix~\ref{app:proof_thm1}, Table~\ref{tab:dp_scheds}), explaining why fixed short prefixes ($M=3$ in DPCache) underperform.
 
-\subsection{Why threshold rules lose}
-\label{sec:price}
-A threshold on the change of the input fires where the input moves fastest, which is exactly the head. That sounds correct and is not: it spends its early budget on consecutive steps that are already cheap in relative terms, and then, as the budget tightens, it must skip inside the head, which is where a skip costs the most. On CogVideoX-2B at 50 steps the threshold rule evaluates seventeen steps and reaches 0.296 LPIPS, while the same budget placed by Eq.~\ref{eq:sched} reaches 0.151. The failure is in the placement, not in the reconstruction: replacing the reconstruction of a skipped step by plain reuse leaves our numbers unchanged, and replacing the schedule by a threshold loses a factor of three.
+\subsection{Receding-Horizon Scale-Invariance Collapse}
+\label{sec:invariance}
+
+In receding-horizon MPC \citep{rawlings2017mpc}, an online controller updates a trajectory drift scale $\hat{\sigma}_k(x_{0:s_k}) > 0$ after each exact call $s_k$ and re-solves Eq.~\eqref{eq:bellman_dp} over $[s_k, T-1]$ with $B - k$ calls left. We prove why this loop collapses:
+
+\begin{theorem}[Scale-Invariance Collapse of Online MPC]
+\label{thm:invariance}
+If online observations $x_{0:s_k}$ scale remaining interval costs multiplicatively as $\widehat{C}_k(s, s' \mid x_{0:s_k}) = \hat{\sigma}_k(x_{0:s_k})\, C_\beta(s, s')$ ($\hat{\sigma}_k > 0$) under a hard budget $|\cS| = B$, then for \emph{any} sequence $\{\hat{\sigma}_k\}_{k=0}^{B-2}$, the closed-loop receding-horizon Bellman policy executes the \textbf{exact same schedule} $\cS_{\mathrm{MPC}} \equiv \cS^\star$ as offline DP~\eqref{eq:bellman_dp}. Online feedback has positive value only if prompt-specific profiles $\tilde{w}_j(c)$ invert step ratios $\tilde{w}_j(c)/\tilde{w}_{j'}(c)$ across polyhedral DP decision boundaries.
+\end{theorem}
+
+Because cross-prompt impulse profiles share Spearman correlation $\rho = 0.94$ (Figure~\ref{fig:sensitivity}a; proof in Appendix~\ref{app:proof_thm2}), offline Bellman planning achieves near-oracle placement at zero runtime overhead.
+
+\subsection{Causal Midpoint Chord-Shrinkage}
+\label{sec:shrinkage}
+
+Conditioned on $\cS^\star$, let $\mathcal{I}_m = [s_m, s_{m+1})$ be a skipped interval of gap $g_m = s_{m+1} - s_m > 1$, preceded by backward chord $\Delta_{s_m} \coloneqq v_{s_m} - v_{s_{m-1}}$ (span $h_m = s_m - s_{m-1} \ge 1$). We define the \textbf{gap-invariant chord-shrinkage operator}:
+\begin{equation}
+\cR_\alpha(\cB_{s_m}, s_m + k) \coloneqq v_{s_m} + \alpha\,\Delta_{s_m}, \;\; 1 \le k < g_m.
+\label{eq:midpoint_op}
+\end{equation}
+
+\begin{theorem}[Hilbert Quadratic Risk Law \& Midpoint Cancellation]
+\label{thm:shrinkage}
+Fix $\cS \in \mathfrak{S}_B$ and let $v_{s_m+k}^\star = v_{s_m}^\star + k\dot{v}_{s_m} + \frac{1}{2}k^2\ddot{v}_{s_m} + r_{m,k}$ with $\Delta_{s_m} = h_m\dot{v}_{s_m} - \frac{1}{2}h_m^2\ddot{v}_{s_m} + \xi_m$. Under first-order terminal linearization in perceptual Hilbert space $\cH$ ($\mathrm{LPIPS}^2 = \norm{\delta \Phi}_2^2$):
+\begin{enumerate}
+\item \textbf{Convex Quadratic Risk Law:} Since $\delta\Phi(\alpha) = u_0 + \alpha u_1$ is affine in $\alpha$, expected squared perceptual distortion is an exact parabola with $c_2 = \E\norm{u_1}_2^2 > 0$:
+\begin{equation}
+\mathcal{E}(\alpha) \coloneqq \E\bigl[\mathrm{LPIPS}(\hat{y}(\alpha), y^\star)^2\bigr] = \mathcal{E}_{\min} + c_2 (\alpha - \alpha^\star)^2.
+\label{eq:hilbert_parabola}
+\end{equation}
+\item \textbf{Midpoint Quadrature Cancellation:} For locally uniform solver weights $b_{s_m+k} \approx \bar{b}_m$, integrated first-order state drift $\bar{b}_m \sum_{k=1}^{g_m-1}(\alpha \Delta_{s_m} - k\dot{v}_{s_m})$ vanishes along $\Delta_{s_m}$ at the \emph{midpoint gain}
+\begin{equation}
+\alpha_m^\star = \frac{g_m}{2 h_m}\,\bar{\rho}_m, \quad \bar{\rho}_m \coloneqq \frac{h_m \E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle}{\E\norm{\Delta_{s_m}}_2^2},
+\label{eq:midpoint_alpha}
+\end{equation}
+where leading on $k < g_m/2$ cancels lagging on $k > g_m/2$ ($\alpha^\star \in [0.50, 0.65]$ on KKT geometric tails).
+\item \textbf{$\mathcal{O}(g^3)$ Instability of Gap-Scaling:} Gap-scaled extrapolation $v_{s_m} + k\Delta_{s_m}$ ($h_m=1$) compounds curvature $\ddot{v}_{s_m}$ across $\mathcal{I}_m$ as $\Theta(g_m^3 \norm{\ddot{v}_{s_m}}_2)$, inflating step-level curvature variance by $k_{\mathrm{rms}}^2(\cS) = \frac{1}{T-B}\sum_m \sum_{k=1}^{g_m-1} k^2$ ($12.39\times$, i.e., $k_{\mathrm{rms}} = 3.52$, at $B=22$).
+\end{enumerate}
+\end{theorem}
+
+Algorithm~\ref{alg:mpcache} summarizes the complete pipeline (proof in Appendix~\ref{app:proof_thm3}): $<1$~ms offline CPU DP and a single $\mathcal{O}(d)$ vector FMA per skipped step online.
+
+\begin{algorithm}[t]
+\caption{\method{}: Bilevel Horizon Control \& Midpoint Shrinkage}
+\label{alg:mpcache}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Guided DiT $f_\omega$, grid $\{\tau_i\}_{i=0}^T$, budget $B$, $\beta = 0.5$, $\alpha = 0.5$.
+\STATE \textbf{// Stage I: Offline Horizon Synthesis (once per sampler)}
+\STATE Measure single-skip impulse $w_j$ (Eq.~\ref{eq:impulse}) for $j = 1, \dots, T-2$.
+\STATE Debias $\tilde{w}_j \leftarrow \max(w_j - \min_{1 \le k \le T-2} w_k, \eps_0)$.
+\STATE Solve Bellman DP (Eq.~\ref{eq:bellman_dp}) on $\{\tilde{w}_j\}$ to obtain $\cS^\star$.
+\STATE \textbf{// Stage II: Online Guided Sampling (per video)}
+\STATE Initialize $x_0 \sim \mathcal{N}(0, I)$;\; $v_{\mathrm{prev}} \leftarrow \mathrm{None}$;\; $v_{\mathrm{curr}} \leftarrow \mathrm{None}$.
+\FOR{$t = 0, \dots, T - 1$}
+    \IF{$t \in \cS^\star$}
+        \STATE $\tilde{v}_t \leftarrow f_\omega(x_t, \tau_t, c)$;\quad $v_{\mathrm{prev}} \leftarrow v_{\mathrm{curr}}$;\quad $v_{\mathrm{curr}} \leftarrow \tilde{v}_t$
+    \ELSE
+        \STATE $\tilde{v}_t \leftarrow v_{\mathrm{curr}}$ \textbf{if} $v_{\mathrm{prev}} = \mathrm{None}$ \textbf{else} $v_{\mathrm{curr}} + \alpha (v_{\mathrm{curr}} - v_{\mathrm{prev}})$
+    \ENDIF
+    \STATE $x_{t+1} \leftarrow a_t x_t + b_t \tilde{v}_t$
+\ENDFOR
+\STATE \textbf{Return:} $\hat{y} = \cD(x_T)$.
+\end{algorithmic}
+\end{algorithm}

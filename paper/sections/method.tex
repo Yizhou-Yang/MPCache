@@ -1,66 +1,130 @@
-\section{Method: Model-Predictive Caching}
+\section{The \method{} Framework}
 \label{sec:method}
-Caching is a trust-region problem. A skipped evaluation is a step taken on the strength of a local model rather than on the true field, so the controller has to decide how large a step the model can be trusted with. Trust-region methods answer exactly this question: build a local model, predict what a step will do, compare the prediction with what actually happens, and expand or shrink the radius accordingly. \method\ applies that loop to caching. The model is fitted online from the exact anchors, the price predicts the terminal effect of a skip, and every exact evaluation is the ratio test that expands or shrinks how far the next skip may reach. Sections~\ref{sec:core}--\ref{sec:control} follow the loop: model, predicted effect, radius.
 
-\subsection{Preliminaries}
-\label{sec:prelim}
-Consider a fixed prompt, guidance scale $\omega$, and denoising grid $i=0,\ldots,T-1$, with latent $x_i\in\R^d$ and noise coordinate $\tau_i$. At each step the solver consumes the guided output $v_i=f(x_i,\tau_i)=u_i+\omega(c_i-u_i)$, where $u_i$ and $c_i$ are the unconditional and conditional predictions; an exact evaluation computes both branches and costs one unit of the budget $B$. With augmented state $z_i$ holding the latent and any solver history, the solver applies the transition $z_{i+1}=S_i(z_i,\widetilde v_i)$ with $x_i=Pz_i$, where $\widetilde v_i$ is the exact or approximate output; for an affine one-step solver, $x_{i+1}=a_ix_i+b_i\widetilde v_i$. Caching replaces $v_i$ by $\widetilde v_i$ and leaves $S_i$ unchanged. At step $i$ the controller sees only $z_i$ and the causal buffer $\mathcal B_i$ of past exact evaluations, and must decide whether to evaluate or to forecast. Three errors follow: the forecast may misestimate the skip, a small misestimate may grow before the terminal step, and the controller may misjudge when to refresh. Sections~\ref{sec:core}--\ref{sec:control} address them in order.
+Building on Proposition~\ref{prop:subspace}, \method{} solves Eq.~\eqref{eq:bilevel} in two coupled stages (Figure~\ref{fig:arch}): an offline outer horizon solver mapping $\{\tilde{w}_j\}$ to $\cS^\star$ via age-weighted Bellman DP (Sections~\ref{sec:dp}--\ref{sec:invariance}), and an online inner midpoint chord-shrinkage operator (Section~\ref{sec:shrinkage}).
 
-\paragraph{Standard formulation.} We borrow the learning-based model predictive control formulation of \citet{hewing2021learning}, in which a model fitted from logged transitions is used inside a finite-horizon problem,
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_arch.pdf}
+\caption{\textbf{Overview of the two-stage \method{} framework.} \textbf{Stage I (Outer Horizon Synthesis, offline once per sampler):} A single $\mathcal{O}(T)$ terminal impulse pass measures closed-loop perceptual sensitivity $\tilde{w}_j$, which an $\mathcal{O}(BT^2)$ age-weighted Bellman DP solves globally to obtain $\cS^\star$---an exact prefix $0..H^\star(B)-1$ followed by growing tail gaps (Theorem~\ref{thm:kkt}). By Theorem~\ref{thm:invariance}, online scalar drift feedback leaves $\cS^\star$ invariant. \textbf{Stage II (Inner Causal Reconstruction, online per video):} Scheduled steps evaluate the DiT and update a two-slot anchor cache $\{(s', v_{s'}), (s, v_s)\}$; skipped steps return $\tilde{v}_t = v_s + \alpha(v_s - v_{s'})$ ($\alpha = 0.5$, Theorem~\ref{thm:shrinkage}).}
+\label{fig:arch}
+\end{figure*}
+
+\subsection{Diffusive Age-Weighted DP and KKT Head Law}
+\label{sec:dp}
+
+Modeling schedule loss additively as $\cC_0(\cS) = \sum_{j \notin \cS} \tilde{w}_j$ fails for two reasons: (i)~in a single-skip run step $j$ reuses $v_{j-1}^\star$ (\emph{anchor age} $1$), whereas under $\cS$ a skipped step $j \in (s_m, s_{m+1})$ reuses $v_{s_m}$ at \emph{anchor age} $k = j - s_m \ge 1$, where diffusive angular velocity drift scales mismatch as $\E\norm{v_{s_m+k}^\star - v_{s_m}^\star}_2 \asymp k^\beta \norm{\Delta v_{s_m+k}^\star}_2$ ($\beta = 1/2$); and (ii)~minimizing $\cC_0$ ignores contiguous gap length, packing all calls into $\{0,\dots,B-2\}$ and leaving a 29-step unrefreshed blackout at $T=50, B=22$.
+
+Incorporating anchor age yields the \textbf{age-weighted interval compounding functional} ($\beta = 1/2$, zero free parameters):
 \begin{equation}
- \begin{aligned}
- &\min_{\pi=(a_i,\ldots,a_{i+H-1})}\ \sum_{j=i}^{i+H-1}c_j(z_j,a_j)+c_H(z_{i+H})\\
- &\text{s.t.}\quad z_{j+1}=\widehat f\!\left(z_j,a_j;\theta\right),\quad a_j\in\mathcal A,
- \end{aligned}
- \label{eq:mpc}
+\begin{aligned}
+\min_{\cS \in \mathfrak{S}_B}\; \cC_\beta(\cS) &\coloneqq \sum_{m=0}^{B-2} C_\beta(s_m, s_{m+1}), \\
+C_\beta(s, s') &\coloneqq \sum_{j = s + 1}^{s' - 1} (j - s)^\beta \tilde{w}_j.
+\end{aligned}
+\label{eq:age_objective}
 \end{equation}
-with stage cost $c_j$, terminal cost $c_H$, and admissible set $\mathcal A$; the model parameters are obtained by regularized least squares on the transitions seen so far, the standard fit in learning-based control \citep{hewing2021learning},
+Note $C_\beta(s, s+1) = 0$, and $C_\beta(s, s+2) = \tilde{w}_{s+1}$ matches the single-skip ablation identically for all $\beta \ge 0$. Because $C_\beta(s_m, s_{m+1})$ depends only on $(s_m, s_{m+1})$, initializing $V_1(0) = 0$ and solving the \textbf{Bellman recursion}
 \begin{equation}
- \theta\leftarrow\arg\min_{\theta}\ \sum_k w_k\norm{v_k-\widehat f(x_k,\tau_k;\theta)}^2+\lambda\norm{\theta}^2 .
- \label{eq:fit}
+V_b(s') = \min_{b - 2 \le s < s'} \bigl\{ V_{b-1}(s) + C_\beta(s, s') \bigr\}
+\label{eq:bellman_dp}
 \end{equation}
-The two constructions in Equations~\eqref{eq:mpc}--\eqref{eq:fit} are stated as given; we add no analysis of our own to them.
+for $b = 2, \dots, B$ and $s' \in [b-1, T - 1 - (B - b)]$ recovers the exact global optimum $\cS^\star$ in $\mathcal{O}(B T^2)$ CPU operations ($< 1$~ms at $T=50, B=22$). Passing to a continuous call density $\rho(t) \in (0, 1]$ (local gap $g(t) = 1 / \rho(t) \ge 1$) yields an exact analytical characterization:
 
-\subsection{The local model}
-\label{sec:core}
-A cache needs a model of what a skipped evaluation would have returned. The only samples available are the exact evaluations already made, so the model is identified from those anchors at no extra network call. One trajectory visits only a narrow part of the latent space, and the parameterization below is chosen so that this part is what gets identified.
-
-\paragraph{Model.} Around the most recent exact anchor $s$ the guided field is locally linear, so a small change in the latent produces a proportional change in the output. Writing the output as a function of the latent, $v(x)\approx v_s+A(x-x_s)$. The latent also drifts with the noise coordinate, so we compare against straight-line prediction and keep only the part of the change that the line does not explain,
+\begin{theorem}[KKT Head-Saturation \& Geometric Tail Law]
+\label{thm:kkt}
+Let $\tilde{w} : [0, T] \to (0, \infty)$ be continuous and strictly decreasing, $\beta > 0$, and $B \in (0, T)$. The strictly convex density program
 \begin{equation}
- m=u+A\,e,
- \qquad
- e=(x-x_s)-r\,(x_s-x_{s'}),
- \label{eq:model}
+\begin{aligned}
+\min_{\rho : [0, T] \to (0, 1]} &\int_0^T \frac{\tilde{w}(t)}{1+\beta}\bigl(\rho(t)^{-\beta} - \rho(t)\bigr)\, dt \\
+\text{s.t.}\quad &\int_0^T \rho(t)\, dt = B
+\end{aligned}
+\label{eq:kkt_prog}
 \end{equation}
-with $u=v_s+r(v_s-v_{s'})$ and $r=(\tau-\tau_s)/(\tau_s-\tau_{s'})$. Here $e$ is the residual motion: the part of $x-x_s$ that straight-line motion does not explain. With $A=0$ the model is plain temporal extrapolation. A full matrix is too large for video latents, so $A$ is a diagonal scaling plus a rank-$r$ correction over recent latent differences, at $O(dr)$ cost. We fit $A$ on differences between anchors by weighted least squares, regularized toward zero, so the model falls back to extrapolation when the residual motion is weak.
-
-\paragraph{The step and its prediction.} A skip returns the anchor $v_s$, the extrapolation $u$, or the model prediction
+admits a unique continuous global minimizer $\rho^\star(t)$ determined by a unique dual multiplier $\lambda^\star > 0$:
+\begin{enumerate}
+\item \textbf{Active Head Saturation:} Let $H^\star(B) \coloneqq \sup\{t \in [0, T] : \tilde{w}(t) \ge \lambda^\star\}$. Then
 \begin{equation}
- v=u+w\,(m-u),
- \qquad w\in[0,1],
- \label{eq:forecast}
+\rho^\star(t) = \begin{cases}
+1, & t \le H^\star(B), \\[4pt]
+\Bigl(\frac{\beta\,\tilde{w}(t)}{(1+\beta)\lambda^\star - \tilde{w}(t)}\Bigr)^{\!\frac{1}{1+\beta}}, & t > H^\star(B),
+\end{cases}
+\label{eq:kkt_density}
 \end{equation}
-where $w$ is a confidence that rises when $m$ beats $u$ at exact checks and halves otherwise. It is the only scalar the controller tunes online: $w=1$ trusts the model, $w=0$ trusts extrapolation. A skip is admissible only while the anchor distance and the anchor age stay inside their trust radii.
-
-\paragraph{Radius.} Each skip carries the cost $c=\|v-m\|+q$, where $q$ is an uncertainty that increases with the distance and age of the anchor, so a skip that reaches further from its anchor pays more even when its nominal error is small.
-
-\subsection{Pricing: the predicted effect of a step}
-\label{sec:price}
-A local error is not a terminal error. The solver multiplies each output error by its own sensitivity and carries it forward, so the same local error can be harmless at one step and decisive at another. Rather than forming that product, we accumulate a risk $C\leftarrow\alpha C+\beta c$ along each candidate action sequence, with factors estimated from the model; an exact action adds nothing and only carries $C$ forward.
-
-\subsection{Control: trust region under a budget}
-\label{sec:control}
-With a forecast and a price, the remaining question is where to spend exact evaluations. With remaining budget $b_i$ and horizon $H$, the controller minimizes the accumulated risk subject to a budget that reserves tail refreshes,
+so every step in $[0, H^\star(B)]$ is evaluated exactly, and $H^\star(B)$ grows monotonically with $B$ ($\frac{dH^\star(B)}{dB} \ge 0$), whereas $\beta \downarrow 0$ degenerates to a bang-bang blackout on $(B, T]$.
+\item \textbf{Geometric Tail Law:} For $t > H^\star(B)$, $g^\star(t) = 1 / \rho^\star(t) > 1$ is strictly increasing. When $\tilde{w}(t) = w_0 e^{-\eta t} \ll (1+\beta)\lambda^\star$, consecutive discrete tail gaps grow geometrically with ratio $r = e^{\eta / (1+\beta)} > 1$:
 \begin{equation}
- \min_{\pi}\ C(\pi)\quad\text{s.t.}\quad
- \sum_{j=i}^{i+H-1}\mathbf 1[a_j=\mathsf C]\le b_i-b_{\rm tail},
- \label{eq:plan}
+\begin{aligned}
+\cS_{\mathrm{KKT}} &= \{0, \dots, H^\star{-}1\} \cup \{s_k\} \cup \{T{-}1\}, \\
+s_{k+1} - s_k &= \lceil r\,(s_k - s_{k-1}) \rceil.
+\end{aligned}
+\label{eq:sched_kkt}
 \end{equation}
-over trust-admissible actions. Rollouts use $m$ as the nominal transition and do not call the denoiser. A beam search keeps the top $K$ partial sequences, executes only the first action, and replans, so a misestimate changes the next decision rather than committing the controller.
+\end{enumerate}
+\end{theorem}
 
-\paragraph{Residual check.} Every exact evaluation also tests the model. Before refitting, we compare the value the model predicted for that step, $m$, with the value actually computed, $v_s$, and record the relative error
+On CogVideoX-2B ($T=50$), Eq.~\eqref{eq:bellman_dp} with $\beta=0.5$ automatically yields $H^\star(B) = 8, 10, 12, 14, 16$ at $B = 10, 14, 17, 20, 22$ (Appendix~\ref{app:proof_thm1}, Table~\ref{tab:dp_scheds}), explaining why fixed short prefixes ($M=3$ in DPCache) underperform.
+
+\subsection{Receding-Horizon Scale-Invariance Collapse}
+\label{sec:invariance}
+
+In receding-horizon MPC \citep{rawlings2017mpc}, an online controller updates a trajectory drift scale $\hat{\sigma}_k(x_{0:s_k}) > 0$ after each exact call $s_k$ and re-solves Eq.~\eqref{eq:bellman_dp} over $[s_k, T-1]$ with $B - k$ calls left. We prove why this loop collapses:
+
+\begin{theorem}[Scale-Invariance Collapse of Online MPC]
+\label{thm:invariance}
+If online observations $x_{0:s_k}$ scale remaining interval costs multiplicatively as $\widehat{C}_k(s, s' \mid x_{0:s_k}) = \hat{\sigma}_k(x_{0:s_k})\, C_\beta(s, s')$ ($\hat{\sigma}_k > 0$) under a hard budget $|\cS| = B$, then for \emph{any} sequence $\{\hat{\sigma}_k\}_{k=0}^{B-2}$, the closed-loop receding-horizon Bellman policy executes the \textbf{exact same schedule} $\cS_{\mathrm{MPC}} \equiv \cS^\star$ as offline DP~\eqref{eq:bellman_dp}. Online feedback has positive value only if prompt-specific profiles $\tilde{w}_j(c)$ invert step ratios $\tilde{w}_j(c)/\tilde{w}_{j'}(c)$ across polyhedral DP decision boundaries.
+\end{theorem}
+
+Because cross-prompt impulse profiles share Spearman correlation $\rho = 0.94$ (Figure~\ref{fig:sensitivity}a; proof in Appendix~\ref{app:proof_thm2}), offline Bellman planning achieves near-oracle placement at zero runtime overhead.
+
+\subsection{Causal Midpoint Chord-Shrinkage}
+\label{sec:shrinkage}
+
+Conditioned on $\cS^\star$, let $\mathcal{I}_m = [s_m, s_{m+1})$ be a skipped interval of gap $g_m = s_{m+1} - s_m > 1$, preceded by backward chord $\Delta_{s_m} \coloneqq v_{s_m} - v_{s_{m-1}}$ (span $h_m = s_m - s_{m-1} \ge 1$). We define the \textbf{gap-invariant chord-shrinkage operator}:
 \begin{equation}
- \mathrm{err}=\frac{\|v_s-m\|}{\|v_s\|}.
- \label{eq:check}
+\cR_\alpha(\cB_{s_m}, s_m + k) \coloneqq v_{s_m} + \alpha\,\Delta_{s_m}, \;\; 1 \le k < g_m.
+\label{eq:midpoint_op}
 \end{equation}
-If $\mathrm{err}$ exceeds the current uncertainty $q$, the controller tightens the trust radii and shortens the maximum gap; after consecutive checks inside the envelope it relaxes them. The new anchor is appended, the model refitted, and planning restarts at the next step. The update costs $O(dr)$ and the search is over surrogate transitions, so no extra network call is made.
+
+\begin{theorem}[Hilbert Quadratic Risk Law \& Midpoint Cancellation]
+\label{thm:shrinkage}
+Fix $\cS \in \mathfrak{S}_B$ and let $v_{s_m+k}^\star = v_{s_m}^\star + k\dot{v}_{s_m} + \frac{1}{2}k^2\ddot{v}_{s_m} + r_{m,k}$ with $\Delta_{s_m} = h_m\dot{v}_{s_m} - \frac{1}{2}h_m^2\ddot{v}_{s_m} + \xi_m$. Under first-order terminal linearization in perceptual Hilbert space $\cH$ ($\mathrm{LPIPS}^2 = \norm{\delta \Phi}_2^2$):
+\begin{enumerate}
+\item \textbf{Convex Quadratic Risk Law:} Since $\delta\Phi(\alpha) = u_0 + \alpha u_1$ is affine in $\alpha$, expected squared perceptual distortion is an exact parabola with $c_2 = \E\norm{u_1}_2^2 > 0$:
+\begin{equation}
+\mathcal{E}(\alpha) \coloneqq \E\bigl[\mathrm{LPIPS}(\hat{y}(\alpha), y^\star)^2\bigr] = \mathcal{E}_{\min} + c_2 (\alpha - \alpha^\star)^2.
+\label{eq:hilbert_parabola}
+\end{equation}
+\item \textbf{Midpoint Quadrature Cancellation:} For locally uniform solver weights $b_{s_m+k} \approx \bar{b}_m$, integrated first-order state drift $\bar{b}_m \sum_{k=1}^{g_m-1}(\alpha \Delta_{s_m} - k\dot{v}_{s_m})$ vanishes along $\Delta_{s_m}$ at the \emph{midpoint gain}
+\begin{equation}
+\alpha_m^\star = \frac{g_m}{2 h_m}\,\bar{\rho}_m, \quad \bar{\rho}_m \coloneqq \frac{h_m \E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle}{\E\norm{\Delta_{s_m}}_2^2},
+\label{eq:midpoint_alpha}
+\end{equation}
+where leading on $k < g_m/2$ cancels lagging on $k > g_m/2$ ($\alpha^\star \in [0.50, 0.65]$ on KKT geometric tails).
+\item \textbf{$\mathcal{O}(g^3)$ Instability of Gap-Scaling:} Gap-scaled extrapolation $v_{s_m} + k\Delta_{s_m}$ ($h_m=1$) compounds curvature $\ddot{v}_{s_m}$ across $\mathcal{I}_m$ as $\Theta(g_m^3 \norm{\ddot{v}_{s_m}}_2)$, inflating step-level curvature variance by $k_{\mathrm{rms}}^2(\cS) = \frac{1}{T-B}\sum_m \sum_{k=1}^{g_m-1} k^2$ ($12.39\times$, i.e., $k_{\mathrm{rms}} = 3.52$, at $B=22$).
+\end{enumerate}
+\end{theorem}
+
+Algorithm~\ref{alg:mpcache} summarizes the complete pipeline (proof in Appendix~\ref{app:proof_thm3}): $<1$~ms offline CPU DP and a single $\mathcal{O}(d)$ vector FMA per skipped step online.
+
+\begin{algorithm}[t]
+\caption{\method{}: Bilevel Horizon Control \& Midpoint Shrinkage}
+\label{alg:mpcache}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Guided DiT $f_\omega$, grid $\{\tau_i\}_{i=0}^T$, budget $B$, $\beta = 0.5$, $\alpha = 0.5$.
+\STATE \textbf{// Stage I: Offline Horizon Synthesis (once per sampler)}
+\STATE Measure single-skip impulse $w_j$ (Eq.~\ref{eq:impulse}) for $j = 1, \dots, T-2$.
+\STATE Debias $\tilde{w}_j \leftarrow \max(w_j - \min_{1 \le k \le T-2} w_k, \eps_0)$.
+\STATE Solve Bellman DP (Eq.~\ref{eq:bellman_dp}) on $\{\tilde{w}_j\}$ to obtain $\cS^\star$.
+\STATE \textbf{// Stage II: Online Guided Sampling (per video)}
+\STATE Initialize $x_0 \sim \mathcal{N}(0, I)$;\; $v_{\mathrm{prev}} \leftarrow \mathrm{None}$;\; $v_{\mathrm{curr}} \leftarrow \mathrm{None}$.
+\FOR{$t = 0, \dots, T - 1$}
+    \IF{$t \in \cS^\star$}
+        \STATE $\tilde{v}_t \leftarrow f_\omega(x_t, \tau_t, c)$;\quad $v_{\mathrm{prev}} \leftarrow v_{\mathrm{curr}}$;\quad $v_{\mathrm{curr}} \leftarrow \tilde{v}_t$
+    \ELSE
+        \STATE $\tilde{v}_t \leftarrow v_{\mathrm{curr}}$ \textbf{if} $v_{\mathrm{prev}} = \mathrm{None}$ \textbf{else} $v_{\mathrm{curr}} + \alpha (v_{\mathrm{curr}} - v_{\mathrm{prev}})$
+    \ENDIF
+    \STATE $x_{t+1} \leftarrow a_t x_t + b_t \tilde{v}_t$
+\ENDFOR
+\STATE \textbf{Return:} $\hat{y} = \cD(x_T)$.
+\end{algorithmic}
+\end{algorithm}
