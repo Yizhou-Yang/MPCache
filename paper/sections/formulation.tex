@@ -1,60 +1,53 @@
-\section{Operator Dynamics and Four Structural Laws}
+\section{Mechanistic Analysis and Four Sharp Discoveries}
+\label{sec:discoveries}
 \label{sec:formulation}
 
-To move beyond empirical trial-and-error, we derive the exact closed-loop perturbation operator of a cached guided DiT and distill four structural laws from $>2{,}600$ GPU trajectory runs that directly prescribe the operators in Section~\ref{sec:method}.
+Equipped with \method{}'s closed-loop adjoint operator ($\Psi_{k\to T}$), KKT Bregman decomposition, and Hilbert shrinkage theory from Section~\ref{sec:method}, we now diagnose $>2{,}600$ controlled GPU trajectory runs on CogVideoX-2B and Wan2.1-1.3B (Figure~\ref{fig:theory}, Table~\ref{tab:theory_verif}). Beyond verifying every theoretical premise of \method{}, our operator framework uncovers four counter-intuitive discoveries that explain longstanding contradictions in prior caching methods.
 
-\subsection{Closed-Loop Adjoint Operator Formulation}
-\label{sec:bilevel_obj}
-Let a pretrained video DiT evolve $\{x_i\}_{i=0}^T \subset \R^d$ across grid $\{\tau_0 > \dots > \tau_T\}$ under prompt $c$ and CFG scale $\omega \ge 1$. Evaluating step $i$ queries both branches for the guided velocity
-\begin{equation}
-\begin{aligned}
-v_i &= f_\omega(x_i, \tau_i, c) \\
-&\coloneqq v_\theta(x_i, \tau_i, \varnothing) + \omega \bigl(v_\theta(x_i, \tau_i, c) - v_\theta(x_i, \tau_i, \varnothing)\bigr).
-\end{aligned}
-\label{eq:cfg_velocity}
-\end{equation}
-Deterministic integrators---including DDIM \citep{song2021ddim} on CogVideoX and multistep UniPC \citep{zhao2023unipc} on Wan2.1---advance the state via exact solver bookkeeping
-\begin{equation}
-x_{i+1} = a_i x_i + b_i \tilde{v}_i, \qquad i = 0, \dots, T - 1,
-\label{eq:solver_step}
-\end{equation}
-where $\tilde{v}_i = v_i$ for $i \in \cS$ and $\tilde{v}_i = \cR(\cB_{s_m}, i)$ on $i \in (s_m, s_{m+1})$, with 2-anchor buffer $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$.\footnote{For multistep UniPC, writing Eq.~\eqref{eq:solver_step} on augmented history $\bar{x}_i = (x_i, \tilde{v}_{i-1})$ preserves exact affine dynamics.} Let $x_T^\star$ be the 50-step terminal latent, $\cD$ the 3D causal VAE decoder, and $\Phi$ the VGG perceptual map \citep{zhang2018lpips} ($\mathrm{LPIPS}(\hat{y}, y^\star)^2 = \norm{\Phi(\hat{y}) - \Phi(y^\star)}_2^2$). Over boundary-pinned sets $\mathfrak{S}_B \coloneqq \{\cS \subseteq \{0,\dots,T-1\} : |\cS| = B,\; s_0 = 0,\; s_{B-1} = T-1\}$ ($g_m = s_{m+1} - s_m$), caching solves the bilevel problem
-\begin{equation}
-\min_{\cS \in \mathfrak{S}_B} \min_{\cR \in \mathfrak{R}} \E_{c, x_0}\!\Bigl[\norm{\Phi(\cD(x_T(\cS, \cR))) - \Phi(\cD(x_T^\star))}_2^2\Bigr].
-\label{eq:bilevel}
-\end{equation}
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_theory.pdf}
+\caption{\textbf{Four sharp discoveries diagnosed via \method{}'s operator framework across $>2{,}100$ GPU trajectory runs.} (a)~\emph{Discovery~I (192 runs):} Closed-loop $\norm{\Psi_{i\to T}}$ contracts $8.1\times$ while chord alignment $\cos\theta_i$ rotates $5.2\times$ ($84.5^\circ \to 60.1^\circ$); open-loop $c_0$ moves backwards. (b)~\emph{Sign-Inversion (576 runs):} 1st-order extrapolation hurts by $+31\%$ when the head is skipped ($0.281 \to 0.368$) and uniform grids trap 3-anchor `lsq` at $0.422$, yet Theorem~\ref{thm:kkt}'s head saturation flips it to $-42\%$ ($0.157 \to 0.091$). (c)~\emph{Discovery~II (160 runs):} Diffusive DP ($\beta=0.5$) matches $6.56\times$ 5-skip compounding ($6.50$ vs.\ $4.55$ additive), while solver prior rank inverts ($\rho = -0.15$). (d)~\emph{Discovery~III \& Thm.~\ref{thm:certify}:} Quantile-invariant Bellman certificates ($R^2=0.985$ mean, $0.981$ worst) shift left by $5$ calls under $\alpha=0.5$.}
+\label{fig:theory}
+\end{figure*}
 
-Linearizing $\delta x_i \coloneqq x_i(\cS, \cR) - x_i^\star$ defines the \textbf{closed-loop step Jacobian} $A_i^{\mathrm{cl}} \coloneqq a_i I + b_i \nabla_x f_\omega(x_i^\star, \tau_i, c)$, \textbf{horizon adjoint} $\Psi_{k \to T} \coloneqq A_{T-1}^{\mathrm{cl}} \cdots A_k^{\mathrm{cl}}$ ($\Psi_{T\to T} = I$), and open-loop weights $\omega_{m,k} \coloneqq (\prod_{\ell=s_m+k+1}^{s_{m+1}-1} a_\ell) b_{s_m+k}$:
+\paragraph{Discovery I: Two-Regime Bifurcation \& The Predictor Sign-Inversion Paradox.}
+Prior literature disagrees on whether velocity extrapolation helps \citep{liu2025taylorseer} or hurts \citep{liu2025teacache,liu2026racfgcache} video generation. Evaluating $\Psi_{i\to T}$ and chord angles $\cos\theta_i = \langle \Delta v_{i+1}, \Delta v_i\rangle / (\norm{\Delta v_{i+1}}\norm{\Delta v_i})$ across 192 single-skip runs reveals a sharp **two-regime bifurcation** at $H_{\mathrm{crit}}$ ($10\text{--}12$ at $T=30$, $14\text{--}16$ at $T=50$; Figure~\ref{fig:theory}a): in \emph{Regime~I ($i < H_{\mathrm{crit}}$)}, chords rotate nearly orthogonally ($\cos\theta_5 = \mathbf{0.0959}$, $\mathbf{84.5^\circ}$!; innovation $1.088$) while closed-loop gain peaks at $\gamma_3 = \mathbf{0.9630}$; in \emph{Regime~II ($i \ge H_{\mathrm{crit}}$)}, chord alignment recovers $\mathbf{5.20\times}$ ($0.0959 \to 0.4988$) while Jacobian gain contracts $\mathbf{8.11\times}$ ($0.9630 \to 0.1188$; ratio-of-means $6.42\times$), whereas open-loop $c_0$ moves backwards ($0.85\times$). Consequently, $\cS$ and $\cR$ \textbf{do not commute} (Figure~\ref{fig:theory}b): across 576 runs (Appendix~\ref{app:extended_traces}), 1st-order extrapolation \emph{hurts} by $\mathbf{+31.0\%}$ ($0.2810 \to 0.3681$ rel-$L_2$) on head-skipping schedules and uniform grids trap hindsight 3-anchor `lsq` at $0.4218$; yet locking $[0, H_{\mathrm{crit}})$ via Theorem~\ref{thm:kkt} flips the \emph{exact same} chord to $\mathbf{-42.2\%}$ ($0.1568 \to 0.0907$, within $2.6\%$ of hindsight `lsq`).
 
-\begin{proposition}[Adjoint Horizon Decomposition \& Subspace Barrier]
-\label{prop:subspace}
-Let $\Pi_{\cB_{s_m}}$ be the orthogonal projector onto $\mathrm{span}\{v : (\cdot, v) \in \cB_{s_m}\}$ and $\Pi_{\cB_{s_m}}^\perp = I - \Pi_{\cB_{s_m}}$. To first order, $\Phi(\cD(x_T)) - \Phi(\cD(x_T^\star)) = J_{\Phi \circ \cD}(x_T^\star)\,\delta x_T$ with
-\begin{equation}
-\begin{aligned}
-\delta x_T = \sum_{m=0}^{B-2} \Psi_{s_{m+1} \to T} \sum_{k=1}^{g_m - 1} \omega_{m,k} \bigl(&\cR(\cB_{s_m}, s_m + k) \\[-3pt]
-&- v_{s_m+k}^\star\bigr),
-\end{aligned}
-\label{eq:adjoint_sum}
-\end{equation}
-and for \emph{any} linear predictor $\cR_{\mathrm{lin}}(\cB_{s_m}, j) \in \mathrm{span}(\cB_{s_m})$ (including hindsight least-squares oracles),
-\begin{equation}
-\inf_{\cR_{\mathrm{lin}} \in \mathrm{span}(\cB_{s_m})} \norm{\cR_{\mathrm{lin}}(\cB_{s_m}, j) - v_j^\star}_2 = \norm{\Pi_{\cB_{s_m}}^\perp v_j^\star}_2.
-\label{eq:subspace_floor}
-\end{equation}
-\end{proposition}
+\paragraph{Discovery II: Input Anti-Observability, Multi-Step Rank Inversion, \& $11.6\times$ Stiff-Sloppy Anisotropy.}
+Why do input-threshold and solver-prior rules misallocate calls? Holding scheduler, quota rule, and budget ($B=19$) strictly identical on CogVideoX-2B, TeaCache's modulated-input delta yields $0.2320$ LPIPS vs.\ $\mathbf{0.0523}$ for output drift---a \textbf{$4.44\times$ observability gap} (and our 10-call schedule at $0.1229$ beats 22-call input thresholding at $0.2543$). Under $\omega=6$ CFG, input norms follow open-loop step sizes rather than CFG branch rotation; worse, across 160 multi-gap runs ($g - 1 \in \{1..5\}$), open-loop solver priors \emph{invert Spearman rank correlation} with terminal error from $+0.545$ ($g=2$) to $\mathbf{-0.148}$ ($g=6$), whereas $\cC_{0.5}$ retains $+0.909$ and matches $6.56\times$ 5-skip compounding ($6.50$ vs.\ $4.55$ additive; Figure~\ref{fig:theory}c). Simultaneously, across 699 Wan2.1 UniPC runs, bypassing Eq.~\eqref{eq:solver_step} collapses LPIPS to $0.83$, and omitting terminal pin $T-1$ induces a $4.56\times$ blackout ($0.3295$ vs.\ $0.0723$ rel-$L_2$). Conversely, once boundaries $(H^\star, T-1)$ are respected, Corollary~\ref{cor:sloppy}'s **stiff-sloppy hierarchy** emerges: halving $H = 12 \to 6$ inflates cost by $+178.5\%$ ($0.157 \to 0.288$ LPIPS), whereas varying tail growth $r \in [1.4, 3.0]$ changes DP cost by $\le 15.4\%$ and physical LPIPS by $<1.6\%$ (\textbf{$11.6\times$ anisotropy}).
 
-\subsection{Four Sharp Laws and Design Principles}
-\label{sec:laws}
-Evaluating Eqs.~\eqref{eq:adjoint_sum}--\eqref{eq:subspace_floor} across controlled diagnostic suites on CogVideoX-2B and Wan2.1-1.3B (Appendix~\ref{app:proof_prop1} and Section~\ref{sec:exp_theory}) reveals four counter-intuitive laws, each prescribing a core mechanism of \method{}:
+\begin{table}[t]
+\centering\footnotesize\setlength{\tabcolsep}{2.9pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllc}
+\toprule
+Discovery & Controlled Diagnostic ($>2{,}600$ runs) & Metric & Value \\
+\midrule
+\multirow{4}{*}{Disc.~I (Prop.~\ref{prop:subspace})}
+  & Chord angle $\theta_5 \to \theta_{23}$ & Rotation & $84.5^\circ \to 60.1^\circ$ \\
+  & Closed-loop $\gamma_3 \to \gamma_{23}$ (vs.\ $c_0$) & Contraction & $\mathbf{8.11\times}$ ($0.85\times$) \\
+  & 1st-order chord, skipped head ($N{=}10$) & rel-$L_2$ $\Delta$ & $+31.0\%$ (hurts) \\
+  & 1st-order chord, locked head ($\tau{=}0.16$) & rel-$L_2$ $\Delta$ & $\mathbf{-42.2\%}$ (helps) \\
+\midrule
+\multirow{4}{*}{Disc.~II (Cor.~\ref{cor:sloppy})}
+  & Output vs.\ TeaCache input ($B{=}19$) & LPIPS $\downarrow$ & $\mathbf{0.052}$ vs.\ $0.232$ \\
+  & Solver prior rank at gap $1 \to 5$ & Spearman $\rho$ & $+0.55 \to \mathbf{-0.15}$ \\
+  & Wan2.1 UniPC unpinned vs.\ pinned $T{-}1$ & rel-$L_2 \downarrow$ & $0.330 \to \mathbf{0.072}$ \\
+  & Stiff head ($H{:}12{\to}6$) vs.\ sloppy tail $r$ & Anisotropy & $\mathbf{11.6\times}$ ($<1.6\%$) \\
+\midrule
+\multirow{2}{*}{Disc.~III (Thm.~\ref{thm:invariance})}
+  & Cross-budget $\max/\text{mean}$ ($B{=}16,22,28$) & Ratio (CV) & $1.63\times$ ($\mathbf{1.04\%}$) \\
+  & Online MPC (336 runs) vs.\ Offline DP & Step diff. & $\mathbf{0 / 50}$ \\
+\bottomrule
+\end{tabular}%
+}
+\caption{\textbf{Summary of mechanistic discoveries} diagnosed across existing GPU trajectory suites (full tables in Appendix~\ref{app:extended_traces}).}
+\label{tab:theory_verif}
+\end{table}
 
-\paragraph{Law I: Two-Regime Bifurcation \& Sign-Inversion $\implies$ Phase-Gated Non-Commutativity.}
-Guided trajectories bifurcate sharply at $H_{\mathrm{crit}}$ (steps $10\text{--}12$ at $T=30$, $14\text{--}16$ at $T=50$; Figure~\ref{fig:theory}a): in \emph{Regime~I ($i < H_{\mathrm{crit}}$)}, consecutive chords rotate nearly orthogonally ($\cos\theta_5 = \mathbf{0.0959}$, i.e., $\mathbf{84.5^\circ}$!; innovation $1.088$) while closed-loop gain peaks at $\gamma_3 = \mathbf{0.9630}$; in \emph{Regime~II ($i \ge H_{\mathrm{crit}}$)}, chord alignment recovers $\mathbf{5.20\times}$ ($0.0959 \to 0.4988$) while Jacobian gain contracts $\mathbf{8.11\times}$ ($0.9630 \to 0.1188$; ratio-of-means $6.42\times$), whereas solver-only $c_0$ moves backwards ($0.85\times$). \emph{Implication:} $\cS$ and $\cR$ \textbf{do not commute} (Figure~\ref{fig:theory}b). Across 576 runs, 1st-order extrapolation \emph{hurts} by $\mathbf{+31.0\%}$ ($0.2810 \to 0.3681$ rel-$L_2$) when the head is skipped and uniform grids trap 3-anchor least-squares at $0.4218$; yet locking $[0, H_{\mathrm{crit}})$ flips the \emph{exact same} chord to $\mathbf{-42.2\%}$ ($0.1568 \to 0.0907$), motivating both head saturation and inner phase gating $\mathbb{I}[i \ge H_{\mathrm{crit}}]$.
+\paragraph{Discovery III: Multiplicative Cross-Prompt Quantile Invariance.}
+Across budgets $B \in \{16, 22, 28\}$, single-skip profiles correlate at $\rho = 0.94$ across prompts, and the \emph{worst-to-mean} LPIPS ratio across prompts is **invariant to $1.04\%$ CV** ($0.414/0.253 = 1.636$, $0.259/0.158 = 1.639$, $0.149/0.093 = 1.602$). Naive additive sums ($\beta=0$) fail as certificates ($R^2 = 0.8345$, $29\%$ bound violation), whereas diffusive Bellman cost $\cC_{0.5}$ achieves $\mathbf{R^2 = 0.9847}$ (mean) and $\mathbf{0.9814}$ (worst-case), while 336 online MPC runs alter $0/50$ steps---confirming Theorems~\ref{thm:invariance} and~\ref{thm:certify} (Figure~\ref{fig:theory}d).
 
-\paragraph{Law II: Input Anti-Observability, Rank Inversion, \& Terminal Blackout $\implies$ Boundary-Pinned Closed-Loop Pricing.}
-At strictly matched 19 calls on CogVideoX-2B, TeaCache's input-modulation delta yields $0.2320$ LPIPS vs.\ $\mathbf{0.0523}$ for output drift (\textbf{$4.44\times$ worse}; our 10-call schedule at $0.1229$ beats 22-call input thresholding at $0.2543$). Across 160 multi-gap runs, open-loop solver priors \emph{invert Spearman rank} with terminal error from $+0.545$ ($g=2$) to $\mathbf{-0.148}$ ($g=6$), while cumulative drift retains $+0.909$ and compounds $6.56\times$ (Figure~\ref{fig:theory}c). Across 699 Wan2.1 UniPC runs, bypassing Eq.~\eqref{eq:solver_step} collapses LPIPS to $0.83$, and unpinned greedy schedules suffer a $4.56\times$ terminal blackout ($0.3295$ vs.\ $0.0723$ rel-$L_2$). \emph{Implication:} Placement must price closed-loop impulse $w_j = \mathrm{LPIPS}(\cD(x_T(\cS_{-j}, \cR_0)), \cD(x_T^\star))$ ($\tilde{w}_j = \max(w_j - \min_k w_k, \eps_0)$) from one $\mathcal{O}(T)$ sweep, preserve solver bookkeeping, and pin $s_{B-1} = T - 1$.
-
-\paragraph{Law III: Multiplicative Cross-Prompt Scaling $\implies$ Offline Collapse \& Conformal Budget Synthesis.}
-Across $B \in \{16, 22, 28\}$, single-skip profiles correlate at $\rho = 0.94$ and the worst-to-mean LPIPS ratio across prompts is **invariant to $1.04\%$ CV** ($1.636, 1.639, 1.602$). Distortion factors as $\mathrm{LPIPS}(\cS, \alpha; c) \approx \kappa(c)\,\rho(\alpha)\,\cC_{0.5}(\cS)$, where $\cC_{0.5}$ achieves $R^2 = \mathbf{0.9847}$ (mean) / $\mathbf{0.9814}$ (worst) vs.\ $0.8345$ for additive $\beta=0$ ($29\%$ bound violation). \emph{Implication:} $\kappa(c) > 0$ cancels under fixed $B$, while its stable upper quantile enables inverse budget certification $B^\star(\eps, \delta, \alpha)$ (Figure~\ref{fig:theory}d).
-
-\paragraph{Law IV: Output-Tangent Spatial Coherence $\implies$ 2-Slot Scalar Shrinkage.}
-Hidden-feature TaylorSeer collapses to $0.4917$ LPIPS ($4.72\times$ worse than our $0.1041$) for three reasons: (1)~scaling by step age $(j - s_m)$ inflates curvature variance by $k_{\mathrm{rms}}^2 = \mathbf{12.39\times}$ ($0.1041 \to 0.4417$ even in output space); (2)~hidden features rotate across \texttt{AdaLN-Zero} and 3D \texttt{RoPE}; and (3)~across 144 runs, per-token gates (\texttt{pt16c}: $12\%$ win rate) and $64{\times}64$ channel maps (\texttt{lr8c}: $0.2418$ vs.\ $0.2375$ scalar) induce inter-patch phase tears in 3D VAE decoding. \emph{Implication:} Use a spatially uniform scalar $\alpha$ in guided output-tangent space with only 2 cached tensors.
+\paragraph{Discovery IV: 3D-VAE Spatial Phase Coherence vs.\ Hidden Polynomials \& Token Gates.}
+Why does hidden-feature TaylorSeer collapse to $0.4917$ LPIPS ($4.72\times$ worse than \method{}'s $0.1041$)? Our operator decomposition isolates three causes: (1)~Theorem~\ref{thm:shrinkage}'s $\Theta(g^3)$ gap-scaling inflates curvature variance by $k_{\mathrm{rms}}^2 = \mathbf{12.39\times}$ ($0.1041 \to 0.4417$ LPIPS even in output space, explaining $88\%$ of the loss); (2)~internal DiT features rotate across \texttt{AdaLN-Zero} and 3D \texttt{RoPE} layers before output projection; and (3)~across 144 spatial/channel diagnostic runs, per-token adaptive gates (\texttt{pt16c}: $12\%$ win rate, $-21.7\%$ LPIPS) and $64{\times}64$ low-rank channel matrices (\texttt{lr8c}: $0.2418$ vs.\ $0.2375$ global scalar) introduce cross-patch phase tears amplified by 3D causal VAE decoding---explaining why Theorem~\ref{thm:shrinkage}'s spatially uniform 2-slot output scalar dominates.

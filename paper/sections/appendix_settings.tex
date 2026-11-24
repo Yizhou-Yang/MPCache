@@ -31,7 +31,7 @@ RA-CFGCache \citep{liu2026racfgcache} & 19 & 0.154 & 0.870 & 27.8 \\
 \subsection{Extended Trace Breakdowns of the Four Structural Laws}
 \label{app:extended_traces}
 
-Table~\ref{tab:trace_laws} documents the exact quantitative measurements from the controlled GPU trajectory datasets summarized in Section~\ref{sec:laws} and Table~\ref{tab:theory_verif}:
+Table~\ref{tab:trace_laws} documents the exact quantitative measurements from the controlled GPU trajectory datasets analyzed in Section~\ref{sec:discoveries} and Table~\ref{tab:theory_verif}:
 \begin{itemize}
 \item \textbf{576-Run Oracle Matrix (\texttt{step\_oracle\_20261015}):} Crosses 5 outer placement policies (\texttt{uniform}, \texttt{teacache}, \texttt{head\_uniform}, \texttt{oracle\_greedy}, \texttt{othr}) with 4 inner reconstruction operators (\texttt{reuse}, \texttt{ex1}, \texttt{ab2}, and hindsight 3-anchor least-squares \texttt{lsq}) on CogVideoX-2B ($T=30$). Without head protection (\texttt{teacache} $N=10$), \texttt{ex1} degrades rel-$L_2$ from $0.2810 \to 0.3681$ ($+31.0\%$), whereas under \texttt{othr} ($\tau=0.16$) \texttt{ex1} slashes rel-$L_2$ from $0.1568 \to 0.0907$ ($-42.2\%$).
 \item \textbf{Matched 19-Call Signal Ablation (\texttt{SIGNAL\_ABLATION\_20261031}):} Holding budget ($B=19$), step quota rule, and solver identical on 50-step CogVideoX-2B, TeaCache's modulated-input delta yields $0.2320$ LPIPS vs.\ $0.0523$ for output drift ($4.44\times$ better).

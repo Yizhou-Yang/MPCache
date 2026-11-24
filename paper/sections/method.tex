@@ -1,19 +1,74 @@
-\section{The \method{} Framework}
+\section{Methodology: The \method{} Framework}
 \label{sec:method}
 
-Each law in Section~\ref{sec:laws} maps directly to an operator in \method{} (Figure~\ref{fig:arch}): boundary-pinned Bellman DP with stiff-sloppy transfer (Section~\ref{sec:dp}), scale-invariant offline execution plus conformal budget certification (Section~\ref{sec:invariance}), and 2-slot phase-gated midpoint shrinkage (Section~\ref{sec:shrinkage}).
+We formulate training-free full-step caching from first principles as a coupled bilevel operator-synthesis problem (Figure~\ref{fig:arch}), developing four methodological components in turn: closed-loop adjoint decomposition (Section~\ref{sec:bilevel_obj}), boundary-pinned diffusive Bellman DP and stiff-sloppy transfer (Section~\ref{sec:dp}), fixed-budget MPC collapse and conformal minimum-budget certification (Section~\ref{sec:invariance}), and 2-slot phase-gated midpoint chord-shrinkage (Section~\ref{sec:shrinkage}).
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/fig_arch.pdf}
-\caption{\textbf{System architecture of \method{}.} \textbf{Stage I (Outer Synthesis \& Certification, $<1.5$~ms CPU):} One $\mathcal{O}(T)$ impulse sweep identifies closed-loop weights $\tilde{w}_j$; boundary-pinned Bellman DP computes the Pareto table $\{\cS_B^\star\}_{B=2}^T$ (Theorem~\ref{thm:kkt}), and \texttt{CertifyBudget} outputs $\cS_B^\star$ or the minimum certified call count $B^\star(\eps, \delta, \alpha)$ (Theorems~\ref{thm:invariance}--\ref{thm:certify}). \textbf{Stage II (Inner Phase-Gated Reconstruction, 2 cache slots, 0 extra FLOPs):} Exact steps update $\{(s', v_{s'}), (s, v_s)\}$; skipped steps return $\tilde{v}_t = v_s + \alpha\,\mathbb{I}[t \ge H_{\mathrm{crit}}](v_s - v_{s'})$ inside the native solver (Theorem~\ref{thm:shrinkage}).}
+\caption{\textbf{System architecture of \method{}.} \textbf{Stage I (Outer Horizon Synthesis \& Risk Certification, $<1.5$~ms CPU):} One $\mathcal{O}(T)$ terminal impulse pass identifies closed-loop weights $\tilde{w}_j$; boundary-pinned Bellman DP computes the global Pareto table $\{\cS_B^\star\}_{B=2}^T$ (Theorem~\ref{thm:kkt}), and \texttt{CertifyBudget} outputs either $\cS_B^\star$ (fixed budget) or the minimum certified call count $B^\star(\eps, \delta, \alpha)$ (Theorems~\ref{thm:invariance}--\ref{thm:certify}). \textbf{Stage II (Inner Phase-Gated Reconstruction, 2 cache slots, 0 extra FLOPs):} Exact steps update $\{(s', v_{s'}), (s, v_s)\}$; skipped steps return $\tilde{v}_t = v_s + \alpha\,\mathbb{I}[t \ge H_{\mathrm{crit}}](v_s - v_{s'})$ inside the native solver loop (Theorem~\ref{thm:shrinkage}).}
 \label{fig:arch}
 \end{figure*}
+
+\subsection{Bilevel Operator Formulation \& Closed-Loop Adjoint}
+\label{sec:bilevel_obj}
+Consider a pretrained video DiT evolving a latent trajectory $\{x_i\}_{i=0}^T \subset \R^d$ across solver grid $\{\tau_0 > \dots > \tau_T\}$ under prompt $c$ and CFG scale $\omega \ge 1$. Evaluating step $i \in \{0,\dots,T-1\}$ queries both branches for the guided velocity
+\begin{equation}
+\begin{aligned}
+v_i &= f_\omega(x_i, \tau_i, c) \\
+&\coloneqq v_\theta(x_i, \tau_i, \varnothing) + \omega \bigl(v_\theta(x_i, \tau_i, c) - v_\theta(x_i, \tau_i, \varnothing)\bigr).
+\end{aligned}
+\label{eq:cfg_velocity}
+\end{equation}
+Deterministic video integrators---including DDIM \citep{song2021ddim} and multistep UniPC \citep{zhao2023unipc}---advance the latent state via exact solver bookkeeping
+\begin{equation}
+x_{i+1} = a_i x_i + b_i \tilde{v}_i, \qquad i = 0, \dots, T - 1,
+\label{eq:solver_step}
+\end{equation}
+where $(a_i, b_i)$ are solver coefficients and $\tilde{v}_i$ equals $v_i$ at exact steps or a cached reconstruction at skipped steps.\footnote{For $p$-step solvers such as UniPC-2, writing Eq.~\eqref{eq:solver_step} on augmented state $\bar{x}_i = (x_i, \tilde{v}_{i-1})$ preserves exact affine dynamics.} Let $x_T^\star$ denote the uncached $T$-step terminal latent, $\cD$ the 3D causal VAE decoder, and $\Phi$ a perceptual Hilbert map (VGG \citep{zhang2018lpips}, $\mathrm{LPIPS}(\hat{y}, y^\star)^2 = \norm{\Phi(\hat{y}) - \Phi(y^\star)}_2^2$). Under budget $B \in \{2,\dots,T\}$, \method{} jointly designs:
+\begin{enumerate}
+\item \textbf{Outer Boundary-Pinned Schedule $\cS$:} An anchor set $\cS = \{s_0, \dots, s_{B-1}\} \in \mathfrak{S}_B \coloneqq \{\cS \subseteq \{0,\dots,T-1\} : |\cS| = B,\; s_0 = 0,\; s_{B-1} = T-1\}$, partitioning the horizon into $B-1$ intervals $\mathcal{I}_m = [s_m, s_{m+1})$ of gap $g_m = s_{m+1} - s_m \ge 1$ while guaranteeing exact initial and terminal solver transitions.
+\item \textbf{Inner 2-Slot Causal Operator $\cR$:} A lightweight mapping from the two most recent exact evaluations $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$ to $\tilde{v}_j = \cR(\cB_{s_m}, j)$ for every skipped step $j \in (s_m, s_{m+1})$.
+\end{enumerate}
+Together $(\cS, \cR)$ minimize terminal perceptual risk:
+\begin{equation}
+\min_{\cS \in \mathfrak{S}_B} \min_{\cR \in \mathfrak{R}} \E_{c, x_0}\!\Bigl[\norm{\Phi(\cD(x_T(\cS, \cR))) - \Phi(\cD(x_T^\star))}_2^2\Bigr].
+\label{eq:bilevel}
+\end{equation}
+
+Linearizing $\delta x_i \coloneqq x_i(\cS, \cR) - x_i^\star$ around $\{x_i^\star\}$ defines the \textbf{closed-loop step Jacobian} $A_i^{\mathrm{cl}} \coloneqq a_i I + b_i \nabla_x f_\omega(x_i^\star, \tau_i, c)$, the \textbf{horizon adjoint transition} $\Psi_{k \to T} \coloneqq A_{T-1}^{\mathrm{cl}} \cdots A_k^{\mathrm{cl}}$ ($\Psi_{T\to T} = I$), and open-loop interval weights $\omega_{m,k} \coloneqq (\prod_{\ell=s_m+k+1}^{s_{m+1}-1} a_\ell) b_{s_m+k}$:
+
+\begin{proposition}[Adjoint Horizon Decomposition \& Subspace Barrier]
+\label{prop:subspace}
+Let $\Pi_{\cB_{s_m}}$ be the orthogonal projector onto $\mathrm{span}\{v : (\cdot, v) \in \cB_{s_m}\}$ and $\Pi_{\cB_{s_m}}^\perp = I - \Pi_{\cB_{s_m}}$. To first order, $\Phi(\cD(x_T)) - \Phi(\cD(x_T^\star)) = J_{\Phi \circ \cD}(x_T^\star)\,\delta x_T$ with
+\begin{equation}
+\begin{aligned}
+\delta x_T = \sum_{m=0}^{B-2} \Psi_{s_{m+1} \to T} \sum_{k=1}^{g_m - 1} \omega_{m,k} \bigl(&\cR(\cB_{s_m}, s_m + k) \\[-3pt]
+&- v_{s_m+k}^\star\bigr),
+\end{aligned}
+\label{eq:adjoint_sum}
+\end{equation}
+and for \emph{any} linear predictor $\cR_{\mathrm{lin}}(\cB_{s_m}, j) \in \mathrm{span}(\cB_{s_m})$ (including hindsight least-squares oracles),
+\begin{equation}
+\inf_{\cR_{\mathrm{lin}} \in \mathrm{span}(\cB_{s_m})} \norm{\cR_{\mathrm{lin}}(\cB_{s_m}, j) - v_j^\star}_2 = \norm{\Pi_{\cB_{s_m}}^\perp v_j^\star}_2.
+\label{eq:subspace_floor}
+\end{equation}
+\end{proposition}
+
+Proposition~\ref{prop:subspace} (proved in Appendix~\ref{app:proof_prop1}) dictates a hierarchical synthesis strategy: whenever early-horizon velocity directions rotate orthogonally ($\norm{\Pi_{\cB}^\perp v_j^\star}$ large) under strong closed-loop amplification $\norm{\Psi_{j\to T}}$, no linear inner predictor can compensate, so $\cS$ must first saturate the high-amplification prefix before $\cR$ refines the coherent tail. To price $\Psi_{j+1\to T}$ and nonlinear decoding $\Phi \circ \cD$ without Jacobian backprop or $\mathcal{O}(T^2)$ rollouts, we evaluate single-step ablations $\cS_{-j} = \{0,\dots,T-1\}\setminus\{j\}$ ($j = 1,\dots,T-2$) on one calibration prompt:
+\begin{equation}
+\begin{aligned}
+w_j &\coloneqq \mathrm{LPIPS}\!\bigl(\cD(x_T(\cS_{-j}, \cR_0)),\, \cD(x_T^\star)\bigr), \\[-2pt]
+\tilde{w}_j &\coloneqq \max\!\bigl(w_j - \min_{1 \le k \le T-2} w_k,\; \eps_0\bigr),
+\end{aligned}
+\label{eq:impulse}
+\end{equation}
+subtracting the fp16 decode floor in $\mathcal{O}(T)$ runs and automatically locating the dynamical bifurcation elbow $H_{\mathrm{crit}}$ via maximum Chord-to-Line distance on $\{\tilde{w}_j\}$.
 
 \subsection{Boundary-Pinned Bellman DP \& Stiff-Sloppy Transfer}
 \label{sec:dp}
 
-By Law~II, additive sums $\cC_0(\cS) = \sum_{j \notin \cS} \tilde{w}_j$ ignore multi-step anchor age $k = j - s_m \ge 1$ and leave a 29-step blackout at $T=50, B=22$. Under diffusive angular drift ($\E\norm{v_{s_m+k}^\star - v_{s_m}^\star}_2 \asymp k^\beta \norm{\Delta v_{s_m+k}^\star}_2$, $\beta = 1/2$, zero free parameters), we minimize over $\mathfrak{S}_B$ ($s_0 = 0, s_{B-1} = T - 1$):
+In single-skip identification~\eqref{eq:impulse}, step $j$ reuses $v_{j-1}^\star$ at \emph{anchor age} $1$; under a general schedule $\cS$, a skipped step $j \in (s_m, s_{m+1})$ reuses anchor $s_m$ at age $k = j - s_m \ge 1$. Modeling angular velocity increments along curved trajectories as a diffusive martingale gives $\E\norm{v_{s_m+k}^\star - v_{s_m}^\star}_2 \asymp k^\beta \norm{\Delta v_{s_m+k}^\star}_2$ with canonical exponent $\beta = 1/2$ and zero free parameters. Summing over intervals defines the \textbf{boundary-pinned diffusive horizon program}:
 \begin{equation}
 \begin{aligned}
 \min_{\cS \in \mathfrak{S}_B}\; \cC_\beta(\cS) &\coloneqq \sum_{m=0}^{B-2} C_\beta(s_m, s_{m+1}), \\[-2pt]
@@ -21,12 +76,12 @@ C_\beta(s, s') &\coloneqq \sum_{j = s + 1}^{s' - 1} (j - s)^\beta \tilde{w}_j.
 \end{aligned}
 \label{eq:age_objective}
 \end{equation}
-Initializing $V_1(0) = 0$ and solving the \textbf{Bellman Pareto recursion} for $b = 2, \dots, T$:
+Notice $C_\beta(s, s+1) = 0$, while $C_\beta(s, s+2) = \tilde{w}_{s+1}$ matches single-skip impulse exactly for all $\beta \ge 0$. Initializing $V_1(0) = 0$ and executing the \textbf{Bellman Pareto recursion}
 \begin{equation}
-V_b(s') = \min_{b - 2 \le s < s'} \bigl\{ V_{b-1}(s) + C_\beta(s, s') \bigr\}
+V_b(s') = \min_{b - 2 \le s < s'} \bigl\{ V_{b-1}(s) + C_\beta(s, s') \bigr\}, \;\; b = 2, \dots, T
 \label{eq:bellman_dp}
 \end{equation}
-recovers the entire optimal frontier $\{\cS_B^\star, V_B(T-1)\}_{B=2}^T$ in $\mathcal{O}(T^3)$ CPU operations ($< 1.5$~ms at $T=50$). Passing to continuous call density $\rho(t) \in (0, 1]$ ($g(t) = 1 / \rho(t) \ge 1$) yields both head saturation and cross-backbone transfer:
+computes the \emph{entire} globally optimal schedule table $\{\cS_B^\star, V_B(T-1)\}_{B=2}^T$ in $\mathcal{O}(T^3)$ CPU operations ($< 1.5$~ms at $T=50$). Passing to a continuous call density $\rho(t) \in (0, 1]$ (local gap $g(t) = 1 / \rho(t) \ge 1$) yields our KKT allocation and cross-backbone transfer theorems:
 
 \begin{theorem}[KKT Head-Saturation \& Geometric Tail Law]
 \label{thm:kkt}
@@ -40,31 +95,31 @@ Let $\tilde{w} : [0, T] \to (0, \infty)$ be continuous and strictly decreasing, 
 \end{cases}
 \label{eq:kkt_density}
 \end{equation}
-so $[0, H^\star(B)]$ has zero skips and $\frac{dH^\star(B)}{dB} \ge 0$ ($H^\star(B) = 8, 10, 12, 14, 16$ at $B = 10, 14, 17, 20, 22$ on $T=50$), whereas $\beta \downarrow 0$ degenerates to a blackout on $(B, T]$.
-\item \textbf{Geometric Tail:} For $t > H^\star(B)$, $g^\star(t) = 1/\rho^\star(t)$ grows strictly; under $\tilde{w}(t) = w_0 e^{-\eta t} \ll (1+\beta)\lambda^\star$, discrete tail gaps grow with ratio $r = e^{\eta/(1+\beta)} > 1$.
+so $[0, H^\star(B)]$ is evaluated with zero skips and $\frac{dH^\star(B)}{dB} \ge 0$, whereas $\beta \downarrow 0$ collapses to a blackout on $(B, T]$.
+\item \textbf{Geometric Tail:} For $t > H^\star(B)$, $g^\star(t) = 1/\rho^\star(t)$ strictly increases; under $\tilde{w}(t) = w_0 e^{-\eta t} \ll (1+\beta)\lambda^\star$, discrete tail gaps grow with ratio $r = e^{\eta/(1+\beta)} > 1$.
 \end{enumerate}
 \end{theorem}
 
 \begin{corollary}[Stiff-Sloppy Anisotropy \& Zero-Shot Transfer]
 \label{cor:sloppy}
-Forcing skips on $[H, H^\star(B)]$ ($H = H^\star(B) - \Delta$, $\Delta > 0$) incurs a \emph{first-order stiff penalty} $\mathcal{J}(\rho_H) - \mathcal{J}(\rho^\star) \ge \int_H^{H^\star} (\tilde{w}(t) - \lambda^\star)(1 - \rho_H(t))\,dt = \Theta(\Delta\,\bar{\mu}_{\mathrm{head}})$. Conversely, holding $(H^\star, B, T-1)$ fixed and perturbing tail decay $\eta \mapsto \eta(1 + \delta)$ cancels to first order and incurs only \emph{second-order sloppy cost} $\mathcal{O}\bigl(\delta^2 \lambda^\star \int_{H^\star}^T (t - \bar{t})^2 \rho^\star(t)\,dt\bigr)$. Hence backbones with comparable bifurcation fractions $H_{\mathrm{crit}}/T$ inherit near-optimal zero-shot schedules across distinct tail decays $\eta$ and solver orders.
+Forcing skips on $[H, H^\star(B)]$ ($H = H^\star(B) - \Delta$, $\Delta > 0$) incurs a \emph{first-order stiff active-constraint penalty} $\mathcal{J}(\rho_H) - \mathcal{J}(\rho^\star) \ge \int_H^{H^\star} (\tilde{w}(t) - \lambda^\star)(1 - \rho_H(t))\,dt = \Theta(\Delta\,\bar{\mu}_{\mathrm{head}})$. Conversely, holding $(H^\star, B, T-1)$ fixed and perturbing tail decay $\eta \mapsto \eta(1 + \delta)$ cancels to first order by KKT stationarity and incurs only \emph{second-order sloppy cost} $\mathcal{O}\bigl(\delta^2 \lambda^\star \int_{H^\star}^T (t - \bar{t})^2 \rho^\star(t)\,dt\bigr)$. Consequently, target backbones with comparable bifurcation fractions $H_{\mathrm{crit}}/T$ inherit near-optimal zero-shot schedules across distinct tail decays $\eta$ and solver orders.
 \end{corollary}
-
-Corollary~\ref{cor:sloppy} (Appendix~\ref{app:proof_cor1}) explains why halving $H = 12 \to 6$ inflates horizon cost by $\mathbf{+178.5\%}$ ($0.157 \to 0.288$ LPIPS), while sweeping tail ratio $r \in [1.4, 3.0]$ alters DP cost by $\le 15.4\%$ and LPIPS by $<1.6\%$ (\textbf{$11.6\times$ anisotropy}), enabling zero-shot transfer from CogVideoX-2B (DDIM) to Wan2.1-1.3B (2nd-order UniPC).
 
 \subsection{Scale-Invariance Collapse \& Budget Certification}
 \label{sec:invariance}
 
-Law~III's multiplicative prompt scaling $\kappa(c) > 0$ yields both offline optimality at fixed $B$ and inverse certification:
+In deployment, prompts vary in motion speed and scene complexity. Modeling prompt difficulty as a multiplicative trajectory drift factor $\kappa(c) > 0$ yields two complementary control theorems (proved in Appendices~\ref{app:proof_thm2}--\ref{app:proof_thm3_cert}):
 
 \begin{theorem}[Scale-Invariance Collapse of Fixed-Budget MPC]
 \label{thm:invariance}
-If trajectory observations $x_{0:s_k}$ scale remaining interval costs as $\widehat{C}_k(s, s' \mid x_{0:s_k}) = \hat{\sigma}_k(x_{0:s_k})\,C_\beta(s, s')$ ($\hat{\sigma}_k > 0$) under hard budget $|\cS| = B$, then for \emph{any} $\{\hat{\sigma}_k\}_{k=0}^{B-2}$, receding-horizon Bellman control executes the \textbf{exact same schedule} $\cS_{\mathrm{MPC}} \equiv \cS_B^\star$ as offline DP~\eqref{eq:bellman_dp}.
+If online observations $x_{0:s_k}$ scale remaining interval costs as $\widehat{C}_k(s, s' \mid x_{0:s_k}) = \hat{\sigma}_k(x_{0:s_k})\,C_\beta(s, s')$ ($\hat{\sigma}_k > 0$) under hard budget $|\cS| = B$, then for \emph{every} sequence $\{\hat{\sigma}_k\}_{k=0}^{B-2}$, receding-horizon Bellman control executes the \textbf{exact same schedule} $\cS_{\mathrm{MPC}} \equiv \cS_B^\star$ as offline DP~\eqref{eq:bellman_dp}.
 \end{theorem}
+
+While fixed-budget feedback is provably redundant under multiplicative drift, quality-constrained serving poses the \emph{inverse} problem: synthesizing the smallest budget $B^\star$ guaranteed to satisfy a perceptual bound $\eps$ at confidence $1 - \delta$.
 
 \begin{theorem}[Conformal Minimum-Budget Synthesis]
 \label{thm:certify}
-Suppose $\mathrm{LPIPS}(\cS, \alpha; c) \le \kappa(c)\,\rho(\alpha)\,\cC_\beta(\cS) + \xi_{\mathrm{res}}$ with $\rho(\alpha) \coloneqq \sqrt{\mathcal{E}(\alpha)/\mathcal{E}(0)} \le 1$, and let $\{c_i\}_{i=1}^n$ be exchangeable calibration prompts with slopes $\kappa_i \coloneqq \mathrm{LPIPS}(\cS_{\mathrm{cal}}, 0; c_i) / \cC_\beta(\cS_{\mathrm{cal}})$ and $\lceil(n+1)(1-\delta)\rceil$-th order statistic $\hat{\kappa}_{1-\delta}$. Defining \texttt{CertifyBudget} over $\{V_B(T-1)\}_{B=2}^T$:
+Suppose $\mathrm{LPIPS}(\cS, \alpha; c) \le \kappa(c)\,\rho(\alpha)\,\cC_\beta(\cS) + \xi_{\mathrm{res}}$ with inner shrinkage factor $\rho(\alpha) \coloneqq \sqrt{\mathcal{E}(\alpha)/\mathcal{E}(0)} \le 1$, and let $\{c_i\}_{i=1}^n$ be exchangeable calibration prompts evaluated at one schedule $\cS_{\mathrm{cal}}$ with nonconformity slopes $\kappa_i \coloneqq \mathrm{LPIPS}(\cS_{\mathrm{cal}}, 0; c_i) / \cC_\beta(\cS_{\mathrm{cal}})$ and $\lceil(n+1)(1-\delta)\rceil$-th order statistic $\hat{\kappa}_{1-\delta}$. Defining \texttt{CertifyBudget} over $\{V_B(T-1)\}_{B=2}^T$:
 \begin{equation}
 \begin{aligned}
 B^\star(\eps, \delta, \alpha) \coloneqq \min\bigl\{&B \in \{2,\dots,T\} : \\[-2pt]
@@ -72,15 +127,13 @@ B^\star(\eps, \delta, \alpha) \coloneqq \min\bigl\{&B \in \{2,\dots,T\} : \\[-2p
 \end{aligned}
 \label{eq:cert_budget}
 \end{equation}
-any exchangeable prompt $c_{\mathrm{new}}$ satisfies $\mathbb{P}\bigl[\mathrm{LPIPS}(\cS_{B^\star}^\star, \alpha; c_{\mathrm{new}}) \le \eps + \xi_{\mathrm{res}}\bigr] \ge 1 - \delta$, and any $\rho(\alpha) < 1$ lowers the certified budget: $B^\star(\eps, \delta, \alpha) \le B^\star(\eps, \delta, 0)$.
+any fresh exchangeable prompt $c_{\mathrm{new}}$ satisfies $\mathbb{P}\bigl[\mathrm{LPIPS}(\cS_{B^\star}^\star, \alpha; c_{\mathrm{new}}) \le \eps + \xi_{\mathrm{res}}\bigr] \ge 1 - \delta$, and any $\rho(\alpha) < 1$ lowers the certified budget: $B^\star(\eps, \delta, \alpha) \le B^\star(\eps, \delta, 0)$.
 \end{theorem}
-
-At $\alpha = 0.5$ ($\rho(0.5) = 0.672$), \texttt{CertifyBudget} saves \textbf{$4\text{--}6$ full DiT calls ($19\text{--}24\%$ compute)} at identical certified mean or worst-case LPIPS (Table~\ref{tab:cert_budget}; proof in Appendix~\ref{app:proof_thm3_cert}).
 
 \subsection{Phase-Gated 2-Slot Midpoint Chord-Shrinkage}
 \label{sec:shrinkage}
 
-By Laws~I and~IV, we reconstruct skipped velocities in guided output-tangent space from 2 slots $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$ ($\Delta_{s_m} \coloneqq v_{s_m} - v_{s_{m-1}}$, span $h_m = s_m - s_{m-1}$), gated at bifurcation elbow $H_{\mathrm{crit}}$:
+To reconstruct skipped velocities without multi-layer hidden buffers or spatial phase distortion, we operate directly in guided velocity tangent space using 2 cached tensors $\cB_{s_m} = \{(s_{m-1}, v_{s_{m-1}}), (s_m, v_{s_m})\}$ ($\Delta_{s_m} \coloneqq v_{s_m} - v_{s_{m-1}}$, backward span $h_m = s_m - s_{m-1} \ge 1$), gated by the bifurcation index $H_{\mathrm{crit}}$:
 \begin{equation}
 \begin{aligned}
 \cR_{\alpha, H_{\mathrm{crit}}}(\cB_{s_m}, j) \coloneqq v_{s_m} + \alpha\,\mathbb{I}[j \ge H_{\mathrm{crit}}]\,\Delta_{s_m}, \\[-2pt]
@@ -91,24 +144,26 @@ j \in (s_m, s_{m+1}).
 
 \begin{theorem}[Hilbert Risk, Midpoint Cancellation, \& Phase Safety]
 \label{thm:shrinkage}
-Fix $\cS \in \mathfrak{S}_B$ and let $v_{s_m+k}^\star = v_{s_m}^\star + k\dot{v}_{s_m} + \frac{1}{2}k^2\ddot{v}_{s_m} + r_{m,k}$ with $\Delta_{s_m} = h_m\dot{v}_{s_m} - \frac{1}{2}h_m^2\ddot{v}_{s_m} + \xi_m$. Under first-order linearization in perceptual Hilbert space $\cH$:
+Fix $\cS \in \mathfrak{S}_B$ and let $v_{s_m+k}^\star = v_{s_m}^\star + k\dot{v}_{s_m} + \frac{1}{2}k^2\ddot{v}_{s_m} + r_{m,k}$ with $\Delta_{s_m} = h_m\dot{v}_{s_m} - \frac{1}{2}h_m^2\ddot{v}_{s_m} + \xi_m$. Under first-order linearization in perceptual Hilbert space $\cH$ (proof in Appendix~\ref{app:proof_thm4}):
 \begin{enumerate}
-\item \textbf{Hilbert Parabola:} On Regime~II ($s_m \ge H_{\mathrm{crit}}$), $\delta\Phi(\alpha) = u_0 + \alpha u_1$ gives $c_2 = \E\norm{u_1}_2^2 > 0$ and
+\item \textbf{Hilbert Parabola:} For $s_m \ge H_{\mathrm{crit}}$, $\delta\Phi(\alpha) = u_0 + \alpha u_1$ is affine in $\alpha$, giving $c_2 = \E\norm{u_1}_2^2 > 0$ and
 \begin{equation}
 \mathcal{E}(\alpha) \coloneqq \E\bigl[\mathrm{LPIPS}(\hat{y}(\alpha), y^\star)^2\bigr] = \mathcal{E}_{\min} + c_2 (\alpha - \alpha^\star)^2.
 \label{eq:hilbert_parabola}
 \end{equation}
-\item \textbf{Midpoint Cancellation:} For $b_{s_m+k} \approx \bar{b}_m$, first-order interval drift $\bar{b}_m \sum_{k=1}^{g_m-1}(\alpha\Delta_{s_m} - k\dot{v}_{s_m})$ vanishes along $\Delta_{s_m}$ at $\alpha_m^\star = \frac{g_m}{2h_m}\bar{\rho}_m$ ($\bar{\rho}_m \coloneqq \frac{h_m\E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle}{\E\norm{\Delta_{s_m}}_2^2}$; $\alpha^\star \in [0.50, 0.65]$ on KKT tails).
-\item \textbf{$\Theta(g^3)$ Blow-Up vs.\ Phase Safety:} Gap-scaling $v_{s_m} + k\Delta_{s_m}$ compounds curvature as $\Theta(g_m^3\norm{\ddot{v}_{s_m}}_2)$, inflating step variance by $k_{\mathrm{rms}}^2(\cS) = \frac{1}{T-B}\sum_m\sum_{k=1}^{g_m-1} k^2$ ($12.39\times$ at $B=22$). In Regime~I where $\E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle \le 0$, gating $\mathbb{I}[j \ge H_{\mathrm{crit}}] = 0$ strictly lowers MSE over $\alpha > 0$, while matching $\cR_\alpha$ whenever $H^\star(B) \ge H_{\mathrm{crit}}$.
+\item \textbf{Midpoint Cancellation:} For locally uniform $b_{s_m+k} \approx \bar{b}_m$, integrated first-order drift $\bar{b}_m \sum_{k=1}^{g_m-1}(\alpha\Delta_{s_m} - k\dot{v}_{s_m})$ vanishes along $\Delta_{s_m}$ at $\alpha_m^\star = \frac{g_m}{2h_m}\bar{\rho}_m$ ($\bar{\rho}_m \coloneqq \frac{h_m\E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle}{\E\norm{\Delta_{s_m}}_2^2}$), where leading on $k < g_m/2$ cancels lagging on $k > g_m/2$ ($\alpha^\star \approx 1/2$ on KKT tails).
+\item \textbf{$\Theta(g^3)$ Stability \& Phase-Gate Dominance:} Gap-scaling $v_{s_m} + k\Delta_{s_m}$ compounds curvature as $\Theta(g_m^3\norm{\ddot{v}_{s_m}}_2)$, inflating step variance by $k_{\mathrm{rms}}^2(\cS) = \frac{1}{T-B}\sum_m\sum_{k=1}^{g_m-1} k^2$. Conversely, if ultra-low budgets skip steps $j < H_{\mathrm{crit}}$ where orthogonal rotation yields $\E\langle \dot{v}_{s_m}, \Delta_{s_m}\rangle \le 0$, gating $\mathbb{I}[j \ge H_{\mathrm{crit}}] = 0$ strictly dominates un-gated $\alpha > 0$, while matching $\cR_\alpha$ identically whenever $H^\star(B) \ge H_{\mathrm{crit}}$.
 \end{enumerate}
 \end{theorem}
+
+Algorithm~\ref{alg:mpcache} summarizes the complete \method{} methodology: $<1.5$~ms offline CPU synthesis, 2 cached output tensors ($30\text{--}60\times$ less VRAM than $L(O{+}1)$ hidden-block buffers), and a single $\mathcal{O}(d)$ vector FMA per skipped step.
 
 \begin{algorithm}[t]
 \caption{\method{}: Certified Synthesis \& Phase-Gated Shrinkage}
 \label{alg:mpcache}
 \begin{algorithmic}[1]
 \STATE \textbf{Input:} Guided DiT $f_\omega$, grid $\{\tau_i\}_{i=0}^T$, budget $B$ or target $(\eps, \delta)$, $\beta = 0.5$, $\alpha = 0.5$.
-\STATE Measure 1-skip $w_j$, debias $\tilde{w}_j$, and detect elbow $H_{\mathrm{crit}}$.
+\STATE Measure 1-skip $w_j$ (Eq.~\ref{eq:impulse}), debias $\tilde{w}_j$, and detect $H_{\mathrm{crit}}$.
 \STATE Solve Bellman Pareto table $\{\cS_b^\star, V_b(T-1)\}_{b=2}^T$ (Eq.~\ref{eq:bellman_dp}).
 \STATE \textbf{if} $(\eps, \delta)$ given \textbf{then} $B \leftarrow B^\star(\eps, \delta, \alpha)$;\; set $\cS^\star \leftarrow \cS_B^\star$.
 \STATE Initialize $x_0 \sim \mathcal{N}(0, I)$;\; $v_{\mathrm{prev}} \leftarrow \mathrm{None}$;\; $v_{\mathrm{curr}} \leftarrow \mathrm{None}$.

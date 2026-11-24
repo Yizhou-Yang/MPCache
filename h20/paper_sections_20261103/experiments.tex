@@ -1,11 +1,11 @@
 \section{Experiments}
 \label{sec:experiments}
 
-Without re-running or altering any benchmark setup, we evaluate \method{} across five dimensions: (1)~100-prompt end-to-end fidelity across backbones and solvers; (2)~direct verification of our four structural laws across $>2{,}600$ GPU trajectory runs; (3)~conformal risk-certified budget synthesis (\texttt{CertifyBudget}, Theorem~\ref{thm:certify}); (4)~phase-gated midpoint shrinkage vs.\ polynomial and spatial/channel alternatives (Theorem~\ref{thm:shrinkage}); and (5)~stiff-sloppy boundary ablations and wall-clock speedups.
+We evaluate \method{} across four methodological axes without altering any benchmark setup: (1)~100-prompt end-to-end fidelity and zero-shot cross-backbone transfer; (2)~conformal minimum-budget synthesis (\texttt{CertifyBudget}, Theorem~\ref{thm:certify}); (3)~phase-gated 2-slot midpoint shrinkage vs.\ polynomial and spatial/channel operators (Theorem~\ref{thm:shrinkage}); and (4)~boundary ablations and wall-clock speedups.
 
 \subsection{Experimental Protocol}
 \label{sec:exp_setup}
-Every comparison table executes all competing arms inside a \emph{single} codebase against a \emph{single} uncached 50-step reference with paired prompts and seeds (Appendix~\ref{app:credibility}). Cross-method benchmarks on CogVideoX-2B \citep{yang2025cogvideox} (49f and 17f, $720{\times}480$, DDIM-50) and Wan2.1-T2V-1.3B \citep{wan2025wan} (81f, $832{\times}480$, 2nd-order UniPC-50) run inside the official RA-CFGCache harness \citep{liu2026racfgcache} over 100 VBench prompts \citep{huang2024vbench}, injecting $\cS^\star$ via one step hook while leaving CFG, solver bookkeeping, and causal 3D VAE decoding identical. Inner-operator sweeps run in native \texttt{diffusers} under fixed 22-call $\cS^\star$. Each dual-branch CFG pass counts as 1 call.
+Every comparison table executes all competing methods inside a \emph{single} codebase against a \emph{single} uncached 50-step reference with paired prompts and seeds (Appendix~\ref{app:credibility}). Cross-method benchmarks on CogVideoX-2B \citep{yang2025cogvideox} (49f and 17f, $720{\times}480$, DDIM-50) and Wan2.1-T2V-1.3B \citep{wan2025wan} (81f, $832{\times}480$, 2nd-order UniPC-50) execute inside the official RA-CFGCache harness \citep{liu2026racfgcache} over 100 VBench prompts \citep{huang2024vbench}, injecting $\cS^\star$ via one step hook while preserving CFG, solver bookkeeping, and causal 3D VAE decoding. Inner-operator sweeps run in native \texttt{diffusers} under fixed 22-call $\cS^\star$. Each dual-branch CFG pass counts as 1 call.
 
 \subsection{Main End-to-End Comparison \& Zero-Shot Transfer}
 \label{sec:exp_main}
@@ -33,59 +33,25 @@ Backbone \& Setting & Solver & Method & Calls ($B$) & VGG-LPIPS $\downarrow$ & S
 \bottomrule
 \end{tabular}%
 }
-\caption{\textbf{End-to-end fidelity over 100 VBench prompts inside one unified harness.} Here \method{} uses outer placement ($\alpha = 0$) to match exact RA-CFGCache skip semantics; adding inner midpoint shrinkage ($\alpha = 0.5$) cuts 49f LPIPS by a further $32.8\%$ ($0.1041$, Table~\ref{tab:reuse}). Crucially, Wan2.1 executes the CogVideoX-synthesized $\cS^\star$ \emph{zero-shot} without recalibration, validating Corollary~\ref{cor:sloppy}.}
+\caption{\textbf{End-to-end fidelity over 100 VBench prompts inside one unified harness.} Here \method{} uses outer placement ($\alpha = 0$) to match exact RA-CFGCache skip semantics; adding inner midpoint shrinkage ($\alpha = 0.5$) cuts 49f LPIPS by a further $32.8\%$ ($0.1041$, Table~\ref{tab:reuse}). Crucially, Wan2.1 executes the CogVideoX-synthesized $\cS^\star$ \emph{zero-shot} without recalibration, confirming Corollary~\ref{cor:sloppy}.}
 \label{tab:main}
 \end{table*}
 
-Table~\ref{tab:main} evaluates outer horizon placement ($\alpha=0$) across 300 paired 100-prompt evaluations. On 49-frame CogVideoX-2B, \method{} cuts LPIPS by $16.3\%$ ($0.1554 \to \mathbf{0.1300}$) and gains $\mathbf{+2.46}$~dB PSNR ($31.63$ vs.\ $29.17$~dB; at 20 calls with $H=12$, it also beats RA-CFGCache at $0.1424$ LPIPS / $30.21$~dB). On 81-frame Wan2.1-T2V-1.3B (2nd-order UniPC flow matching), transferring $\cS^\star$ \emph{zero-shot} beats RA-CFGCache across all metrics ($0.1527$ vs.\ $0.1685$ LPIPS, $+1.36$~dB PSNR; and $0.134$ vs.\ $0.154$ RA-CFGCache, $0.199$ TeaCache, $0.379$ TaylorSeer in Table~\ref{tab:wanfull}). At 17 frames ($n=100$), \method{} ($0.1454$) outperforms RA-CFGCache ($0.1587$), TeaCache ($0.2786$), and TaylorSeer ($0.4917$), with Pareto dominance across $B \in [10, 26]$ (Figure~\ref{fig:curve}).
+Table~\ref{tab:main} evaluates outer horizon placement ($\alpha=0$) across three 100-prompt VBench benchmarks. On 49-frame CogVideoX-2B, \method{} reduces LPIPS by $16.3\%$ ($0.1554 \to \mathbf{0.1300}$) and gains $\mathbf{+2.46}$~dB PSNR ($31.63$ vs.\ $29.17$~dB; at 20 calls with $H=12$, it also beats RA-CFGCache at $0.1424$ LPIPS / $30.21$~dB). On 81-frame Wan2.1-T2V-1.3B (2nd-order UniPC flow matching), transferring $\cS^\star$ \emph{zero-shot} beats RA-CFGCache across all metrics ($0.1527$ vs.\ $0.1685$ LPIPS, $+1.36$~dB PSNR; and $0.134$ vs.\ $0.154$ RA-CFGCache, $0.199$ TeaCache, $0.379$ TaylorSeer in Table~\ref{tab:wanfull}). At 17 frames ($n=100$), \method{} ($0.1454$) outperforms RA-CFGCache ($0.1587$), TeaCache ($0.2786$), and TaylorSeer ($0.4917$), dominating the budget Pareto frontier $B \in [10, 26]$ (Figures~\ref{fig:sensitivity} and~\ref{fig:curve}).
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_sensitivity.pdf}
-\caption{\textbf{Impulse rank invariance and head protection.} (a)~Single-skip profile $w_j$ on two prompts (left) and cumulative share (right): the first 10 steps carry $\approx 75\%$ of total sensitivity ($\rho = 0.94$). (b)~Input thresholding abandons the head after 4 steps, whereas Bellman DP saturates Regime~I.}
+\caption{\textbf{Closed-loop impulse profile and placement.} (a)~Single-skip $w_j$ on two prompts (left) and cumulative share (right): the first 10 steps carry $\approx 75\%$ of sensitivity ($\rho = 0.94$). (b)~Input thresholding abandons the head after 4 steps, whereas Bellman DP saturates $[0, H^\star(B))$.}
 \label{fig:sensitivity}
 \end{figure}
 
-\subsection{Verification of the Four Laws Across $>2{,}600$ GPU Runs}
-\label{sec:exp_theory}
-
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/fig_theory.pdf}
-\caption{\textbf{Empirical verification of the Four Structural Laws and Certified Frontier across $>2{,}100$ GPU trace runs.} (a)~\emph{Law~I (192 runs):} Closed-loop $\norm{\Psi_{i\to T}}$ contracts $8.1\times$ while chord alignment $\cos\theta_i$ rotates $5.2\times$ from orthogonal ($0.096, 84.5^\circ$) to coherent ($0.499$); open-loop $c_0$ moves backwards. (b)~\emph{Sign-Inversion (576 runs):} 1st-order extrapolation hurts by $+31\%$ when the head is skipped ($0.281 \to 0.368$) and uniform grids trap 3-anchor `lsq` at $0.422$, yet locking the head flips the same chord to $-42\%$ ($0.157 \to 0.091$). (c)~\emph{Law~II (160 runs):} Diffusive DP ($\beta=0.5$) matches $6.56\times$ 5-skip compounding ($6.50$ vs.\ $4.55$ additive), while open-loop prior rank inverts ($\rho = -0.15$). (d)~\emph{Law~III \& Thm.~\ref{thm:certify}:} Quantile-invariant Bellman certificates ($R^2=0.985$ mean, $0.981$ worst) shift left by $5$ calls under $\alpha=0.5$.}
-\label{fig:theory}
-\end{figure*}
-
-\begin{table}[t]
-\centering\footnotesize\setlength{\tabcolsep}{2.9pt}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{lllc}
-\toprule
-Law / Thm. & Controlled Diagnostic ($>2{,}600$ runs) & Metric & Result \\
-\midrule
-\multirow{4}{*}{Law~I / Prop.~\ref{prop:subspace}}
-  & Chord alignment $\cos\theta_5 \to \cos\theta_{23}$ & Angle & $84.5^\circ \to 60.1^\circ$ \\
-  & Closed-loop $\gamma_3 \to \gamma_{23}$ (vs.\ $c_0$) & Contraction & $\mathbf{8.11\times}$ ($0.85\times$) \\
-  & 1st-order chord, skipped head ($N{=}10$) & rel-$L_2$ $\Delta$ & $+31.0\%$ (hurts) \\
-  & 1st-order chord, locked head ($\tau{=}0.16$) & rel-$L_2$ $\Delta$ & $\mathbf{-42.2\%}$ (helps) \\
-\midrule
-\multirow{4}{*}{Law~II / Cor.~\ref{cor:sloppy}}
-  & Output vs.\ TeaCache input signal ($19$ calls) & LPIPS $\downarrow$ & $\mathbf{0.052}$ vs.\ $0.232$ \\
-  & Solver prior rank at gap $1 \to 5$ & Spearman $\rho$ & $+0.55 \to \mathbf{-0.15}$ \\
-  & Wan2.1 UniPC unpinned vs.\ pinned $T{-}1$ & rel-$L_2 \downarrow$ & $0.330 \to \mathbf{0.072}$ \\
-  & Stiff head ($H{:}12{\to}6$) vs.\ sloppy tail $r$ & Anisotropy & $\mathbf{11.6\times}$ ($<1.6\%$) \\
-\midrule
-\multirow{2}{*}{Law~III / Thm.~\ref{thm:invariance}}
-  & Cross-budget $\max/\text{mean}$ ($B{=}16,22,28$) & Ratio (CV) & $1.63\times$ ($\mathbf{1.04\%}$) \\
-  & Online MPC (336 runs) vs.\ Offline DP & Step diff. & $\mathbf{0 / 50}$ \\
-\bottomrule
-\end{tabular}%
-}
-\caption{\textbf{Summary of sharp discoveries verified on existing GPU traces} without re-running experiments (details in Appendix~\ref{app:extended_traces}).}
-\label{tab:theory_verif}
-\end{table}
-
-Figure~\ref{fig:theory} and Table~\ref{tab:theory_verif} consolidate seven controlled trace experiments: (1)~matched 19-call signal ablation isolates a $\mathbf{4.44\times}$ LPIPS advantage of output drift ($0.0523$) over TeaCache's input delta ($0.2320$); (2)~across 576 `WHEN $\times$ WHAT` runs, saturating Regime~I flips 1st-order chord prediction from $+31.0\%$ degradation to $-42.2\%$ error reduction; (3)~across 699 Wan2.1 UniPC runs, preserving Eq.~\eqref{eq:solver_step} and pinning step $49$ eliminates terminal blackout ($0.4493 \to 0.1933$ at $N=10$; $0.3295 \to \mathbf{0.0723}$ once terminal step is reached); and (4)~across 336 online MPC/gate runs, fixed-budget feedback changes $0/50$ DP steps.
+\includegraphics[width=\linewidth]{figures/fig_curve2.pdf}
+\caption{\textbf{Quality--budget Pareto curves} (VGG-LPIPS vs.\ transformer calls, $n=16$) on CogVideoX-2B and Wan2.1-1.3B.}
+\label{fig:curve}
+\end{figure}
 
 \subsection{Conformal Minimum-Budget Certification}
 \label{sec:exp_certify}
@@ -110,9 +76,9 @@ Worst ($\hat{\kappa}_{\max}$) & $\le 0.20$ & 29 & \textbf{23} & $\mathbf{-6}$ ($
 \label{tab:cert_budget}
 \end{table}
 
-Calibrating $\hat{\kappa}$ on multi-budget CogVideoX-2B traces ($B \in \{16, 22, 28\}$, where $\cC_{0.5}$ achieves $\mathbf{R^2 = 0.9847}$ mean and $\mathbf{R^2 = 0.9814}$ worst-case vs.\ $0.8345$ additive), Table~\ref{tab:cert_budget} and Figure~\ref{fig:theory}d demonstrate Theorem~\ref{thm:certify} in action: for any tolerance $\eps$, \texttt{CertifyBudget} queries the $<1.5$~ms Bellman table to return $(B^\star, \cS_{B^\star}^\star)$, and coupling $\alpha = 0.5$ cuts the certified call budget from $26 \to \mathbf{21}$ calls ($\eps = 0.15$ mean) and $29 \to \mathbf{23}$ calls ($\eps = 0.20$ worst-case)---saving $13.5\text{--}16.2$~s of H20 GPU latency per 49f video while maintaining the error certificate.
+Calibrating $\hat{\kappa}$ on multi-budget CogVideoX-2B runs ($B \in \{16, 22, 28\}$, $R^2 = 0.985$ mean / $0.981$ worst), Table~\ref{tab:cert_budget} and Figure~\ref{fig:theory}d verify Theorem~\ref{thm:certify}: given any tolerance $\eps$, \texttt{CertifyBudget} queries the $<1.5$~ms Bellman table to output $(B^\star, \cS_{B^\star}^\star)$, and coupling $\alpha = 0.5$ cuts the certified call budget from $26 \to \mathbf{21}$ calls ($\eps = 0.15$ mean) and $29 \to \mathbf{23}$ calls ($\eps = 0.20$ worst-case)---saving $13.5\text{--}16.2$~s of H20 latency per 49f video under the same error guarantee.
 
-\subsection{Output-Tangent Shrinkage vs.\ Spatial \& Hidden Operators}
+\subsection{Midpoint Shrinkage vs.\ Polynomial \& Spatial Operators}
 \label{sec:exp_shrinkage}
 
 \begin{table}[t]
@@ -129,33 +95,26 @@ Damped chord ($\alpha{=}0.25$) & 2 outputs & 0.1214 & 0.9100 & 29.46 \\
 Undamped chord ($\alpha{=}1.00$) & 2 outputs & 0.1176 & 0.9273 & 31.53 \\
 Gap-scaled output $(j{-}s)\Delta_s$ & 2 outputs & 0.4417 & 0.6129 & 15.84 \\
 \midrule
-\multicolumn{5}{l}{\emph{Representation \& spatial coherence diagnostics (Law~IV)}} \\
+\multicolumn{5}{l}{\emph{Representation \& spatial coherence comparisons}} \\
 Hidden TaylorSeer ($19$ / $26$ calls) & $L(O{+}1)$ feat. & 0.4917 / 0.4015 & 0.5259 & 13.91 \\
 Per-token spatial gate (\texttt{pt16c}) & Token map & 0.2422 (12\% win) & --- & 25.00 \\
 Low-rank $64{\times}64$ channel (\texttt{lr8c}) & Rank-8 mat. & 0.2418 (vs.\ 0.2375) & --- & 25.02 \\
 \bottomrule
 \end{tabular}%
 }
-\caption{\textbf{Inner operator and spatial-coherence verification (Law~IV \& Theorem~\ref{thm:shrinkage}).} Global 2-slot output midpoint shrinkage beats plain reuse by $32.8\%$ LPIPS ($+3.70$~dB), gap-scaled Taylor by $4.24\times$, hidden TaylorSeer by $4.72\times$, and spatially heterogeneous token/channel maps.}
+\caption{\textbf{Inner tangent reconstruction evaluation (Theorem~\ref{thm:shrinkage}).} Global 2-slot output midpoint shrinkage beats plain reuse by $32.8\%$ LPIPS ($+3.70$~dB), gap-scaled Taylor by $4.24\times$, hidden TaylorSeer by $4.72\times$, and spatially heterogeneous token/channel maps.}
 \label{tab:reuse}
 \end{table}
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig_damping.pdf}
+\includegraphics[width=0.89\textwidth]{figures/fig_damping.pdf}
 \caption{\textbf{Verification of Theorem~\ref{thm:shrinkage} (Hilbert Quadratic Risk Law and $\Theta(g^3)$ Blow-Up).} Left: VGG-LPIPS across $\alpha \in [0, 1]$ at 17f ($n=32$) and 49f ($n=100$), overlaid with exact Hilbert-norm curves $\sqrt{\mathcal{E}_{\min} + c_2(\alpha - \alpha^\star)^2}$ ($R^2 = 0.987$ and $R^2 = 0.997$). Right: Multiplying $\Delta_s$ by step age $(j - s)$ inflates unmeasured curvature variance by $k_{\mathrm{rms}}^2 = 12.39\times$ ($k_{\mathrm{rms}} = 3.52$), degrading LPIPS $4.24\times$.}
 \label{fig:damping}
 \end{figure*}
 
-Table~\ref{tab:reuse} and Figure~\ref{fig:damping} validate Law~IV and Theorem~\ref{thm:shrinkage}: 2-slot midpoint shrinkage ($\alpha=0.5$) cuts 49f LPIPS by $\mathbf{32.8\%}$ ($0.1549 \to \mathbf{0.1041}$, $+3.70$~dB PSNR; and $0.1556 \to \mathbf{0.1084}$ at 17f) with $\mathbf{R^2 = 0.9974}$ ($\alpha^\star = 0.650$) on 49f and $\mathbf{R^2 = 0.9868}$ ($\alpha^\star = 0.623$) on 17f. Gap-scaled output extrapolation explodes to $0.4417$ ($k_{\mathrm{rms}} = 3.52$), accounting for $88\%$ of hidden-feature TaylorSeer's $0.4917$ failure, while spatially non-uniform per-token gates (\texttt{pt16c}, $12\%$ win rate) and $64\times 64$ channel matrices (\texttt{lr8c}) underperform a single global scalar ($0.2418$ vs.\ $0.2375$) due to 3D VAE cross-patch phase tearing.
+Table~\ref{tab:reuse} and Figure~\ref{fig:damping} validate Theorem~\ref{thm:shrinkage}: 2-slot midpoint shrinkage ($\alpha=0.5$) cuts 49f LPIPS by $\mathbf{32.8\%}$ ($0.1549 \to \mathbf{0.1041}$, $+3.70$~dB PSNR; and $0.1556 \to \mathbf{0.1084}$ at 17f) with $\mathbf{R^2 = 0.9974}$ ($\alpha^\star = 0.650$) on 49f and $\mathbf{R^2 = 0.9868}$ ($\alpha^\star = 0.623$) on 17f, outperforming gap-scaled Taylor ($4.24\times$), hidden TaylorSeer ($4.72\times$), and spatially non-uniform token/channel maps.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{figures/fig_curve2.pdf}
-\caption{\textbf{Quality--budget Pareto curves} (VGG-LPIPS vs.\ transformer calls, $n=16$) on CogVideoX-2B and Wan2.1-1.3B.}
-\label{fig:curve}
-\end{figure}
-
-\subsection{Stiff-Sloppy Ablations and Wall-Clock Speedup}
+\subsection{Boundary Ablations and Wall-Clock Speedup}
 \label{sec:exp_ablations}
-Expanding head allocation $H \in \{6, 12, 16\}$ drops 17f LPIPS from $0.288 \to 0.157 \to \mathbf{0.133}$ (Table~\ref{tab:head}) and 49f LPIPS ($n=100$) from $0.1424 \to \mathbf{0.1300}$, whereas sweeping interior tail ratio $r \in [1.4, 3.0]$ stays within $0.1541\text{--}0.1566$ (Appendix~\ref{app:shape}) and TaylorSeer remains $\ge 0.402$ even at 26 calls (Table~\ref{tab:taylor}). On an NVIDIA H20 GPU ($2.70$~s/call on CogVideoX-2B 49f; $6.50$~s/call on Wan2.1 81f), \method{} accelerates 49f generation from $135$~s to $54\text{--}59$~s ($2.3\text{--}2.5\times$, or $2.6\times$ at certified $B^\star=19$) with $<2$~ms total CPU/GPU overhead and only 2 cached output tensors.
+Expanding head allocation $H \in \{6, 12, 16\}$ drops 17f LPIPS from $0.288 \to 0.157 \to \mathbf{0.133}$ (Table~\ref{tab:head}) and 49f LPIPS ($n=100$) from $0.1424 \to \mathbf{0.1300}$, whereas sweeping tail ratio $r \in [1.4, 3.0]$ stays within $0.1541\text{--}0.1566$ (Appendix~\ref{app:shape}) and TaylorSeer remains $\ge 0.402$ even at 26 calls (Table~\ref{tab:taylor}). On an NVIDIA H20 GPU ($2.70$~s/call on CogVideoX-2B 49f; $6.50$~s/call on Wan2.1 81f), \method{} cuts 49f denoiser latency from $135$~s to $54\text{--}59$~s ($2.3\text{--}2.5\times$, or $2.6\times$ at certified $B^\star=19$) with $<2$~ms total runtime overhead and 2 cached tensors.
