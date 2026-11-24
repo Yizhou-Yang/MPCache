@@ -75,6 +75,8 @@ def main():
                     help="Inner-level reconstruction operator (reuse, damped/midpoint, chord_rate, scaled)")
     ap.add_argument("--alpha", type=float, default=0.5,
                     help="Midpoint chord-shrinkage gain alpha in [0, 1]")
+    ap.add_argument("--regime-head", type=int, default=0,
+                    help="Bifurcation boundary H_crit below which skipped steps gate alpha -> 0")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--ledger", default=None)
@@ -96,7 +98,9 @@ def main():
     eff_alpha = 0.0 if a.policy == "reuse" or len(steps_in) == a.steps else a.alpha
     pipe = be.load(a.model)
     for i, prompt in enumerate(keep):
-        ctrl = ScheduleController(steps_in, alpha=eff_alpha, policy=a.policy)
+        ctrl = ScheduleController(
+            steps_in, alpha=eff_alpha, policy=a.policy, regime_head=a.regime_head
+        )
         restore = wrap_forward(getattr(pipe, be.transformer), ctrl)
         try:
             frames = be.generate(pipe, prompt, a.frames, a.steps, seed=a.offset + i,

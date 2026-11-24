@@ -7,15 +7,21 @@ from mpcache import (
     ChordShrinkagePredictor,
     Controller,
     ScheduleController,
+    calibrate_certificate,
+    certify_budget,
     debiased_profile,
+    detect_bifurcation_step,
     fit_hilbert_quadratic,
     gap_amplification_factor,
+    geometric,
     interval_cost,
     kkt_density,
     open_loop_schedule,
     schedule_cost,
     solve,
     solve_dp,
+    solve_dp_table,
+    stiff_sloppy_sensitivity,
     theoretical_midpoint_alpha,
     verify_scale_invariance,
     wrap_forward,
@@ -145,3 +151,72 @@ def test_theorem3_midpoint_quadrature_and_hilbert_fit():
     ctrl.verify()
     assert ctrl.calls == 3 and mod.i == 3
     assert np.allclose(outs[2], [3.0]) and np.allclose(outs[3], [3.0])
+
+
+def test_discovery1_phase_gated_operator_coupling():
+    prof50 = _interp_50(PROFILE_COG30)
+    h_crit = detect_bifurcation_step(prof50, tail_factor=2.0)
+    assert 10 <= h_crit <= 18
+
+    # Under a budget-starved schedule that skips inside Regime I (e.g. step 2) and Regime II (step 16),
+    # regime_head=12 gates early steps to zero-order reuse while applying alpha=0.5 in the tail.
+    ctrl = ScheduleController(
+        schedule=[0, 1, 14, 15, 20],
+        alpha=0.5,
+        policy="phase_gated",
+        regime_head=12,
+    )
+    vals = {
+        0: np.array([10.0]),
+        1: np.array([6.0]),   # huge orthogonal jump (-4.0) in Regime I
+        14: np.array([2.0]),
+        15: np.array([1.8]),  # smooth coherent chord (-0.2) in Regime II
+        20: np.array([1.0]),
+    }
+    outs = []
+    for t in range(21):
+        outs.append(ctrl(lambda t=t: vals[t]))
+    ctrl.verify()
+    # Step 2 (inside Regime I, < 12) must NOT extrapolate -4.0*0.5; it stays safely at 6.0!
+    assert np.allclose(outs[2], [6.0])
+    # Step 16 (inside Regime II, >= 12) applies midpoint shrinkage: 1.8 + 0.5*(1.8 - 2.0) = 1.7!
+    assert np.allclose(outs[16], [1.7])
+
+
+def test_discovery2_stiff_sloppy_anisotropy():
+    prof50 = _interp_50(PROFILE_COG30)
+    diag = stiff_sloppy_sensitivity(prof50, budget=20, head_ref=12, beta=0.5)
+    assert diag["head_violation_rel_increase"] > 1.50
+    assert diag["terminal_blackout_rel_increase"] > 0.20
+    assert diag["tail_ratio_14_to_30_rel_spread"] < 0.16
+    assert diag["stiff_to_sloppy_anisotropy"] > 10.0
+
+
+def test_discovery3_risk_certified_budget_synthesis():
+    prof50 = _interp_50(PROFILE_COG30)
+    frontier = solve_dp_table(prof50, beta=0.5, debias=True)
+    assert len(frontier) == 49
+    sched22, cost22 = frontier[22]
+    assert sched22 == solve_dp(prof50, budget=22, beta=0.5, debias=True)
+    assert cost22 > frontier[28][1] > frontier[50][1] == 0.0
+
+    calib_scheds = [geometric(b, T=50) for b in (16, 22, 28)]
+    cert = calibrate_certificate(
+        prof50,
+        calib_scheds,
+        realised_means=[0.253, 0.158, 0.093],
+        realised_worsts=[0.414, 0.259, 0.149],
+        beta=0.5,
+        shrinkage_multiplier=0.1041 / 0.1549,
+    )
+    assert cert.r2_mean > 0.98
+    assert cert.r2_worst > 0.98
+    assert cert.quantile_ratio_cv < 0.02
+
+    alloc_mean = certify_budget(prof50, cert, target_lpips=0.15, risk="mean", use_shrinkage=True)
+    alloc_worst = certify_budget(prof50, cert, target_lpips=0.15, risk="worst", use_shrinkage=True)
+    assert alloc_mean.predicted_lpips <= 0.15
+    assert alloc_mean.calls_saved_by_shrinkage >= 4
+    assert alloc_worst.predicted_lpips <= 0.15
+    assert alloc_worst.budget > alloc_mean.budget
+

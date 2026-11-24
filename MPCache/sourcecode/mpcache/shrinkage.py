@@ -23,7 +23,7 @@ from typing import Any, Sequence
 import numpy as np
 
 
-VALID_POLICIES = ("reuse", "damped", "midpoint", "chord_rate", "scaled")
+VALID_POLICIES = ("reuse", "damped", "midpoint", "phase_gated", "chord_rate", "scaled")
 
 
 def _clone_value(x: Any) -> Any:
@@ -53,13 +53,21 @@ def _add_scaled_diff(curr: Any, prev: Any, weight: float) -> Any:
 
 
 class ChordShrinkagePredictor:
-    """Two-anchor causal predictor implementing midpoint chord shrinkage (Theorem 3)."""
+    """Two-anchor causal predictor implementing phase-gated midpoint chord shrinkage.
 
-    def __init__(self, policy: str = "damped", alpha: float = 0.5):
+    When ``regime_head > 0`` (or ``policy == "phase_gated"``), enforces the Discovery I
+    non-commuting regime gate: skipped steps inside the early chaotic bifurcation zone
+    ``step < regime_head`` automatically fall back to zero-order reuse (``gain = 0.0``)
+    to prevent orthogonal chord injection, whereas skipped steps in the coherent
+    contracted tail ``step >= regime_head`` apply midpoint shrinkage ``alpha``.
+    """
+
+    def __init__(self, policy: str = "damped", alpha: float = 0.5, regime_head: int = 0):
         if policy not in VALID_POLICIES:
             raise ValueError(f"Unknown policy {policy!r}; expected one of {VALID_POLICIES}")
         self.policy = policy
         self.alpha = float(alpha)
+        self.regime_head = int(regime_head)
         self.prev_step: int | None = None
         self.prev_val: Any = None
         self.anchor_step: int | None = None
@@ -81,7 +89,9 @@ class ChordShrinkagePredictor:
         assert self.anchor_step is not None, "cache empty before first exact evaluation"
         if self.policy == "reuse" or self.prev_val is None or self.prev_step is None:
             return 0.0
-        if self.policy in ("damped", "midpoint"):
+        if self.regime_head > 0 and step < self.regime_head:
+            return 0.0
+        if self.policy in ("damped", "midpoint", "phase_gated"):
             return self.alpha
         if self.policy == "chord_rate":
             span = max(1, self.anchor_step - self.prev_step)

@@ -19,6 +19,7 @@ class ScheduleController:
     schedule: Iterable[int]
     alpha: float = 0.0
     policy: str = "damped"
+    regime_head: int = 0
     last_exact: Any = None
     step: int = -1
     calls: int = 0
@@ -30,7 +31,9 @@ class ScheduleController:
         self.schedule = set(int(s) for s in self.schedule)
         if not self.schedule:
             raise ValueError("empty schedule")
-        self.predictor = ChordShrinkagePredictor(policy=self.policy, alpha=self.alpha)
+        self.predictor = ChordShrinkagePredictor(
+            policy=self.policy, alpha=self.alpha, regime_head=self.regime_head
+        )
 
     def reset(self) -> None:
         self.last_exact = None
@@ -54,10 +57,12 @@ class ScheduleController:
         return out
 
     def reuse(self) -> Any:
-        """Return either plain `last_exact` or the causal chord-shrinkage estimate."""
+        """Return either plain `last_exact` or the phase-gated chord-shrinkage estimate."""
         if self.last_exact is None:
             raise RuntimeError("reuse before any exact step")
-        if self.policy == "reuse" or (self.policy in ("damped", "midpoint") and self.alpha == 0.0):
+        if self.policy == "reuse" or (
+            self.policy in ("damped", "midpoint", "phase_gated") and self.alpha == 0.0
+        ):
             return self.last_exact
         return self.predictor.predict(self.step)
 

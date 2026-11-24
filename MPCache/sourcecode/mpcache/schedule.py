@@ -122,6 +122,152 @@ def solve_dp(
     return sched
 
 
+def solve_dp_table(
+    profile: Sequence[float],
+    beta: float = 0.5,
+    debias: bool = True,
+    floor: float | None = None,
+    eps: float = 1.5e-3,
+) -> dict[int, tuple[list[int], float]]:
+    """Compute the full exact Bellman DP Pareto frontier for all ``B in {2, ..., T}``.
+
+    In a single ``O(T^3)`` pass (< 1.5 ms at ``T = 50``), returns a mapping
+    ``budget -> (optimal_schedule, optimal_cost)`` across every feasible call budget.
+    """
+    T = len(profile)
+    assert T >= 2, "profile must contain at least 2 steps"
+    w = debiased_profile(profile, floor=floor, eps=eps) if debias else [float(x) for x in profile]
+    inf = float("inf")
+    dp = [[inf] * T for _ in range(T + 1)]
+    parent = [[-1] * T for _ in range(T + 1)]
+    dp[1][0] = 0.0
+
+    trans = [[0.0] * T for _ in range(T)]
+    for s_prev in range(T - 1):
+        acc = 0.0
+        for s_next in range(s_prev + 1, T):
+            if s_next >= s_prev + 2:
+                j = s_next - 1
+                age = j - s_prev
+                acc += w[j] if beta == 0.0 else (age ** beta) * w[j]
+            trans[s_prev][s_next] = acc
+
+    frontier: dict[int, tuple[list[int], float]] = {}
+    for b in range(2, T + 1):
+        for s_next in range(b - 1, T):
+            best_val = inf
+            best_prev = -1
+            for s_prev in range(b - 2, s_next):
+                cand = dp[b - 1][s_prev] + trans[s_prev][s_next]
+                if cand < best_val:
+                    best_val = cand
+                    best_prev = s_prev
+            dp[b][s_next] = best_val
+            parent[b][s_next] = best_prev
+
+        sched = [0] * b
+        cur = T - 1
+        for k in range(b, 0, -1):
+            sched[k - 1] = cur
+            cur = parent[k][cur]
+        frontier[b] = (sched, float(dp[b][T - 1]))
+    return frontier
+
+
+def detect_bifurcation_step(
+    profile: Sequence[float],
+    tail_factor: float = 2.0,
+) -> int:
+    """Detect the intrinsic dynamical bifurcation boundary ``H_crit`` from ``profile``.
+
+    Identifies the earliest step after which single-skip terminal sensitivity settles
+    within ``tail_factor`` of the median contracted-tail floor, separating Regime I
+    (chaotic symmetry-breaking manifold locking) from Regime II (coherent contracted flow).
+    """
+    T = len(profile)
+    if T <= 4:
+        return T
+    half = sorted(float(x) for x in profile[T // 2 : max(T // 2 + 1, T - 1)])
+    tail_med = half[len(half) // 2] if half else float(profile[-1])
+    thresh = tail_factor * max(tail_med, 1e-8)
+    for i in range(1, T - 1):
+        if float(profile[i]) <= thresh:
+            return i
+    return T - 1
+
+
+def _exact_budget_tail(budget: int, T: int, head: int, end_to_start_ratio: float) -> list[int]:
+    """Construct an exact ``budget``-call schedule with ``head`` prefix and tail gap ratio ``r = g_end / g_start``."""
+    steps = list(range(head))
+    m_gaps = budget - head
+    span = (T - 1) - head
+    if m_gaps <= 1 or span <= 0:
+        return sorted(set(steps + [T - 1]))[:budget]
+    weights = [
+        1.0 + (end_to_start_ratio - 1.0) * (k / max(1, m_gaps - 1))
+        for k in range(m_gaps)
+    ]
+    w_sum = sum(weights)
+    cum = 0.0
+    used = set(steps) | {T - 1}
+    for k in range(m_gaps - 1):
+        cum += span * (weights[k] / w_sum)
+        cand = min(max(int(round(head + cum)), head), T - 2)
+        while cand in used and cand < T - 2:
+            cand += 1
+        while cand in used and cand > head:
+            cand -= 1
+        used.add(cand)
+    return sorted(used)
+
+
+def stiff_sloppy_sensitivity(
+    profile: Sequence[float],
+    budget: int = 20,
+    head_ref: int = 12,
+    beta: float = 0.5,
+) -> dict[str, float]:
+    """Quantify the Stiff-Sloppy Parameter Hierarchy on ``C_beta(S)``.
+
+    Compares relative horizon-cost degradation at matched exact call count ``budget`` from:
+      1. Violating head saturation (shrinking ``head_ref`` to ``head_ref // 2``),
+      2. Violating terminal horizon pinning (exhausting calls by ``0.56 * T`` as in unpinned greedy MPC),
+      3. Perturbing the interior tail end-to-start gap ratio across ``r in [1.4, 3.0]`` at fixed ``(budget, head_ref)``.
+    """
+    T = len(profile)
+    w = debiased_profile(profile)
+    base = _exact_budget_tail(budget, T=T, head=head_ref, end_to_start_ratio=2.0)
+    c_base = schedule_cost(w, base, beta=beta)
+
+    # 1. Stiff head violation (e.g., H=6 vs H=12 at identical 20 calls)
+    short_head = _exact_budget_tail(budget, T=T, head=max(2, head_ref // 2), end_to_start_ratio=2.0)
+    c_head_viol = schedule_cost(w, short_head, beta=beta)
+
+    # 2. Stiff terminal blackout (exhaust all calls by ~0.56*T, leaving terminal [t_cut..T-1] unpinned)
+    t_cut = max(budget + 1, int(round(0.56 * T)))
+    unpinned_prefix = _exact_budget_tail(budget, T=t_cut, head=min(head_ref, budget - 2), end_to_start_ratio=1.4)
+    last_anchor = unpinned_prefix[-1]
+    c_unpinned = schedule_cost(w, unpinned_prefix, beta=beta) + interval_cost(
+        w, last_anchor, T, beta=beta
+    )
+
+    # 3. Sloppy interior tail ratio variation r in [1.4, 2.0, 3.0] at exact matched budget
+    tail_costs = [
+        schedule_cost(w, _exact_budget_tail(budget, T=T, head=head_ref, end_to_start_ratio=r), beta=beta)
+        for r in (1.4, 2.0, 3.0)
+    ]
+    sloppy_spread = (max(tail_costs) - min(tail_costs)) / max(c_base, 1e-12)
+    head_stiffness = (c_head_viol - c_base) / max(c_base, 1e-12)
+    terminal_stiffness = (c_unpinned - c_base) / max(c_base, 1e-12)
+    return {
+        "base_cost": c_base,
+        "head_violation_rel_increase": head_stiffness,
+        "terminal_blackout_rel_increase": terminal_stiffness,
+        "tail_ratio_14_to_30_rel_spread": sloppy_spread,
+        "stiff_to_sloppy_anisotropy": head_stiffness / max(sloppy_spread, 1e-9),
+    }
+
+
 def kkt_density(
     profile: Sequence[float],
     budget: float,
