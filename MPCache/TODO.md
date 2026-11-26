@@ -48,6 +48,19 @@ replacement law lives in plain diffusers. Never mix rows from the two in one com
 | single-skip gains do not add up | R^2 = 0.59; 29% of samples exceed the additive prediction |
 | gap-scaled extrapolation destroys quality | 0.4417 at 49f, 0.4419 at 17f, and TaylorSeer itself is 0.4917 at 17f |
 
+## 2026-11-26 updates
+
+- **alpha = 1/2 is now derived**, not fitted: the minimax argument is in the method section, and the
+  geometry figure (`fig_geom`) sits next to it. The sentence that called it a measured constant is
+  gone.
+- **The damped correction is scoped to CogVideoX.** The Wan sweep did not transfer (0.461 reuse,
+  0.408 at one half, 0.398 undamped, against 0.153 for the schedule inside the RA pipeline), and the
+  reason is granularity: the baseline caches features, our correction replaces the output. Abstract,
+  introduction and Appendix C now say this explicitly; the Wan number is attributed to the schedule.
+- **Qualitative grid generated but not inserted**: `paper_figures/qual_A_draft.png`, three prompts,
+  RA pipeline. The four columns are visually indistinguishable at twenty-two calls, so it is not
+  decisive; a useful version needs ten to twelve calls or prompts with motion.
+
 ## What is missing, in priority order
 
 0. **The two qualitative figures (highest value, about 30 minutes on one box).** Everything is
@@ -76,7 +89,9 @@ replacement law lives in plain diffusers. Never mix rows from the two in one com
    > **B.** The same schedule, four replacements. Plain reuse and the gap-scaled correction
    > blur or break the moving detail; the damped correction keeps it.
 
-1. **Alpha 0.75 at 49 frames.** The videos exist on the 2026-11-20 machine (100/100 at
+1. **A qualitative figure that shows something**: rerun the grid at ten to twelve calls, or on
+   prompts with motion, where the baselines visibly break. The current grid does not.
+2. **Alpha 0.75 at 49 frames.** The videos exist on the 2026-11-20 machine (100/100 at
    `/root/rp2/e075`); the evaluation did not finish before the box went away. Re-run
    `evaluate_reuse.sh` against `/root/rp/full` if that box returns, otherwise regenerate.
 2. **TaylorSeer in the replacement comparison at 49 frames.** The law's strongest claim is that
