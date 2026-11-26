@@ -144,3 +144,30 @@ The 49-frame damping sweep was interrupted by the machine being reclaimed with t
 96 of 100 prompts and no arm finished, so the law is still measured at 17 frames only. The
 49-frame evidence for the reuse axis remains the alpha = 1 comparison (0.1549 to 0.1174 at 100
 prompts), which is already in `experiments_results/main_table.json`.
+
+## 2026-11-26 — the damping law is a CogVideoX result, and the paper must say so
+
+Attempting the same α sweep on Wan2.1 at 81 frames, in a plain diffusers harness, produced a
+result that is worth recording even though it is not the one we wanted:
+
+| policy (Wan, 21 calls of 50, same harness) | LPIPS | SSIM | PSNR |
+|---|---:|---:|---:|
+| plain reuse | 0.4607 | 0.4795 | 16.14 |
+| damped 0.5 | 0.4081 | 0.5570 | 17.46 |
+| one-step, no damping | 0.3982 | 0.5690 | 17.49 |
+
+The ordering is **monotone in α**, not the inverted U measured on CogVideoX-2B, and the absolute
+error is three times worse than what the RA harness reaches on the same model and budget (0.153
+with our schedule injected into its cache). Two facts explain the gap and both matter for the
+paper:
+
+1. **Reuse granularity.** The RA harness caches inside the transformer (features), while our
+   correction replaces the *output* of the whole network. On a flow-matching multistep solver,
+   holding the output for several steps is far more damaging than holding features.
+2. **Solver coupling.** Wan uses UniPC over a flow field; a constant output correction is not the
+   right object there.
+
+**Consequence for the claims.** The damping law is a CogVideoX result. The Wan number in the main
+table is the *schedule* injected into the RA pipeline, not the damped correction, and the text must
+not describe it as "our combination". This is now the paper's main scope limitation, and it is
+stated in the appendix.

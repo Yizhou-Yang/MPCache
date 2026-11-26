@@ -100,3 +100,17 @@ Two things follow. A head of six is far worse than one of twelve, which is the s
 \label{app:params}
 
 The schedule has two parameters: the head length $H$ and the ratio at which the gaps grow. $H$ is not searched; it is read from the measured profile as the number of leading steps above a fraction of the maximum. Read at one half of the maximum, the profile gives four steps on CogVideoX-2B and more when the fraction is lowered; at one tenth it gives nine. The schedules we ship use twelve, where the measured profile has decayed to about a tenth of its maximum. The ordering against the baselines is preserved for every head we tried, so the exact value is not a knife edge. What the budget decides is how much of the head can be held exact.
+
+\subsection{Scope of the correction}
+\label{app:scope}
+The damped correction is measured on CogVideoX-2B, at seventeen and forty-nine frames. We ran the
+same sweep on Wan2.1 at eighty-one frames inside a plain diffusers harness and did not reproduce
+the ordering: at twenty-one calls of fifty the loss decreases monotonically with the damping
+($0.461$ for plain reuse, $0.408$ at one half, $0.398$ undamped), and every arm is three times
+further from the full run than the RA pipeline reaches on the same model and budget. The reason is
+granularity. The released pipeline of the baseline caches inside the transformer, while our
+correction replaces the output of the whole network, and on a flow-matching multistep solver
+holding that output across several steps is far more damaging. The Wan number in
+Table~\ref{tab:main} is therefore the schedule injected into that pipeline, not the correction,
+and we do not claim the damping law for Wan.
+
