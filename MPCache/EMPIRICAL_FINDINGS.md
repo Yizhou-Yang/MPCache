@@ -171,3 +171,15 @@ paper:
 table is the *schedule* injected into the RA pipeline, not the damped correction, and the text must
 not describe it as "our combination". This is now the paper's main scope limitation, and it is
 stated in the appendix.
+
+## 2026-11-26 — first real qualitative grid (asset only, not yet in the paper)
+
+Generated inside the RA pipeline at 49 frames on the first three VBench prompts, one frame from the
+middle of each clip: Original, TeaCache, RA-CFGCache, and our schedule injected into that pipeline.
+Stored as `paper_figures/qual_A_draft.png`.
+
+**Assessment: not decisive at this budget.** The four columns are visually close; nothing can be
+circled honestly. That is consistent with the metrics (0.130 against 0.155 is a metric gap, not a
+visible failure), and it is the reason a qualitative figure is the wrong *first* figure for this
+paper. If one is wanted, it needs either a much tighter budget (ten to twelve calls), where the
+baselines are known to break, or prompts with motion and faces, where errors localise.
