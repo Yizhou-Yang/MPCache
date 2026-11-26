@@ -51,56 +51,33 @@ $\Delta$, and a skipped step at $j$ can return
 \tilde v_j = v_s + \alpha\,\Delta\,, \qquad \alpha \in [0, 1]\,,
 \label{eq:reuse}
 \end{equation}
-independently of how far $j$ is from $s$.
+independently of how far $j$ is from $s$. The parameter $\alpha$ is the only freedom, and it is derived below rather than fitted. Two natural alternatives frame the choice. Setting the damping to zero recovers plain reuse, and letting the correction grow with the distance, that is adding $(j-s)\Delta$ at a skip of length $j-s$, is what a first-order Taylor predictor does when it extrapolates along the tangent. The second is the choice that fails.
 
-\paragraph{$\alpha=\tfrac12$ is not fit, it is the minimax choice.} The two stored outputs
-$v_{s'}$ and $v_s$ cannot tell the pipeline whether the trend that produced $\Delta$ is about to
-continue or about to stop; they only fix its direction. Write the output a skipped step would
-really have produced as $v_s+\lambda\Delta$ for an unknown $\lambda\in[0,1]$, with $\lambda=0$ the
-trend stopping outright and $\lambda=1$ the trend persisting unchanged for one more step. Scoring
-a choice of $\alpha$ by its worst case over this interval,
-\begin{equation}
-\max_{\lambda\in[0,1]}\ \norm{\tilde v_j-(v_s+\lambda\Delta)}^2
-=\max\big(\alpha^2,(1-\alpha)^2\big)\,\norm{\Delta}^2 ,
-\label{eq:minimax}
-\end{equation}
-the two branches are equal, and the maximum is smallest, exactly at $\alpha=\tfrac12$, with
-worst-case value $\tfrac14\norm{\Delta}^2$. Plain reuse ($\alpha=0$) and undamped continuation
-($\alpha=1$) are precisely the two points this analysis rejects, each conceding the entire
-$\norm{\Delta}^2$ to the hypothesis it ignores. Section~\ref{sec:experiments} measures the
-damping that minimises LPIPS and finds it at one half, flat between a quarter and three quarters:
-a confirmation of Eq.~\ref{eq:minimax}, not a fit to it.
+The choice has a derivation rather than a search. After a skip the next output either keeps the
+one-step difference or loses it, and nothing stored in the cache distinguishes the two cases.
+Writing the prediction as $\tilde v = v_s + \alpha\Delta$, the error is $\alpha\|\Delta\|$ if the
+difference persists and $(1-\alpha)\|\Delta\|$ if it does not, so the worst case is
+$\max(\alpha, 1-\alpha)\|\Delta\|$ and it is smallest at $\alpha = \tfrac12$. The damping is the
+minimax solution under an uninformative prior on whether the velocity persists, and it is a
+constant because the uncertainty concerns persistence rather than distance. Growing the
+correction with the gap is the opposite bet: it commits to persistence over $j-s$ steps, a case
+the cache has no evidence for, and Section~\ref{sec:experiments} measures it at $0.442$.
 
-Two choices other training-free caches make are exactly the two extremes
-Eq.~\ref{eq:minimax} already ranks as worst. Setting the damping to zero recovers plain reuse,
-which concedes everything to $\lambda=0$. Letting the correction grow with the distance, that is
-adding $(j-s)\Delta$ at a skip of length $j-s$, is what a first-order Taylor predictor does when
-it extrapolates along the tangent; for $j-s>1$ this is not even the other worst point of the
-interval, it is a $\lambda$ outside $[0,1]$ altogether, a magnitude the two stored outputs give
-no evidence for. The single-skip profile of Section~\ref{sec:core} makes the same point from the
-data: it is monotonically decaying, not growing, so nothing in the trajectory supports treating
-$\Delta$ as a rate that compounds with the gap. The minimax choice is accordingly independent of
-$j-s$: what is being hedged is whether the trend continues at all, not how far the skip reaches,
-and that uncertainty does not grow with the gap.
-
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig_mechanism.pdf}
-\caption{The reuse rule in one picture. (a) Two stored outputs fix a secant, not how far to trust
-it: a secant predicts the next point only if the trajectory stays close to straight, and at fifty
-steps the latent turns faster than the gap between exact calls, so a correction scaled by the gap
-overshoots while a damped one lands near the true continuation. (b) The worst-case squared error
-of Eq.~\ref{eq:minimax} over an unknown stop/persist outcome, as a function of the damping
-$\alpha$: the two naive choices, plain reuse and undamped continuation, sit at the worst points of
-this curve, and the minimum is exactly at $\alpha=\tfrac12$.}
-\label{fig:mechanism}
-\end{figure*}
+\includegraphics[width=\linewidth]{figures/fig_geom.pdf}
+\caption{The correction, drawn. Two exact outputs fix a secant; the tangent it defines leaves the
+trajectory, and following it for a whole gap lands further away still (grey, crossed). A damped
+half step lands next to the true output (hollow markers). The minimax argument in the text says
+why one half is the right amount and why it must not grow with the distance.}
+\label{fig:geom}
+\end{figure}
 
-The failure is also visible geometrically, and Figure~\ref{fig:mechanism}a draws it: two outputs
-fix a secant, and a secant determines the next point only if the trajectory is close to straight.
-At fifty steps the latent turns faster than the gap between exact calls, so extrapolating along
-the secant for more than about half a step overshoots, which is exactly the worst-case bound
-Eq.~\ref{eq:minimax} describes in closed form.
+The reason is visible in the geometry (Figure~\ref{fig:geom}). Two outputs determine a tangent, and a tangent determines
+the next point only if the trajectory is close to straight. At fifty steps the latent turns
+faster than the gap between exact calls, so extrapolating along the tangent for several steps
+overshoots the trajectory, while a damped correction moves the reused output in the right
+direction without claiming to know how far.
 
 \subsection{The schedule as an open-loop solution}
 \label{sec:openloop}
