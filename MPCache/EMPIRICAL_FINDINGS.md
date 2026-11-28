@@ -183,3 +183,28 @@ circled honestly. That is consistent with the metrics (0.130 against 0.155 is a 
 visible failure), and it is the reason a qualitative figure is the wrong *first* figure for this
 paper. If one is wanted, it needs either a much tighter budget (ten to twelve calls), where the
 baselines are known to break, or prompts with motion and faces, where errors localise.
+
+## 2026-11-28 — the qualitative figure, second attempt, and why there will not be one
+
+Two attempts, both inside the RA pipeline, both on real outputs:
+
+| attempt | budget | result |
+|---|---|---|
+| three static prompts, one frame each | ours 22 calls, baselines at their defaults | four columns visually indistinguishable |
+| six motion prompts (bungee, horse, dog, giraffe, sheep, polar bear), one frame each | **ours 12 calls**, baselines at their defaults | ours is visibly the worst: the jumper smears, the horse blurs, the dog blobs |
+
+Both are honest outcomes, and together they settle the question. At equal-ish cost the four
+methods look the same, so there is nothing to circle. When we push our budget down to twelve
+calls, the schedule itself is over-extended (the head-length law needs about twenty-two calls at
+fifty steps) and ours becomes the worst column. A qualitative figure can only be made favourable
+by comparing at unequal cost, which is not a figure we are willing to publish.
+
+**Decision: no qualitative figure.** The paper argues from measurements, and the appendix says so
+in one sentence. The asset from the first attempt is kept at `paper_figures/qual_A_draft.png` for
+the record; the twelve-call grid is at `paper_figures/qual_12calls_motion.png`.
+
+**Side effect worth recording**: the fresh RA checkout does not read `MPC_SCHED` by itself. The
+paper's runs used a three-line injection into `models/cogvideox/cache_functions/cal_type.py`,
+recorded in `ra_injection.md`, and it has to be re-applied after every fresh clone. Its absence is
+detectable: an injected twelve-call run of six prompts takes five minutes, the unpatched one took
+thirteen.
