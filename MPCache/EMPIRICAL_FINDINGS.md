@@ -208,3 +208,30 @@ paper's runs used a three-line injection into `models/cogvideox/cache_functions/
 recorded in `ra_injection.md`, and it has to be re-applied after every fresh clone. Its absence is
 detectable: an injected twelve-call run of six prompts takes five minutes, the unpatched one took
 thirteen.
+
+## 2026-11-28 — the Wan failure was our bug, and the law transfers
+
+The earlier Wan result ("monotone in alpha, 0.4 everywhere, no transfer") was measured with a
+harness that indexed the schedule by **transformer call** rather than by **denoising step**. Wan
+runs two calls per step under guidance, so a schedule covering steps 0..49 was in fact covering
+only the first twenty-five steps' calls, and everything after was reused. Fixing the accounting
+(step = call // 2, one cache entry per branch) changes the result completely:
+
+| Wan2.1, 81 frames, 30 of 50 calls, 9 prompts | LPIPS | SSIM | PSNR |
+|---|---:|---:|---:|
+| plain reuse | 0.0602 | 0.9579 | 33.21 |
+| **damped, alpha 0.5** | **0.0427** | **0.9694** | **35.52** |
+| undamped, alpha 1 | 0.0516 | 0.9633 | 33.71 |
+
+The ordering is the one measured on CogVideoX-2B, so **the damping law is not backbone-specific**.
+What *is* budget-specific is when it shows: at thirty of fifty calls the correction dominates the
+error and the ordering is clean; at twenty-one of fifty every policy collapses to 0.40 or worse and
+the schedule dominates. The paper now states exactly this, with the table in Appendix C.
+
+Two harness details, both easy to get wrong and both recorded now: the branch accounting above, and
+the fact that a fresh RA-CFGCache checkout does not read `MPC_SCHED` until the three-line injection
+is applied.
+
+The alpha = 0.75 point at 49 frames was generated (100 prompts) but cannot be scored: the reference
+for that setting lived on an earlier machine. Four points already bracket the optimum, so it stays
+unscored rather than regenerating an hour of reference.
