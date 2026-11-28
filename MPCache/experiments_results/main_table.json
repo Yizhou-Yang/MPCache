@@ -303,5 +303,24 @@
       "ssim": 0.91,
       "psnr": 29.46
     }
+  },
+  "reuse_policy_wan81f_30of50_9prompts": {
+    "_setup": "plain diffusers, UniPC flow_shift=3, 81 frames, 30 exact calls of 50, 9 prompts, branches cached separately",
+    "latest_alpha0": {
+      "lpips": 0.0602,
+      "ssim": 0.9579,
+      "psnr": 33.21
+    },
+    "damped_alpha0.5": {
+      "lpips": 0.0427,
+      "ssim": 0.9694,
+      "psnr": 35.52
+    },
+    "onestep_alpha1.0": {
+      "lpips": 0.0516,
+      "ssim": 0.9633,
+      "psnr": 33.71
+    },
+    "_conclusion": "the damping law transfers to Wan when reuse is mild; at 21 of 50 calls the schedule dominates and the ordering disappears"
   }
 }
