@@ -101,3 +101,36 @@ Two things follow. A head of six is far worse than one of twelve, which is the s
 
 The schedule has two parameters: the head length $H$ and the ratio at which the gaps grow. $H$ is not searched; it is read from the measured profile as the number of leading steps above a fraction of the maximum. Read at one half of the maximum, the profile gives four steps on CogVideoX-2B and more when the fraction is lowered; at one tenth it gives nine. The schedules we ship use twelve, where the measured profile has decayed to about a tenth of its maximum. The ordering against the baselines is preserved for every head we tried, so the exact value is not a knife edge. What the budget decides is how much of the head can be held exact.
 
+
+\subsection{The correction on a second backbone}
+\label{app:scope}
+
+Wan2.1 at eighty-one frames, thirty exact calls of fifty, nine prompts, in a plain diffusers
+harness with UniPC and a flow shift of three:
+
+\begin{table}[h]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccc}
+\toprule
+what a skip returns & LPIPS $\downarrow$ & SSIM $\uparrow$ & PSNR $\uparrow$ \\
+\midrule
+the last exact output & 0.0602 & 0.9579 & 33.21 \\
+damped, $\alpha=0.5$ & \textbf{0.0427} & \textbf{0.9694} & \textbf{35.52} \\
+undamped, $\alpha=1$ & 0.0516 & 0.9633 & 33.71 \\
+\bottomrule
+\end{tabular}
+\caption{The damping law on Wan2.1. The ordering is the one measured on CogVideoX-2B: a damped
+half step first, the undamped step second, plain reuse last.}
+\label{tab:wan_alpha}
+\end{table}
+
+What depends on the budget is whether the ordering is visible at all. At thirty of fifty calls the
+correction dominates the residual error, as it does on CogVideoX-2B; at twenty-one of fifty every
+policy collapses to $0.40$ or worse, the schedule dominates, and the ordering disappears.
+
+Two implementation details decide whether such a comparison means anything, and both are easy to
+get wrong. First, a model under classifier-free guidance runs two transformer calls per denoising
+step, so a schedule indexed by call number covers half the trajectory; the cache must also keep one
+entry per branch. Second, the released pipeline on which the main table is measured does not read
+the schedule from the environment until a three-line injection is applied to its policy file, and
+the absence of that injection is silent rather than loud.
